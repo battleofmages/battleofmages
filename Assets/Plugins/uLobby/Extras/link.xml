@@ -1,0 +1,23 @@
+<linker>
+	<!-- Assembly Dlls that should have some types ignored by stripping. -->
+	<assembly fullname="System">
+		<type fullname="System.Net.Configuration.NetSectionGroup" preserve="all"/>
+		<type fullname="System.Net.Configuration.SettingsSection" preserve="all"/>
+		<type fullname="System.Net.Configuration.Ipv6Element" preserve="all"/>
+		<type fullname="System.ComponentModel.TypeConverter" preserve="all"/>
+		<type fullname="System.ComponentModel.BooleanConverter" preserve="all"/>
+	</assembly>
+	<assembly fullname="System.Configuration">
+		<type fullname="System.Configuration.ExeConfigurationHost" preserve="all"/>
+	</assembly>
+	<assembly fullname="mscorlib">
+		<namespace fullname="System.Security.Cryptography" preserve="all"/>
+	</assembly>
+	<assembly fullname="uLobby">
+		<type fullname="uLobby.Lobby" preserve="all"/>
+		<type fullname="uLobby.ServerRegistry" preserve="all"/>
+		<type fullname="uLobby.AccountManager" preserve="all"/>
+		<type fullname="uLobby.FriendManager" preserve="all"/>
+		<type fullname="uLobby.FriendListManager" preserve="all"/>
+	</assembly>
+</linker>

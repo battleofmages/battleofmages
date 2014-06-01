@@ -1,0 +1,560 @@
+<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>uZone</name>
+  </assembly>
+  <members>
+    <member name="T:uZone.Node">
+      <summary>
+            A local representation of a uZone node.
+            </summary>
+    </member>
+    <member name="P:uZone.Node.id">
+      <summary>
+            The unique ID assigned to the node and that is used to identify it.
+            </summary>
+    </member>
+    <member name="P:uZone.Node.hostname">
+      <summary>
+            The hostname of the machine hosting the uZone node.
+            </summary>
+    </member>
+    <member name="P:uZone.Node.ip">
+      <summary>
+            The IP address of the uZone node.
+            </summary>
+    </member>
+    <member name="P:uZone.Node.instanceTypes">
+      <summary>
+            A list of all the installed game types on the node, meaning that they are available
+            for the node to instantiate a game instance of these types.
+            </summary>
+    </member>
+    <member name="P:uZone.Node.instances">
+      <summary>
+            A list of all the IDs of instances running on the node.
+            </summary>
+    </member>
+    <member name="P:uZone.Node.args">
+      <summary>
+            A list containing the arguments supplied in the node's config.
+            </summary>
+    </member>
+    <member name="T:uZone.InternalHelper">
+      <summary>
+            Internal use only, needed in Older Unity versions up to 2.6.1. Do not use this class. 
+            </summary>
+      <remarks>Used in the internal script uLinkInternalHelper included in uLink</remarks>
+    </member>
+    <member name="T:uZone.GameInstance">
+      <summary>
+            A local representation of a running game instance.
+            </summary>
+    </member>
+    <member name="P:uZone.GameInstance.id">
+      <summary>
+            The unique ID assigned to the instance in uZone, and that is used to identify it.
+            </summary>
+    </member>
+    <member name="P:uZone.GameInstance.type">
+      <summary>
+            The type of the instance. This is identical to the name the game type is registered under
+            on the node that is running the instnace.
+            </summary>
+    </member>
+    <member name="P:uZone.GameInstance.nodeID">
+      <summary>
+            The unique ID assigned to the node that is running the instance.
+            </summary>
+    </member>
+    <member name="P:uZone.GameInstance.ip">
+      <summary>
+            The IP address the game instance is reachable from. Use this coupled with the port number
+            to connect to the game.
+            </summary>
+    </member>
+    <member name="P:uZone.GameInstance.port">
+      <summary>
+            The port number the game instance is assigned to listen to on its node. If port allocation
+            is turned off in the uZone-system, this will be set to 0.
+            </summary>
+    </member>
+    <member name="P:uZone.GameInstance.requestId">
+      <summary>
+            The ID of the request that initiated the instance. Set to 0 by default in responses to
+            requests other than that that started the instance.
+            </summary>
+    </member>
+    <member name="T:uZone.EventCode">
+      <summary>
+            A collection of codes each representing an event in uZone.
+            </summary>
+    </member>
+    <member name="F:uZone.EventCode.UzoneError">
+      <summary>
+            Represents the event where the uZone-client receives unknown or badly formatted data
+            that is unrecognisable. Argument passes to callback is of type <see cref="T:uZone.ErrorCode" />.
+            </summary>
+    </member>
+    <member name="F:uZone.EventCode.UzoneConnected">
+      <summary>
+            Represents the event where a game instance or client successfully connects to
+            uZone. Argument passed to callback function is of type <see cref="T:System.String" /> which 
+            represents the ID the client or game instance is registered under in the system.</summary>
+    </member>
+    <member name="F:uZone.EventCode.UzoneDisconnected">
+      <summary>
+            Represents the event where the uZone-client or the instance initiated by uZone disconnects.
+            </summary>
+    </member>
+    <member name="F:uZone.EventCode.UzoneNodeConnected">
+      <summary>
+            Represents the event where a node successfully connects to the uZone-system.
+            Argument passed to callback function is of type <see cref="T:uZone.Node" /> 
+            that describes the connected node.</summary>
+    </member>
+    <member name="F:uZone.EventCode.UzoneNodeDisconnected">
+      <summary>
+            Represents the event where a node disconnects from the uZone-system.
+            Argument passed to callback is the ID of the disconnected node as a <see cref="T:System.String" /></summary>
+    </member>
+    <member name="F:uZone.EventCode.UzoneInstanceStarted">
+      <summary>
+            Represents the event where a new instance of some sort is started in the system.
+            Argument passed to callback is of type <see cref="T:uZone.GameInstance" />, which represents the newly
+            started instance.</summary>
+    </member>
+    <member name="F:uZone.EventCode.UzoneInstanceStopped">
+      <summary>
+            Represents the event where an instance was shutdown in the system.
+            Argument passed to callback is List of type <see cref="T:System.String" />, which represents the ID of
+            the instance that was shutdown.</summary>
+    </member>
+    <member name="F:uZone.EventCode.UzoneNodeList">
+      <summary>
+            Represents the event where the client receives a list of all available nodes registered in
+            the system.
+            Argument passed to callback is a List of type <see cref="T:uZone.Node" />, which represents all the
+            nodes that are connected and registered in the system.</summary>
+    </member>
+    <member name="F:uZone.EventCode.UzoneInstanceList">
+      <summary>
+            Represents the event where the client receives a list of running game instances available
+            on the registered nodes in the system.
+            Argument passed to callback is a List of type <see cref="T:uZone.GameInstance" />, which represents
+            the running instances.</summary>
+    </member>
+    <member name="F:uZone.EventCode.UzoneInstanceTypeList">
+      <summary>
+            Represents the event where the client receives a list of game instances that are
+            registered as available in the system, ready to be started.
+            Argument passed to callback is a List of type <see cref="T:System.String" />, which represents and
+            identifies all the available types of instances available in the system.</summary>
+    </member>
+    <member name="F:uZone.EventCode.UzoneTerminate">
+      <summary>
+            Represents the event where an instance receives a request from uZone to terminate.
+            This event will only occur on game instances initialised and connected
+            to uZone.</summary>
+    </member>
+    <member name="T:uZone.ErrorCode">
+      <summary>
+            A collection of codes that represents errors returned by the uZone system.
+            </summary>
+    </member>
+    <member name="F:uZone.ErrorCode.InstanceStartFailed">
+      <summary>
+            The code returned when a request to start an instance failed.
+            </summary>
+    </member>
+    <member name="F:uZone.ErrorCode.NodeNotAvailable">
+      <summary>
+            The code returned by the server when the node specified in the request is unavailable
+            in the system, or simply not registered.
+            </summary>
+    </member>
+    <member name="F:uZone.ErrorCode.NoPortAvailable">
+      <summary>
+            The code returned by the server when the node specified in a request to start an instance
+            failed cause all of its available ports are occupied.
+            </summary>
+    </member>
+    <member name="F:uZone.ErrorCode.GameNotAvailable">
+      <summary>
+            The code returned by the server when the node specified in a request to start a server,
+            does not have the specified game installed.
+            </summary>
+    </member>
+    <member name="F:uZone.ErrorCode.UnknownError">
+      <summary>
+            The code returned when an unknown error occured.
+            </summary>
+    </member>
+    <member name="F:uZone.ErrorCode.BadMessageBody">
+      <summary>
+            The code returned when a message was received with an unknown header.
+            </summary>
+    </member>
+    <member name="F:uZone.ErrorCode.BadMessageHeader">
+      <summary>
+            The code returned when a message was received with a unintelligible message body.
+            </summary>
+    </member>
+    <member name="F:uZone.ErrorCode.BadInstanceIdFormat">
+      <summary>
+            The code returned when an instance ID of the wrong format was caught in uZone.
+            </summary>
+    </member>
+    <member name="T:uZone.EventCallback">
+      <summary>
+            Used by uZone to describe a callback that is invoked when a specific event occurs.
+            </summary>
+      <param name="eventArg">The argument supplied to the callback. Is usually what is returned
+            from the uZone system in a request.</param>
+    </member>
+    <member name="T:uZone.InstanceManager">
+      <summary>
+            This is the class that houses all the global operations of uZone. Use it to start and stop
+            game instances, connect a client or initialise a newly started game instance, etc.
+            </summary>
+    </member>
+    <member name="M:uZone.InstanceManager.Initialise">
+      <summary>
+            Initialises the uZone client interface. Should only be called once on application
+            startup and on client applications. For initialisation of game instances started by
+            uZone, use uZone.InstanceManager.Server.Initialise().
+            </summary>
+    </member>
+    <member name="M:uZone.InstanceManager.Connect(System.String,System.Int32)">
+      <summary>
+            This will try and connect the uZone client to a uZone master-server and 
+            start listening for incoming data.
+            </summary>
+      <param name="host">The address of the machine running a uZone master-server</param>
+      <param name="port">The port the running uZone master-server application is listening to</param>
+      <remarks>uZone will generate a unique ID that identifies this lobby instance.</remarks>
+    </member>
+    <member name="M:uZone.InstanceManager.Connect(System.String,System.Int32,System.String)">
+      <summary>
+            This will try and connect the uZone client to a uZone master-server and 
+            start listening for incoming data.
+            </summary>
+      <param name="host">The address of the machine running a uZone master-server</param>
+      <param name="port">The port the running uZone master-server application is listening to</param>
+      <param name="lobbyId">The ID under which the lobby will be registered in uZone. If the ID
+            is already in use, uZone will generate a new unique ID. Needs to be on the form X.X.X, where
+            each X is 1-10 numbers numbered 0-9.</param>
+    </member>
+    <member name="M:uZone.InstanceManager.Disconnect">
+      <summary>
+            Disconnects the uZone client, dropping all communication to the uZone master-server.
+            </summary>
+    </member>
+    <member name="M:uZone.InstanceManager.ListAvailableNodes(System.String)">
+      <summary>
+            Sends a request to the connected uZone master-server to list all available nodes with a
+            specific game type installed on them.
+            </summary>
+      <param name="gameTypeName">The name of the game type as it is registered on the server</param>
+    </member>
+    <member name="M:uZone.InstanceManager.ListAvailableNodes">
+      <summary>
+            Sends a request to the connected uZone master-server to list all available nodes.
+            </summary>
+    </member>
+    <member name="M:uZone.InstanceManager.ListAllInstances">
+      <summary>
+            Sends a request to the connected uZone master-server to list all available instances.
+            </summary>
+    </member>
+    <member name="M:uZone.InstanceManager.ListInstances(System.String)">
+      <summary>
+            Sends a request to the connected uZone master-server to list all available instances
+            of type <paramref name="gameTypeName" />.
+            </summary>
+      <param name="gameTypeName">The type of instances to list.</param>
+    </member>
+    <member name="M:uZone.InstanceManager.ListNodeInstances(System.String,System.String)">
+      <summary>
+            Sends a request to the connected uZone master-server to list all available instances
+            of type <paramref name="gameTypeName" /> that is running on node <paramref name="nodeId" />.
+            </summary>
+      <param name="nodeId">The string that identifies the node in the system whose instances is to
+            be listed. Needs to be on the form X.X.X, where each X is 1-10 numbers numbered 0-9.</param>
+      <param name="gameTypeName">The type of instances to list.</param>
+    </member>
+    <member name="M:uZone.InstanceManager.ListNodeInstances(System.String)">
+      <summary>
+            Sends a request to the connected uZone master-server to list all available instances
+            that is running on node <paramref name="nodeId" />.
+            </summary>
+      <param name="nodeId">The string that identifies the node in the system whose instances is to
+            be listed. Needs to be on the form X.X.X, where each X is 1-10 numbers numbered 0-9.</param>
+    </member>
+    <member name="M:uZone.InstanceManager.ListInstanceTypes">
+      <summary>
+            Sends a request to the connected uZone master-server to list all the available
+            type of instances in the system.
+            </summary>
+    </member>
+    <member name="M:uZone.InstanceManager.StartGameInstance(System.String,System.String)">
+      <summary>
+            Sends a request to the connected uZone master-server to start a new game instance
+            of type <paramref name="gameTypeName" /> on node <paramref name="nodeId" />. 
+            </summary>
+      <param name="gameTypeName">Identifies the type of game to be started as it is
+            registered in the system.</param>
+      <param name="nodeId">The string that identifies the node in the system on which the instance
+            is to be started on. Needs to be on the form X.X.X, where each X is 1-10 numbers numbered 0-9.</param>
+      <returns>A request identifier that can be used to uniquely identify this request in the request callback.</returns>
+    </member>
+    <member name="M:uZone.InstanceManager.StartGameInstance(System.String,System.String,System.Collections.Generic.List{System.String})">
+      <summary>
+            Sends a request to the connected uZone master-server to start a new game instance
+            of type <paramref name="gameTypeName" /> on node <paramref name="nodeId" /> with arguments
+            <paramref name="args" />. 
+            </summary>
+      <param name="gameTypeName">Identifies the type of game to be started as it is
+            registered in the system.</param>
+      <param name="nodeId">The string that identifies the node in the system on which the instance
+            is to be started on. Needs to be on the form X.X.X, where each X is 1-10 numbers numbered 0-9.</param>
+      <param name="args">Any extra arguments that are supplied to the server on startup. Can include Unity flags such as -batchmode.</param>
+      <remarks>
+            The optional arguments can be on any form, and can immediately be accessed by the instance by calling 
+            <see cref="P:uZone.InstanceManager.Server.cmdArgs" />.</remarks>
+      <returns>A request identifier that can be used to uniquely identify this request in the request callback.</returns>
+    </member>
+    <member name="M:uZone.InstanceManager.StartGameInstance(System.String)">
+      <summary>
+            Sends a request to the connected uZone master-server to start a new game instance
+            of type <paramref name="gameTypeName" />.
+            </summary>
+      <param name="gameTypeName">Identifies the type of game to be started as it is
+            registered on at least one node in the system.</param>
+      <remarks>If different types of games are registered using the same key on different
+            nodes, the type of game to be started may appear random.</remarks>
+      <returns>A request identifier that can be used to uniquely identify this request in the request callback.</returns>
+    </member>
+    <member name="M:uZone.InstanceManager.StartGameInstance(System.String,System.Collections.Generic.List{System.String})">
+      <summary>
+            Sends a request to the connected uZone master-server to start a new game instance
+            of type <paramref name="gameTypeName" />.
+            </summary>
+      <param name="gameTypeName">Identifies the type of game to be started as it is
+            registered on at least one node in the system.</param>
+      <param name="args">Any extra arguments that are to be supplied to the instance on startup.</param>
+      <remarks>
+            The optional arguments can be on any form, and can immediately be accessed by the instance by calling 
+            <see cref="P:uZone.InstanceManager.Server.cmdArgs" />.</remarks>
+      <returns>A request identifier that can be used to uniquely identify this request in the request callback.</returns>
+    </member>
+    <member name="M:uZone.InstanceManager.StopGameTypeInstances(System.String,System.String)">
+      <summary>
+            Sends a request to the connected uZone master-server to terminate all game instances of type
+            <paramref name="gameTypeName" /> from running on node <paramref name="nodeId" />.
+            </summary>
+      <param name="gameTypeName">The type of game instances to be terminated.</param>
+      <param name="nodeId">The string that identifies the node in the system on whose instances
+            are to be terminated. Needs to be on the form X.X.X, where each X is 1-10 numbers numbered 0-9.</param>
+    </member>
+    <member name="M:uZone.InstanceManager.StopGameTypeInstances(System.String)">
+      <summary>
+            Sends a request to the connected uZone master-server to terminate all game instances of type
+            <paramref name="gameTypeName" /> from running.
+            </summary>
+      <param name="gameTypeName">Identifies the type of game instances to be terminated as it is
+            registered in the system</param>
+      <remarks>Any associated callback with this call will be executed an equal amount of times
+            as there are nodes that has instances of <paramref name="gameTypeName" /> running since
+            each of these nodes will generate a response.</remarks>
+    </member>
+    <member name="M:uZone.InstanceManager.StopNodeInstances(System.String)">
+      <summary>
+            Sends a request to the connected uZone master-server to terminate all game instances
+            running on <paramref name="nodeId" />.
+            </summary>
+      <param name="nodeId">The string that identifies the node in the system on whose instances
+            are to be stopped. Needs to be on the form X.X.X, where each X is 1-10 numbers numbered 0-9.</param>
+    </member>
+    <member name="M:uZone.InstanceManager.StopAllInstances">
+      <summary>
+            Sends a request to the connected uZone master-server to terminate all game instances
+            registered in the system.
+            </summary>
+      <remarks>Any callback associated with this call will be executed an equal amount of times
+            as there are nodes connected to the system with instances running on them, as each such node
+            will generate a response.</remarks>
+    </member>
+    <member name="M:uZone.InstanceManager.StopInstance(System.String)">
+      <summary>
+            Sends a request to the connected uZone master-server to stop a game instance with
+            the unique ID <paramref name="instanceId" />.
+            </summary>
+      <param name="instanceId">The string identifying the instance in the system that is
+            to be terminated. Needs to be on the form X.X.X:X.X.X, where each X is 1-10 numbers numbered 0-9.</param>
+    </member>
+    <member name="M:uZone.InstanceManager.SetCallback(uZone.EventCode,uZone.EventCallback)">
+      <summary>
+            Sets the callback to be executed if the event represented by <paramref name="eventCode" /> 
+            occurs. Any callback already set for the event is overwritten.
+            </summary>
+      <param name="eventCode">The event code that represents a specific event.</param>
+      <param name="callback">The callback delegate function to be executed.</param>
+      <remarks>The argument sent to the callback funtion is dependant on what type of
+            event that occurs. See <see cref="T:uZone.EventCode" /> documentation for the type argument
+            types.</remarks>
+    </member>
+    <member name="M:uZone.InstanceManager.DeleteCallback(uZone.EventCode)">
+      <summary>
+            Deletes the set callback for a specific event.
+            </summary>
+      <param name="eventCode">The code representing the event whose callback is to be
+            deleted.</param>
+    </member>
+    <member name="M:uZone.InstanceManager.ResetCallbacks">
+      <summary>
+            Deletes all set callbacks set in the system.
+            </summary>
+    </member>
+    <member name="M:uZone.InstanceManager.AddListener(UnityEngine.GameObject)">
+      <summary>
+            Makes an object subscribe to the events in uZone and execute its defined callbacks.
+            </summary>
+      <param name="gameObject">The object whose callbacks are to be executed
+            on events.</param>
+    </member>
+    <member name="M:uZone.InstanceManager.RemoveListener(UnityEngine.GameObject)">
+      <summary>
+            Unsubscribes an object from uZone events, preventing its callbacks to be executed.
+            </summary>
+      <param name="gameObject">The object to unsubscribe.</param>
+      <returns>true if the object was found and removed, else false.</returns>
+    </member>
+    <member name="M:uZone.InstanceManager.ClearListeners">
+      <summary>
+            Unsubscribes all objects that were previously added to listen to uZone events.
+            </summary>
+    </member>
+    <member name="P:uZone.InstanceManager.isInitialized">
+      <summary>
+            Returns true if the uZone client is in an initialized state.
+            </summary>
+    </member>
+    <member name="P:uZone.InstanceManager.isConnected">
+      <summary>
+            Returns true if the uZone client is in a connected state.
+            </summary>
+    </member>
+    <member name="P:uZone.InstanceManager.isListening">
+      <summary>
+            Returns true if the uZone client is listening for incoming data. Should always return
+            true when uZone is in a connected state.
+            </summary>
+    </member>
+    <member name="T:uZone.InstanceManager.Server">
+      <summary>
+            This class houses all the instance-side functionality, meaning the operations and 
+            properties used by each game instance instantiated by uZone.
+            </summary>
+    </member>
+    <member name="M:uZone.InstanceManager.Server.Initialise">
+      <summary>
+            Initialises the server interface by reading the input supplied on startup to the instance,
+            as well as setting up a connection and connecting to the local uZone node.
+            </summary>
+      <remarks>Should only be called once on an instance's creation in a Awake() call 
+            before any script or object interact with uZone. Doing otherwise will raise an
+            exception.</remarks>
+    </member>
+    <member name="M:uZone.InstanceManager.Server.Reconnect">
+      <summary>
+            Attempts to reconnect the instance to the uZone system in case of the unlikelyhood
+            that the connection was dropped. Recommended usage is in OnDisconnect-callbacks.
+            </summary>
+    </member>
+    <member name="M:uZone.InstanceManager.Server.SetCallback(uZone.EventCode,uZone.EventCallback)">
+      <summary>
+            Sets the callback to be executed if the event represented by <paramref name="eventCode" /> 
+            occurs. Any callback already set for the event is overwritten.
+            </summary>
+      <param name="eventCode">The event code that represents a specific event.</param>
+      <param name="callback">The callback delegate function to be executed.</param>
+      <remarks>The argument sent to the callback funtion is dependant on what type of
+            event that occurs. See <see cref="T:uZone.EventCode" /> documentation for the type argument
+            types.</remarks>
+    </member>
+    <member name="M:uZone.InstanceManager.Server.DeleteCallback(uZone.EventCode)">
+      <summary>
+            Deletes the set callback for a specific event.
+            </summary>
+      <param name="eventCode">The code representing the event whose callback is to be
+            deleted.</param>
+    </member>
+    <member name="M:uZone.InstanceManager.Server.ResetCallbacks">
+      <summary>
+            Deletes all set callbacks set in the instance.
+            </summary>
+    </member>
+    <member name="M:uZone.InstanceManager.Server.AddListener(UnityEngine.GameObject)">
+      <summary>
+            Makes an object subscribe to the events in uZone and execute its defined callbacks.
+            </summary>
+      <param name="gameObject">The object whose callbacks are to be executed
+            on events.</param>
+    </member>
+    <member name="M:uZone.InstanceManager.Server.RemoveListener(UnityEngine.GameObject)">
+      <summary>
+            Unsubscribes an object from uZone events, preventing its callbacks to be executed.
+            </summary>
+      <param name="gameObject">The object to unsubscribe.</param>
+      <returns>true if the object was found and removed, else false.</returns>
+    </member>
+    <member name="M:uZone.InstanceManager.Server.ClearListeners">
+      <summary>
+            Unsubscribes all objects that were previously added to listen to uZone events.
+            </summary>
+    </member>
+    <member name="P:uZone.InstanceManager.Server.isInitialized">
+      <summary>
+            Returns true if the uZone instance is in an initialized state.
+            </summary>
+    </member>
+    <member name="P:uZone.InstanceManager.Server.isConnected">
+      <summary>
+            Returns true if the uZone instance is connected to its uZone node.
+            </summary>
+    </member>
+    <member name="P:uZone.InstanceManager.Server.gameServerPort">
+      <summary>
+            The port assigned by uZone for the instance to listen to incoming external traffic.
+            </summary>
+    </member>
+    <member name="P:uZone.InstanceManager.Server.instanceId">
+      <summary>
+            The unique ID assigned by uZone and what uZone uses to identify this instance by.
+            </summary>
+    </member>
+    <member name="P:uZone.InstanceManager.Server.cmdArgs">
+      <summary>
+            A string array consisting of all the arguments supplied for this instance, including the 
+            ones supplied in the node's configuration file as well as the name of the executable file.
+            The first argument is always the name of the executable. This is followed by the static
+            arguments from the configuration file for the node, followed by any arguments supplied
+            in the request to initiate this instance.
+            </summary>
+    </member>
+    <member name="M:uZone.InstanceManager.Server.Debug.Disconnect">
+      <summary>
+            Forces the instance to disconnect from uZone. Should only be used for
+            debugging purposes, as uZone no longer posess control over the instance
+            while in an disconnected state.
+            </summary>
+    </member>
+    <member name="M:uZone.InstanceManager.Debug.ResetGlobalState">
+      <summary>
+            Resets the state of the uZone client. Things such as set callbacks, cached values and
+            list of subscribing objects are wiped. ResetGlobalState() also disconnects the client.
+            </summary>
+    </member>
+  </members>
+</doc>

@@ -1,0 +1,53 @@
+END USER LICENSE AGREEMENT
+Software License Agreement for the UnityPark Suite 1.5
+
+PLEASE READ CAREFULLY: BY INSTALLING THE SOFTWARE (AS DEFINED BELOW) AND/OR CLICKING ON THE 'ACCEPT' BUTTON BELOW, YOU (EITHER ON BEHALF OF YOURSELF AS AN INDIVIDUAL OR ON BEHALF OF AN ENTITY AS ITS AUTHORIZED REPRESENTATIVE) AGREE TO ALL OF THE TERMS OF THIS END USER LICENSE AGREEMENT REGARDING THE USE OF THE SOFTWARE. IF YOU DO NOT AGREE WITH ALL OF THE TERMS OF THIS AGREEMENT, CLICK ON THE 'CANCEL' BUTTON. THIS WILL CANCEL THE INSTALLATION.
+
+1) GRANT OF LICENSE
+Subject to the terms below (the ‘Agreement’), MuchDifferent hereby grants you a non-exclusive, non-transferable license to install and to use UnityPark Suite (the ‘Software’) for one game title (the ‘Game Title’).
+
+The Software may not be used without a valid license. One license for the Software may be used to produce no more than one Game Title at a time. The Software may be installed on any number of computers used to produce the Game Title. You may copy the Software for back-up or archival purposes. For the avoidance of doubt the Software is licensed on a per-title basis.
+
+You agree to terminate your use of the Software on the date agreed if you have purchased a term-based license.
+
+The runtime library files (UnityPark.dll and uLink.dll) may be redistributed royalty-free with the Game Title, as long as the Game Title is produced using a licensed installation of the Software. 
+
+2) LICENSING RESTRICTIONS
+The Software may be licensed by any company, incorporated entity, or individual.
+
+3) TITLE
+You acknowledge that no title to the intellectual property in the Software is transferred to you. Title, ownership, rights, and intellectual property rights in and to the Software shall remain that of MuchDifferent. The Software is protected by copyright and patent laws of Sweden and international treaties.
+
+4) DERIVATIVE WORK
+Whether you are licensing the Software as an individual or on behalf of an entity, you may not: (a) reverse engineer, decompile or disassemble the Software or make any attempt to discover the source code; (b) modify, or create derivative works based upon, the Software in whole or in part without the expressed written consent of MuchDifferent; (c) distribute copies of the Software; (d) remove any proprietary notices or labels on the Software; (e) resell, lease, rent, transfer, sublicense, or otherwise transfer the rights to the Software.
+
+5) SUPPORT
+ MuchDifferent will employ best efforts to provide free support and will notify users of typical response times. At MuchDifferent's discretion, access to support may be restricted or prioritised in order to deliver a fair service. MuchDifferent may introduce and offer other support services from time-to-time.
+
+6) DISCLAIMER OF WARRANTY
+YOU AGREE THAT MUCHDIFFERENT HAS MADE NO EXPRESS WARRANTIES, ORAL OR WRITTEN, TO YOU REGARDING THE PRODUCTS AND THAT THE PRODUCTS ARE BEING PROVIDED TO YOU 'AS IS' WITHOUT WARRANTY OF ANY KIND. MUCHDIFFERENT DISCLAIMS ANY AND ALL OTHER WARRANTIES, WHETHER EXPRESSED, IMPLIED, OR STATUTORY. YOUR RIGHTS MAY VARY DEPENDING ON THE STATE IN WHICH YOU LIVE. MUCHDIFFERENT SHALL NOT BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, COVER, RELIANCE, OR CONSEQUENTIAL DAMAGES RESULTING FROM THE USE OF THIS PRODUCT.
+
+7) LIMITATION OF LIABILITY
+YOU USE THIS PROGRAM SOLELY AT YOUR OWN RISK. IN NO EVENT SHALL MUCHDIFFERENT BE LIABLE TO YOU FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO ANY LOSS, OR OTHER INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND ARISING OUT OF THE USE OF THE SOFTWARE, EVEN IF MUCHDIFFERENT HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. IN NO EVENT WILL MUCHDIFFERENT BE LIABLE FOR ANY CLAIM, WHETHER IN CONTRACT, TORT, OR ANY OTHER THEORY OF LIABILITY, EXCEED THE COST OF THE SOFTWARE. THIS LIMITATION SHALL APPLY TO CLAIMS OF PERSONAL INJURY TO THE EXTENT PERMITTED BY LAW.
+
+8) TERMINATION
+This Agreement shall terminate automatically if you fail to comply with the limitations described in this Agreement. No notice shall be required to effectuate such termination. Upon termination, you must remove and destroy all copies of the Software. For the avoidance of doubt, failure to pay invoice, sharing of the Software between titles, and/or reselling the Software will result in termination of this agreement.
+
+9) MISCELLANEOUS
+Severability: In the event of invalidity of any provision of this Agreement, the parties agree that such invalidity shall not affect the validity of the remaining portions of this Agreement.
+
+Export: You agree that you will not export or re-export the Software outside of the jurisdiction in which you obtained it without the appropriate United States or foreign government licenses.
+
+10) GOVERNING LAW
+This Agreement will be governed by the laws of the State of Sweden as they are applied to agreements between residents of Sweden, entered into and to be performed entirely within Sweden. The United Nations Convention on Contracts for the International Sale of Goods is specifically disclaimed.
+
+11) JURISDICTION
+In the event of a dispute or controversies arising from or regarding the performance, interpretation or breach of this agreement the competent court will be the court Stockholms Tingsrätt of Sweden.
+
+12) ENTIRE AGREEMENT
+You agree that this is the entire agreement between you and MuchDifferent, which supersedes any prior agreement, whether written or oral, and all other communications between MuchDifferent and you relating to the subject matter of this Agreement.
+
+13) LIABILITY OF NOTICE
+Should the Software be used by you in such a way that it violates any rights of the part of Unity Technologies, you are responsible for notifying Unity Technologies of these violations. MuchDifferent takes no responsibility for the actions of the users of the Software.
+
+Reservation of rights: All rights not expressly granted in this Agreement are reserved by MuchDifferent.

@@ -1,0 +1,15 @@
+﻿public enum MainMenuState {
+	Profile,
+	Builds,
+	Teams,
+	Guilds,
+	History,
+	Ranking,
+	Friends,
+	Inventory,
+	Donations,
+	Learn,
+	Music,
+	Staff,
+	Settings,
+}

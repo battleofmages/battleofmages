@@ -1,0 +1,2656 @@
+<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>uGameDB</name>
+  </assembly>
+  <members>
+    <member name="T:uGameDB.GetBucketPropRequest">
+      <summary>
+            Represents a request to get a bucket's properties in the database.
+            </summary>
+    </member>
+    <member name="T:uGameDB.Request">
+      <summary>
+            Base class for all the request classes.
+            </summary>
+    </member>
+    <member name="M:uGameDB.Request.WaitUntilDone">
+      <summary>
+            Use this function to wait for the request to complete, i.e. until Request.isDone is true, using the Unity coroutine mechanism.
+            Typically you would call 'yield return request.WaitUntilDone();' from a coroutine before examining the result of the request. The
+            coroutine will resume once any given success or error callback has finished, unless the request was cancelled by the user. Then
+            the coroutine will resume without any callback being invoked.
+            </summary>
+      <returns>A Coroutine object that can be yielded on from a coroutine.</returns>
+    </member>
+    <member name="M:uGameDB.Request.Cancel">
+      <summary>
+            Cancels a previously sent request, which removes it from the list of pending requests. Calling this will make Request.isDone true,
+            which means that any coroutine which has yielded on Request.WaitUntilDone() will resume. Canceling a request will not trigger any
+            of the callbacks.
+            </summary>
+    </member>
+    <member name="M:uGameDB.Request.GetError">
+      <summary>
+            Gets the error status of a failed request.
+            </summary>
+      <returns>The error status of the request.</returns>
+      <remarks>
+            If there is no error, this will throw a DatabaseRequestException. If you are unsure
+            if the request has an error or not, you can avoid the exception by checking Request.hasFailed or by using Request.TryGetError().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Request.TryGetError(uGameDB.RequestError@)">
+      <summary>
+            Gets the error status of the request. The error will be returned through the requestError out parameter.
+            </summary>
+      <param name="requestError">The resulting error status of the request.</param>
+      <returns>True if the request has failed, or false otherwise.</returns>
+    </member>
+    <member name="M:uGameDB.Request.GetErrorString">
+      <summary>
+            Gets the error message of a failed request.
+            </summary>
+      <returns>The error message of the request.</returns>
+      <remarks>
+            If there is no error, this will throw a DatabaseRequestException.
+            If you are unsure if the request has an error or not, you can avoid the exception by checking Request.hasFailed
+            or by using Request.TryGetErrorString().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Request.TryGetErrorString(System.String@)">
+      <summary>
+            Gets the error message of the request. The error will be returned through the error out parameter.
+            </summary>
+      <param name="error">The resulting error message of the request.</param>
+      <returns>True if the request has failed, or false otherwise.</returns>
+    </member>
+    <member name="P:uGameDB.Request.isDone">
+      <summary>
+            Indicates whether the request has returned, either from success or failure.
+            </summary>
+    </member>
+    <member name="P:uGameDB.Request.isSuccessful">
+      <summary>
+            Indicates whether the request has been successfully completed.
+            </summary>
+    </member>
+    <member name="P:uGameDB.Request.isCancelled">
+      <summary>
+            Indicates whether the request has been cancelled by the user.
+            </summary>
+    </member>
+    <member name="P:uGameDB.Request.hasFailed">
+      <summary>
+            Indicates whether the request has failed.
+            </summary>
+    </member>
+    <member name="M:uGameDB.GetBucketPropRequest.GetNval">
+      <summary>
+            Gets the N-value of the bucket that was returned from the database.
+            </summary>
+      <returns>The returned N-value.</returns>
+      <remarks>
+            If the request was not successful or is still pending, this will throw a DatabaseRequestException.
+            If you are unsure if the request was successful or not, you can avoid the exception by checking
+            Request.isSuccessful or by using GetBucketPropRequest.TryGetNval().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.GetBucketPropRequest.GetAllowMult">
+      <summary>
+            Gets the AllowMult-value of the bucket that was returned from the database.
+            </summary>
+      <returns>The returned AllowMult-value.</returns>
+      <remarks>
+            If the request was not successful or is still pending, this will throw a DatabaseRequestException.
+            If you are unsure if the request was successful or not, you can avoid the exception by checking
+            Request.isSuccessful or by using GetBucketPropRequest.TryGetAllowMult().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.GetBucketPropRequest.TryGetNval(System.UInt32@)">
+      <summary>
+            Gets the N-value of the bucket that was returned from the database.
+            The N-value will be returned through the nVal out parameter.
+            </summary>
+      <param name="nVal">The N-value of the bucket.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="M:uGameDB.GetBucketPropRequest.TryGetNval(uGameDB.SiblingsOption@)">
+      <summary>
+            Gets the AllowMult-value of the bucket that was returned from the database.
+            The AllowMult-value will be returned through the allowMult out parameter.
+            </summary>
+      <param name="allowMult">The AllowMult-value of the bucket.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="P:uGameDB.GetBucketPropRequest.bucket">
+      <summary>
+            The given bucket of which's properties we want
+            </summary>
+    </member>
+    <member name="T:uGameDB.OnConnectCallback">
+      <summary>
+            Used by Database.Connect() to describe a callback that is invoked when the uGameDB client is successfully brought online.
+            </summary>
+    </member>
+    <member name="T:uGameDB.OnConnectFailureCallback">
+      <summary>
+            Used by Database.Connect() to describe a callback that in invoked when an error prevents the uGameDB client to be brought online.
+            </summary>
+      <param name="error">An error message that describes the reason why the client can't go online.</param>
+    </member>
+    <member name="T:uGameDB.Database">
+      <summary>
+            This is the class that houses all the global operations of uGameDB. Use it to connect, configure database nodes, retrieve
+            connection status and information, etc.
+            </summary>
+    </member>
+    <member name="M:uGameDB.Database.Connect(uGameDB.OnConnectCallback,uGameDB.OnConnectFailureCallback)">
+      <summary>
+            This will set the uGameDB client to an online state, which means it will start connecting to all configured database nodes. The actual
+            connections are made behind the scenes and depends on the number of requests that are sent and when. The method will not fail if
+            one or more nodes are unavailable. In uGameDB's view, it is normal for database nodes to become unreachable for different reasons.
+            If one node is not responding, uGameDB will silently try to send the request to another node instead. For this reason, the only
+            time onErrorCallback is invoked is when an error occurs on the client that prevents it from entring the online state.
+            </summary>
+      <param name="onConnectCallback">Invoked when the client successfully entered the online state. If this is null, nothing will
+            happen.</param>
+      <param name="onErrorCallback">Invoked if the client was prevented from entering the online state. If this is null, nothing will
+            happen.</param>
+    </member>
+    <member name="M:uGameDB.Database.Connect">
+      <summary>
+            This will set the uGameDB client to an online state, which means it will start connecting to all configured database nodes. The actual
+            connections are made behind the scenes and depends on the number of requests that are sent and when. The method will not fail if
+            one or more nodes are unavailable. In uGameDB's view, it is normal for database nodes to become unreachable for different reasons.
+            If one node is not responding, uGameDB will silently try to send the request to another node instead. For this reason, the only
+            time onErrorCallback is invoked is when an error occurs on the client that prevents it from entring the online state.
+            </summary>
+      <remarks>
+            This is equivalent to calling Connect(null, null), which means that no callbacks will be invoked.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Database.Disconnect">
+      <summary>
+            This will set the uGameDB client to an offline state, which means it will stop all background connection attempts. This
+            will also remove all pending and queued requests.
+            </summary>
+    </member>
+    <member name="M:uGameDB.Database.AddNode(System.String,System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+      <summary>
+            Adds the specified database node and makes it available for future connections. After you call Database.AddNode() you need
+            to call Database.Connect() for the new node it to be used. If the client is already online, you must call
+            Database.Disconnect() followed by Database.Connect() for the new node to be used.
+            </summary>
+      <param name="name">A user-specified name that identifies the configured node on the client.</param>
+      <param name="hostAddress">The network address of the database node. Can be either a DNS name or an IP address.</param>
+      <param name="port">The PBC port of the database node.</param>
+      <param name="poolSize">The maximum number of connections that can be simultaneously maintained by the client to this node.</param>
+      <param name="writeTimeout">The time, in milliseconds, that a connection will wait for a write operation to complete before
+            the node is considered unavailable.</param>
+      <param name="readTimeout">The time, in milliseconds, that a connection will wait for a read operation to complete before
+            the node is considered unavailable.</param>
+    </member>
+    <member name="M:uGameDB.Database.AddNode(System.String,System.String,System.Int32)">
+      <summary>
+            Adds the specified database node and makes it available for future connections. After you call Database.AddNode() you need
+            to call Database.Connect() for the new node it to be used. If the client is already online, you must call
+            Database.Disconnect() followed by Database.Connect() for the new node to be used.
+            </summary>
+      <param name="name">A user-specified name that identifies the configured node on the client.</param>
+      <param name="hostAddress">The network address of the database node. Can be either a DNS name or an IP address.</param>
+      <param name="port">The PBC port of the database node.</param>
+      <remarks>
+            This is equivalent to calling AddNode(name, hostAddress, port, Defaults.PoolSize, Defaults.WriteTimeout, Defaults.ReadTimeout).
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Database.RemoveNode(System.String)">
+      <summary>
+            Removes a previously configured database node from the client. After you call Database.RemoveNode(), you need to call
+            Database.Connect() for the change to take effect. If the client is already online, you must call
+            Database.Disconnect() followed by Database.Connect() for the change to take effect.
+            </summary>
+      <param name="name">The user-specified name that was used in the call to Database.AddNode().</param>
+    </member>
+    <member name="M:uGameDB.Database.RemoveAllNodes">
+      <summary>
+            Removes all previously configured nodes from the client. After you call Database.RemoveAllNodes() you need to call
+            Database.Connect() for the change to take effect. If the client is already online, you must call
+            Database.Disconnect() followed by Database.Connect() for the change to take effect.
+            </summary>
+    </member>
+    <member name="M:uGameDB.Database.ResetGlobalState">
+      <summary>
+            Resets the global state of the uGameDB client, putting it back into an initial state. This should not be used in
+            producition code, but is good for testing purposes.
+            </summary>
+    </member>
+    <member name="M:uGameDB.Database.GetServerInfo(uGameDB.OnResponseCallback{uGameDB.GetServerInfoRequest},uGameDB.OnResponseCallback{uGameDB.GetServerInfoRequest})">
+      <summary>
+            Sends a request to retrieve information about the server and the node handling the request.
+            </summary>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.GetServerInfoRequest" /> object that represents the request until it completes.</returns>
+    </member>
+    <member name="M:uGameDB.Database.GetServerInfo">
+      <summary>
+            Sends a request to retrieve information about the server and the node handling the request.
+            </summary>
+      <returns>A <see cref="T:uGameDB.GetServerInfoRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            Calling this method is equivalent to calling <code>GetServerInfo(null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Database.MapReduceOnBucketKeyList(System.Collections.Generic.IEnumerable{uGameDB.BucketKeyPair},uGameDB.JavaScriptMapPhase,uGameDB.JavaScriptReducePhase,uGameDB.OnResponseCallback{uGameDB.MapReduceOnBucketKeyListRequest},uGameDB.OnResponseCallback{uGameDB.MapReduceOnBucketKeyListRequest})">
+      <summary>
+            Sends a request to perform a MapReduce query operation on the Riak cluster. This variant of MapReduce uses
+            JavaScript phase functions expressed as strings, which are sent along with the request. Its input will be
+            a given list of bucket and key pairs.
+            </summary>
+      <param name="bucketKeyPairs">The list of <see cref="T:uGameDB.BucketKeyPair" /> instances that should be used as inputs
+            to the Map phase.</param>
+      <param name="javaScriptMapPhase">A <see cref="T:uGameDB.JavaScriptMapPhase" /> object that contains the
+            JavaScript code of the Map phase function to send along with the request.</param>
+      <param name="javaScriptReducePhase">A <see cref="T:uGameDB.JavaScriptReducePhase" /> object that contains the
+            JavaScript code of the Reduce phase function to send along with the request.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.MapReduceRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is uGameDB's primary functionality for selecting one or more results from database based on an
+            arbitrary criterion. A MapReduce request is divided into two phases.
+            The Map phase is a function that takes one key/value pair as input and produces a list of intermediate results.
+            The Reduce phase is a function that takes a list of such intermediate results as input and produces a
+            new list of results.
+            By default, the results of the Reduce phase is returned as the result of the MapReduce request.
+            You can read more about MapReduce queries in the uGameDB manual.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Database.MapReduceOnBucketKeyList(System.Collections.Generic.IEnumerable{uGameDB.BucketKeyPair},uGameDB.JavaScriptMapPhase,uGameDB.JavaScriptReducePhase)">
+      <summary>
+            Sends a request to perform a MapReduce query operation on the Riak cluster. This variant of MapReduce uses
+            JavaScript phase functions expressed as strings, which are sent along with the request. Its input will be
+            a given list of bucket and key pairs.
+            </summary>
+      <param name="bucketKeyPairs">The list of <see cref="T:uGameDB.BucketKeyPair" /> instances that should be used as inputs
+            to the Map phase.</param>
+      <param name="javaScriptMapPhase">A <see cref="T:uGameDB.JavaScriptMapPhase" /> object that contains the
+            JavaScript code of the Map phase function to send along with the request.</param>
+      <param name="javaScriptReducePhase">A <see cref="T:uGameDB.JavaScriptReducePhase" /> object that contains the
+            JavaScript code of the Reduce phase function to send along with the request.</param>
+      <returns>A <see cref="T:uGameDB.MapReduceRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is uGameDB's primary functionality for selecting one or more results from database based on an
+            arbitrary criterion. A MapReduce request is divided into two phases.
+            The Map phase is a function that takes one key/value pair as input and produces a list of intermediate results.
+            The Reduce phase is a function that takes a list of such intermediate results as input and produces a
+            new list of results.
+            By default, the results of the Reduce phase is returned as the result of the MapReduce request.
+            You can read more about MapReduce queries in the uGameDB manual.
+            Calling this method is equivalent to calling <code>MapReduceOnBucketKeyList(bucketKeyPairs, javaScriptMapPhase,
+            javaScriptReducePhase, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Database.MapReduceOnBucketKeyList(System.Collections.Generic.IEnumerable{uGameDB.BucketKeyPair},uGameDB.ErlangMapPhase,uGameDB.ErlangReducePhase,uGameDB.OnResponseCallback{uGameDB.MapReduceOnBucketKeyListRequest},uGameDB.OnResponseCallback{uGameDB.MapReduceOnBucketKeyListRequest})">
+      <summary>
+            Sends a request to perform a MapReduce query operation on the Riak cluster. This variant of MapReduce uses
+            Erlang phase functions that previously have been loaded on the Riak nodes. Its input will be
+            a given list of bucket and key pairs.
+            </summary>
+      <param name="bucketKeyPairs">The list of <see cref="T:uGameDB.BucketKeyPair" /> instances that should be used as inputs
+            to the Map phase.</param>
+      <param name="erlangMapPhase">A <see cref="T:uGameDB.ErlangMapPhase" /> object that contains the name of
+            the Erlang Map phase function to invoke on the database nodes.</param>
+      <param name="erlangReducePhase">A <see cref="T:uGameDB.ErlangReducePhase" /> object that contains the name of
+            the Erlang Reduce phase function to invoke on the database nodes.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.MapReduceRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is uGameDB's primary functionality for selecting one or more results from database based on an
+            arbitrary criterion. A MapReduce request is divided into two phases.
+            The Map phase is a function that takes one key/value pair as input and produces a list of intermediate results.
+            The Reduce phase is a function that takes a list of such intermediate results as input and produces a
+            new list of results.
+            By default, the results of the Reduce phase is returned as the result of the MapReduce request.
+            You can read more about MapReduce queries in the uGameDB manual.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Database.MapReduceOnBucketKeyList(System.Collections.Generic.IEnumerable{uGameDB.BucketKeyPair},uGameDB.ErlangMapPhase,uGameDB.ErlangReducePhase)">
+      <summary>
+            Sends a request to perform a MapReduce query operation on the Riak cluster. This variant of MapReduce uses
+            Erlang phase functions that previously have been loaded on the Riak nodes. Its input will be
+            a given list of bucket and key pairs.
+            </summary>
+      <param name="bucketKeyPairs">The list of <see cref="T:uGameDB.BucketKeyPair" /> instances that should be used as inputs
+            to the Map phase.</param>
+      <param name="erlangMapPhase">A <see cref="T:uGameDB.ErlangMapPhase" /> object that contains the name of
+            the Erlang Map phase function to invoke on the database nodes.</param>
+      <param name="erlangReducePhase">A <see cref="T:uGameDB.ErlangReducePhase" /> object that contains the name of
+            the Erlang Reduce phase function to invoke on the database nodes.</param>
+      <returns>A <see cref="T:uGameDB.MapReduceRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is uGameDB's primary functionality for selecting one or more results from database based on an
+            arbitrary criterion. A MapReduce request is divided into two phases.
+            The Map phase is a function that takes one key/value pair as input and produces a list of intermediate results.
+            The Reduce phase is a function that takes a list of such intermediate results as input and produces a
+            new list of results.
+            By default, the results of the Reduce phase is returned as the result of the MapReduce request.
+            You can read more about MapReduce queries in the uGameDB manual.
+            Calling this method is equivalent to calling <code>MapReduceOnBucketKeyList(bucketKeyPairs, erlangMapPhase,
+            erlangReducePhase, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="P:uGameDB.Database.isConnected">
+      <summary>
+            Returns true if the uGameDB client is in a connected state. Note that this does not necessarily mean that it is connected
+            to a database node and is able to serve requests. As nodes can go up and down, isConnected only says that uGameDB is
+            actively trying to connect, and reconnect if necessary, to all configured database nodes.
+            </summary>
+    </member>
+    <member name="P:uGameDB.Database.pendingRequestCount">
+      <summary>
+            Returns the number of requests that are currently pending. A pending request is a request that has been submitted by the user,
+            but that has not yet returned. A request is no longer pending when it has returned with either success or failure, when it
+            times out, or when it has been cancelled by the user.
+            </summary>
+    </member>
+    <member name="P:uGameDB.Database.queuedRequestCount">
+      <summary>
+            Returns the number of requests that has been queued on the client, waiting to be sent over the network to a database node.
+            This is usually a small value, unless a lot of requests are being sent from the client at once. If there is a constantly high
+            or growing number of queued requests, you can try to increase the number of connections in the node configuration to be able to
+            send more requests simultaneously.
+            </summary>
+    </member>
+    <member name="P:uGameDB.Database.nodeCount">
+      <summary>
+            Returns the total number of database nodes that has been configured on the uGameDB client. Use Database.onlineNodeCount to get
+            the current number of nodes that are online.
+            </summary>
+    </member>
+    <member name="P:uGameDB.Database.onlineNodeCount">
+      <summary>
+            Returns the total number of online database nodes. While uGameDB is connected it regularly sends pings to every database node
+            in order to track which ones that are available to serve requests.
+            </summary>
+    </member>
+    <member name="P:uGameDB.Database.nodePingInterval">
+      <summary>
+            This sets the time in milliseconds between each ping that are sent to nodes to determine if they are online and available.
+            Once you set it, you must call Database.Connect() in order for the new value to take effect.
+            </summary>
+    </member>
+    <member name="P:uGameDB.Database.requestTimeout">
+      <summary>
+            This sets the time in seconds that a request is allowed to wait for a response from the database, before it times out.
+            </summary>
+    </member>
+    <member name="P:uGameDB.Database.useVectorClockCache">
+      <summary>
+             Sets if uGameDB should use local vector clock caching on the client.
+            </summary>
+      <remarks>
+             Vector clock caching stores the new vector clock (data version id) after each write so that it can be sent along with the
+             next write to the same data entry. If caching is not used, uGameDB must begin each write request with fetching the data
+             header for the entry from Riak and then use the obtained vector clock for the write. If caching is used uGameDB can use the
+             cached vector clock and send the write request directly. Caching can increase performance in cases when it is unlikely that
+             some other database client has written to the same entry, which makes the cached vector clock invalid. However, caching
+             can degrade performance if the cached vector clocks often are outdated. The default is true.
+             </remarks>
+    </member>
+    <member name="T:uGameDB.Database.Debug">
+      <summary>
+             Contains some additional database features that are useful for debugging purposes, but should never be used in production
+             code.
+            </summary>
+    </member>
+    <member name="M:uGameDB.Database.Debug.ResetGlobalState">
+      <summary>
+            Resets the global state of the uGameDB client, putting it back into an initial state. This should not be used in
+            producition code, but is good for testing purposes.
+            </summary>
+    </member>
+    <member name="M:uGameDB.Database.Debug.SetSibling``1(uGameDB.Bucket,System.String,``0,uGameDB.Encoding)">
+      <summary>
+            Sends a request to write the value under the given key to the database without supplying a vector clock. Repeated writes
+            under the same key will simulate a collision in Riak, and if AllowMult is Allowed in the bucket, force the creation of a sibling. Should only
+            be used for debugging.
+            </summary>
+      <typeparam name="TValue"> The type of the value. Usually this does not need to be explicitly specified but can be inferred from
+            the type of the value parameter.</typeparam>
+      <param name="bucket">The bucket in which the value should be stored.</param>
+      <param name="key">The key to associate with the value.</param>
+      <param name="value">The value to write.</param>
+      <param name="encoding">The encoding to use when serializing the value to the database.</param>
+      <returns>A <see cref="T:uGameDB.SetRequest`1" /> object that represents the request until it completes.</returns>
+      <remarks>
+            If AllowMult is Allowed, a sibling will be created even if a tombstone resides under the key.
+            This might cause inconsistencies when trying to deserialize the data.
+            This is equivalent to calling <code>SetSibling(bucket, key, value, encoding, null, Constants.WriteMode.Default,
+            Constants.Replication.Default, Constants.Replication.Default, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Database.Debug.SetSibling``1(uGameDB.Bucket,System.String,``0,uGameDB.Encoding,System.Collections.Generic.IEnumerable{uGameDB.IndexEntry})">
+      <summary>
+            Sends a request to write the value under the given key to the database without supplying a vector clock. Repeated writes
+            under the same key will simulate a collision in Riak, and if AllowMult is Allowed in the bucket, force the creation of a sibling. Should only
+            be used for debugging.
+            </summary>
+      <typeparam name="TValue"> The type of the value. Usually this does not need to be explicitly specified but can be inferred from
+            the type of the value parameter.</typeparam>
+      <param name="bucket">The bucket in which the value should be stored.</param>
+      <param name="key">The key to associate with the value.</param>
+      <param name="value">The value to write.</param>
+      <param name="encoding">The encoding to use when serializing the value to the database.</param>
+      <param name="indexes">Secondary indexes to be stored together with the value. Must not be null for this overload.</param>
+      <returns>A <see cref="T:uGameDB.SetRequest`1" /> object that represents the request until it completes.</returns>
+      <remarks>
+            If AllowMult is Allowed, a sibling will be created even if a tombstone resides under the key.
+            This might cause inconsistencies when trying to deserialize the data.
+            This is equivalent to calling <code>SetSibling(bucket, key, value, encoding, indexes, Constants.WriteMode.Default,
+            Constants.Replication.Default, Constants.Replication.Default, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Database.Debug.SetSibling``1(uGameDB.Bucket,System.String,``0,uGameDB.Encoding,System.Collections.Generic.IEnumerable{uGameDB.IndexEntry},uGameDB.WriteMode,System.UInt32,System.UInt32,uGameDB.OnResponseCallback{uGameDB.SetSiblingRequest{``0}},uGameDB.OnResponseCallback{uGameDB.SetSiblingRequest{``0}})">
+      <summary>
+            Sends a request to write the value under the given key to the database without supplying a vector clock. Repeated writes
+            under the same key will simulate a collision in Riak, and if AllowMult is Allowed in the bucket, force the creation of a sibling. Should only
+            be used for debugging.
+            </summary>
+      <typeparam name="TValue"> The type of the value. Usually this does not need to be explicitly specified but can be inferred from
+            the type of the value parameter.</typeparam>
+      <param name="bucket">The bucket in which the value should be stored.</param>
+      <param name="key">The key to associate with the value.</param>
+      <param name="value">The value to write.</param>
+      <param name="encoding">The encoding to use when serializing the value to the database.</param>
+      <param name="indexes">Optional secondary indexes to be stored together with the value. Pass null to ignore.</param>
+      <param name="writeMode">The mode to use when writing. Currently, the only supported mode is Overwrite.</param>
+      <param name="w">The number of memory-written replicas to wait for before returning success.</param>
+      <param name="dw">The number of disk-written replicas to wait for before returning success.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.SetRequest`1" /> object that represents the request until it completes.</returns>
+      <remarks>
+            If AllowMult is Allowed, a sibling will be created even if a tombstone resides under the key. This might cause inconsistencies when trying to deserialize the data.
+            </remarks>
+    </member>
+    <member name="T:uGameDB.GetServerInfoRequest">
+      <summary>
+            Represents a request to get information about the server.
+            </summary>
+    </member>
+    <member name="M:uGameDB.GetServerInfoRequest.GetNodeName">
+      <summary>
+            Gets the name of the Riak node that handled the request.
+            </summary>
+      <returns>A string representing the name of the node</returns>
+      <remarks>
+            If the request was not successful or is still pending, this will throw a DatabaseRequestException.
+            If you are unsure if the request was successful or not, you can avoid the exception by checking
+            Request.isSuccessful or by using GetServerInfoRequest.TryGetNodeName().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.GetServerInfoRequest.GetNodeVersion">
+      <summary>
+            Gets the version number of Riak that's currently running on the node. All physical nodes in the cluster
+            should run the same version.
+            </summary>
+      <returns>A string representing the version number of Riak</returns>
+      <remarks>
+            If the request was not successful or is still pending, this will throw a DatabaseRequestException.
+            If you are unsure if the request was successful or not, you can avoid the exception by checking
+            Request.isSuccessful or by using GetServerInfoRequest.TryGetNodeVersion().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.GetServerInfoRequest.TryGetNodeName(System.String@)">
+      <summary>
+            Gets the name of the Riak node that handled the request.
+            The name will be returned through the nodeName out parameter.
+            </summary>
+      <param name="nodeName">The name of the node.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="M:uGameDB.GetServerInfoRequest.TryGetNodeVersion(System.String@)">
+      <summary>
+            Gets the version number of Riak that's currently running on the node. All physical nodes in the cluster
+            should run the same version.
+            The version will be returned through the nodeVersion out parameter.
+            </summary>
+      <param name="nodeVersion">The version of the node.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="T:uGameDB.MapReduceOnKeyListRequest">
+      <summary>
+            Represents a request to perform a mapreduce operation on the database.
+            </summary>
+    </member>
+    <member name="T:uGameDB.MapReduceRequestBase">
+      <summary>
+            Represents a request to perform a mapreduce operation on the database.
+            </summary>
+    </member>
+    <member name="M:uGameDB.MapReduceRequestBase.GetResult``1">
+      <summary>
+            Gets an enumerable collection with the result from the reduce phase. uGameDB expects your reduce function to return an array
+            of entries that can be deserialized to type TValue.
+            </summary>
+      <typeparam name="TValue">The type of the elements of the result array.</typeparam>
+      <returns>An enumerable collection of result items.</returns>
+      <remarks>
+            If the request was not successful or is still
+            pending, this will throw a DatabaseRequestException. If you are unsure if the request was successful or not, you can avoid
+            the exception by checking Request.isSuccessful or by using MapReduceRequest.TryGetResult().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.MapReduceRequestBase.TryGetResult``1(System.Collections.Generic.IEnumerable{``0}@)">
+      <summary>
+            Gets an enumerable collection with the result from the reduce phase. uGameDB expects your reduce function to return an array
+            of entries that can be deserialized to type TValue. The collection will be returned through
+            the item out parameter.
+            </summary>
+      <typeparam name="TValue">The type of the elements of the result array.</typeparam>
+      <param name="items">The resulting enumerable collection of result items.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="P:uGameDB.MapReduceRequestBase.phases">
+      <summary>
+            The collection of MapReducePhase object that was sent in the request.
+            </summary>
+    </member>
+    <member name="P:uGameDB.MapReduceOnKeyListRequest.bucket">
+      <summary>
+            The given bucket from which keys will be used for the operation.
+            </summary>
+    </member>
+    <member name="P:uGameDB.MapReduceOnKeyListRequest.keys">
+      <summary>
+            The list of keys that was given as input to the operation.
+            </summary>
+    </member>
+    <member name="T:uGameDB.OnResponseCallback`1">
+      <summary>
+            Used by the different request classes to describe a callback that is invoked when the request completes. It is used for both
+            successful and failed requests.
+            </summary>
+      <typeparam name="TRequest">The type of the request object.</typeparam>
+      <param name="request">The request from which the callback was invoked.</param>
+    </member>
+    <member name="T:uGameDB.GetKeysRequest">
+      <summary>
+            Represents a request to get all keys in a given bucket from the database.
+            </summary>
+    </member>
+    <member name="M:uGameDB.GetKeysRequest.GetKeyEnumerable">
+      <summary>
+            Gets an enumerable collection with the keys that was returned from the database.
+            </summary>
+      <returns>An enumerable collection of strings that represent the keys.</returns>
+      <remarks>
+            If the request was not successful or is still
+            pending, this will throw a DatabaseRequestException. If you are unsure if the request was successful or not, you can avoid
+            the exception by checking Request.isSuccessful or by using GetKeysRequest.TryGetKeyEnumerable().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.GetKeysRequest.TryGetKeyEnumerable(System.Collections.Generic.IEnumerable{System.String}@)">
+      <summary>
+            Gets an enumerable collection with the keys that was returned from the database. The collection will be returned through
+            the keys out parameter.
+            </summary>
+      <param name="keys">The resulting enumerable collection of strings that represent the keys.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="P:uGameDB.GetKeysRequest.bucket">
+      <summary>
+            The given bucket to look for keys in.
+            </summary>
+    </member>
+    <member name="T:uGameDB.JavaScriptReducePhase">
+      <summary>
+            Describes a mapreduce reduce phase. Use this together with Bucket.MapReduce() or Database.MapReduce().
+            </summary>
+    </member>
+    <member name="T:uGameDB.MapReducePhase">
+      <summary>
+            Base class for all MapReduce phase classes.
+            </summary>
+    </member>
+    <member name="M:uGameDB.JavaScriptReducePhase.#ctor(System.String)">
+      <summary>
+            Creates a new reduce phase.
+            </summary>
+      <param name="jsSource">The javascript source code to execute in the reduce phase.</param>
+    </member>
+    <member name="M:uGameDB.JavaScriptReducePhase.#ctor(System.String,System.Object)">
+      <summary>
+            Creates a new reduce phase.
+            </summary>
+      <param name="jsSource">The javascript source code to execute in the reduce phase.</param>
+      <param name="argument">An optional argument that can be accessed as the third parameter in the javascript function. The object
+            will be serialized as JSON data, and can be of a simple type or of any class.</param>
+    </member>
+    <member name="M:uGameDB.JavaScriptReducePhase.#ctor(uGameDB.BucketKeyPair)">
+      <summary>
+            Creates a new reduce phase.
+            </summary>
+      <param name="jsIndex">The bucket-key entry storing the javascript source code to execute in the reduce phase</param>
+    </member>
+    <member name="M:uGameDB.JavaScriptReducePhase.#ctor(uGameDB.BucketKeyPair,System.Object)">
+      <summary>
+            Creates a new reduce phase.
+            </summary>
+      <param name="jsIndex">The bucket-key entry storing the javascript source code to execute in the reduce phase</param>
+      <param name="argument">An optional argument that can be accessed as the third parameter in the javascript function. The object
+            will be serialized as JSON data, and can be of a simple type or of any class.</param>
+    </member>
+    <member name="T:uGameDB.Encoding">
+      <summary>
+            Describes an encoding to use when serializing and deserializing values to and from the database.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Encoding.Unknown">
+      <summary>
+            The encoding is not recognized. This can not be used for serialization.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Encoding.Bitstream">
+      <summary>
+            Use uGameDB's binary serialization. Use this when you want a fully customizable serialization to minimize data size.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Encoding.Json">
+      <summary>
+            Use JSON text serialization. Use this when you want your data to be humanly readable and when you want it to be reconizable by
+            systems beyond uGameDB, i.e. other Riak client APIs.
+            </summary>
+    </member>
+    <member name="T:uGameDB.GetKeysByIndexRequestBase">
+      <summary>
+            Represents a request to get the keys satisfying a certain criterion on a secondary index of a given bucket in the database.
+            </summary>
+    </member>
+    <member name="M:uGameDB.GetKeysByIndexRequestBase.GetKeyEnumerable">
+      <summary>
+            Gets an enumerable collection with the keys that was returned from the database.
+            </summary>
+      <returns>An enumerable collection of strings that represent the keys.</returns>
+      <remarks>
+            If the request was not successful or is still
+            pending, this will throw a <see cref="!:uGameDB.Exceptions.DatabaseRequestException." /> If you are unsure if the request was successful or not, you can avoid
+            the exception by checking Request.isSuccessful or by using GetKeysRequest.TryGetKeyEnumerable().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.GetKeysByIndexRequestBase.TryGetKeyEnumerable(System.Collections.Generic.IEnumerable{System.String}@)">
+      <summary>
+            Gets an enumerable collection with the keys that was returned from the database. The collection will be returned through
+            the keys out parameter.
+            </summary>
+      <param name="keys">The resulting enumerable collection of strings that represent the keys.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="P:uGameDB.GetKeysByIndexRequestBase.indexName">
+      <summary>
+            The name of the secondary index on which to perform the look up.
+            </summary>
+    </member>
+    <member name="P:uGameDB.GetKeysByIndexRequestBase.bucket">
+      <summary>
+            The given bucket to look for keys in.
+            </summary>
+    </member>
+    <member name="T:uGameDB.GetKeysByIndexRangeRequest">
+      <summary>
+            Represents a request to get the keys that have secondary index values within a given lexiographical range of a given bucket in the database.
+            </summary>
+    </member>
+    <member name="P:uGameDB.GetKeysByIndexRangeRequest.indexValueLow">
+      <summary>
+            Inclusive lower bound index value of the search range.
+            </summary>
+      <remarks>For example, if this is "b", "a" will be outside of the range, but "b" and "bb" will be inside the range.</remarks>
+    </member>
+    <member name="P:uGameDB.GetKeysByIndexRangeRequest.indexValueHigh">
+      <summary>
+            Inclusive upper bound index value of the search range.
+            </summary>
+      <remarks>For example, if this is "y", "x" and "y" will be inside the range, but "yy" and "z" will be outside the range.</remarks>
+    </member>
+    <member name="T:uGameDB.SetRequest`1">
+      <summary>
+            Represents a request to set a value with a given key in the database.
+            </summary>
+      <typeparam name="TValue">The type of the value written.</typeparam>
+    </member>
+    <member name="T:uGameDB.SetRequestBase`1">
+      <summary>
+            Represents a request to set a value with a given key in the database.
+            </summary>
+      <typeparam name="TValue">The type of the value written.</typeparam>
+    </member>
+    <member name="P:uGameDB.SetRequestBase`1.bucket">
+      <summary>
+            The given bucket in which the value should be stored.
+            </summary>
+    </member>
+    <member name="P:uGameDB.SetRequestBase`1.value">
+      <summary>
+            The given value that should be stored.
+            </summary>
+    </member>
+    <member name="P:uGameDB.SetRequestBase`1.encoding">
+      <summary>
+            The given encoding to use when storing the value.
+            </summary>
+    </member>
+    <member name="P:uGameDB.SetRequestBase`1.w">
+      <summary>
+            The number of memory-written replicas to wait for before returning success.
+            </summary>
+    </member>
+    <member name="P:uGameDB.SetRequestBase`1.dw">
+      <summary>
+            The number of disk-written replicas to wait for before returning success.
+            </summary>
+    </member>
+    <member name="P:uGameDB.SetRequest`1.key">
+      <summary>
+            The given key under which the value should be stored.
+            </summary>
+    </member>
+    <member name="P:uGameDB.SetRequest`1.writeMode">
+      <summary>
+            The write mode given in the request.
+            </summary>
+    </member>
+    <member name="T:uGameDB.GetRequest">
+      <summary>
+            Represents a request to get a value with a given key from the database.
+            </summary>
+    </member>
+    <member name="M:uGameDB.GetRequest.GetValue``1">
+      <summary>
+            Gets the value that was returned from the database.
+            </summary>
+      <typeparam name="TValue">The type of the returned value. This is needed in order to deserialize it correctly.</typeparam>
+      <returns>The returned value.</returns>
+      <remarks>
+            If the request was not successful or is still pending, this will throw a DatabaseRequestException.
+            If you are unsure if the request was successful or not, you can avoid the exception by checking
+            Request.isSuccessful or by using GetRequest.TryGetValue().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.GetRequest.GetValueRaw">
+      <summary>
+            Gets a string representing the bytes of the returned value. Use this only for debug purposes when you don't know the type
+            of the returned value. This method is experimental and may change or be removed in the future. Do not build production code
+            that relies on it. This method has the same semantics as GetRequest.GetValue().
+            </summary>
+      <returns>A string representing the bytes of the returned value.</returns>
+    </member>
+    <member name="M:uGameDB.GetRequest.GetEncoding">
+      <summary>
+            Gets the encoding of the value that was returned from the database.
+            </summary>
+      <returns>The encoding of the value that was returned from the database.</returns>
+      <remarks>
+            If the request was not successful or is still pending, this will throw a DatabaseRequestException.
+            If you are unsure if the request was successful or not, you can avoid the exception by checking
+            Request.isSuccessful or by using GetRequest.TryGetEncoding().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.GetRequest.HasSiblings">
+      <summary>
+            Checks whether the result has siblings or not, meaning a write collision happened in Riak that it could not resolve
+            on its own.
+            </summary>
+      <returns>True/false if the value has siblings.</returns>
+    </member>
+    <member name="M:uGameDB.GetRequest.GetSiblings``1">
+      <summary>
+            Gets a collection containing the requested value's siblings, if there are any. These are used
+            to handle write collisions on the client.
+            </summary>
+      <typeparam name="TValue">The siblings' expected type of value.</typeparam>
+      <returns>A collection of the sibling-values.</returns>
+    </member>
+    <member name="M:uGameDB.GetRequest.TryGetValue``1(``0@)">
+      <summary>
+            Gets the value that was returned from the database. The value will be returned through
+            the value out parameter.
+            </summary>
+      <typeparam name="TValue">The type of the returned value. This is needed in order to deserialize it correctly.</typeparam>
+      <param name="value">The returned value.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="M:uGameDB.GetRequest.TryGetEncoding(uGameDB.Encoding@)">
+      <summary>
+            Gets the encoding of the value that was returned from the database. The encoding will be returned through
+            the encoding out parameter.
+            </summary>
+      <param name="encoding">The encoding of the returned value.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="M:uGameDB.GetRequest.TryHasSiblings(System.Boolean@)">
+      <summary>
+            Checks whether the result has siblings or not, meaning a write collision happened in Riak that it could not resolve
+            on its own. The answer will be returned through the hasSiblings out parameter.
+            </summary>
+      <param name="hasSiblings">True if the request returned siblings, or false otherwise.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="M:uGameDB.GetRequest.TryGetSiblings``1(System.Collections.Generic.IEnumerable{``0}@)">
+      <summary>
+            Gets a collection containing the requested value's siblings, if there are any. These are used
+            to handle write collisions on the client. The collection will be returned through the siblings out parameter.
+            </summary>
+      <param name="siblings">The collection of siblings.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="P:uGameDB.GetRequest.bucket">
+      <summary>
+            The given bucket in which the value is stored.
+            </summary>
+    </member>
+    <member name="P:uGameDB.GetRequest.key">
+      <summary>
+            The given key under which the value is stored.
+            </summary>
+    </member>
+    <member name="P:uGameDB.GetRequest.r">
+      <summary>
+            The number of replicas that need to agree when retrieving the object.
+            </summary>
+    </member>
+    <member name="T:uGameDB.MapReduceRequest">
+      <summary>
+            Represents a request to perform a mapreduce operation on the database.
+            </summary>
+    </member>
+    <member name="P:uGameDB.MapReduceRequest.bucket">
+      <summary>
+            The given bucket from which keys will be used for the operation.
+            </summary>
+    </member>
+    <member name="T:uGameDB.SetSiblingRequest`1">
+      <summary>
+            Represents a request to set a value with a given key in the database.
+            </summary>
+      <typeparam name="TValue">The type of the value written.</typeparam>
+    </member>
+    <member name="P:uGameDB.SetSiblingRequest`1.key">
+      <summary>
+            The given key under which the value should be stored.
+            </summary>
+    </member>
+    <member name="P:uGameDB.SetSiblingRequest`1.writeMode">
+      <summary>
+            The write mode given in the request.
+            </summary>
+    </member>
+    <member name="T:uGameDB.Exceptions.IndexEntryException">
+      <summary>
+            Thrown when conversion to ASCII encoding for a secondary index name or value wasn't possible, or if the index name was otherwise illegal.
+            </summary>
+    </member>
+    <member name="T:uGameDB.IndexEntry">
+      <summary>
+            Represents a secondary index name and value combination, to write and read secondary indexes in Set* and Get* requests.
+            </summary>
+    </member>
+    <member name="F:uGameDB.IndexEntry.NameKey">
+      <summary>
+            "$key" is a special name for an implicit index on each bucket, whose values are the primary keys of the bucket. This enables you to perform range requests on primary keys.
+            </summary>
+    </member>
+    <member name="F:uGameDB.IndexEntry.NameBucket">
+      <summary>
+            "$bucket" is a special name for an implicit index on each bucket, whose value is the name of the bucket. This is an alternative way of listing the keys of a bucket.
+            </summary>
+    </member>
+    <member name="F:uGameDB.IndexEntry.indexName">
+      <summary>
+            The name of the secondary index. Must be lower case ASCII characters. To avoid confusion, we avoid the terms "key" and "secondary key" and instead simply call it index name.
+            </summary>
+    </member>
+    <member name="F:uGameDB.IndexEntry.indexValue">
+      <summary>
+            The value ("tag") of the secondary index. Must be ASCII characters.
+            </summary>
+    </member>
+    <member name="M:uGameDB.IndexEntry.#ctor(System.String,System.String)">
+      <summary>
+            Creates a new secondary index name and value combination. Index name will automatically be converted to lower case, and both name and value encoded to ASCII (which may throw <see cref="T:uGameDB.Exceptions.IndexEntryException" />).
+            </summary>
+      <param name="indexName">
+      </param>
+      <param name="indexValue">
+      </param>
+    </member>
+    <member name="T:uGameDB.ErlangReducePhase">
+      <summary>
+            Describes a mapreduce map phase in erlang. Use this together with Bucket.MapReduce() or Database.MapReduce().
+            </summary>
+    </member>
+    <member name="M:uGameDB.ErlangReducePhase.#ctor(System.String,System.String)">
+      <summary>
+            Creaters a new map phase.
+            </summary>
+      <param name="module">The name of the erlang module of which the function to be called is part of.</param>
+      <param name="functionName">The name of the erlang function.</param>
+    </member>
+    <member name="M:uGameDB.ErlangReducePhase.#ctor(System.String,System.String,System.Object)">
+      <summary>
+            Creaters a new map phase.
+            </summary>
+      <param name="module">The name of the erlang module of which the function to be called is part of.</param>
+      <param name="functionName">The name of the erlang function.</param>
+      <param name="argument">An argument that can be accessed as the third parameter in the erlang function.</param>
+    </member>
+    <member name="T:uGameDB.Defaults">
+      <summary>
+            Conatins default vaules for uGameDB parameters.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Defaults.NodePingInterval">
+      <summary>
+            The default time, in milliseconds, between each ping attempt to a Riak node.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Defaults.PoolSize">
+      <summary>
+            The default number of pooled connections from the client to a Riak node.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Defaults.WriteTimeout">
+      <summary>
+            The default time, in milliseconds, to wait after a socket write attempt before marking a Riak node as unavailable.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Defaults.ReadTimeout">
+      <summary>
+            The default time, in milliseconds, to wait after a socket read attempt before marking a Riak node as unavailable.
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkLogUtility">
+      <summary>
+            Utility class for composing log messages.
+            </summary>
+    </member>
+    <member name="T:uGameDB.MapPhase">
+      <summary>
+            Describes a mapreduce map phase. Use this together with Bucket.MapReduce() or Database.MapReduce().
+            </summary>
+    </member>
+    <member name="T:uGameDB.JavaScriptMapPhase">
+      <summary>
+            Describes a mapreduce map phase. Use this together with Bucket.MapReduce() or Database.MapReduce().
+            </summary>
+    </member>
+    <member name="M:uGameDB.JavaScriptMapPhase.#ctor(System.String)">
+      <summary>
+            Creates a new map phase.
+            </summary>
+      <param name="jsSource">The javascript source code to execute in the map phase.</param>
+    </member>
+    <member name="M:uGameDB.JavaScriptMapPhase.#ctor(System.String,System.Object)">
+      <summary>
+            Creates a new map phase.
+            </summary>
+      <param name="jsSource">The javascript source code to execute in the map phase.</param>
+      <param name="argument">An optional argument that can be accessed as the third parameter in the javascript function. The object
+            will be serialized as JSON data, and can be of a simple type or of any class.</param>
+    </member>
+    <member name="M:uGameDB.JavaScriptMapPhase.#ctor(uGameDB.BucketKeyPair)">
+      <summary>
+            Creates a new map phase.
+            </summary>
+      <param name="jsIndex">The bucket-key entry storing the javascript source code to execute in the map phase</param>
+    </member>
+    <member name="M:uGameDB.JavaScriptMapPhase.#ctor(uGameDB.BucketKeyPair,System.Object)">
+      <summary>
+            Creates a new map phase.
+            </summary>
+      <param name="jsIndex">The bucket-key entry storing the javascript source code to execute in the map phase</param>
+      <param name="argument">An optional argument that can be accessed as the third parameter in the javascript function. The object
+            will be serialized as JSON data, and can be of a simple type or of any class.</param>
+    </member>
+    <member name="M:uGameDB.MapPhase.#ctor(System.String,System.Object)">
+      <summary>
+            Creates a new map phase.
+            </summary>
+      <param name="jsSource">The javascript source code to execute in the map phase.</param>
+      <param name="argument">An optional argument that can be accessed as the third parameter in the javascript function. The object
+            will be serialized as JSON data, and can be of a simple type or of any class.</param>
+    </member>
+    <member name="M:uGameDB.MapPhase.#ctor(uGameDB.BucketKeyPair,System.Object)">
+      <summary>
+            Creates a new map phase.
+            </summary>
+      <param name="jsIndex">The bucket-key entry storing the javascript source code to execute in the map phase</param>
+      <param name="argument">An optional argument that can be accessed as the third parameter in the javascript function. The object
+            will be serialized as JSON data, and can be of a simple type or of any class.</param>
+    </member>
+    <member name="T:uGameDB.BucketKeyPair">
+      <summary>
+            Represents a combination of a bucket name and a key name to use as input for MapReduce operations.
+            </summary>
+    </member>
+    <member name="M:uGameDB.BucketKeyPair.#ctor(uGameDB.Bucket,System.String)">
+      <summary>
+            Creates a new BucketKeyPair instance with the given bucket name and key name.
+            </summary>
+      <param name="bucket">The name of the bucket.</param>
+      <param name="key">The name of the key.</param>
+    </member>
+    <member name="M:uGameDB.BucketKeyPair.Equals(System.Object)">
+      <summary>
+            Overridden equality comparison that compares both bucket name and key name.
+            </summary>
+      <param name="obj">Instance to compare against.</param>
+      <returns>True if the instances are equal, or false otherwise.</returns>
+    </member>
+    <member name="M:uGameDB.BucketKeyPair.Equals(uGameDB.BucketKeyPair)">
+      <summary>
+            Equality comparison that compares both bucket name and key name. Implements the IEquitable{BucketKeyPair} interface.
+            </summary>
+      <param name="obj">Instance to compare against.</param>
+      <returns>True if the instances are equal, or false otherwise.</returns>
+    </member>
+    <member name="M:uGameDB.BucketKeyPair.GetHashCode">
+      <summary>
+            Overridden hash code computation, that takes both bucket name and key name into account.
+            </summary>
+      <returns>The hash code of this BucketKeyPair instance.</returns>
+    </member>
+    <member name="P:uGameDB.BucketKeyPair.bucket">
+      <summary>
+            The name of the bucket.
+            </summary>
+    </member>
+    <member name="P:uGameDB.BucketKeyPair.key">
+      <summary>
+            The name of the key.
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkLog">
+      <summary>
+             Class for configuring uLink logging.
+             </summary>
+      <remarks>
+             The best way to get started with logging in uLink is to use the Editor menu: uLink - Edit Settings. 
+             There it is possbile to configure logging level per category and use the generated output to debug most problems.
+             By default the log messages are written to the Unity console window in the editor or the log file output_log.txt when 
+             running a build outside the editor.
+             <para>
+             Use this class to go one step further and control the log settings in your own code. Also use it to 
+             replace the 4 public Writers with your own faster implementations: 
+             <see cref="F:uGameDB.NetworkLog.errorWriter" />, <see cref="F:uGameDB.NetworkLog.warningWriter" />, <see cref="F:uGameDB.NetworkLog.infoWriter" />, <see cref="F:uGameDB.NetworkLog.debugWriter" /> 
+             with your own implementations it is possible to log events to 
+             screen or file(s) or database or whatever you like. 
+             </para><para>
+             Finally, it is possible to add your own logging categories like “Trading”, “Cheating attempts” or “Level loding” 
+             and set the log level individually for these categories.
+             </para></remarks>
+      <example> 
+             This example shows how to create and use your own log categories:
+             <code>
+             using UnityEngine;
+             using System.Collections;
+             public class CustomLog : MonoBehaviour 
+             {
+            	//Define your own log categories like this
+            	public const uLink.NetworkLogFlags CHEAT_ATTEMPTS = uLink.NetworkLogFlags.UserDefined1;
+            	public const uLink.NetworkLogFlags TRADE_EVENT = uLink.NetworkLogFlags.UserDefined2;
+            	public const uLink.NetworkLogFlags LEVEL_LOAD_EVENT = uLink.NetworkLogFlags.UserDefined3;
+            
+            	void Start()
+            	{
+            		//Set the log level for cheat attempts to the highest = Debug	
+            		uLink.NetworkLog.SetLevel(CHEAT_ATTEMPTS, uLink.NetworkLogLevel.Debug);
+            
+            		//Do some debug logging
+            		for (int i = 1; i != 5; i++)
+            		{
+            			uLink.NetworkLog.Debug(CHEAT_ATTEMPTS, "Detected cheat attempt nr ", i, " in the demo code.");
+            		}
+            	}
+             }
+             </code></example>
+    </member>
+    <member name="F:uGameDB.NetworkLog.errorWriter">
+      <summary>
+            The delegate writing error messages. Default implementation send output to the Editor console / output_log.txt file. 
+            </summary>
+      <remarks>Look at <see cref="!:uLink.NetworkLog.Writer" /> for code example replacing the default Writer.</remarks>
+    </member>
+    <member name="F:uGameDB.NetworkLog.warningWriter">
+      <summary>
+            The delegate writing warning messages. Default implementation send output to the Editor console / output_log.txt file. 
+            </summary>
+      <remarks>Look at <see cref="!:uLink.NetworkLog.Writer" /> for code example replacing the default Writer.</remarks>
+    </member>
+    <member name="F:uGameDB.NetworkLog.infoWriter">
+      <summary>
+            The delegate writing info messages. Default implementation send output to the Editor console / output_log.txt file. 
+            </summary>
+      <remarks>Look at <see cref="!:uLink.NetworkLog.Writer" /> for code example replacing the default Writer.</remarks>
+    </member>
+    <member name="F:uGameDB.NetworkLog.debugWriter">
+      <summary>
+            The delegate writing debug messages. Default implementation send output to the Editor console / output_log.txt file. 
+            </summary>
+      <remarks>Look at <see cref="!:uLink.NetworkLog.Writer" /> for code example replacing the default Writer.</remarks>
+    </member>
+    <member name="F:uGameDB.NetworkLog.minLevel">
+      <summary>
+            The minimum level for all logging categories. This can be overruled by setting a detailed log level for an individual category to a higher log level via <see cref="M:uGameDB.NetworkLog.SetLevel(uGameDB.NetworkLogFlags,uGameDB.NetworkLogLevel)" />.
+            </summary>
+      <value>Default value is <see cref="!:uLink.NetworkLogLevel.Warning" /></value>
+    </member>
+    <member name="M:uGameDB.NetworkLog.Debug(uGameDB.NetworkLogFlags,System.Object[])">
+      <summary>
+            Sends a log message to the delegate <see cref="F:uGameDB.NetworkLog.debugWriter" /> if the <see cref="!:uLink.NetworkLogLevel.Debug" /> log level for the specifed categories (flags) are set by either <see cref="M:uGameDB.NetworkLog.SetLevel(uGameDB.NetworkLogFlags,uGameDB.NetworkLogLevel)" /> or <see cref="F:uGameDB.NetworkLog.minLevel" />.
+            </summary>
+      <param name="flags">The categories this log message belongs to</param>
+      <param name="args">The objects that are to be concatenated to a log message if the debug log level for the flags is set</param>
+      <example>Example code for writing a message like "The server has now received 88 Fire RPCs from player Paul55".
+            <code>
+            uLink.NetworkLog.Debug(uLink.NetworkLogFlags.Server, "The server has now received ", numberOfFireRPCs, " Fire RPCs from player ", playerName);
+            </code></example>
+      <remarks>Please note that it is important to NOT use string concatenation with + to compose the log message. 
+            Instead send the objects individually just like the example code provided here. 
+            Otherwise you will lose performace. The concatenation would be executed even if the log level for the flags are 
+            turned off, and that is a waste of CPU resources.</remarks>
+    </member>
+    <member name="M:uGameDB.NetworkLog.Info(uGameDB.NetworkLogFlags,System.Object[])">
+      <summary>
+            Sends a log message to the delegate <see cref="F:uGameDB.NetworkLog.infoWriter" /> if the <see cref="!:uLink.NetworkLogLevel.Info" /> log level for the specifed categories (flags) are set by either <see cref="M:uGameDB.NetworkLog.SetLevel(uGameDB.NetworkLogFlags,uGameDB.NetworkLogLevel)" /> or <see cref="F:uGameDB.NetworkLog.minLevel" />.
+            </summary>
+      <param name="flags">The categories this log message belongs to</param>
+      <param name="args">The objects that are to be concatenated to a log message if the info log level for the flags is set</param>
+      <example>Example code for writing a message like "The server has now received 88 Fire RPCs from player Paul55".
+            <code>
+            uLink.NetworkLog.Info(uLink.NetworkLogFlags.Server, "The server has now received ", numberOfFireRPCs, " Fire RPCs from player ", playerName);
+            </code></example>
+      <remarks>Please note that it is important NOT to use string concatenation with + to compose a nice log message. 
+            Instead send the arguments individually just like the example code provided here. 
+            Otherwise you will lose performace. The concatenation would be executed even if the logging 
+            is turned off, and that is a waste of CPU resources.</remarks>
+    </member>
+    <member name="M:uGameDB.NetworkLog.Warning(uGameDB.NetworkLogFlags,System.Object[])">
+      <summary>
+            Sends a log message to the delegate <see cref="F:uGameDB.NetworkLog.warningWriter" /> if the <see cref="!:uLink.NetworkLogLevel.Warning" /> log level for the specifed categories (flags) are set by either <see cref="M:uGameDB.NetworkLog.SetLevel(uGameDB.NetworkLogFlags,uGameDB.NetworkLogLevel)" /> or <see cref="F:uGameDB.NetworkLog.minLevel" />.
+            </summary>
+      <param name="flags">The categories this log message belongs to</param>
+      <param name="args">The objects that are to be concatenated to a log message if the info log level for the flags is set</param>
+      <example>Example code for writing a message like "The server has now received 88 Fire RPCs from player Paul55".
+            <code>
+            uLink.NetworkLog.Warning(uLink.NetworkLogFlags.Server, "The server has now received ", numberOfFireRPCs, " Fire RPCs from player ", playerName);
+            </code></example>
+      <remarks>Please note that it is important NOT to use string concatenation with + to compose a nice log message. 
+            Instead send the arguments individually just like the example code provided here. 
+            Otherwise you will lose performace. The concatenation would be executed even if the logging 
+            is turned off, and that is a waste of CPU resources.</remarks>
+    </member>
+    <member name="M:uGameDB.NetworkLog.Error(uGameDB.NetworkLogFlags,System.Object[])">
+      <summary>
+            Sends a log message to the delegate <see cref="F:uGameDB.NetworkLog.errorWriter" /> if the <see cref="!:uLink.NetworkLogLevel.Error" /> log level for the specifed categories (flags) are set by either <see cref="M:uGameDB.NetworkLog.SetLevel(uGameDB.NetworkLogFlags,uGameDB.NetworkLogLevel)" /> or <see cref="F:uGameDB.NetworkLog.minLevel" />.
+            </summary>
+      <param name="flags">The categories this log message belongs to</param>
+      <param name="args">The objects that are to be concatenated to a log message if the info log level for the flags is set</param>
+      <example>Example code for writing a message like "The server received an illegal Fire RPCs from player Paul55".
+            <code>
+            uLink.NetworkLog.Error(uLink.NetworkLogFlags.Server, "The server received an illegal Fire RPCs from player ", playerName);
+            </code></example>
+      <remarks>Please note that it is important NOT to use string concatenation with + to compose a nice log message. 
+            Instead send the arguments individually just like the example code provided here. 
+            Otherwise you will lose performace. The concatenation would be executed even if the logging 
+            is turned off, and that is a waste of CPU resources.</remarks>
+    </member>
+    <member name="M:uGameDB.NetworkLog.HasLevel(uGameDB.NetworkLogFlags,uGameDB.NetworkLogLevel)">
+      <summary>
+            Returns true if the the categories (flags) are set by either <see cref="M:uGameDB.NetworkLog.SetLevel(uGameDB.NetworkLogFlags,uGameDB.NetworkLogLevel)" /> or <see cref="F:uGameDB.NetworkLog.minLevel" />.
+            </summary>
+    </member>
+    <member name="M:uGameDB.NetworkLog.SetLevel(uGameDB.NetworkLogFlags,uGameDB.NetworkLogLevel)">
+      <summary>
+            Sets a detailed logging level for the specified categories (flags). If the categories (flags) is set to a lower log level than <see cref="F:uGameDB.NetworkLog.minLevel" /> then <see cref="F:uGameDB.NetworkLog.minLevel" /> overrules the detailed log level when logging.
+            </summary>
+    </member>
+    <member name="M:uGameDB.NetworkLog.GetMaxLevel(uGameDB.NetworkLogFlags)">
+      <summary>
+            Gets the highest detailed log level configured for any of the log categories (flags), where 
+            <see cref="!:uLink.NetworkLogLevel.Off" /> is the lowest and <see cref="!:uLink.NetworkLogLevel.Debug" /> is the highest.
+            </summary>
+    </member>
+    <member name="M:uGameDB.NetworkLog.GetMinLevel(uGameDB.NetworkLogFlags)">
+      <summary>
+            Gets the lowest detailed log level configured for any of the log categories (flags), where 
+            <see cref="!:uLink.NetworkLogLevel.Off" /> is the lowest and <see cref="!:uLink.NetworkLogLevel.Debug" /> is the highest.
+            </summary>
+    </member>
+    <member name="P:uGameDB.NetworkLog.errorFlags">
+      <summary>
+            Gets or sets the log categories for the <see cref="F:uGameDB.NetworkLog.errorWriter" />.
+            </summary>
+    </member>
+    <member name="P:uGameDB.NetworkLog.warningFlags">
+      <summary>
+            Gets or sets the log categories for the <see cref="F:uGameDB.NetworkLog.warningWriter" />.
+            </summary>
+    </member>
+    <member name="P:uGameDB.NetworkLog.infoFlags">
+      <summary>
+            Gets or sets the log categories for the <see cref="F:uGameDB.NetworkLog.infoWriter" />.
+            </summary>
+    </member>
+    <member name="P:uGameDB.NetworkLog.debugFlags">
+      <summary>
+            Gets or sets the log categories for the <see cref="F:uGameDB.NetworkLog.debugWriter" />.
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkLog.Writer">
+      <summary>
+            Implement one or several new delegates if there is a need to replace the default Writers in this class. 
+            </summary>
+      <example>
+            In your own implementation you can choose another destination for log messages. 
+            This example code shows how to send log messages to a file.
+            <code>
+            using UnityEngine;
+            using System.Collections;
+            using System.IO;
+            
+            public class CustomFileLog : MonoBehaviour 
+            {
+             public string logFileName = @"c:\temp\MyLog.txt";
+            
+             void Start()
+             {
+            	 //This code replaces the default debugWriter with a new delegate
+            	 uLink.NetworkLog.debugWriter = delegate(uLink.NetworkLogFlags flags, object[] args) 
+            	 {
+            		 string line = System.DateTime.Now + ", " + uLink.NetworkLogUtility.ToString(args) + "\r\n";
+            		 File.AppendAllText(logFileName, line); 
+            	 };
+            
+            	 //Set the level to Debug for the category uLink.NetworkLogFlags.Server
+            	 uLink.NetworkLog.SetLevel(uLink.NetworkLogFlags.Server, uLink.NetworkLogLevel.Debug);
+            
+            	 //Do some debug logging to the file
+            	 for (int i = 1; i != 5; i++)
+            	 {
+            		 uLink.NetworkLog.Debug(uLink.NetworkLogFlags.Server, "Hello ", i, " from demo code.");
+            	 }
+             }
+            }
+            </code></example>
+    </member>
+    <member name="T:uGameDB.InternalHelper">
+      <summary>
+            Internal use only, needed in Older Unity versions up to 2.6.1. Do not use this class. 
+            </summary>
+      <remarks>Used in the internal script uLinkInternalHelper included in uLink</remarks>
+    </member>
+    <member name="T:uGameDB.Bucket">
+      <summary>
+            A local handle to a Riak bucket, represented by its name. Use instances of this class to send requests to read
+            and write data within one bucket. You can also use static members of this class to manipulate all buckets.
+            </summary>
+    </member>
+    <member name="M:uGameDB.Bucket.#ctor(System.String)">
+      <summary>
+            Creates a new local <see cref="T:uGameDB.Bucket" /> object with a given name. Note that this does not create
+            a bucket in the database. A Riak bucket is only created when a write request is sent to write data into
+            it. This means that you can create any number of instances of the Bucket class without any requests being sent.
+            </summary>
+      <param name="name">The name of the Riak bucket.</param>
+    </member>
+    <member name="M:uGameDB.Bucket.Get(System.String,System.UInt32,uGameDB.OnResponseCallback{uGameDB.GetRequest},uGameDB.OnResponseCallback{uGameDB.GetRequest})">
+      <summary>
+            Sends a request to read the value associated with the given key from the database.
+            </summary>
+      <param name="key">The key associated with the value to get.</param>
+      <param name="r">The number of replicas that need to agree when retrieving the object.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.GetRequest" /> object that represents the request until it completes.</returns>
+    </member>
+    <member name="M:uGameDB.Bucket.Get(System.String)">
+      <summary>
+            Sends a request to read the value associated with the given key from the database.
+            </summary>
+      <param name="key">The key associated with the value to get.</param>
+      <returns>A <see cref="T:uGameDB.GetRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is equivalent to calling <code>Get(key, Constants.Replication.Default, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.Set``1(System.String,``0,uGameDB.Encoding,System.Collections.Generic.IEnumerable{uGameDB.IndexEntry},uGameDB.WriteMode,System.UInt32,System.UInt32,uGameDB.OnResponseCallback{uGameDB.SetRequest{``0}},uGameDB.OnResponseCallback{uGameDB.SetRequest{``0}})">
+      <summary>
+            Sends a request to write the value under the given key to the database.
+            </summary>
+      <typeparam name="TValue">The type of the value. Usually this does not need to be explicitly specified
+            but can be inferred from the type of the value parameter.</typeparam>
+      <param name="key">The key to associate with the value.</param>
+      <param name="value">The value to write.</param>
+      <param name="encoding">The encoding to use when serializing the value to the database.</param>
+      <param name="indexes">Optional secondary indexes to be stored together with the value. Pass null to ignore.</param>
+      <param name="writeMode">The mode to use when writing. Currently, the only supported mode is Overwrite.</param>
+      <param name="w">The number of memory-written replicas to wait for before returning success.</param>
+      <param name="dw">The number of disk-written replicas to wait for before returning success.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.SetRequest`1" /> object that represents the request until it completes.</returns>
+      <remarks>
+            If the key already exists it will be overwritten by the new value.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.Set``1(System.String,``0,uGameDB.Encoding)">
+      <summary>
+            Sends a request to write the value under the given key to the database. If the key already exists it
+            will be overwritten.
+            </summary>
+      <typeparam name="TValue">The type of the value. Usually this does not need to be explicitly specified
+            but can be inferred from the type of the value parameter.</typeparam>
+      <param name="key">The key to associate with the value.</param>
+      <param name="value">The value to write.</param>
+      <param name="encoding">The encoding to use when serializing the value to the database.</param>
+      <returns>A <see cref="T:uGameDB.SetRequest`1" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is equivalent to calling <code>Set(key, value, encoding, null, Constants.WriteMode.Default, Constants.Replication.Default, Constants.Replication.Default,
+            null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.Set``1(System.String,``0,uGameDB.Encoding,System.Collections.Generic.IEnumerable{uGameDB.IndexEntry})">
+      <summary>
+            Sends a request to write the value under the given key to the database. If the key already exists it
+            will be overwritten.
+            </summary>
+      <typeparam name="TValue">The type of the value. Usually this does not need to be explicitly specified
+            but can be inferred from the type of the value parameter.</typeparam>
+      <param name="key">The key to associate with the value.</param>
+      <param name="value">The value to write.</param>
+      <param name="encoding">The encoding to use when serializing the value to the database.</param>
+      <param name="indexes">Secondary indexes to be stored together with the value. Must not be null for this overload.</param>
+      <returns>A <see cref="T:uGameDB.SetRequest`1" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is equivalent to calling <code>Set(key, value, encoding, indexes, Constants.WriteMode.Default, Constants.Replication.Default, Constants.Replication.Default,
+            null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.SetGeneratedKey``1(``0,uGameDB.Encoding,System.Collections.Generic.IEnumerable{uGameDB.IndexEntry},System.UInt32,System.UInt32,uGameDB.OnResponseCallback{uGameDB.SetGeneratedKeyRequest{``0}},uGameDB.OnResponseCallback{uGameDB.SetGeneratedKeyRequest{``0}})">
+      <summary>
+            Sends a request to write the value under a randomly generated key to the database.
+            </summary>
+      <typeparam name="TValue">The type of the value. Usually this does not need to be explicitly specified
+            but can be inferred from the type of the value parameter.</typeparam>
+      <param name="value">The value to write.</param>
+      <param name="encoding">The encoding to use when serializing the value to the database.</param>
+      <param name="indexes">Optional secondary indexes to be stored together with the value. Pass null to ignore.</param>
+      <param name="w">The number of memory-written replicas to wait for before returning success.</param>
+      <param name="dw">The number of disk-written replicas to wait for before returning success.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.SetGeneratedKeyRequest`1" /> object that represents the request until
+            it completes.</returns>
+      <remarks>
+            If the key already exists it will be overwritten by the new value, but the risk is negligible.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.SetGeneratedKey``1(``0,uGameDB.Encoding)">
+      <summary>
+            Sends a request to write the value under a randomly generated key to the database.
+            </summary>
+      <typeparam name="TValue">The type of the value. Usually this does not need to be explicitly specified but
+            can be inferred from the type of the value parameter.</typeparam>
+      <param name="value">The value to write.</param>
+      <param name="encoding">The encoding to use when serializing the value to the database.</param>
+      <returns>A <see cref="T:uGameDB.SetGeneratedKeyRequest`1" /> object that represents the request until
+            it completes.</returns>
+      <remarks>
+            If the key already exists it will be overwritten by the new value, but the risk is negligible.
+            This is equivalent to calling
+            <code>SetGeneratedKey(value, encoding, null, Constants.Replication.Default, Constants.Replication.Default, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.SetGeneratedKey``1(``0,uGameDB.Encoding,System.Collections.Generic.IEnumerable{uGameDB.IndexEntry})">
+      <summary>
+            Sends a request to write the value under a randomly generated key to the database.
+            </summary>
+      <typeparam name="TValue">The type of the value. Usually this does not need to be explicitly specified but
+            can be inferred from the type of the value parameter.</typeparam>
+      <param name="value">The value to write.</param>
+      <param name="encoding">The encoding to use when serializing the value to the database.</param>
+      <param name="indexes">Secondary indexes to be stored together with the value. Must not be null for this overload.</param>
+      <returns>A <see cref="T:uGameDB.SetGeneratedKeyRequest`1" /> object that represents the request until
+            it completes.</returns>
+      <remarks>
+            If the key already exists it will be overwritten by the new value, but the risk is negligible.
+            This is equivalent to calling
+            <code>SetGeneratedKey(value, encoding, indexes, Constants.Replication.Default, Constants.Replication.Default, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.Remove(System.String,System.UInt32,uGameDB.OnResponseCallback{uGameDB.RemoveRequest},uGameDB.OnResponseCallback{uGameDB.RemoveRequest})">
+      <summary>
+            Sends a request to remove the value under the given key from the database.
+            </summary>
+      <param name="key">The key of the value to remove.</param>
+      <param name="rw">The number of read-write results to wait for before returning success.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.RemoveRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            If the key does not exist, nothing will happen but the remove request will still be reported as a success.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.Remove(System.String)">
+      <summary>
+            Sends a request to remove the value under the given key from the database.
+            </summary>
+      <param name="key">The key of the value to remove.</param>
+      <returns>A <see cref="T:uGameDB.RemoveRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            If the key does not exist, nothing will happen but the remove request will still be reported as a success.
+            This is equivalent to calling <code>Remove(key, Constants.Replication.Default, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.MapReduce(uGameDB.JavaScriptMapPhase,uGameDB.JavaScriptReducePhase,uGameDB.OnResponseCallback{uGameDB.MapReduceRequest},uGameDB.OnResponseCallback{uGameDB.MapReduceRequest})">
+      <summary>
+            Sends a request to perform a MapReduce query operation on the Riak cluster. This variant of MapReduce uses
+            JavaScript phase functions expressed as strings, which are sent along with the request. Its input will be
+            every key in the bucket.
+            </summary>
+      <param name="javaScriptMapPhase">A <see cref="T:uGameDB.JavaScriptMapPhase" /> object that contains the
+            JavaScript code of the Map phase function to send along with the request.</param>
+      <param name="javaScriptReducePhase">A <see cref="T:uGameDB.JavaScriptReducePhase" /> object that contains the
+            JavaScript code of the Reduce phase function to send along with the request.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.MapReduceRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is uGameDB's primary functionality for selecting one or more results from database based on an
+            arbitrary criterion. A MapReduce request is divided into two phases.
+            The Map phase is a function that takes one key/value pair as input and produces a list of intermediate results.
+            The Reduce phase is a function that takes a list of such intermediate results as input and produces a
+            new list of results.
+            By default, the results of the Reduce phase is returned as the result of the MapReduce request.
+            You can read more about MapReduce queries in the uGameDB manual.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.MapReduce(uGameDB.JavaScriptMapPhase,uGameDB.JavaScriptReducePhase)">
+      <summary>
+            Sends a request to perform a MapReduce query operation on the Riak cluster. This variant of MapReduce uses
+            JavaScript phase functions expressed as strings, which are sent along with the request. Its input will be
+            every key in the bucket.
+            </summary>
+      <param name="javaScriptMapPhase">A <see cref="T:uGameDB.JavaScriptMapPhase" /> object that contains the
+            JavaScript code of the Map phase function to send along with the request.</param>
+      <param name="javaScriptReducePhase">A <see cref="T:uGameDB.JavaScriptReducePhase" /> object that contains the
+            JavaScript code of the Reduce phase function to send along with the request.</param>
+      <returns>A <see cref="T:uGameDB.MapReduceRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is uGameDB's primary functionality for selecting one or more results from database based on an
+            arbitrary criterion. A MapReduce request is divided into two phases.
+            The Map phase is a function that takes one key/value pair as input and produces a list of intermediate results.
+            The Reduce phase is a function that takes a list of such intermediate results as input and produces a
+            new list of results.
+            By default, the results of the Reduce phase is returned as the result of the MapReduce request.
+            You can read more about MapReduce queries in the uGameDB manual.
+            Calling this method is equivalent to calling <code>MapReduce(javaScriptMapPhase, javaScriptReducePhase, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.MapReduce(uGameDB.ErlangMapPhase,uGameDB.ErlangReducePhase,uGameDB.OnResponseCallback{uGameDB.MapReduceRequest},uGameDB.OnResponseCallback{uGameDB.MapReduceRequest})">
+      <summary>
+            Sends a request to perform a MapReduce query operation on the Riak cluster. This variant of MapReduce uses
+            Erlang phase functions that previously have been loaded on the Riak nodes. Its input will be every key in the bucket.
+            </summary>
+      <param name="erlangMapPhase">A <see cref="T:uGameDB.ErlangMapPhase" /> object that contains the name of
+            the Erlang Map phase function to invoke on the database nodes.</param>
+      <param name="erlangReducePhase">A <see cref="T:uGameDB.ErlangReducePhase" /> object that contains the name of
+            the Erlang Reduce phase function to invoke on the database nodes.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.MapReduceRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is uGameDB's primary functionality for selecting one or more results from database based on an
+            arbitrary criterion. A MapReduce request is divided into two phases.
+            The Map phase is a function that takes one key/value pair as input and produces a list of intermediate results.
+            The Reduce phase is a function that takes a list of such intermediate results as input and produces a
+            new list of results.
+            By default, the results of the Reduce phase is returned as the result of the MapReduce request.
+            You can read more about MapReduce queries in the uGameDB manual.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.MapReduce(uGameDB.ErlangMapPhase,uGameDB.ErlangReducePhase)">
+      <summary>
+            Sends a request to perform a MapReduce query operation on the Riak cluster. This variant of MapReduce uses
+            Erlang phase functions that previously have been loaded on the Riak nodes. Its input will be every key in the bucket.
+            </summary>
+      <param name="erlangMapPhase">A <see cref="T:uGameDB.ErlangMapPhase" /> object that contains the name of
+            the Erlang Map phase function to invoke on the database nodes.</param>
+      <param name="erlangReducePhase">A <see cref="T:uGameDB.ErlangReducePhase" /> object that contains the name of
+            the Erlang Reduce phase function to invoke on the database nodes.</param>
+      <returns>A <see cref="T:uGameDB.MapReduceRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is uGameDB's primary functionality for selecting one or more results from database based on an
+            arbitrary criterion. A MapReduce request is divided into two phases.
+            The Map phase is a function that takes one key/value pair as input and produces a list of intermediate results.
+            The Reduce phase is a function that takes a list of such intermediate results as input and produces a
+            new list of results.
+            By default, the results of the Reduce phase is returned as the result of the MapReduce request.
+            You can read more about MapReduce queries in the uGameDB manual.
+            Calling this method is equivalent to calling <code>MapReduce(erlangMapPhase, erlangReducePhase, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.MapReduceOnKeyList(System.Collections.Generic.IEnumerable{System.String},uGameDB.JavaScriptMapPhase,uGameDB.JavaScriptReducePhase,uGameDB.OnResponseCallback{uGameDB.MapReduceOnKeyListRequest},uGameDB.OnResponseCallback{uGameDB.MapReduceOnKeyListRequest})">
+      <summary>
+            Sends a request to perform a MapReduce query operation on the Riak cluster. This variant of MapReduce uses
+            JavaScript phase functions expressed as strings, which are sent along with the request. Its input will be
+            a given list of keys in the bucket.
+            </summary>
+      <param name="keys">The list of keys of objects in the bucket that should be used as input to the Map phase.</param>
+      <param name="javaScriptMapPhase">A <see cref="T:uGameDB.JavaScriptMapPhase" /> object that contains the
+            JavaScript code of the Map phase function to send along with the request.</param>
+      <param name="javaScriptReducePhase">A <see cref="T:uGameDB.JavaScriptReducePhase" /> object that contains the
+            JavaScript code of the Reduce phase function to send along with the request.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.MapReduceRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is uGameDB's primary functionality for selecting one or more results from database based on an
+            arbitrary criterion. A MapReduce request is divided into two phases.
+            The Map phase is a function that takes one key/value pair as input and produces a list of intermediate results.
+            The Reduce phase is a function that takes a list of such intermediate results as input and produces a
+            new list of results.
+            By default, the results of the Reduce phase is returned as the result of the MapReduce request.
+            You can read more about MapReduce queries in the uGameDB manual.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.MapReduceOnKeyList(System.Collections.Generic.IEnumerable{System.String},uGameDB.JavaScriptMapPhase,uGameDB.JavaScriptReducePhase)">
+      <summary>
+            Sends a request to perform a MapReduce query operation on the Riak cluster. This variant of MapReduce uses
+            JavaScript phase functions expressed as strings, which are sent along with the request. Its input will be
+            a given list of keys in the bucket.
+            </summary>
+      <param name="keys">The list of keys of objects in the bucket that should be used as input to the Map phase.</param>
+      <param name="javaScriptMapPhase">A <see cref="T:uGameDB.JavaScriptMapPhase" /> object that contains the
+            JavaScript code of the Map phase function to send along with the request.</param>
+      <param name="javaScriptReducePhase">A <see cref="T:uGameDB.JavaScriptReducePhase" /> object that contains the
+            JavaScript code of the Reduce phase function to send along with the request.</param>
+      <returns>A <see cref="T:uGameDB.MapReduceRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is uGameDB's primary functionality for selecting one or more results from database based on an
+            arbitrary criterion. A MapReduce request is divided into two phases.
+            The Map phase is a function that takes one key/value pair as input and produces a list of intermediate results.
+            The Reduce phase is a function that takes a list of such intermediate results as input and produces a
+            new list of results.
+            By default, the results of the Reduce phase is returned as the result of the MapReduce request.
+            You can read more about MapReduce queries in the uGameDB manual.
+            Calling this method is equivalent to calling <code>MapReduceOnKeyList(keys, javaScriptMapPhase, javaScriptReducePhase, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.MapReduceOnKeyList(System.Collections.Generic.IEnumerable{System.String},uGameDB.ErlangMapPhase,uGameDB.ErlangReducePhase,uGameDB.OnResponseCallback{uGameDB.MapReduceOnKeyListRequest},uGameDB.OnResponseCallback{uGameDB.MapReduceOnKeyListRequest})">
+      <summary>
+            Sends a request to perform a MapReduce query operation on the Riak cluster. This variant of MapReduce uses
+            Erlang phase functions that previously have been loaded on the Riak nodes. Its input will be
+            a given list of keys in the bucket.
+            </summary>
+      <param name="keys">The list of keys of objects in the bucket that should be used as input to the Map phase.</param>
+      <param name="erlangMapPhase">A <see cref="T:uGameDB.ErlangMapPhase" /> object that contains the name of
+            the Erlang Map phase function to invoke on the database nodes.</param>
+      <param name="erlangReducePhase">A <see cref="T:uGameDB.ErlangReducePhase" /> object that contains the name of
+            the Erlang Reduce phase function to invoke on the database nodes.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.MapReduceRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is uGameDB's primary functionality for selecting one or more results from database based on an
+            arbitrary criterion. A MapReduce request is divided into two phases.
+            The Map phase is a function that takes one key/value pair as input and produces a list of intermediate results.
+            The Reduce phase is a function that takes a list of such intermediate results as input and produces a
+            new list of results.
+            By default, the results of the Reduce phase is returned as the result of the MapReduce request.
+            You can read more about MapReduce queries in the uGameDB manual.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.MapReduceOnKeyList(System.Collections.Generic.IEnumerable{System.String},uGameDB.ErlangMapPhase,uGameDB.ErlangReducePhase)">
+      <summary>
+            Sends a request to perform a MapReduce query operation on the Riak cluster. This variant of MapReduce uses
+            Erlang phase functions that previously have been loaded on the Riak nodes. Its input will be
+            a given list of keys in the bucket.
+            </summary>
+      <param name="keys">The list of keys of objects in the bucket that should be used as input to the Map phase.</param>
+      <param name="erlangMapPhase">A <see cref="T:uGameDB.ErlangMapPhase" /> object that contains the name of
+            the Erlang Map phase function to invoke on the database nodes.</param>
+      <param name="erlangReducePhase">A <see cref="T:uGameDB.ErlangReducePhase" /> object that contains the name of
+            the Erlang Reduce phase function to invoke on the database nodes.</param>
+      <returns>A <see cref="T:uGameDB.MapReduceRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is uGameDB's primary functionality for selecting one or more results from database based on an
+            arbitrary criterion. A MapReduce request is divided into two phases.
+            The Map phase is a function that takes one key/value pair as input and produces a list of intermediate results.
+            The Reduce phase is a function that takes a list of such intermediate results as input and produces a
+            new list of results.
+            By default, the results of the Reduce phase is returned as the result of the MapReduce request.
+            You can read more about MapReduce queries in the uGameDB manual.
+            Calling this method is equivalent to calling <code>MapReduceOnKeyList(keys, erlangMapPhase, erlangReducePhase, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.GetKeys(uGameDB.OnResponseCallback{uGameDB.GetKeysRequest},uGameDB.OnResponseCallback{uGameDB.GetKeysRequest})">
+      <summary>
+            Sends a request to get a list of all keys that have been stored in a given bucket.
+            </summary>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.GetKeysRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is a potentially slow database operation and should only be used for maintenance and debug purposes.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.GetKeys">
+      <summary>
+            Sends a request to get a list of all keys that have been stored in a given bucket.
+            </summary>
+      <returns>A <see cref="T:uGameDB.GetKeysRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is a potentially slow database operation and should only be used for maintenance and debug purposes.
+            This is equivalent to calling <code>GetKeys(null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.GetKeysByIndex(System.String,System.String)">
+      <summary>
+            Gets the keys of this bucket that have a given secondary index value.
+            Requires a Riak backend that supports secondary indexes, otherwise a Request rejected by Riak error will be reported by <see cref="M:uGameDB.Request.GetErrorString" />.
+            </summary>
+      <param name="indexName">The name of the secondary index on which to perform the look up.</param>
+      <param name="indexValue">The value which we look for in the secondary index.</param>
+      <returns>A <see cref="T:uGameDB.GetKeysByIndexRequest" /> object that represents the request.</returns>
+      <remarks>This is equivalent to calling <code>GetKeysByIndex(index, indexValue, null, null);</code>.</remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.GetKeysByIndex(System.String,System.String,uGameDB.OnResponseCallback{uGameDB.GetKeysByIndexRequest},uGameDB.OnResponseCallback{uGameDB.GetKeysByIndexRequest})">
+      <summary>
+            Gets the keys of this bucket that have a given secondary index value.
+            Requires a Riak backend that supports secondary indexes, otherwise a Request rejected by Riak error will be reported by <see cref="M:uGameDB.Request.GetErrorString" />.
+            </summary>
+      <param name="indexName">The name of the secondary index on which to perform the look up.</param>
+      <param name="indexValue">The value which we look for in the secondary index.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.GetKeysByIndexRequest" /> object that represents the request.</returns>
+    </member>
+    <member name="M:uGameDB.Bucket.GetKeysByIndex(System.String,System.String,System.String)">
+      <summary>
+            Gets the keys of this bucket that have secondary index values within a given lexiographical range.
+            Requires a Riak backend that supports secondary indexes, otherwise a Request rejected by Riak error will be reported by <see cref="M:uGameDB.Request.GetErrorString" />.
+            </summary>
+      <param name="indexName">The name of the secondary index on which to perform the look up.</param>
+      <param name="indexValueLow">Inclusive lower bound index value of the search range.</param>
+      <param name="indexValueHigh">Inclusive upper bound index value of the search range.</param>
+      <returns>A <see cref="T:uGameDB.GetKeysByIndexRangeRequest" /> object that represents the request.</returns>
+      <remarks>The range is specified with lower and upper inclusive bounds.
+            For example, if the range is "b"-"z", "a" and "zz" will be outside of the range, but "b", "bb" and "z" will be inside the range.
+            If the bounds are in the wrong order (upper smaller than lower), they are automatically re-ordered by the database.
+            This is equivalent to calling <code>GetKeysByIndex(index, indexValueLow, indexValueHigh, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.GetKeysByIndex(System.String,System.String,System.String,uGameDB.OnResponseCallback{uGameDB.GetKeysByIndexRangeRequest},uGameDB.OnResponseCallback{uGameDB.GetKeysByIndexRangeRequest})">
+      <summary>
+            Gets the keys of this bucket that have secondary index values within a given lexiographical range.
+            Requires a Riak backend that supports secondary indexes, otherwise a Request rejected by Riak error will be reported by <see cref="M:uGameDB.Request.GetErrorString" />.
+            </summary>
+      <param name="indexName">The name of the secondary index on which to perform the look up.</param>
+      <param name="indexValueLow">Inclusive lower bound index value of the search range.</param>
+      <param name="indexValueHigh">Inclusive upper bound index value of the search range.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.GetKeysByIndexRangeRequest" /> object that represents the request.</returns>
+      <remarks>The range is specified with lower and upper inclusive bounds.
+            For example, if the range is "b"-"z", "a" and "zz" will be outside of the range, but "b", "bb" and "z" will be inside the range.
+            If the bounds are in the wrong order (upper smaller than lower), they are automatically re-ordered by the database.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.GetBuckets(uGameDB.OnResponseCallback{uGameDB.GetBucketsRequest},uGameDB.OnResponseCallback{uGameDB.GetBucketsRequest})">
+      <summary>
+            Sends a request to get a list of all buckets that are in use on the database cluster.
+            </summary>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.GetBucketsRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is a potentially slow database operation and should only be used for maintenance and debug purposes.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.GetBuckets">
+      <summary>
+            Sends a request to get a list of all buckets that are in use on the database cluster.
+            </summary>
+      <returns>A <see cref="T:uGameDB.GetBucketsRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is a potentially slow database operation and should only be used for maintenance and debug purposes.
+            This is equivalent to calling <code>GetBuckets(null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.SetBucketProp(System.UInt32,uGameDB.SiblingsOption,uGameDB.OnResponseCallback{uGameDB.SetBucketPropRequest},uGameDB.OnResponseCallback{uGameDB.SetBucketPropRequest})">
+      <summary>
+            Sends a request to set new properties for the given bucket.
+            </summary>
+      <param name="nVal">The number of replicas to create of objects in the bucket. Allowed values are positive integers.
+            By using the value <see cref="F:uGameDB.Constants.N.NotSet" /> or 0, this property will left unmodified.</param>
+      <param name="allowSiblings">Whether to allow sibling objects to be created (concurrent updates). Allowed values are
+            <see cref="F:uGameDB.Constants.AllowSiblings.True" />, <see cref="F:uGameDB.Constants.AllowSiblings.False" /> or
+            <see cref="F:uGameDB.Constants.AllowSiblings.NotSet" />, where the latter will leave this property unmodified.</param>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.SetBucketPropRequest" /> object that represents the request until it completes</returns>
+    </member>
+    <member name="M:uGameDB.Bucket.SetBucketProp(System.UInt32,uGameDB.SiblingsOption)">
+      <summary>
+            Sends a request to set new properties for the given bucket.
+            </summary>
+      <param name="nVal">The number of replicas to create of objects in the bucket. Allowed values are positive integers.
+            By using the value <see cref="F:uGameDB.Constants.N.NotSet" /> or 0, this property will left unmodified.</param>
+      <param name="allowSiblings">Whether to allow sibling objects to be created (concurrent updates). Allowed values are
+            <see cref="F:uGameDB.Constants.AllowSiblings.True" />, <see cref="F:uGameDB.Constants.AllowSiblings.False" /> or
+            <see cref="F:uGameDB.Constants.AllowSiblings.NotSet" />, where the latter will leave this property unmodified.</param>
+      <returns>A <see cref="T:uGameDB.SetBucketPropRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            This is equivalent to calling <code>SetBucketProp(nVal, allowSiblings, null, null);</code>.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.GetBucketProp(uGameDB.OnResponseCallback{uGameDB.GetBucketPropRequest},uGameDB.OnResponseCallback{uGameDB.GetBucketPropRequest})">
+      <summary>
+            Sends a request to get the current properties for the given bucket.
+            </summary>
+      <param name="onSuccessCallback">An optional callback that will be invoked if the request succeeds.</param>
+      <param name="onErrorCallback">An optional callback that will be invoked if the request fails.</param>
+      <returns>A <see cref="T:uGameDB.GetBucketPropRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            If the bucket is not in use this request will return the default set of bucket properties.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.Bucket.GetBucketProp">
+      <summary>
+            Sends a request to get the current properties for the given bucket.
+            </summary>
+      <returns>A <see cref="T:uGameDB.GetBucketPropRequest" /> object that represents the request until it completes.</returns>
+      <remarks>
+            If the bucket is not in use this request will return the default set of bucket properties.
+            This is equivalent to calling <code>GetBucketProp(null, null);</code>.
+            </remarks>
+    </member>
+    <member name="P:uGameDB.Bucket.name">
+      <summary>
+            The name of the represented Riak bucket.
+            </summary>
+    </member>
+    <member name="T:uGameDB.GetBucketsRequest">
+      <summary>
+            Represents a request to get all active buckets from the database.
+            </summary>
+    </member>
+    <member name="M:uGameDB.GetBucketsRequest.GetBucketEnumerable">
+      <summary>
+            Gets an enumerable collection with the buckets that was returned from the database.
+            </summary>
+      <returns>An enumerable collection of Bucket objects.</returns>
+      <remarks>
+            If the request was not successful or is still pending, this will throw a DatabaseRequestException.
+            If you are unsure if the request was successful or not, you can avoid the exception by checking
+            Request.isSuccessful or by using GetBucketsRequest.TryGetBucketEnumerable().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.GetBucketsRequest.TryGetBucketEnumerable(System.Collections.Generic.IEnumerable{uGameDB.Bucket}@)">
+      <summary>
+            Gets an enumerable collection with the buckets that was returned from the database. The collection will be returned through
+            the buckets out parameter.
+            </summary>
+      <param name="buckets">The resulting enumerable collection of Bucket objects.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="T:uGameDB.GetKeysByIndexRequest">
+      <summary>
+            Represents a request to get the keys that have a given secondary index value of a given bucket in the database.
+            </summary>
+    </member>
+    <member name="P:uGameDB.GetKeysByIndexRequest.indexValue">
+      <summary>
+            The value which we look for in the secondary index.
+            </summary>
+    </member>
+    <member name="T:uGameDB.RequestError">
+      <summary>
+            Indicates a type of error that has occured with a request.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RequestError.Unknown">
+      <summary>
+            Unknown error.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RequestError.BadRequest">
+      <summary>
+            The request was badly formd and Riak refused it.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RequestError.NotFound">
+      <summary>
+            The given key was not found by Riak.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RequestError.KeyExists">
+      <summary>
+            The given key already exists in Riak.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RequestError.Timeout">
+      <summary>
+            The request has timed out.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RequestError.ClientError">
+      <summary>
+            An error has occured in the uGameDB client. Please report this as a bug, together with your log output!
+            </summary>
+    </member>
+    <member name="T:uGameDB.SiblingsOption">
+      <summary>
+            Indicates one setting for allowing siblings in a bucket.
+            </summary>
+    </member>
+    <member name="F:uGameDB.SiblingsOption.NotSet">
+      <summary>
+            The setting for allowing siblings will not be modified.
+            </summary>
+    </member>
+    <member name="F:uGameDB.SiblingsOption.Allow">
+      <summary>
+            Siblings are allowed.
+            </summary>
+    </member>
+    <member name="F:uGameDB.SiblingsOption.DontAllow">
+      <summary>
+            Siblings are not allowed.
+            </summary>
+    </member>
+    <member name="T:uGameDB.BitStream">
+      <summary>
+            Represents serialized variables, packed into a stream.
+            </summary>
+      <remarks>
+            Data can be serialized, transmitted, and then received by remote clients by
+            using this class. Read about state synchronization and automatic serializations
+            of data types in the uLink manual to get the big picture. The code for
+            serializing and deserializing objects are usually placed in the callback method
+            <see cref="!:uLink.Network.uLink_OnSerializeNetworkView" />.
+            Check out the C# and javascript code examples for that callback method. 
+            <para> 
+            Also see the two other callbacks that are used to serialize and
+            desierialize objects in some special situations: 
+            <see cref="!:uLink.Network.uLink_OnSerializeNetworkViewOwner" />
+            and <see cref="!:uLink.NetworkP2P.uLink_OnHandoverNetworkView" />.
+            </para><para> 
+            We recommend that C# code and javascript code (also called Unity script)
+            uses the methods <see cref="M:uLink.BitStream.Read``1(System.Object[])" /> and 
+            <see cref="M:uLink.BitStream.Write``1" />. Yes, it is possible to
+            use generic types in javascript in Unity. It is not possible to use generic
+            types in javascript outside Unity, this is a feature that has been added by
+            Unity since v3.0 of the Editor. 
+            </para><para>
+            Arrays (only one-dimentional) are handled by uLink. Arrays are no problem for 
+            methods like <see cref="M:uLink.BitStream.Read``1(System.Object[])" /> and 
+            <see cref="M:uLink.BitStream.Write``1" /></para><para> If you are using an Unity version older than 3.0, or for some other
+            reason can't use generics, you can use the <see cref="O:uLink.BitStream.ReadObject" /> and <see cref="O:uLink.BitStream.WriteObject" />
+            methods.
+            </para><para> There are several methods for reading and writing just one specific
+            datatype. These can be used to gain some performance, but the code you have to
+            write will usually be a bit longer and not as elegant. Two examples of these
+            method pairs are 
+            <see cref="!:uLink.BitStream.ReadInt16" />/<see cref="!:uLink.BitStream.WriteInt16" /> and 
+            <see cref="!:uLink.BitStream.ReadString" />/<see cref="!:uLink.BitStream.WriteString" />. 
+            </para><para> 
+            Because uLink is backward compatible with the Unity built-in network the
+            method <see cref="O:uLink.BitStream.Serialize" />
+            is included in this class and can still be used. It supports a limited set of
+            basic datatypes (the same as Unity built-in network). The new method <see cref="M:uLink.BitStream.Serialize``1" /> can be
+            used to handle more data types (all data types supported by uLink), but we
+            recommend that you use the generic read/write methods whenever possible. </para></remarks>
+    </member>
+    <member name="F:uGameDB.BitStream.isTypeSafe">
+      <summary>
+            Used to make this stream serialize the type of data types and check all
+            data types when deserializing. 
+            </summary>
+      <remarks>Set this value to <c>true</c> if you want extra validations
+            when reading incoming data. This is good for debugging and it is
+            also good for detecting clients sending wrong data to a 
+            server or vice versa. Be aware that the serialized data will become longer when
+            the data types has to be stored.</remarks>
+      <exception cref="T:System.Exception">If expected data type does not match the
+            data type in the stream when reading it.</exception>
+      <value>Default is <c>false</c></value>
+    </member>
+    <member name="M:uGameDB.BitStream.Read``1(System.Object[])">
+      <summary>
+            Deserializes different types of variables. Recommended for C# code and javascript code.
+            </summary>
+      <param name="codecOptions">Optional parameters forwared to the deserializer</param>
+      <remarks>
+            Use this kind of function when reading from the stream.
+            <para>
+            The supported data types are documented in the uLink manual in the serialization section.
+            </para></remarks>
+    </member>
+    <member name="M:uGameDB.BitStream.Write``1(``0,System.Object[])">
+      <summary>
+            Serializes different types of variables. Recommended for C# code and javascript code.
+            </summary>
+      <param name="value">The actual data</param>
+      <param name="codecOptions">Optional parameters forwared to the serializer</param>
+      <remarks>		   
+            Use this kind of function when writing the stream and the data type is known at design time.
+            <para>All supported data types, that uLink serializes automatically, are documented in the uLink 
+            manual in the serialization section.
+            </para></remarks>
+    </member>
+    <member name="M:uGameDB.BitStream.ReadObject(System.RuntimeTypeHandle,System.Object[])">
+      <summary>
+            Deserializes different types of variables. Recommended for Javascript code in Unity 2.6.
+            </summary>
+      <param name="typeHandle">The data type for this value that will be serialized</param>
+      <param name="codecOptions">Optional parameters forwared to the deserializer</param>
+      <remarks>
+            Use this function when reading from the stream and the code is javascript in Unity 2.6.
+            Use <see cref="M:uLink.BitStream.Read``1(System.Object[])" /> if you can use generics, the code will 
+            be easier to debug and maintain.
+            <para>
+            The supported data types are documented in the uLink manual in the serialization section.
+            </para></remarks>
+    </member>
+    <member name="M:uGameDB.BitStream.WriteObject(System.RuntimeTypeHandle,System.Object,System.Object[])">
+      <summary>
+            Serializes different types of variables. Recommended for Javascript code in Unity 2.6.
+            </summary>
+      <param name="typeHandle">The data type for the value that will be serialized</param>
+      <param name="value">The actual data</param>
+      <param name="codecOptions">Optional parameters forwared to the serializer</param>
+      <remarks>
+            Use this function when writing to the stream and the code is javascript in Unity 2.6..
+            Use <see cref="M:uLink.BitStream.Write``1" /> if you can use generics, the code will 
+            be easier to debug and maintain.
+            <para>All supported data types are documented in the uLink manual in the serialization section.
+            </para></remarks>
+    </member>
+    <member name="M:uGameDB.BitStream.Serialize``1(``0@,System.Object[])">
+      <summary>
+            Serializes if <see cref="!:uLink.BitStream.isWriting" />, otherwise deserializes.
+            </summary>
+      <param name="value">Be aware this function can only handle a
+            reference to a value. It can not be used for getting or setting properties
+            therefore.</param>
+      <param name="codecOptions">Optional parameters forwared to the serializer/deserializer</param>
+      <remarks>
+        <para>The supported data types are documented in the uLink manual in the serialization section.
+            </para>
+      </remarks>
+    </member>
+    <member name="M:uGameDB.BitStream.Serialize(System.Boolean@,System.Object[])">
+      <summary>
+            Serializes if <see cref="!:uLink.BitStream.isWriting" />, otherwise deserializes. 
+            </summary>
+      <param name="value">Be aware this function can only handle a
+            reference to a value. Therefore it can not be used for getting or setting 
+            properties.</param>
+      <param name="codecOptions">Optional parameters forwarded to the serializer/deserializer</param>
+      <remarks>
+            This method for serializiation is included in uLink only because uLink is backward 
+            compatible with Unity bilt-in network. The recommended uLink alternative is 
+            <see cref="M:uLink.BitStream.Read``1(System.Object[])" /> and <see cref="M:uLink.BitStream.Write``1" />. 
+            </remarks>
+    </member>
+    <member name="M:uGameDB.BitStream.GetRemainingBytes">
+      <summary>
+            Returns the remaining bytes in a byte array. 
+            </summary>
+    </member>
+    <member name="M:uGameDB.BitStream.ReadBitStream">
+      <summary>
+            Copies the remaining bytes in a newly instantiated BitStream. 
+            </summary>
+      <remarks>
+            Keeps the value if isWriting and isTypeSafe of the original Bitstream.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.BitStream.ToString">
+      <summary>
+            Returns a <see cref="T:System.String" /> that shows a list of all bytes in the BitStream.
+            </summary>
+    </member>
+    <member name="P:uGameDB.BitStream.isWriting">
+      <summary>
+            Gets a value indicating whether the BitStream is currently being written to.
+            </summary>
+    </member>
+    <member name="P:uGameDB.BitStream.isReading">
+      <summary>
+            Gets a value indicating whether the BitStream is currently being read.
+            </summary>
+    </member>
+    <member name="P:uGameDB.BitStream.isEOF">
+      <summary>
+            Gets a value indicating whether there are any more bits to be read in the BitStream.
+            </summary>
+    </member>
+    <member name="T:uGameDB.WriteMode">
+      <summary>
+            Indicates the mode a write operation should use.
+            </summary>
+    </member>
+    <member name="F:uGameDB.WriteMode.Overwrite">
+      <summary>
+            Any previous value at the given key will be overwritten by the Set request.
+            </summary>
+    </member>
+    <member name="T:uGameDB.SetBucketPropRequest">
+      <summary>
+            Represents a request to get a bucket's properties in the database.
+            </summary>
+    </member>
+    <member name="P:uGameDB.SetBucketPropRequest.bucket">
+      <summary>
+            The given bucket of which's properties we want
+            </summary>
+    </member>
+    <member name="P:uGameDB.SetBucketPropRequest.nVal">
+      <summary>
+            The bucket's new n-value, which represents the amount of copies stored of a bucket in the cluster
+            </summary>
+    </member>
+    <member name="P:uGameDB.SetBucketPropRequest.allowSiblings">
+      <summary>
+            Whether if multiple values are to be returned on conflicts, or just the most recent one
+            </summary>
+    </member>
+    <member name="T:uGameDB.ReducePhase">
+      <summary>
+            Describes a mapreduce reduce phase. Use this together with Bucket.MapReduce() or Database.MapReduce().
+            </summary>
+    </member>
+    <member name="M:uGameDB.ReducePhase.#ctor(System.String,System.Object)">
+      <summary>
+            Creates a new reduce phase.
+            </summary>
+      <param name="jsSource">The javascript source code to execute in the reduce phase.</param>
+      <param name="argument">An optional argument that can be accessed as the third parameter in the javascript function. The object
+            will be serialized as JSON data, and can be of a simple type or of any class.</param>
+    </member>
+    <member name="M:uGameDB.ReducePhase.#ctor(uGameDB.BucketKeyPair,System.Object)">
+      <summary>
+            Creates a new reduce phase.
+            </summary>
+      <param name="jsIndex">The bucket-key entry storing the javascript source code to execute in the reduce phase</param>
+      <param name="argument">An optional argument that can be accessed as the third parameter in the javascript function. The object
+            will be serialized as JSON data, and can be of a simple type or of any class.</param>
+    </member>
+    <member name="T:uGameDB.ErlangMapPhase">
+      <summary>
+            Describes a mapreduce map phase in erlang. Use this together with Bucket.MapReduce() or Database.MapReduce().
+            </summary>
+    </member>
+    <member name="M:uGameDB.ErlangMapPhase.#ctor(System.String,System.String)">
+      <summary>
+            Creaters a new map phase.
+            </summary>
+      <param name="module">The name of the erlang module of which the function to be called is part of.</param>
+      <param name="functionName">The name of the erlang function.</param>
+    </member>
+    <member name="M:uGameDB.ErlangMapPhase.#ctor(System.String,System.String,System.Object)">
+      <summary>
+            Creaters a new map phase.
+            </summary>
+      <param name="module">The name of the erlang module of which the function to be called is part of.</param>
+      <param name="functionName">The name of the erlang function.</param>
+      <param name="argument">An argument that can be accessed as the third parameter in the erlang function.</param>
+    </member>
+    <member name="T:uGameDB.MapReduceOnBucketKeyListRequest">
+      <summary>
+            Represents a request to perform a mapreduce operation on the database.
+            </summary>
+    </member>
+    <member name="P:uGameDB.MapReduceOnBucketKeyListRequest.bucketKeyPairs">
+      <summary>
+            The list of BucketKeyPairs that was given as input to the MapReduce request.
+            </summary>
+    </member>
+    <member name="T:uGameDB.Constants">
+      <summary>
+            Contains public constants that are used in uGameDB.
+            </summary>
+    </member>
+    <member name="T:uGameDB.Constants.Replication">
+      <summary>
+            Conatins predefined values that are used in requests to specify how many replicas Riak should involve in different
+            operations.
+            </summary>
+      <remarks>
+            These special values are valid for the R parameter in Bucket.Get(), the W and DW parameters in Bucket.Set(), and the
+            RW parameter in Bucket.Remove().
+            </remarks>
+    </member>
+    <member name="F:uGameDB.Constants.Replication.One">
+      <summary>
+            Special value to indicate one replica. The numeric value equals 4294967295 - 1.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Constants.Replication.Quorum">
+      <summary>
+            Special value to indicate quorum, i. e. (N/2 + 1) replicas where N is the n_val set for the bucket.
+            The numeric value equals 4294967295 - 2.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Constants.Replication.All">
+      <summary>
+            Special value to indicate all replicas. The numeric value equals 4294967295 - 3.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Constants.Replication.Default">
+      <summary>
+            Special value to indicate the Riak default. The numeric value equals 4294967295 - 4.
+            </summary>
+    </member>
+    <member name="T:uGameDB.Constants.N">
+      <summary>
+            Contains predfined values that are used to specify the nVal parameter in Bucket.SetBucketProp().
+            </summary>
+    </member>
+    <member name="F:uGameDB.Constants.N.NotSet">
+      <summary>
+            Special value to indicate that N should not be set in the request. The numeric value is 0.
+            </summary>
+    </member>
+    <member name="T:uGameDB.Constants.AllowSiblings">
+      <summary>
+            Contains predefined values that are used to specify the allowSiblings parameter in Bucket.SetBucketProp().
+            </summary>
+    </member>
+    <member name="F:uGameDB.Constants.AllowSiblings.NotSet">
+      <summary>
+            Special value to indicate that allowSiblings should not be set in the request. The constant value is SiblingsOption.NotSet.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Constants.AllowSiblings.True">
+      <summary>
+            Special value to indicate that siblings should be allowed. The constant value is SiblingsOption.Allow.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Constants.AllowSiblings.False">
+      <summary>
+            Special value to indicate that siblings should not be allowed. The constant value is SiblingsOption.DontAllow.
+            </summary>
+    </member>
+    <member name="T:uGameDB.Constants.WriteMode">
+      <summary>
+            Contains predfined values for write modes in Set requests.
+            </summary>
+    </member>
+    <member name="F:uGameDB.Constants.WriteMode.Default">
+      <summary>
+            Special value to indicate the default write mode. The constant value is WriteMode.Overwrite.
+            </summary>
+    </member>
+    <member name="T:uGameDB.SetGeneratedKeyRequest`1">
+      <summary>
+            Represents a request to set a value with a given key in the database.
+            </summary>
+      <typeparam name="TValue">The type of the value written.</typeparam>
+    </member>
+    <member name="M:uGameDB.SetGeneratedKeyRequest`1.GetGeneratedKey">
+      <summary>
+            Gets the unique key that was generated by Riak in this Set request.
+            </summary>
+      <returns>The returned value.</returns>
+      <remarks>
+            If the request was not successful or is still pending, this will throw a DatabaseRequestException.
+            If you are unsure if the request was successful or not, you can avoid the exception by checking
+            Request.isSuccessful or by using SetGeneratedKeyRequest.TryGetGeneratedKey().
+            </remarks>
+    </member>
+    <member name="M:uGameDB.SetGeneratedKeyRequest`1.TryGetGeneratedKey(System.String@)">
+      <summary>
+            Gets the unique key that was generated by Riak in this Set request.
+            The key will be returned through the key out parameter.
+            </summary>
+      <param name="key">The generated key.</param>
+      <returns>True if the request has succeeded, or false otherwise.</returns>
+    </member>
+    <member name="T:uGameDB.RemoveRequest">
+      <summary>
+            Represents a request to remove a value with a given key from the database.
+            </summary>
+    </member>
+    <member name="P:uGameDB.RemoveRequest.bucket">
+      <summary>
+            The given bucket in which the value is stored.
+            </summary>
+    </member>
+    <member name="P:uGameDB.RemoveRequest.key">
+      <summary>
+            The given key under which the value is stored.
+            </summary>
+    </member>
+    <member name="P:uGameDB.RemoveRequest.rw">
+      <summary>
+            The number of read-write results to wait for before returning success.
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkStartEvent">
+      <summary>
+            The available types of network start events. See <see cref="!:uLink.Network.uLink_OnPreStartNetwork" />.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkStartEvent.MasterServer">
+      <summary>
+            A master server connection is about to be initilized
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkStartEvent.Server">
+      <summary>
+            The game server is about to be initilized
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkStartEvent.Client">
+      <summary>
+            A client is about to be initilized
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkStartEvent.CellServer">
+      <summary>
+            A cell server is about to be initilized
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkStatus">
+      <summary>
+            The available network statuses. See <see cref="!:uLink.Network.status" />. See also <see cref="!:uLink.Network.peerType" />.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkStatus.Disconnected">
+      <summary>
+            This peer is disconnected
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkStatus.Connecting">
+      <summary>
+            This peer is connecting
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkStatus.Connected">
+      <summary>
+            This peer is connected
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkStatus.Disconnecting">
+      <summary>
+            This peer is disconnecting
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkLogLevel">
+      <summary>
+            The available log levels that can be set for minimum uLink logging and also can be set per log category.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkLogLevel.Off">
+      <summary>
+            Logs nothing.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkLogLevel.Error">
+      <summary>
+            Logs errors only
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkLogLevel.Warning">
+      <summary>
+            Logs warnings and errors.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkLogLevel.Info">
+      <summary>
+            Logs info messages, warnings and errors.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkLogLevel.Debug">
+      <summary>
+            Logs debug messages, info messages, warnings and errors. The most detailed log level available.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkLogLevel.Informational">
+      <summary>
+            Deprecated, please use NetworkLogLevel.Info instead
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkLogLevel.Full">
+      <summary>
+            Deprecated, please use NetworkLogLevel.Debug instead
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkLogFlags">
+      <summary>
+            The different log categories available in uLink. Read more in <see cref="!:uLink.NetworkLog" />.
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkRole">
+      <summary>
+            The role of a peer/host for a network aware object (created with <see cref="O:uLink.Network.Instantiate" />).
+            </summary>
+      <remarks>Read more in the manual about the three roles for network aware objects.</remarks>
+    </member>
+    <member name="F:uGameDB.NetworkRole.Disconnected">
+      <summary>
+            The peer/host is disconnected from the network.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkRole.Proxy">
+      <summary>
+            This peer/host has a proxy of this network aware object.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkRole.Owner">
+      <summary>
+            This peer/host is the owner of this network aware object.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkRole.Creator">
+      <summary>
+            This peer/host is the creator of this network aware object.
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkFlags">
+      <summary>
+            Used to control how RPCs will be handled by uLink.
+            </summary>
+      <remarks>Turn on one or many the these bit flags to make uLink handle
+            the RPC exactly the way you want it. The buffer flag argument will overrule
+            the buffer setting that the <see cref="!:uLink.RPCMode" /> argument in the
+            <see cref="!:uLink.NetworkView.RPC(uLink.NetworkFlags, System.String, uLink.RPCMode, System.Object[])" /> function 
+            usually  controls. If they are conflicting, uLink  log a warning.</remarks>
+    </member>
+    <member name="F:uGameDB.NetworkFlags.Normal">
+      <summary>
+            This is the base value. The RPC will be reliable, buffered, encrypted, typesafe and include a timestamp.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkFlags.Unreliable">
+      <summary>
+            The RPC is sent over an unreliable network channel in uLink. Default is OFF.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkFlags.Unbuffered">
+      <summary>
+            The RPC is not stored in the RPC buffer on the server. This flag
+            overrules the <see cref="!:uLink.RPCMode" /> buffer setting. Default Value is OFF.
+            </summary>
+      <value>
+      </value>
+    </member>
+    <member name="F:uGameDB.NetworkFlags.Unencrypted">
+      <summary>
+            The RPC is never encrypted, even if sequrity is turned on. Default value is OFF.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkFlags.NoTimestamp">
+      <summary>
+            The RPC has no timestamp (to save bandwidth). Default value is OFF.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkFlags.TypeUnsafe">
+      <summary>
+            The types of the arguments in the RPC will not be checked when this RPC is received. Default value is OFF.
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkStateSynchronization">
+      <summary>
+            The supported state synchronization modes for network aware objects in uLink
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkStateSynchronization.Off">
+      <summary>
+            This NetworkView will not send any statesync traffic
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkStateSynchronization.Unreliable">
+      <summary>
+            The statesync traffic will be unreliable (uses least server side resources, but some packets can be lost in the network).
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkStateSynchronization.Reliable">
+      <summary>
+            The statesync traffic will be reliable (all packets will arrive at destination).
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkStateSynchronization.ReliableDeltaCompressed">
+      <summary>
+            The statesync traffic will be reliable and delta compressed (to save bandwidth).
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkSecurable">
+      <summary>
+            The available choices for property "Securable" in a uLinkNetworkView component. 
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkDisconnection">
+      <summary>
+            The available reasons for a disconnection event in uLink. 
+            </summary>
+      <remarks>See uLink.Network.<see cref="!:uLink.Network.uLink_OnDisconnectedFromServer" /></remarks>
+    </member>
+    <member name="T:uGameDB.PeerMode">
+      <summary>
+            The available modes for sending RPCs in a peer-to-peer network.
+            </summary>
+      <remarks>see <see cref="!:uLink.NetworkP2P" /></remarks>
+    </member>
+    <member name="F:uGameDB.PeerMode.Others">
+      <summary>
+            Send the RPC to all peers except myself.
+            </summary>
+    </member>
+    <member name="F:uGameDB.PeerMode.All">
+      <summary>
+            Send the RPC to all peers including myself.
+            </summary>
+    </member>
+    <member name="T:uGameDB.RPCMode">
+      <summary>
+            Indicates how a RPC should be treated by uLink.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RPCMode.Server">
+      <summary>
+            The RPC will only be sent to the server. This is the only allowed RPCMode in clients when the server is authoritative.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RPCMode.Others">
+      <summary>
+            The RPC will be sent to every connected peer and I will not get the RPC myself.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RPCMode.All">
+      <summary>
+            The RPC will be sent to every connected peer, including myself.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RPCMode.Owner">
+      <summary>
+            The RPC will only be sent to the owner of the network aware object.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RPCMode.OthersBuffered">
+      <summary>
+            The RPC will be sent to every connected peer and I will not get the RPC myself. The server will also buffer this RPC.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RPCMode.AllBuffered">
+      <summary>
+            The RPC will be sent to every connected peer, including myself. The server will also buffer this RPC.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RPCMode.OthersExceptOwner">
+      <summary>
+            The RPC will be sent to every connected peer, but not to myself and not to the owner of the network aware object.
+            </summary>
+    </member>
+    <member name="F:uGameDB.RPCMode.AllExceptOwner">
+      <summary>
+            The RPC will be sent to every connected peer, but not to the owner of the network aware object.
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkPeerType">
+      <summary>
+            A peer can be only one of these types. See <see cref="!:uLink.Network.peerType" />. See also <see cref="!:uLink.Network.status" />.
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkPeerType.Disconnected">
+      <summary>
+            The peer is disconnected
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkPeerType.Server">
+      <summary>
+            The peer is a server
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkPeerType.Client">
+      <summary>
+            The peer is a client
+            </summary>
+    </member>
+    <member name="F:uGameDB.NetworkPeerType.CellServer">
+      <summary>
+            This peer is a cellserver
+            </summary>
+    </member>
+    <member name="T:uGameDB.NetworkConnectionError">
+      <summary>
+            The available connection errors in uLink.
+            </summary>
+      <remarks>Use the value UserDefined1 for signaling your own custom error situation to the client.
+            Send this error code from the server code you write for the the callback 
+            <see cref="!:uLink.Network.uLink_OnPlayerApproval" />.
+            If you need more custom error codes, just add the integers 1, 2, 3 and so on.
+            </remarks>
+      <example>
+            Define your own error codes like this in a script the server and the clients can both access.
+            <code>
+            public int MyErrorCode1 = uLink.NetworkConnectionError.UserDefined1;
+            public int MyErrorCode2 = uLink.NetworkConnectionError.UserDefined1 + 1;
+            public int MyErrorCode3 = uLink.NetworkConnectionError.UserDefined1 + 2;
+            </code></example>
+    </member>
+    <member name="T:uGameDB.ConnectionTesterStatus">
+      <summary>
+            The available return values when testing a network connection's NAT
+            capabilities.
+            </summary>
+      <remarks>
+            See <see cref="O:uLink.Network.TestConnection" />
+            and <see cref="!:uLink.Network.TestConnectionNAT" />.
+            </remarks>
+    </member>
+    <member name="T:uGameDB.MasterServerEvent">
+      <summary>
+            The available response codes when communicating with a stand-alone <see cref="!:uLink.MasterServer" />.
+            </summary>
+    </member>
+    <member name="T:uGameDB.BitStreamTypeCode">
+      <summary>
+            The data types uLink can Serialize. Read more about this in the manual section for data types and serialization.
+            </summary>
+    </member>
+    <member name="T:uGameDB.BitStreamCodec">
+      <summary>
+            Used to build custom handling for serializing and deserializing of your game objects.
+            </summary>
+      <remarks>
+            It is possible to build custom serialization and deserialization for any data type. Replace the uLink default 
+            serializer and deserializer for any data type, or make a new data type and register it in uLink.
+            </remarks>
+    </member>
+    <member name="M:uGameDB.BitStreamCodec.AddAndMakeNullableAndArray``1(uGameDB.BitStreamCodec.Deserializer,uGameDB.BitStreamCodec.Serializer)">
+      <summary>
+            Add codec for specified type, including support for null values and arrays
+            </summary>
+    </member>
+    <member name="M:uGameDB.BitStreamCodec.AddAndMakeNullableAndArray``1(uGameDB.BitStreamCodec.Deserializer,uGameDB.BitStreamCodec.Serializer,uGameDB.BitStreamTypeCode,System.Boolean)">
+      <summary>
+            Add codec for specified type, including support for null values and arrays
+            </summary>
+      <parameter name="typeCode">Type code, used to provide type-safe serialization as described in the "Serialization and data types" chapter in the manual</parameter>
+    </member>
+    <member name="M:uGameDB.BitStreamCodec.AddAndMakeNullable``1(uGameDB.BitStreamCodec.Deserializer,uGameDB.BitStreamCodec.Serializer)">
+      <summary>
+            Add codec for specified type, including support for null values
+            </summary>
+    </member>
+    <member name="M:uGameDB.BitStreamCodec.AddAndMakeNullable``1(uGameDB.BitStreamCodec.Deserializer,uGameDB.BitStreamCodec.Serializer,uGameDB.BitStreamTypeCode,System.Boolean)">
+      <summary>
+            Add codec for specified type, including support for null values
+            </summary>
+      <parameter name="typeCode">Type code, used to provide type-safe serialization as described in the "Serialization and data types" chapter in the manual</parameter>
+    </member>
+    <member name="M:uGameDB.BitStreamCodec.AddAndMakeArray``1(uGameDB.BitStreamCodec.Deserializer,uGameDB.BitStreamCodec.Serializer)">
+      <summary>
+            Add codec for specified type, including support for arrays.
+            </summary>
+    </member>
+    <member name="M:uGameDB.BitStreamCodec.AddAndMakeArray``1(uGameDB.BitStreamCodec.Deserializer,uGameDB.BitStreamCodec.Serializer,uGameDB.BitStreamTypeCode,System.Boolean)">
+      <summary>
+            Add codec for specified type, including support for arrays.
+            </summary>
+      <parameter name="typeCode">Type code, used to provide type-safe serialization as described in the "Serialization and data types" chapter in the manual</parameter>
+    </member>
+    <member name="M:uGameDB.BitStreamCodec.Add``1(uGameDB.BitStreamCodec.Deserializer,uGameDB.BitStreamCodec.Serializer)">
+      <summary>
+            Adds a serialization codec for the specified user-defined type.
+            </summary>
+      <parameter name="T">The type that should be serialized using this codec.</parameter>
+      <parameter name="deserializer">The deserializer function. Based on the uLink.BitStreamCodec.Deserializer delegate.</parameter>
+      <parameter name="serializer">The serializer function. Based on the uLink.BitStreamCodec.Serializer delegate.</parameter>
+    </member>
+    <member name="M:uGameDB.BitStreamCodec.Add``1(uGameDB.BitStreamCodec.Deserializer,uGameDB.BitStreamCodec.Serializer,uGameDB.BitStreamTypeCode,System.Boolean)">
+      <summary>
+            Adds a serialization codec for the specified user-defined type.
+            </summary>
+      <parameter name="T">The type that should be serialized using this codec.</parameter>
+      <parameter name="deserializer">The deserializer function. Based on the uLink.BitStreamCodec.Deserializer delegate.</parameter>
+      <parameter name="serializer">The serializer function. Based on the uLink.BitStreamCodec.Serializer delegate.</parameter>
+      <parameter name="typeCode">Type code, used to provide type-safe serialization as described in the "Serialization and data types" chapter in the manual</parameter>
+    </member>
+    <member name="M:uGameDB.BitStreamCodec.Add(System.RuntimeTypeHandle,uGameDB.BitStreamCodec.Deserializer,uGameDB.BitStreamCodec.Serializer)">
+      <summary>
+            Add codec for specified type
+            </summary>
+    </member>
+    <member name="M:uGameDB.BitStreamCodec.Add(System.RuntimeTypeHandle,uGameDB.BitStreamCodec.Deserializer,uGameDB.BitStreamCodec.Serializer,uGameDB.BitStreamTypeCode,System.Boolean)">
+      <summary>
+            Add codec for specified type
+            </summary>
+      <parameter name="typeCode">Type code, used to provide type-safe serialization as described in the "Serialization and data types" chapter in the manual</parameter>
+    </member>
+    <member name="M:uGameDB.BitStreamCodec.Remove(System.RuntimeTypeHandle)">
+      <summary>
+            Removes codec for specified type
+            </summary>
+    </member>
+    <member name="T:uGameDB.BitStreamCodec.Deserializer">
+      <summary>
+            Signature for deserializing (reader) methods
+            </summary>
+    </member>
+    <member name="T:uGameDB.BitStreamCodec.Serializer">
+      <summary>
+            Signature for serializing (writer) methods
+            </summary>
+    </member>
+  </members>
+</doc>

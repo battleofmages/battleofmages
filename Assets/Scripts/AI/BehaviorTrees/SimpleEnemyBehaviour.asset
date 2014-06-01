@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1227330239, guid: 6e7150b9678d122408b085512c335840, type: 3}
+  m_Name: SimpleEnemyBehaviour
+  m_EditorClassIdentifier: 
+  _dataSerializer:
+    _serializedData: <scriptableobject version="1.0" type="RAIN.BehaviorTrees.BTAsset"><fields><field
+      value="&lt;behaviortree version=&quot;1.1&quot; repeatuntil=&quot;&quot; name=&quot;SimpleEnemyBehaviour&quot;&gt;&lt;selector
+      usepriorities=&quot;False&quot; repeatuntil=&quot;running&quot; name=&quot;root&quot;&gt;&lt;constraint
+      repeatuntil=&quot;&quot; priority=&quot;&quot; name=&quot;Has target&quot; constraint=&quot;hasTarget
+      == true&quot;&gt;&lt;move turnspeed=&quot;&quot; repeatuntil=&quot;running&quot;
+      name=&quot;Move to target&quot; movetarget=&quot;targetLocation&quot; movespeed=&quot;&quot;
+      facetarget=&quot;&quot; closeenoughdistance=&quot;&quot; closeenoughangle=&quot;&quot;
+      /&gt;&lt;/constraint&gt;&lt;constraint repeatuntil=&quot;&quot; priority=&quot;&quot;
+      name=&quot;Has no target&quot; constraint=&quot;hasTarget == false&quot;&gt;&lt;waypointpatrol
+      waypointsetvariable=&quot;&amp;quot;Waypoint Route&amp;quot;&quot; waypointactiontype=&quot;patrol&quot;
+      traversetype=&quot;loop&quot; traverseorder=&quot;forward&quot; repeatuntil=&quot;&quot;
+      pathtargetvariable=&quot;&quot; name=&quot;Find patrol waypoint&quot; movetargetvariable=&quot;moveTarget&quot;&gt;&lt;move
+      turnspeed=&quot;&quot; repeatuntil=&quot;success&quot; name=&quot;Move to waypoint&quot;
+      movetarget=&quot;moveTarget&quot; movespeed=&quot;&quot; facetarget=&quot;&quot;
+      closeenoughdistance=&quot;&quot; closeenoughangle=&quot;&quot; /&gt;&lt;/waypointpatrol&gt;&lt;/constraint&gt;&lt;/selector&gt;&lt;/behaviortree&gt;"
+      type="System.String" id="treeData" /><field type="System.Array" id="treeBindings"
+      elementtype="System.String" /></fields><references /></scriptableobject>
+    _serializedGameObjects: []
+    _serializedCustomData: []

@@ -1,0 +1,2809 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!29 &1
+SceneSettings:
+  m_ObjectHideFlags: 0
+  m_PVSData: 
+  m_PVSObjectsArray: []
+  m_PVSPortalsArray: []
+  m_OcclusionBakeSettings:
+    smallestOccluder: 5
+    smallestHole: .25
+    backfaceThreshold: 100
+--- !u!104 &2
+RenderSettings:
+  m_Fog: 0
+  m_FogColor: {r: .5, g: .5, b: .5, a: 1}
+  m_FogMode: 3
+  m_FogDensity: .00999999978
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 300
+  m_AmbientLight: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_SkyboxMaterial: {fileID: 0}
+  m_HaloStrength: .5
+  m_FlareStrength: 1
+  m_FlareFadeSpeed: 3
+  m_HaloTexture: {fileID: 0}
+  m_SpotCookie: {fileID: 0}
+  m_ObjectHideFlags: 0
+--- !u!127 &3
+LevelGameManager:
+  m_ObjectHideFlags: 0
+--- !u!157 &4
+LightmapSettings:
+  m_ObjectHideFlags: 0
+  m_LightProbes: {fileID: 0}
+  m_Lightmaps: []
+  m_LightmapsMode: 1
+  m_BakedColorSpace: 0
+  m_UseDualLightmapsInForward: 0
+  m_LightmapEditorSettings:
+    m_Resolution: 50
+    m_LastUsedResolution: 0
+    m_TextureWidth: 1024
+    m_TextureHeight: 1024
+    m_BounceBoost: 1
+    m_BounceIntensity: 1
+    m_SkyLightColor: {r: .860000014, g: .930000007, b: 1, a: 1}
+    m_SkyLightIntensity: 0
+    m_Quality: 0
+    m_Bounces: 1
+    m_FinalGatherRays: 1000
+    m_FinalGatherContrastThreshold: .0500000007
+    m_FinalGatherGradientThreshold: 0
+    m_FinalGatherInterpolationPoints: 15
+    m_AOAmount: 0
+    m_AOMaxDistance: .100000001
+    m_AOContrast: 1
+    m_LODSurfaceMappingDistance: 1
+    m_Padding: 0
+    m_TextureCompression: 0
+    m_LockAtlas: 0
+--- !u!196 &5
+NavMeshSettings:
+  m_ObjectHideFlags: 0
+  m_BuildSettings:
+    agentRadius: .5
+    agentHeight: 2
+    agentSlope: 45
+    agentClimb: .400000006
+    ledgeDropHeight: 0
+    maxJumpAcrossDistance: 0
+    accuratePlacement: 0
+    minRegionArea: 2
+    widthInaccuracy: 16.666666
+    heightInaccuracy: 10
+  m_NavMesh: {fileID: 0}
+--- !u!1001 &331426332
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
+  m_RootGameObject: {fileID: 670021520}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
+--- !u!1001 &427232469
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+  m_RootGameObject: {fileID: 509383656}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
+--- !u!1001 &439072355
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_RootGameObject: {fileID: 2101029289}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
+--- !u!1 &509383656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+  m_PrefabInternal: {fileID: 427232469}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 509383658}
+  - 114: {fileID: 509383657}
+  m_Layer: 0
+  m_Name: Config
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &509383657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 3aaac5b502fdbe840a134778a9d1add5,
+    type: 2}
+  m_PrefabInternal: {fileID: 427232469}
+  m_GameObject: {fileID: 509383656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e651f37178073a94aaa2addc14324260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  femalePrefab: {fileID: 100022, guid: 2a0d22af254474b48aa8599798c20a51, type: 2}
+  malePrefab: {fileID: 0}
+  damageNumber: {fileID: 100000, guid: ddacca912c8fe5340a29dfa01bf6a58d, type: 2}
+  dangerDetector: {fileID: 100000, guid: 29152084510c9674aa30ebf25860c1a3, type: 2}
+  blockSphere: {fileID: 100000, guid: 93841637a8fbd5d43bc7359406b4cfbc, type: 2}
+  lootTrail: {fileID: 100000, guid: 86883fe9b8b8d5f45993e32a7b0bda07, type: 2}
+  font: {fileID: 12800000, guid: 69922d1f034ce224da995d980e5f2862, type: 3}
+  playerMoveSpeed: 8
+  playerHP: 8000
+  entityEnergy: 50
+  enemyReactionTime: .25
+  hpAggroThreshold: 5000
+  patrolSpeedModifier: .5
+  entityVisibilityDistance: 130
+  playerLabelAlphaWithDistance:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .5
+      value: .799999952
+      inSlope: -1.19835138
+      outSlope: -1.19835138
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 1.15638773e-06
+      outSlope: 1.15638773e-06
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  raycastMaxDistance: 500
+  playerRespawnTime: 6
+  spawnProtectionDuration: 2
+  deathColliderDisableTime: 1
+  ownDmgOffset: 24
+  proxyInterpolationSpeed: 20
+  ownerInterpolationSpeed: 2.20000005
+  maxPositionPredictionTime: .0500000007
+  healthBarWidth: 48
+  ownHealthBarWidth: 64
+  skillInstanceDestructionTime: 9
+  disableAnimationsOnServer: 0
+  enemyRespawnTime: 20
+  matchStatsSendDelay: 1
+  pingSendDelay: 1
+--- !u!4 &509383658
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+  m_PrefabInternal: {fileID: 427232469}
+  m_GameObject: {fileID: 509383656}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+--- !u!1 &654793634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100010, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_PrefabInternal: {fileID: 439072355}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 654793635}
+  m_Layer: 2
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &654793635
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400010, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_PrefabInternal: {fileID: 439072355}
+  m_GameObject: {fileID: 654793634}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2101029290}
+  m_RootOrder: 0
+--- !u!1 &670021520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
+  m_PrefabInternal: {fileID: 331426332}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 670021522}
+  - 114: {fileID: 670021521}
+  - 114: {fileID: 670021523}
+  m_Layer: 0
+  m_Name: GameDB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &670021521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 3465796d6c92f7044a73d23d13213a51,
+    type: 2}
+  m_PrefabInternal: {fileID: 331426332}
+  m_GameObject: {fileID: 670021520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99f671cd92c5e2e4f97393ca09f2226c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &670021522
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
+  m_PrefabInternal: {fileID: 331426332}
+  m_GameObject: {fileID: 670021520}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+--- !u!114 &670021523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400002, guid: 3465796d6c92f7044a73d23d13213a51,
+    type: 2}
+  m_PrefabInternal: {fileID: 331426332}
+  m_GameObject: {fileID: 670021520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffc4e4a81e3fa2459b4c1cb6a16dbb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RiakNodes:
+  - HostName: 37.139.29.70
+    RiakPbcPort: 8087
+    UniqueId: erza
+    SocketPoolSize: 10
+--- !u!1 &674874704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+  m_PrefabInternal: {fileID: 1665725790}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 674874706}
+  - 114: {fileID: 674874705}
+  m_Layer: 0
+  m_Name: Skills
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &674874705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1665725790}
+  m_GameObject: {fileID: 674874704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0bff23e21ac03c4a943c48bfc182a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  castDurationIcon: {fileID: 2800000, guid: daea21e0838ac2847a16619f9db6a8aa, type: 3}
+  cooldownIcon: {fileID: 2800000, guid: db42b3b860215a94ab4aba3b6b2372d0, type: 3}
+  runeIcon: {fileID: 2800000, guid: e4c0b038167f6314597797aad8a5778e, type: 3}
+  runeDetonationIcon: {fileID: 2800000, guid: 0f0afb85a5dc04944b37e6616d1507fa, type: 3}
+  ccIcon: {fileID: 2800000, guid: 538b8c1b6feae844a9be726eb9af35b2, type: 3}
+  lifeDrainIcon: {fileID: 2800000, guid: 7aff71b452edf074aa9d416ecc3fafc3, type: 3}
+  blockCostIcon: {fileID: 2800000, guid: 8423245a225f53841a146a4dc3007de7, type: 3}
+  skillLevelIcon: {fileID: 2800000, guid: 73c4fa3310858b349b3c7ef8af415dde, type: 3}
+  weapons:
+  - name: None
+    id: 0
+    attunements:
+    - cooldown: .100000001
+      name: Fire
+      id: 10
+      skills:
+      - skillName: Fireball
+        id: 100
+        type: 2
+        canHold: 0
+        stages:
+        - cooldown: 0
+          description: Summons a fireball.
+          castDuration: .200000003
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 1
+          effectId: 0
+          castEffectPrefab: {fileID: 100008, guid: 9ed85a8734a809b45aef22e185519c2b,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 1
+        - cooldown: 0
+          description: Summons a strong fireball.
+          castDuration: .400000006
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 2
+          effectId: 0
+          castEffectPrefab: {fileID: 100008, guid: 9ed85a8734a809b45aef22e185519c2b,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 1
+        - cooldown: 0
+          description: Summons a very strong fireball.
+          castDuration: .400000006
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 6
+          effectId: 0
+          castEffectPrefab: {fileID: 100008, guid: 9ed85a8734a809b45aef22e185519c2b,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 1
+      - skillName: Meteor
+        id: 101
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 7
+          description: Summons a meteor that stuns enemies.
+          castDuration: .200000003
+          posType: 3
+          posOffset: {x: 0, y: 80, z: 0}
+          rotType: 1
+          animType: 2
+          effectId: 1
+          castEffectPrefab: {fileID: 100002, guid: 422d16c093fa3f44da5be021071ac073,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: 9e530edd564611a4aa36ffdaf9c78018, type: 3}
+          - {fileID: 8300000, guid: 30526454258e7e9408e8084f1f69a00e, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Hellfire
+        id: 102
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 14
+          description: Spawns fire vortexes which inflict damage over time.
+          castDuration: .300000012
+          posType: 3
+          posOffset: {x: 0, y: 1, z: 0}
+          rotType: 3
+          animType: 2
+          effectId: 0
+          castEffectPrefab: {fileID: 100008, guid: 9ed85a8734a809b45aef22e185519c2b,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: fc527224363c4fd4e907b4f6a5c41a7b, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Fire Nova
+        id: 103
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 18
+          description: Summons 5 flames which explode and turn into 50 fireballs.
+          castDuration: .600000024
+          posType: 3
+          posOffset: {x: 0, y: 1, z: 0}
+          rotType: 2
+          animType: 2
+          effectId: 0
+          castEffectPrefab: {fileID: 100000, guid: 4937b839b25539040a926069c7300aa5,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: fa77305e71b4bde46bc6c7b3d41c7edd, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 1
+          runeType: 0
+      - skillName: Fiery Blades
+        id: 104
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 24
+          description: 3 fiery blades rotate around you which inflict damage on opponents.
+          castDuration: .200000003
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 0
+          animType: 1
+          effectId: 0
+          castEffectPrefab: {fileID: 100008, guid: 9ed85a8734a809b45aef22e185519c2b,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: 7cd5c64d4e2acdc46b0ea4f38f62b61c, type: 3}
+          powerMultiplier: .25
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Meteor Shower
+        id: 105
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 28
+          description: Meteorites start raining from the sky.
+          castDuration: .300000012
+          posType: 2
+          posOffset: {x: 0, y: 80, z: 0}
+          rotType: 0
+          animType: 6
+          effectId: 0
+          castEffectPrefab: {fileID: 100000, guid: a15f4c08e6ea16c4dbfd2ada8123ab36,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: b309b8319ce29ce41a5091e2e73a5865, type: 3}
+          powerMultiplier: .375
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      icon: {fileID: 2800000, guid: 741b3480f27114a45a8f77a63a0e84ad, type: 3}
+    - cooldown: .100000001
+      name: Ice
+      id: 11
+      skills:
+      - skillName: Iceball
+        id: 200
+        type: 2
+        canHold: 0
+        stages:
+        - cooldown: 0
+          description: Summons an iceball which slows enemies.
+          castDuration: .200000003
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 1
+          effectId: 2
+          castEffectPrefab: {fileID: 100008, guid: 7ef5a6a1ccee8424b836445022da5659,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 2
+        - cooldown: 0
+          description: Summons a strong iceball which slows enemies.
+          castDuration: .400000006
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 2
+          effectId: 2
+          castEffectPrefab: {fileID: 100008, guid: 7ef5a6a1ccee8424b836445022da5659,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 2
+        - cooldown: 0
+          description: Summons a very strong iceball which slows enemies.
+          castDuration: .400000006
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 6
+          effectId: 2
+          castEffectPrefab: {fileID: 100008, guid: 7ef5a6a1ccee8424b836445022da5659,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 2
+      - skillName: Ice Swords
+        id: 201
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 4
+          description: Summons 9 ice swords which can cut through everything, each
+            engraving an ice rune.
+          castDuration: .200000003
+          posType: 1
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 5
+          effectId: 0
+          castEffectPrefab: {fileID: 100008, guid: 7ef5a6a1ccee8424b836445022da5659,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: d4286ee66ead3a84398a9ceb3fe30da4, type: 3}
+          powerMultiplier: .579999983
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 2
+        - cooldown: 4
+          description: Summons 18 ice swords which can cut through everything, each
+            engraving an ice rune.
+          castDuration: .5
+          posType: 1
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 1
+          effectId: 0
+          castEffectPrefab: {fileID: 100008, guid: 7ef5a6a1ccee8424b836445022da5659,
+            type: 2}
+          castVoices: []
+          powerMultiplier: .319999993
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 2
+        - cooldown: 4
+          description: Summons 27 ice swords which can cut through everything, each
+            engraving an ice rune.
+          castDuration: .600000024
+          posType: 1
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 6
+          effectId: 0
+          castEffectPrefab: {fileID: 100008, guid: 7ef5a6a1ccee8424b836445022da5659,
+            type: 2}
+          castVoices: []
+          powerMultiplier: .300000012
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 2
+      - skillName: Ice Wall
+        id: 202
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 14
+          description: Summons an ice wall which prevents movement and absorbs attacks
+            for enemies and allies. Can be used both offensively and defensively.
+          castDuration: .200000003
+          posType: 3
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 2
+          animType: 2
+          effectId: 2
+          castEffectPrefab: {fileID: 100008, guid: 7ef5a6a1ccee8424b836445022da5659,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: 38cd3bd59b1e65645bde3f7847834125, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+        - cooldown: 14
+          description: Summons a big ice wall which prevents movement and absorbs
+            attacks for enemies and allies. Can be used both offensively and defensively.
+          castDuration: .400000006
+          posType: 3
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 2
+          animType: 1
+          effectId: 2
+          castEffectPrefab: {fileID: 100008, guid: 7ef5a6a1ccee8424b836445022da5659,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+        - cooldown: 14
+          description: Summons a huge ice wall which prevents movement and absorbs
+            attacks for enemies and allies. Can be used both offensively and defensively.
+          castDuration: .400000006
+          posType: 3
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 2
+          animType: 6
+          effectId: 2
+          castEffectPrefab: {fileID: 100008, guid: 7ef5a6a1ccee8424b836445022da5659,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Blizzard
+        id: 203
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 20
+          description: Summons a blizzard that slows players hit by it.
+          castDuration: .400000006
+          posType: 3
+          posOffset: {x: 0, y: 10, z: 0}
+          rotType: 1
+          animType: 2
+          effectId: 2
+          castEffectPrefab: {fileID: 100000, guid: 87069eaa96925ae4fa492b17123b5a28,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: 3422cf21f58e6a749bb6d207506d5e3b, type: 3}
+          powerMultiplier: .600000024
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+        - cooldown: 20
+          description: Summons a blizzard that slows players hit by it.
+          castDuration: .400000006
+          posType: 3
+          posOffset: {x: 0, y: 10, z: 0}
+          rotType: 1
+          animType: 1
+          effectId: 2
+          castEffectPrefab: {fileID: 100000, guid: 87069eaa96925ae4fa492b17123b5a28,
+            type: 2}
+          castVoices: []
+          powerMultiplier: .600000024
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+        - cooldown: 20
+          description: Summons a blizzard that slows players hit by it.
+          castDuration: .400000006
+          posType: 3
+          posOffset: {x: 0, y: 10, z: 0}
+          rotType: 1
+          animType: 6
+          effectId: 2
+          castEffectPrefab: {fileID: 100000, guid: 87069eaa96925ae4fa492b17123b5a28,
+            type: 2}
+          castVoices: []
+          powerMultiplier: .600000024
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Ice Burst
+        id: 204
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 24
+          description: After some time it detonates and the resulting explosion leads
+            to a 50% slow effect.
+          castDuration: .200000003
+          posType: 3
+          posOffset: {x: 0, y: 3.5, z: 0}
+          rotType: 1
+          animType: 2
+          effectId: 3
+          castEffectPrefab: {fileID: 100008, guid: 7ef5a6a1ccee8424b836445022da5659,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: 3a1adb0a092f21a4a8817bed9c6f2ab0, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 1
+          runeType: 0
+      - skillName: Freezing Field
+        id: 205
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 24
+          description: Immobilizes all enemies caught in the field.
+          castDuration: .300000012
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 2
+          animType: 2
+          effectId: 7
+          castEffectPrefab: {fileID: 0}
+          castVoices:
+          - {fileID: 8300000, guid: 76e592e840fda41428d25546dcd6660c, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      icon: {fileID: 2800000, guid: a66a3846bb4f1d04eb0d51fbbe5acbc2, type: 3}
+    - cooldown: .100000001
+      name: Dark
+      id: 20
+      skills:
+      - skillName: Dark Fireball
+        id: 300
+        type: 2
+        canHold: 0
+        stages:
+        - cooldown: 0
+          description: Summons 3 dark projectiles, each engraving a dark rune.
+          castDuration: .300000012
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 1
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: a0cc0619862cf354bb946c4192488ccf,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 3
+        - cooldown: 0
+          description: Summons 4 dark projectiles, each engraving a dark rune.
+          castDuration: .400000006
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 2
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: a0cc0619862cf354bb946c4192488ccf,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 3
+        - cooldown: 0
+          description: Summons 5 dark projectiles, each engraving a dark rune.
+          castDuration: .400000006
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 6
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: a0cc0619862cf354bb946c4192488ccf,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 3
+      - skillName: Phoenix Burst
+        id: 301
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 14
+          description: Wings of the Dark Phoenix drain life from every hit player.
+          castDuration: .200000003
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 2
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: a0cc0619862cf354bb946c4192488ccf,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: 30237737ff406d14b9b702400811c11e, type: 3}
+          powerMultiplier: .899999976
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 1
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 1
+          runeType: 0
+        - cooldown: 0
+          description: Wings of the Dark Phoenix drain life from every hit player.
+          castDuration: .400000006
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 1
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: a0cc0619862cf354bb946c4192488ccf,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1.10000002
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 1
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 1
+          runeType: 0
+        - cooldown: 0
+          description: Wings of the Dark Phoenix drain life from every hit player.
+          castDuration: .400000006
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 5
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: a0cc0619862cf354bb946c4192488ccf,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1.29999995
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 1
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 1
+          runeType: 0
+      - skillName: Black Hole
+        id: 302
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 24
+          description: Pulls all enemies in a 20m radius to its center.
+          castDuration: .300000012
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 2
+          animType: 2
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: a0cc0619862cf354bb946c4192488ccf,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: 2c813e90863e2664ba569754e24548ea, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Inverse Gravity
+        id: 303
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 30
+          description: Inverses the gravity in an area which lets enemies hover in
+            the air for 1.5 seconds.
+          castDuration: .300000012
+          posType: 3
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 3
+          animType: 5
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: a0cc0619862cf354bb946c4192488ccf,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: 3b109799c358e3a48a40a9ffd7cc6677, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+        - cooldown: 30
+          description: Inverses the gravity in an area which lets enemies hover in
+            the air for 1.5 seconds.
+          castDuration: .300000012
+          posType: 3
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 3
+          animType: 5
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: a0cc0619862cf354bb946c4192488ccf,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+        - cooldown: 30
+          description: Inverses the gravity in an area which lets enemies hover in
+            the air for 1.5 seconds.
+          castDuration: .300000012
+          posType: 3
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 3
+          animType: 5
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: a0cc0619862cf354bb946c4192488ccf,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Eclipse
+        id: 304
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 60
+          description: Summons a sinister darkness to engulf a huge area in a stream
+            of dark projectiles.
+          castDuration: .25
+          posType: 3
+          posOffset: {x: 0, y: 30, z: 0}
+          rotType: 1
+          animType: 2
+          effectId: 0
+          castEffectPrefab: {fileID: 100000, guid: 372d04467c2404a48a7533a746de80fc,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: 1800e2f26cb23064cbda789e4442cfe7, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+        - cooldown: 60
+          description: Summons a sinister darkness to engulf a huge area in a stream
+            of dark projectiles.
+          castDuration: .25
+          posType: 3
+          posOffset: {x: 0, y: 30, z: 0}
+          rotType: 1
+          animType: 1
+          effectId: 0
+          castEffectPrefab: {fileID: 100000, guid: 372d04467c2404a48a7533a746de80fc,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+        - cooldown: 60
+          description: Summons a sinister darkness to engulf a huge area in a stream
+            of dark projectiles.
+          castDuration: .25
+          posType: 3
+          posOffset: {x: 0, y: 30, z: 0}
+          rotType: 1
+          animType: 5
+          effectId: 0
+          castEffectPrefab: {fileID: 100000, guid: 372d04467c2404a48a7533a746de80fc,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      icon: {fileID: 2800000, guid: 0a2448cf770920843b3fb270bde1861f, type: 3}
+    - cooldown: .100000001
+      name: Light
+      id: 21
+      skills:
+      - skillName: Lightball
+        id: 400
+        type: 2
+        canHold: 0
+        stages:
+        - cooldown: 0
+          description: Summons a lightball that searches for enemies close to it and
+            flies towards them.
+          castDuration: .200000003
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 1
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: 4190aa255d5d06d4d97d5e6565178834,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 4
+        - cooldown: 0
+          description: Summons a strong lightball that searches for enemies close
+            to it and flies towards them.
+          castDuration: .400000006
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 2
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: 4190aa255d5d06d4d97d5e6565178834,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 4
+        - cooldown: 0
+          description: Summons a very strong lightball that searches for enemies close
+            to it and flies towards them.
+          castDuration: .400000006
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 6
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: 4190aa255d5d06d4d97d5e6565178834,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 4
+      - skillName: Shockwave
+        id: 401
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 4
+          description: 'Pushes back enemies from its center: the closer the enemy
+            is to the center, the stronger the effect.'
+          castDuration: .200000003
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 2
+          animType: 5
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: 4190aa255d5d06d4d97d5e6565178834,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: a6dfece19252ebd46977a60c81384bff, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 1
+          runeType: 0
+      - skillName: Teleport
+        id: 402
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 12
+          description: Instantly teleports to target location.
+          castDuration: .200000003
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 1
+          effectId: 0
+          castEffectPrefab: {fileID: 100002, guid: 4190aa255d5d06d4d97d5e6565178834,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 50
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Sleep
+        id: 403
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 16
+          description: Makes enemies fall to sleep for some time. Attacking them will
+            cancel the sleep effect.
+          castDuration: .200000003
+          posType: 3
+          posOffset: {x: 0, y: 15, z: 0}
+          rotType: 1
+          animType: 2
+          effectId: 4
+          castEffectPrefab: {fileID: 100002, guid: 4190aa255d5d06d4d97d5e6565178834,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: 03064a7713b417a44a717b6c08216748, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Energy Implosion
+        id: 404
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 20
+          description: Gathers all the energy from the surrounding area and leads
+            to a large implosion in a 16m radius which detonates all runes.
+          castDuration: .400000006
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 2
+          animType: 2
+          effectId: 0
+          castEffectPrefab: {fileID: 100000, guid: 3c591bb4389d1404daa103d831a698d9,
+            type: 2}
+          castVoices:
+          - {fileID: 8300000, guid: 1742ae8f676e0eb44a4a90271baee811, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 1
+          runeType: 0
+        - cooldown: 20
+          description: Gathers all the energy from the surrounding area and leads
+            to a large implosion in a 20m radius which detonates all runes.
+          castDuration: .600000024
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 2
+          animType: 1
+          effectId: 0
+          castEffectPrefab: {fileID: 100000, guid: 3c591bb4389d1404daa103d831a698d9,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 1
+          runeType: 0
+        - cooldown: 20
+          description: Gathers all the energy from the surrounding area and leads
+            to a large implosion in a 24m radius which detonates all runes.
+          castDuration: .600000024
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 2
+          animType: 5
+          effectId: 0
+          castEffectPrefab: {fileID: 100000, guid: 3c591bb4389d1404daa103d831a698d9,
+            type: 2}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 1
+          runeType: 0
+      icon: {fileID: 2800000, guid: 0a90010d18ac0ad4989070d2a87c8b68, type: 3}
+    - cooldown: .100000001
+      name: Lightning
+      id: 12
+      skills:
+      - skillName: Lightning
+        id: 500
+        type: 2
+        canHold: 1
+        stages:
+        - cooldown: 0
+          description: Hold the button to summon lightning.
+          castDuration: .200000003
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 0
+          animType: 1
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Thunderbolt
+        id: 501
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 4
+          description: Summons a thunderbolt from the sky.
+          castDuration: .200000003
+          posType: 3
+          posOffset: {x: 0, y: 80, z: 0}
+          rotType: 1
+          animType: 5
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices:
+          - {fileID: 8300000, guid: 8aa94a720da6cc147aafb3a4ea8a8502, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 6
+      - skillName: Thunderball
+        id: 502
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 14
+          description: Throw a ball of concentrated lightning energy, the shock causes
+            enemies to be stunned.
+          castDuration: .400000006
+          posType: 0
+          posOffset: {x: 0, y: 1, z: 0}
+          rotType: 1
+          animType: 6
+          effectId: 5
+          castEffectPrefab: {fileID: 0}
+          castVoices:
+          - {fileID: 8300000, guid: 48e18be2a01fbcb41aab09b0633f1ffc, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 1
+          runeType: 0
+      - skillName: Binding Field
+        id: 503
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 24
+          description: Summons a lightning sphere and immobilizes enemies close to
+            it.
+          castDuration: .200000003
+          posType: 3
+          posOffset: {x: 0, y: 2, z: 0}
+          rotType: 0
+          animType: 2
+          effectId: 6
+          castEffectPrefab: {fileID: 0}
+          castVoices:
+          - {fileID: 8300000, guid: 989927c10c7e58f468fe00cf329f0123, type: 3}
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Thunderstorm
+        id: 504
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 45
+          description: Thunderbolts start raining down, dealing heavy AoE damage.
+          castDuration: .400000006
+          posType: 3
+          posOffset: {x: 0, y: 40, z: 0}
+          rotType: 0
+          animType: 2
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices:
+          - {fileID: 8300000, guid: 8702551531bba2348896e62545fdb3ca, type: 3}
+          powerMultiplier: .150000006
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+        - cooldown: 45
+          description: Thunderbolts start raining down, dealing heavy AoE damage.
+          castDuration: .300000012
+          posType: 3
+          posOffset: {x: 0, y: 40, z: 0}
+          rotType: 0
+          animType: 1
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: .200000003
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+        - cooldown: 45
+          description: Thunderbolts start raining down, dealing heavy AoE damage.
+          castDuration: .300000012
+          posType: 3
+          posOffset: {x: 0, y: 40, z: 0}
+          rotType: 0
+          animType: 5
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: .25
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      icon: {fileID: 2800000, guid: 341aed55d9790fe4887e4e5430565ff5, type: 3}
+    runeType: 0
+    autoTarget: 0
+  - name: Scythe
+    id: 1
+    attunements:
+    - cooldown: .100000001
+      name: Fire
+      id: 110
+      skills:
+      - skillName: Combo
+        id: 1000
+        type: 2
+        canHold: 0
+        stages:
+        - cooldown: 0
+          description: 
+          castDuration: 0
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 0
+          animType: 4
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      icon: {fileID: 2800000, guid: 741b3480f27114a45a8f77a63a0e84ad, type: 3}
+    runeType: 0
+    autoTarget: 0
+  - name: Katana
+    id: 2
+    attunements:
+    - cooldown: .100000001
+      name: Wind
+      id: 213
+      skills:
+      - skillName: Slash
+        id: 2000
+        type: 2
+        canHold: 0
+        stages:
+        - cooldown: 0
+          description: 
+          castDuration: 0
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 0
+          animType: 4
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: .200000003
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 0
+          canMoveWhileAttacking: 0
+          isRuneDetonator: 0
+          runeType: 5
+      - skillName: Wind Thrust
+        id: 2001
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 2
+          description: 
+          castDuration: 0
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 0
+          animType: 4
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 20
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Wind Cleave
+        id: 2002
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 8
+          description: 
+          castDuration: 0
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 4
+          effectId: 1
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Wind Blade
+        id: 2003
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 0
+          description: 
+          castDuration: 0
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 0
+          animType: 6
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Downcut
+        id: 2004
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 0
+          description: 
+          castDuration: 0
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 0
+          animType: 4
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      icon: {fileID: 0}
+    runeType: 0
+    autoTarget: 0
+  runeDetonators:
+    cooldown: .100000001
+    name: Runes
+    id: 0
+    skills:
+    - skillName: Fire Rune
+      id: 0
+      type: 0
+      canHold: 0
+      stages:
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+    - skillName: Ice Rune
+      id: 1
+      type: 0
+      canHold: 0
+      stages:
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+    - skillName: Dark Rune
+      id: 2
+      type: 0
+      canHold: 0
+      stages:
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: .400000006
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 1
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: .400000006
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 1
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: .400000006
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 1
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: .400000006
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 1
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: .400000006
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 1
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+    - skillName: Light Rune
+      id: 3
+      type: 0
+      canHold: 0
+      stages:
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+    - skillName: Wind Rune
+      id: 4
+      type: 0
+      canHold: 0
+      stages:
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+    - skillName: Lightning Rune
+      id: 5
+      type: 0
+      canHold: 0
+      stages:
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+      - cooldown: 0
+        description: 
+        castDuration: 0
+        posType: 2
+        posOffset: {x: 0, y: 0, z: 0}
+        rotType: 0
+        animType: 0
+        effectId: 0
+        castEffectPrefab: {fileID: 0}
+        castVoices: []
+        powerMultiplier: 1
+        staggerDuration: 0
+        energyCostAbs: 0
+        lifeDrainRel: 0
+        canMoveWhileCasting: 1
+        canMoveWhileAttacking: 1
+        isRuneDetonator: 0
+        runeType: 0
+    icon: {fileID: 0}
+  swordMagic1:
+  - skillName: Slash
+    id: 2000
+    type: 0
+    canHold: 0
+    stages:
+    - cooldown: 0
+      description: 
+      castDuration: 0
+      posType: 0
+      posOffset: {x: 0, y: 0, z: 0}
+      rotType: 0
+      animType: 4
+      effectId: 0
+      castEffectPrefab: {fileID: 0}
+      castVoices: []
+      powerMultiplier: 1
+      staggerDuration: .200000003
+      energyCostAbs: 0
+      lifeDrainRel: 0
+      canMoveWhileCasting: 0
+      canMoveWhileAttacking: 0
+      isRuneDetonator: 0
+      runeType: 5
+  - skillName: Downcut
+    id: 2001
+    type: 0
+    canHold: 0
+    stages:
+    - cooldown: 0
+      description: 
+      castDuration: 0
+      posType: 0
+      posOffset: {x: 0, y: 0, z: 0}
+      rotType: 0
+      animType: 7
+      effectId: 0
+      castEffectPrefab: {fileID: 0}
+      castVoices: []
+      powerMultiplier: 1
+      staggerDuration: .200000003
+      energyCostAbs: 0
+      lifeDrainRel: 0
+      canMoveWhileCasting: 0
+      canMoveWhileAttacking: 0
+      isRuneDetonator: 0
+      runeType: 5
+  - skillName: Wind Cleave
+    id: 2002
+    type: 0
+    canHold: 0
+    stages:
+    - cooldown: 8
+      description: 
+      castDuration: 0
+      posType: 0
+      posOffset: {x: 0, y: 0, z: 0}
+      rotType: 1
+      animType: 4
+      effectId: 0
+      castEffectPrefab: {fileID: 0}
+      castVoices: []
+      powerMultiplier: 1.20000005
+      staggerDuration: 0
+      energyCostAbs: 0
+      lifeDrainRel: 0
+      canMoveWhileCasting: 0
+      canMoveWhileAttacking: 0
+      isRuneDetonator: 0
+      runeType: 0
+  - skillName: Wind Thrust
+    id: 2003
+    type: 0
+    canHold: 0
+    stages:
+    - cooldown: 10
+      description: Quick forward movement followed by a thrust with your sword.
+      castDuration: 0
+      posType: 0
+      posOffset: {x: 0, y: 0, z: 0}
+      rotType: 0
+      animType: 8
+      effectId: 0
+      castEffectPrefab: {fileID: 0}
+      castVoices: []
+      powerMultiplier: 1.29999995
+      staggerDuration: .300000012
+      energyCostAbs: 0
+      lifeDrainRel: 0
+      canMoveWhileCasting: 0
+      canMoveWhileAttacking: 0
+      isRuneDetonator: 1
+      runeType: 0
+  - skillName: Wind Blade
+    id: 2004
+    type: 0
+    canHold: 0
+    stages:
+    - cooldown: 16
+      description: Adds the power of wind to your blade, attacks do 25% more damage.
+      castDuration: .200000003
+      posType: 0
+      posOffset: {x: 0, y: 0, z: 0}
+      rotType: 0
+      animType: 6
+      effectId: 0
+      castEffectPrefab: {fileID: 0}
+      castVoices: []
+      powerMultiplier: 1
+      staggerDuration: 0
+      energyCostAbs: 0
+      lifeDrainRel: 0
+      canMoveWhileCasting: 0
+      canMoveWhileAttacking: 0
+      isRuneDetonator: 0
+      runeType: 0
+--- !u!4 &674874706
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+  m_PrefabInternal: {fileID: 1665725790}
+  m_GameObject: {fileID: 674874704}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 104.495697, y: 46.4199219, z: 17.1771393}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+--- !u!1 &844910187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100008, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_PrefabInternal: {fileID: 439072355}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 844910188}
+  m_Layer: 2
+  m_Name: Labels
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &844910188
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400008, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_PrefabInternal: {fileID: 439072355}
+  m_GameObject: {fileID: 844910187}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2101029290}
+  m_RootOrder: 1
+--- !u!1 &1260117564
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100004, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_PrefabInternal: {fileID: 439072355}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1260117565}
+  m_Layer: 2
+  m_Name: SkillInstances
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1260117565
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400004, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_PrefabInternal: {fileID: 439072355}
+  m_GameObject: {fileID: 1260117564}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2101029290}
+  m_RootOrder: 4
+--- !u!1 &1520485636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 0614f621608c26548a221019dd29b156, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1520485646}
+  - 114: {fileID: 1520485645}
+  - 114: {fileID: 1520485644}
+  - 114: {fileID: 1520485643}
+  - 114: {fileID: 1520485642}
+  - 114: {fileID: 1520485641}
+  - 114: {fileID: 1520485640}
+  - 81: {fileID: 1520485639}
+  - 114: {fileID: 1520485638}
+  - 114: {fileID: 1520485637}
+  m_Layer: 0
+  m_Name: Server
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1520485637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400022, guid: 0614f621608c26548a221019dd29b156,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520485636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9be5429cbf387c4f9140f7d1908fb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proxyPrefab: 
+  ownerPrefab: 
+  serverPrefab: 
+  _parent: {fileID: 0}
+  _childIndex: -1
+  _children: []
+  stateSynchronization: 0
+  securable: 3
+  observed: {fileID: 1520485646}
+  _manualViewID: 1
+  rpcReceiver: 2
+  listOfGameObjects: []
+  _prefabRoot: {fileID: 0}
+--- !u!114 &1520485638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400002, guid: 0614f621608c26548a221019dd29b156,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520485636}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2baeb7b27e08125469ca0657f940967c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: 1
+  showOnlyInEditor: 0
+  enabledByKey: 43
+  isEnabled: 1
+  dontDestroyOnLoad: 0
+  guiSkin: {fileID: 0}
+  guiDepth: 0
+  showDetails: 0
+--- !u!81 &1520485639
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 8100000, guid: 0614f621608c26548a221019dd29b156,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520485636}
+  m_Enabled: 1
+--- !u!114 &1520485640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400024, guid: 0614f621608c26548a221019dd29b156,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520485636}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636d5e8a3c924814c91be06ac56eb5a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxWaitTimeUntilShutdown: 20
+  gameStarted: 0
+  gameEnded: 0
+  scoreNeededToWin: 5000
+--- !u!114 &1520485641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400020, guid: 0614f621608c26548a221019dd29b156,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520485636}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aaad55bf8259e94d8aab96cb7e4c406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxWaitTimeUntilShutdown: 20
+  gameStarted: 0
+  gameEnded: 0
+  scoreNeededToWin: 5000
+--- !u!114 &1520485642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400018, guid: 0614f621608c26548a221019dd29b156,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520485636}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15cda3487b1a0041ab45bcf70ae844a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxWaitTimeUntilShutdown: 20
+  gameStarted: 0
+  gameEnded: 0
+  scoreNeededToWin: 5000
+--- !u!114 &1520485643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: 0614f621608c26548a221019dd29b156,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520485636}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214e062851fb2bb4fae0ed67d46b8c18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxWaitTimeUntilShutdown: 20
+  gameStarted: 0
+  gameEnded: 0
+  scoreNeededToWin: 5000
+--- !u!114 &1520485644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400006, guid: 0614f621608c26548a221019dd29b156,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520485636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d4c2bcb4cb5a84ebef4a83b3b16a15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testServerType: 3
+  mapName: Nubek Outskirts
+  serverFrameRate: 50
+  defaultServerPort: 7200
+  proxyPrefab: {fileID: 100312, guid: 9faff002c4ef589479c95cb325fd792a, type: 2}
+  ownerPrefab: {fileID: 100312, guid: 054763d01eb645542afcce6829a934fc, type: 2}
+  creatorPrefab: {fileID: 100312, guid: 3989b69492232dc43b330105da2ce6f7, type: 2}
+  restrictedAccounts: 0
+--- !u!114 &1520485645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400014, guid: 0614f621608c26548a221019dd29b156,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520485636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c373b5eedcf28e944a66cca5db95021c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 100312, guid: 3989b69492232dc43b330105da2ce6f7, type: 2}
+  - {fileID: 100004, guid: 33a96cc34ad419144bc4adb0d68843e4, type: 2}
+  replaceIfExists: 1
+--- !u!4 &1520485646
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 0614f621608c26548a221019dd29b156, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1520485636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -27.9921741, y: -30.2123928, z: -142.084122}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!1 &1618785359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_PrefabInternal: {fileID: 439072355}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1618785360}
+  m_Layer: 2
+  m_Name: Particles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1618785360
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_PrefabInternal: {fileID: 439072355}
+  m_GameObject: {fileID: 1618785359}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2101029290}
+  m_RootOrder: 2
+--- !u!1001 &1665725790
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 104.495697
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 46.4199219
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 17.1771393
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+  m_RootGameObject: {fileID: 674874704}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
+--- !u!1 &1963163373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100006, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_PrefabInternal: {fileID: 439072355}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1963163374}
+  m_Layer: 2
+  m_Name: Players
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1963163374
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400006, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_PrefabInternal: {fileID: 439072355}
+  m_GameObject: {fileID: 1963163373}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2101029290}
+  m_RootOrder: 3
+--- !u!1 &2101029289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_PrefabInternal: {fileID: 439072355}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2101029290}
+  m_Layer: 2
+  m_Name: Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2101029290
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+  m_PrefabInternal: {fileID: 439072355}
+  m_GameObject: {fileID: 2101029289}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 654793635}
+  - {fileID: 844910188}
+  - {fileID: 1618785360}
+  - {fileID: 1963163374}
+  - {fileID: 1260117565}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
