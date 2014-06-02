@@ -696,8 +696,10 @@ public class ServerInit : uLink.MonoBehaviour {
 	// --------------------------------------------------------------------------------
 	// Security
 	// --------------------------------------------------------------------------------
-	
+
+	// InitPrivateKey
 	public static void InitPrivateKey() {
+		// TODO: Load private key dynamically from a file
 		LogManager.General.Log("Initializing private key");
 		uLink.Network.privateKey = new uLink.PrivateKey(
 @"r6tfUZ4YwT16YA4GGXN7xdd1A5rTIwSi5Yn6euIGK/Z0WrTkkgBVHnMtxFLtqmh8kh

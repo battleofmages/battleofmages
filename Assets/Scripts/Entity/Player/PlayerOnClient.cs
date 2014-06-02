@@ -247,10 +247,10 @@ public abstract class PlayerOnClient : Player {
 	
 	[RPC]
 	protected void UpdatePing(ushort nPing) {
-		this.stats.ping = nPing;
+		stats.ping = nPing;
 		
 		// The higher the ping, the more error in distance we can allow
-		this.maxDistanceToServer = 0.95f + nPing * 0.03f;
+		maxDistanceToServer = 0.95f + nPing * 0.03f;
 	}
 	
 	[RPC]
@@ -323,14 +323,14 @@ public abstract class PlayerOnClient : Player {
 	
 	[RPC]
 	protected void GameMaxScore(int maxScore) {
-		var teamScore = this.GetComponent<TeamScore>();
+		var teamScore = GetComponent<TeamScore>();
 		teamScore.maxScore = maxScore;
 		teamScore.enabled = true;
 	}
 	
 	[RPC]
 	protected void WeaponAttunement(byte weaponId, byte attunementId) {
-		this.weapons[weaponId].currentAttunementId = attunementId;
+		weapons[weaponId].currentAttunementId = attunementId;
 	}
 	
 	[RPC]
@@ -341,10 +341,10 @@ public abstract class PlayerOnClient : Player {
 	
 	[RPC]
 	public void Respawn(Vector3 spawnPosition) {
-		this.BasicRespawn(spawnPosition);
+		BasicRespawn(spawnPosition);
 		
 		// Set server position
-		this.serverPosition = myTransform.position;
+		serverPosition = myTransform.position;
 	}
 #endregion
 	
@@ -359,7 +359,14 @@ public abstract class PlayerOnClient : Player {
 	[RPC]
 	protected void SkillDamageSent() {
 		// Sort death review by damage, descending
-		skillDamageReceived = (from entry in skillDamageReceived orderby entry.Value descending select entry).ToDictionary(pair => pair.Key, pair => pair.Value);
+		skillDamageReceived = (
+			from entry in skillDamageReceived
+			orderby entry.Value descending
+			select entry
+		).ToDictionary(
+			pair => pair.Key,
+			pair => pair.Value
+		);
 	}
 #endregion
 }

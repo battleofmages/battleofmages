@@ -11,10 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: -583055799, guid: aa994d52571cda34483224bef6a2d7cd, type: 3}
   m_Name: RAINSettings
   m_EditorClassIdentifier: 
-  _actionsDirectory: Assets/Code/AI/Actions/
-  _cacheDirectory: Assets/Code/AI/Cache/
-  _btSaveDirectory: Assets/Code/AI/BehaviorTrees/
-  _btEditorSearchDirectory: Assets/Code/AI/BehaviorTrees/
+  _actionsDirectory: Assets/Scripts/AI/Actions/
+  _cacheDirectory: Assets/Scripts/AI/Cache/
+  _btSaveDirectory: Assets/Scripts/AI/BehaviorTrees/
+  _btEditorSearchDirectory: Assets/Scripts/AI/BehaviorTrees/
   _lastLoadSaveDirectory: 
   _btInspectorPaneWidth: 300
   _btInspectorFieldWidth: 120
@@ -22,7 +22,7 @@ MonoBehaviour:
   _useSkin: 1
   _skin: {fileID: 11400000, guid: 47851dbc67e60bd40a7e2dad8dd5afa8, type: 2}
   _showAdvanced: 1
-  _allowAutoUpdateCheck: 1
-  _lastUpdateCheck: 6/1/2014 9:44:47 AM
+  _allowAutoUpdateCheck: 0
+  _lastUpdateCheck: 6/2/2014 11:47:14 AM
   _updateFrequencyHours: 24
   _updateMetaformRequired: 0

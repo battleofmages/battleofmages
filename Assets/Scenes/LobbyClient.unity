@@ -178,7 +178,7 @@ Transform:
   - {fileID: 620513657}
   - {fileID: 621815495}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!1001 &228241950
 Prefab:
   m_ObjectHideFlags: 0
@@ -453,7 +453,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
 --- !u!114 &437403179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1065,7 +1065,7 @@ Transform:
   - {fileID: 1751476814}
   - {fileID: 283255120}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1 &620513656
 GameObject:
   m_ObjectHideFlags: 0
@@ -4805,7 +4805,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 6
 --- !u!1 &1203773983
 GameObject:
   m_ObjectHideFlags: 0
@@ -6870,7 +6870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyHost: 37.139.29.70
-  editorLobbyHost: 37.139.29.70
+  editorLobbyHost: 127.0.0.1
   lobbyPort: 1310
   lobbyFrameRate: 60
   lowerFPSWhenIdle: 1
@@ -6886,7 +6886,7 @@ MonoBehaviour:
     height: .800000012
   retrieveLobbyIP: 0
   lobbyIpURL: 
-  editorAutoLogin: 1
+  editorAutoLogin: 0
   editorAccountName: a
   editorPassword: a
   tooltipStyle:
