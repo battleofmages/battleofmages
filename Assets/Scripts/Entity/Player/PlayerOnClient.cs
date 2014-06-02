@@ -65,7 +65,7 @@ public abstract class PlayerOnClient : Player {
 		serverPositionVisualization = (Transform)Object.Instantiate(serverPositionVisualizationPrefab, serverPosition, Cache.quaternionIdentity);
 		serverPositionVisualization.gameObject.SetActive(false);
 		
-		// Chat component
+		// Camera
 		cam = Camera.main;
 		camTransform = cam.transform;
 		
@@ -272,7 +272,7 @@ public abstract class PlayerOnClient : Player {
 		else
 			return;*/
 		
-		qStats = this.stats.total;
+		qStats = stats.total;
 		
 		qStats.damage = nDmgDealt;
 		qStats.cc = nCCDealt;
@@ -315,7 +315,7 @@ public abstract class PlayerOnClient : Player {
 			}
 			
 			// Enable return button
-			this.GetComponent<ReturnButton>().enabled = true;
+			GetComponent<ReturnButton>().enabled = true;
 			
 			LogManager.General.Log("Game ended");
 		}

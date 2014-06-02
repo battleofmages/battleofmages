@@ -81,8 +81,12 @@ public class Magic : MonoBehaviour {
 				
 				// Add skills from skill IDs
 				foreach(var skillId in attunementBuild.skills) {
-					var skill = Skill.idToSkill[skillId];
-					attunement.AddSkill(Skill.Copy(skill));
+					try {
+						var skill = Skill.idToSkill[skillId];
+						attunement.AddSkill(Skill.Copy(skill));
+					} catch(KeyNotFoundException) {
+						LogManager.General.LogError("Could not find skill with ID: " + skillId);
+					}
 				}
 				
 				weapon.AddAttunement(attunement);

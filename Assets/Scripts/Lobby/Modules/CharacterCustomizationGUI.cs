@@ -1,6 +1,5 @@
 using uLobby;
 using UnityEngine;
-using System.Collections;
 
 public sealed class CharacterCustomizationGUI : LobbyModule<CharacterCustomizationGUI> {
 	public GUIContent voicePlayButtonContent;
@@ -23,7 +22,7 @@ public sealed class CharacterCustomizationGUI : LobbyModule<CharacterCustomizati
 		if(prefab == null)
 			LogManager.General.LogError("Character prefab not defined!");
 		
-		characterModel = ((GameObject)GameObject.Instantiate(prefab)).transform;
+		characterModel = ((GameObject)Object.Instantiate(prefab)).transform;
 		characterModel.parent = CharacterPreview.instance.transform;
 		characterModel.localPosition = Cache.vector3Zero;
 		characterModel.localRotation = Cache.quaternionIdentity;
