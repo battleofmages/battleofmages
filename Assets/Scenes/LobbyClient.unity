@@ -81,10 +81,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
-      propertyPath: weapons.Array.data[2].attunements.Array.data[0].skills.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -113,37 +109,9 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
-      propertyPath: weapons.Array.data[2].attunements.Array.data[0].skills.Array.data[1].skillName
-      value: Unknown skill
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
-      propertyPath: weapons.Array.data[2].attunements.Array.data[0].skills.Array.data[1].id
-      value: 2001
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
-      propertyPath: weapons.Array.data[2].attunements.Array.data[0].skills.Array.data[2].skillName
-      value: Unknown skill
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
-      propertyPath: weapons.Array.data[2].attunements.Array.data[0].skills.Array.data[2].id
-      value: 2002
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
-      propertyPath: weapons.Array.data[2].attunements.Array.data[0].skills.Array.data[3].skillName
-      value: Unknown skill
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
-      propertyPath: weapons.Array.data[2].attunements.Array.data[0].skills.Array.data[3].id
-      value: 2003
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
-      propertyPath: weapons.Array.data[2].attunements.Array.data[0].skills.Array.data[4].skillName
-      value: Unknown skill
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
-      propertyPath: weapons.Array.data[2].attunements.Array.data[0].skills.Array.data[4].id
-      value: 2004
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
@@ -4099,6 +4067,98 @@ MonoBehaviour:
           canMoveWhileAttacking: 0
           isRuneDetonator: 0
           runeType: 5
+      - skillName: Wind Thrust
+        id: 2001
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 2
+          description: 
+          castDuration: 0
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 0
+          animType: 4
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 20
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Wind Cleave
+        id: 2002
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 8
+          description: 
+          castDuration: 0
+          posType: 0
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 1
+          animType: 4
+          effectId: 1
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Wind Blade
+        id: 2003
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 0
+          description: 
+          castDuration: 0
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 0
+          animType: 6
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
+      - skillName: Downcut
+        id: 2004
+        type: 0
+        canHold: 0
+        stages:
+        - cooldown: 0
+          description: 
+          castDuration: 0
+          posType: 2
+          posOffset: {x: 0, y: 0, z: 0}
+          rotType: 0
+          animType: 4
+          effectId: 0
+          castEffectPrefab: {fileID: 0}
+          castVoices: []
+          powerMultiplier: 1
+          staggerDuration: 0
+          energyCostAbs: 0
+          lifeDrainRel: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
+          isRuneDetonator: 0
+          runeType: 0
       icon: {fileID: 0}
     runeType: 0
     autoTarget: 0

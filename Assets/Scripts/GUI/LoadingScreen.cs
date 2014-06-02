@@ -58,6 +58,7 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 		LogManager.General.Log("Level was loaded, time scale: 100%");
 		Time.timeScale = 1f;
 		asyncLoadLevel = null;
+		statusMessage = loadingText + " 100%";
 		
 		if(!uLink.Network.isServer) {
 			// Allow receiving data again
@@ -159,10 +160,10 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 		GUI.color = backgroundColor;
 		if(background != null)
 			GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), background);
-		
+
 		if(asyncLoadLevel != null)
 			statusMessage = loadingText + " " + (int)(asyncLoadLevel.progress * 100) + "%";
-		
+
 		if(statusMessage != null)
 			GUI.Label(new Rect(5, Screen.height - height - 5, Screen.width - 10, height), statusMessage);
 	}
