@@ -262,7 +262,7 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 		
 		new TimedConfirm(
 			"An arena match has been created, would you like to enter?",
-			GameManager.matchAcceptTime,
+			Config.instance.matchAcceptTime,
 			() => {
 				Lobby.RPC("AcceptMatch", Lobby.lobby, true);
 			},

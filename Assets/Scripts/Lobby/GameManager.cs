@@ -12,8 +12,6 @@ public enum State {
 
 // GameManager
 public class GameManager : SingletonMonoBehaviour<GameManager> {
-	public const float matchAcceptTime = 15.0f;
-	
 	// Server type
 	public static ServerType serverType;
 	

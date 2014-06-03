@@ -47,6 +47,8 @@ public class Config : SingletonMonoBehaviour<Config> {
 
 	public float skillInstanceDestructionTime;
 
+	public float matchAcceptTime;
+
 	// Server
 	public bool disableAnimationsOnServer;
 	public float enemyRespawnTime;
