@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using RAIN.Core;
 using RAIN.Memory;
@@ -108,7 +108,7 @@ public class EnemyOnServer : Enemy, CasterOnServer {
 		
 		// Target changed?
 		if(targetId != oldTargetId) {
-			DSpamLog("New target: '" + target + "'");
+			LogSpam("New target: '" + target + "'");
 			networkView.RPC("ClientSetTarget", uLink.RPCMode.Server, targetId);
 			SetTarget(targetId);
 			
@@ -187,7 +187,11 @@ public class EnemyOnServer : Enemy, CasterOnServer {
 			// Death
 			if(health == 0) {
 				// Let others know about the kill
-				networkView.RPC("RegisterKill", uLink.RPCMode.All, lastHitBy.id, id, (short)lastHitBySkill.id);
+				networkView.RPC("RegisterKill", uLink.RPCMode.All,
+					lastHitBy.id,				// Killer
+				   	id,							// Victim
+				    (short)lastHitBySkill.id	// Skill ID
+				);
 			}
 		}
 	}

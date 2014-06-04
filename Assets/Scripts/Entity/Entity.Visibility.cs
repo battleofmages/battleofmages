@@ -17,6 +17,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 
 		set {
 			_isVisible = value;
+
 			//charGraphicsModel.gameObject.SetActive(_isVisible);
 			
 			//if(attunementVisuals != null)

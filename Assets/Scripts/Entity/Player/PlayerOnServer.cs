@@ -34,7 +34,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 	private double ltsClientWeapon;
 	private double ltsClientChat;
 	private double ltsClientTarget;
-	private double ltsClientNoTarget;
+	//private double ltsClientNoTarget;
 	
 	// Sets up calling SendToClients constantly
 	protected override void Awake () {
@@ -166,7 +166,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 				
 				// Someone trying to hack?
 				if(distanceToClientPredictedSqr > maxDistanceToClientHackLogSqr)
-					DLogWarning("Hacking attempt, distance to server: " + distanceToClientPredictedSqr);
+					LogWarning("Hacking attempt, distance to server: " + distanceToClientPredictedSqr);
 			}
 			
 			// If we haven't received movement RPCs for more than 0.5 seconds
@@ -296,7 +296,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 	// InterruptCast
 	public override void InterruptCast() {
 		if(currentSkill != null)
-			DSpamLog("Cast has been interrupted: " + currentSkill.skillName);
+			LogSpam("Cast has been interrupted: " + currentSkill.skillName);
 		
 		if(hovering)
 			EndHover();
@@ -314,13 +314,13 @@ public class PlayerOnServer : Player, CasterOnServer {
 		base.ResendDataToPlayer(player);
 		
 		if(networkView != null) {
-			DLog("Resending data to player " + player.id);
+			Log("Resending data to player " + player.id);
 			
 			// Party
 			if(party != null) {
 				networkView.RPC("ChangeParty", player, this.party.id);
 			} else {
-				DLog("My party is null, not going to resend party data to player " + player.id);
+				Log("My party is null, not going to resend party data to player " + player.id);
 			}
 			
 			networkView.RPC("ChangeLayer", player, this.layer);
@@ -350,9 +350,9 @@ public class PlayerOnServer : Player, CasterOnServer {
 				(byte)myBitMask
 			);
 			
-			DLog("Resent data to player " + player.id);
+			Log("Resent data to player " + player.id);
 		} else {
-			DLog("My networkView is null, not going to resend data to player " + player.id);
+			Log("My networkView is null, not going to resend data to player " + player.id);
 		}
 	}
 	
@@ -368,7 +368,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 		characterController.Move(movementOffset);
 		
 		if(movementOffset != Cache.vector3Zero && (newMoveVector == Cache.vector3Zero || oldMoveVector == Cache.vector3Zero))
-			DSpamLog("Client Position Prediction: MoveOffset: " + movementOffset + " (OldMoveVector: " + oldMoveVector + ", NewMoveVector: " + newMoveVector + ", Packet Arrival Time: " + timePacketArrival + ")");
+			LogSpam("Client Position Prediction: MoveOffset: " + movementOffset + " (OldMoveVector: " + oldMoveVector + ", NewMoveVector: " + newMoveVector + ", Packet Arrival Time: " + timePacketArrival + ")");
 		
 		this.moveVector = newMoveVector;
 	}
@@ -408,7 +408,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 	
 	// This is called when THIS prefab itself gets instantiated
 	void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
-		DLog("OnNetworkInstantiate: " + info.networkView.viewID);
+		Log("OnNetworkInstantiate: " + info.networkView.viewID);
 		
 		// Resend important data to newly connected player
 		foreach(var otherNetworkView in uLink.Network.networkViews) {
@@ -574,21 +574,21 @@ public class PlayerOnServer : Player, CasterOnServer {
 		
 		// Invalid skill ID?
 		if(slotId < 0 || slotId >= skills.Count) {
-			DLogWarning("StartCastRejected: " + CastError.InvalidSkillId.ToString());
+			LogWarning("StartCastRejected: " + CastError.InvalidSkillId.ToString());
 			networkView.RPC("StartCastRejected", info.sender, CastError.InvalidSkillId);
 			return;
 		}
 		
 		// Can't cast while casting already
 		if(currentSkill != null) {
-			DLogWarning("StartCastRejected: " + CastError.CurrentSkillNotNull.ToString());
+			LogWarning("StartCastRejected: " + CastError.CurrentSkillNotNull.ToString());
 			networkView.RPC("StartCastRejected", info.sender, CastError.CurrentSkillNotNull);
 			return;
 		}
 		
 		// Are we able to cast it?
 		if(!canCast || !canAct) {
-			DLogWarning("StartCastRejected: " + CastError.NoControl.ToString());
+			LogWarning("StartCastRejected: " + CastError.NoControl.ToString());
 			networkView.RPC("StartCastRejected", info.sender, CastError.NoControl);
 			return;
 		}
@@ -598,7 +598,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 		
 		// Anti cooldown hack
 		if(currentSkill.currentStage.isOnCooldown) {
-			DLogWarning("Detected cooldown hack: " + currentSkill.skillName);
+			LogWarning("Detected cooldown hack: " + currentSkill.skillName);
 			networkView.RPC("StartCastRejected", info.sender, CastError.CooldownHack);
 			
 			// We need to reset currentSkill, otherwise we'd constantly be stuck with this skill on the server side
@@ -609,7 +609,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 		
 		// Anti skill requirement hack
 		if(energy < currentSkill.currentStage.energyCostAbs) {
-			DLogWarning("Detected block capacity requirement bypass hack: " + currentSkill.skillName);
+			LogWarning("Detected block capacity requirement bypass hack: " + currentSkill.skillName);
 			networkView.RPC("StartCastRejected", info.sender, CastError.RequirementBypassHack);
 			
 			// We need to reset currentSkill, otherwise we'd constantly be stuck with this skill on the server side
@@ -621,7 +621,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 		// Save timestamp
 		startedSkillCast = uLink.Network.time - info.GetPacketArrivalTimeDouble();
 		
-		DSpamLog("Start casting of: " + currentSkill.skillName);
+		LogSpam("Start casting of: " + currentSkill.skillName);
 		networkView.RPC("StartCast", uLink.RPCMode.OthersExceptOwner, slotId);
 		
 		//Invoke("ClientEndCast", currentSkill.castDuration);
@@ -642,21 +642,21 @@ public class PlayerOnServer : Player, CasterOnServer {
 		
 		// Are we able to cast it?
 		if(!canCast || !canAct) {
-			DLogWarning("AdvanceCastRejected: " + CastError.NoControl);
+			LogWarning("AdvanceCastRejected: " + CastError.NoControl);
 			networkView.RPC("AdvanceCastRejected", uLink.RPCMode.Others, CastError.NoControl);
 			return;
 		}
 		
 		// Can't cast while casting already
 		if(currentSkill == null) {
-			DLogWarning("AdvanceCastRejected: " + CastError.CurrentSkillNull);
+			LogWarning("AdvanceCastRejected: " + CastError.CurrentSkillNull);
 			networkView.RPC("AdvanceCastRejected", uLink.RPCMode.Others, CastError.CurrentSkillNull);
 			return;
 		}
 		
 		// Is there a next stage?
 		if(!currentSkill.canAdvance) {
-			DLogWarning("AdvanceCastRejected: " + CastError.MaxAdvanceStage);
+			LogWarning("AdvanceCastRejected: " + CastError.MaxAdvanceStage);
 			networkView.RPC("AdvanceCastRejected", uLink.RPCMode.Others, CastError.MaxAdvanceStage);
 			return;
 		}
@@ -665,7 +665,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 		
 		currentSkill.currentStageIndex += 1;
 		
-		DSpamLog("Advance casting of: " + currentSkill.skillName);
+		LogSpam("Advance casting of: " + currentSkill.skillName);
 		networkView.RPC("AdvanceCast", uLink.RPCMode.OthersExceptOwner);
 	}
 	
@@ -694,14 +694,14 @@ public class PlayerOnServer : Player, CasterOnServer {
 		
 		// Did we start a cast and are we still casting it?
 		if(currentSkill == null) {
-			DLogWarning("EndCastRejected: " + CastError.CurrentSkillNull);
+			LogWarning("EndCastRejected: " + CastError.CurrentSkillNull);
 			networkView.RPC("EndCastRejected", uLink.RPCMode.Others, CastError.CurrentSkillNull);
 			return;
 		}
 		
 		// Can't end casts while stunned
 		if(stagger > 0 || stunned > 0 || slept > 0 || !isAlive || blocking) {
-			DLogWarning("EndCastRejected: " + CastError.NoControl);
+			LogWarning("EndCastRejected: " + CastError.NoControl);
 			networkView.RPC("EndCastRejected", uLink.RPCMode.Others, CastError.NoControl);
 			EndSkill();
 			return;
@@ -710,14 +710,14 @@ public class PlayerOnServer : Player, CasterOnServer {
 		// Anti cast speed hack
 		double castDuration = uLink.Network.time - startedSkillCast;
 		if(castDuration + 0.1f  < currentSkill.currentStage.castDuration * attackSpeedMultiplier) {
-			DLogWarning("Detected cast speed hack: " + currentSkill.skillName + " with " + castDuration + " / " + (currentSkill.currentStage.castDuration * attackSpeedMultiplier));
+			LogWarning("Detected cast speed hack: " + currentSkill.skillName + " with " + castDuration + " / " + (currentSkill.currentStage.castDuration * attackSpeedMultiplier));
 			networkView.RPC("EndCastRejected", uLink.RPCMode.Others, CastError.CastSpeedHack);
 			EndSkill();
 			return;
 			//networkView.RPC("EndCast", uLink.RPCMode.Owner, hitPoint);
 			//return;
 		} else {
-			DSpamLog(currentSkill.skillStageName + " ended cast with cast duration: " + castDuration.ToString("0.00") + " / " + (currentSkill.currentStage.castDuration * attackSpeedMultiplier).ToString("0.00"));
+			LogSpam(currentSkill.skillStageName + " ended cast with cast duration: " + castDuration.ToString("0.00") + " / " + (currentSkill.currentStage.castDuration * attackSpeedMultiplier).ToString("0.00"));
 		}
 		
 		// Instantiate it locally
@@ -754,14 +754,14 @@ public class PlayerOnServer : Player, CasterOnServer {
 		
 		// Invalid skill ID?
 		if(skillId < 0 || skillId >= skills.Count) {
-			DLogWarning("InstantCastRejected: " + CastError.InvalidSkillId.ToString());
+			LogWarning("InstantCastRejected: " + CastError.InvalidSkillId.ToString());
 			networkView.RPC("InstantCastRejected", info.sender, CastError.InvalidSkillId);
 			return;
 		}
 		
 		// Can't cast while casting already
 		if(currentSkill != null) {
-			DLogWarning("InstantCastRejected: " + CastError.CurrentSkillNotNull.ToString());
+			LogWarning("InstantCastRejected: " + CastError.CurrentSkillNotNull.ToString());
 			networkView.RPC("InstantCastRejected", info.sender, CastError.CurrentSkillNotNull);
 			return;
 		}
@@ -771,7 +771,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 		
 		// Check if it's insta-castable
 		if(currentSkill.currentStage.castDuration != 0f) {
-			DLogWarning("InstantCastRejected: " + CastError.CastSpeedHack.ToString());
+			LogWarning("InstantCastRejected: " + CastError.CastSpeedHack.ToString());
 			networkView.RPC("InstantCastRejected", info.sender, CastError.CastSpeedHack);
 			return;
 		}
@@ -821,31 +821,13 @@ public class PlayerOnServer : Player, CasterOnServer {
 		clientPosition = myTransform.position;
 	}
 	
-	/*[RPC]
-	void ClientRoll(float hMovement, float vMovement, uLink.NetworkMessageInfo info) {
-		// Make sure we throw away late and duplicate RPC messages, or from the wrong client
-		if(info.sender != networkView.owner)
-			return;
-		
-		if(rolling)
-			return;
-		
-		if(blockCapacity < Player.rollCost)
-			return;
-		
-		networkView.RPC("StartRoll", uLink.RPCMode.OthersExceptOwner, moveVector, hMovement, vMovement);
-		StartRoll(moveVector, hMovement, vMovement);
-		
-		// TODO: Predict client position on rolling
-	}*/
-	
 	[RPC]
 	void ClientStartHover(uLink.NetworkMessageInfo info) {
 		// Make sure we throw away messages from the wrong client
 		if(info.sender != networkView.owner)
 			return;
 		
-		if(energy < Entity.blockMinimumEnergyForUsage)
+		if(energy < Config.instance.blockMinimumEnergyForUsage)
 			return;
 		
 		if(!canAct)
@@ -874,7 +856,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 			// Predict client's current position
 			//PredictClientPosition(info.GetPacketArrivalTime(), this.moveVector, this.moveSpeedModifier - Player.hoverSpeedBonus);
 			
-			if(this.EndHover()) {
+			if(EndHover()) {
 				networkView.RPC("EndHover", uLink.RPCMode.OthersExceptOwner);
 			}
 		}
@@ -891,16 +873,16 @@ public class PlayerOnServer : Player, CasterOnServer {
 			return;
 		
 		// Not enough block capacity?
-		if(energy < blockMinimumEnergyForUsage)
+		if(energy < Config.instance.blockMinimumEnergyForUsage)
 			return;
 		
 		// Predict client position
 		float timePacketArrival = (float)(uLink.Network.time - info.timestamp);
 		PredictClientPosition(timePacketArrival, moveVector);
 		
-		//DLog("[" + GetName() + "] Start block");
+		// Start blocking
 		networkView.RPC("StartBlock", uLink.RPCMode.Others);
-		this.StartBlock();
+		StartBlock();
 		
 		ltsClientStartBlock = info.timestamp;
 	}
@@ -911,9 +893,9 @@ public class PlayerOnServer : Player, CasterOnServer {
 		if(info.sender != networkView.owner || info.timestamp <= ltsClientEndBlock)
 			return;
 		
-		//DLog("[" + GetName() + "] End block");
+		// End blocking
 		networkView.RPC("EndBlock", uLink.RPCMode.Others);
-		this.EndBlock();
+		EndBlock();
 		
 		ltsClientEndBlock = info.timestamp;
 	}
@@ -998,17 +980,6 @@ public class PlayerOnServer : Player, CasterOnServer {
 		ltsClientTarget = info.timestamp;
 	}
 	
-	/*[RPC]
-	void ClientNoTarget(uLink.NetworkMessageInfo info) {
-		// Make sure we throw away late and duplicate RPC messages, or from the wrong client
-		if(info.sender != networkView.owner || info.timestamp <= ltsClientNoTarget)
-			return;
-		
-		networkView.RPC("SetNoTarget", uLink.RPCMode.All);
-		
-		ltsClientNoTarget = info.timestamp;
-	}*/
-	
 	[RPC]
 	void ClientChat(string entry, uLink.NetworkMessageInfo info) {
 		// Make sure we throw away late and duplicate RPC messages, or from the wrong client
@@ -1019,7 +990,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 		if(entry == "") {
 			// ...
 		} else {
-			DLog("Chat message: " + entry);
+			Log("Chat message: " + entry);
 			networkView.RPC("Chat", uLink.RPCMode.Others, this.name + ": " + entry);
 		}
 		

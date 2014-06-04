@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> {
 	// Entity ID
@@ -44,7 +44,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		id = newId;
 
 		// Log it
-		DSpamLog("ID: " + id);
+		LogSpam("ID: " + id);
 	}
 #endregion
 }

@@ -357,7 +357,7 @@ public abstract class Player : Entity {
 		// For balancing reasons
 		finalCharStats.ApplyOffset(-16);
 		
-		DLog("Character stats after applying artifacts: " + finalCharStats);
+		Log("Character stats after applying artifacts: " + finalCharStats);
 		
 		attackDmgMultiplier = finalCharStats.attackDmgMultiplier;
 		defenseDmgMultiplier = finalCharStats.defenseDmgMultiplier;
@@ -488,7 +488,7 @@ public abstract class Player : Entity {
 	
 	// DO NOT CALL THIS DIRECTLY
 	protected void BasicRespawn(Vector3 spawnPosition) {
-		DLog("Respawn at " + spawnPosition);
+		Log("Respawn at " + spawnPosition);
 
 		// For spawn protection
 		lastRespawn = uLink.Network.time;
@@ -513,9 +513,9 @@ public abstract class Player : Entity {
 		
 		// Set position and rotation
 		if(partyRespawn == null) {
-			DLogWarning("I don't have a party assigned to me!");
+			LogWarning("I don't have a party assigned to me!");
 		} else if(myTransform == null) {
-			DLogWarning("I don't have a valid transform!");
+			LogWarning("I don't have a valid transform!");
 		} else if(partyRespawn.spawn != null) {
 			myTransform.position = spawnPosition;
 			charGraphics.eulerAngles = new Vector3(0, partyRespawn.spawn.eulerAngles.y, 0);
@@ -771,7 +771,7 @@ public abstract class Player : Entity {
 	
 	[RPC]
 	protected void ReceivePlayerInfo(string playerName, int bestRanking) {
-		DLog("Received player name '" + playerName + "' and ranking " + bestRanking);
+		Log("Received player name '" + playerName + "' and ranking " + bestRanking);
 		
 		name = playerName;
 		stats.bestRanking = bestRanking;
@@ -783,7 +783,7 @@ public abstract class Player : Entity {
 	
 	[RPC]
 	protected void ReceiveMainGuildInfo(string newGuildName, string newGuildTag) {
-		DLog("Received guild name '" + newGuildName + "' and tag " + newGuildTag);
+		Log("Received guild name '" + newGuildName + "' and tag " + newGuildTag);
 
 		guildName = newGuildName;
 		guildTag = newGuildTag;
@@ -791,7 +791,7 @@ public abstract class Player : Entity {
 	
 	[RPC]
 	protected void ReceiveSkillBuild(SkillBuild newBuild) {
-		DLog("Received skill build with X weapons: " + newBuild.weapons.Length);
+		Log("Received skill build with X weapons: " + newBuild.weapons.Length);
 		
 		skillBuild = newBuild;
 		
@@ -808,7 +808,7 @@ public abstract class Player : Entity {
 	[RPC]
 	// TODO: Bitstream variant
 	protected void ReceiveArtifactTree(string jsonTree) {
-		DLog("Received artifact tree! " + jsonTree);
+		Log("Received artifact tree! " + jsonTree);
 		
 		this.artifactTree = Jboy.Json.ReadObject<ArtifactTree>(jsonTree);
 		this.ApplyCharacterStats();
@@ -816,11 +816,11 @@ public abstract class Player : Entity {
 	
 	[RPC]
 	protected void ReceiveCharacterStats(CharacterStats newCharStats) {
-		DLog(string.Format("Received character stats: {0}!", newCharStats));
+		Log(string.Format("Received character stats: {0}!", newCharStats));
 		
 		// Cheater?
 		if(!newCharStats.valid) {
-			DLogError("Received character stats are not valid!");
+			LogError("Received character stats are not valid!");
 			return;
 		}
 		
@@ -832,7 +832,7 @@ public abstract class Player : Entity {
 	[RPC]
 	public void ReceiveCharacterCustomization(CharacterCustomization nCustom) {
 		if(customization != nCustom) {
-			DLog("Received character customization!");
+			Log("Received character customization!");
 			customization = nCustom;
 		}
 		
@@ -860,7 +860,7 @@ public abstract class Player : Entity {
 	[RPC]
 	protected void ReceiveArtifactReward(int itemId) {
 		artifactReward = new Artifact(itemId);
-		DLog("Received artifact reward: " + artifactReward.id);
+		Log("Received artifact reward: " + artifactReward.id);
 	}
 	
 	[RPC]
@@ -868,9 +868,9 @@ public abstract class Player : Entity {
 		if(hovering)
 			return false;
 		
-		DSpamLog("Start hover!");
+		LogSpam("Start hover!");
 		hovering = true;
-		moveSpeedModifier += Player.hoverSpeedBonus;
+		moveSpeedModifier += Config.instance.hoverSpeedBonus;
 		
 		if(!uLink.Network.isServer)
 			myTransform.FindChild("HoverWindZone").gameObject.SetActive(true);
@@ -904,9 +904,9 @@ public abstract class Player : Entity {
 		if(!hovering)
 			return false;
 		
-		DSpamLog("End hover!");
+		LogSpam("End hover!");
 		hovering = false;
-		moveSpeedModifier -= Player.hoverSpeedBonus;
+		moveSpeedModifier -= Config.instance.hoverSpeedBonus;
 		
 		if(!uLink.Network.isServer)
 			myTransform.FindChild("HoverWindZone").gameObject.SetActive(false);
@@ -1002,7 +1002,7 @@ public abstract class Player : Entity {
 	
 	[RPC]
 	protected void Ready() {
-		DLog("Ready!");
+		Log("Ready!");
 		
 		if(this == Player.main && GameManager.isArena) {
 			GetComponent<ScoreBoard>().enabled = true;

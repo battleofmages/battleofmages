@@ -232,6 +232,12 @@ MonoBehaviour:
   playerMoveSpeed: 8
   playerHP: 8000
   entityEnergy: 50
+  blockMinimumEnergyForUsage: 5
+  hoverEnergyCost: 9
+  hoverSpeedBonus: .699999988
+  blockSlowDown: .5
+  energyRegen: 4
+  blockEnergyDrain: 40
   enemyReactionTime: .25
   hpAggroThreshold: 5000
   patrolSpeedModifier: .5
@@ -267,6 +273,7 @@ MonoBehaviour:
   healthBarWidth: 48
   ownHealthBarWidth: 64
   skillInstanceDestructionTime: 9
+  matchAcceptTime: 15
   disableAnimationsOnServer: 0
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
@@ -2645,7 +2652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d4c2bcb4cb5a84ebef4a83b3b16a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testServerType: 3
+  testServerType: 0
   mapName: Nubek Outskirts
   serverFrameRate: 50
   defaultServerPort: 7200

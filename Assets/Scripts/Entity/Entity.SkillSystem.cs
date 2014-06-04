@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -299,19 +299,19 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		// Old end cast, we already have another coroutine running for this one.
 		// This happens if you start a cast, block instantly and start a cast again.
 		if(spellId != currentSpellId) {
-			DSpamLog("UpdateEndCast canceled: Spell ID doesn't match (" + spellId + " vs " + currentSpellId + ")");
+			LogSpam("UpdateEndCast canceled: Spell ID doesn't match (" + spellId + " vs " + currentSpellId + ")");
 			yield break;
 		}
 
 		if(currentSkill == null) {
-			DSpamLog("UpdateEndCast canceled: currentSkill is null");
+			LogSpam("UpdateEndCast canceled: currentSkill is null");
 			yield break;
 		}
 		
 		// Control?
 		if(blocking || stunned > 0 || slept > 0 || stagger > 0) {
 			networkView.RPC("ClientCouldntCast", uLink.RPCMode.Server);
-			DSpamLog("UpdateEndCast canceled: No control");
+			LogSpam("UpdateEndCast canceled: No control");
 			yield break;
 		}
 		
@@ -355,7 +355,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 			if(voiceClip != null)
 				audio.PlayOneShot(voiceClip);
 			else
-				DLogWarning("Cast voice clip is null: " + currentSkill);
+				LogWarning("Cast voice clip is null: " + currentSkill);
 		}
 		
 		// AdvanceCast or EndCast skill
@@ -587,7 +587,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	// InterruptCast
 	public virtual void InterruptCast() {
 		if(currentSkill != null) {
-			DSpamLog("Cast has been interrupted: " + currentSkill.skillName);
+			LogSpam("Cast has been interrupted: " + currentSkill.skillName);
 			
 			// Skill we were holding
 			if(StopHoldingSkill())
@@ -658,13 +658,13 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		if(networkViewIsProxy)
 			currentSpellId += 1;
 		
-		DSpamLog("StartCast: " + currentSkill.skillStageName);
+		LogSpam("StartCast: " + currentSkill.skillStageName);
 	}
 	
 	[RPC]
 	protected void EndCast(Vector3 hitPoint) {
 		if(currentSkill == null) {
-			DLogWarning("Received EndCast but currentSkill is null!");
+			LogWarning("Received EndCast but currentSkill is null!");
 			return;
 		}
 		
@@ -695,7 +695,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		currentCastStart = -1;
 
 		// Log
-		DSpamLog("EndCast: " + currentSkill.skillStageName);
+		LogSpam("EndCast: " + currentSkill.skillStageName);
 	}
 	
 	[RPC]
@@ -721,7 +721,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		RestartCast();
 
 		// Log
-		DSpamLog("AdvanceCast: " + currentSkill.skillName + " to " + currentSkill.skillStageName);
+		LogSpam("AdvanceCast: " + currentSkill.skillName + " to " + currentSkill.skillStageName);
 	}
 	
 	[RPC]
@@ -755,7 +755,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		Invoke("EndSkill", currentSkill.currentStage.attackAnimDuration * attackSpeedMultiplier);
 
 		// Log
-		DSpamLog("InstantCast: " + currentSkill.skillName);
+		LogSpam("InstantCast: " + currentSkill.skillName);
 	}
 
 	[RPC]
@@ -775,13 +775,13 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 #region Reject RPCs
 	[RPC]
 	protected void StartCastRejected(CastError error) {
-		DLogWarning("StartCast rejected!: " + error.ToString());
+		LogWarning("StartCast rejected!: " + error.ToString());
 		InterruptCast();
 	}
 	
 	[RPC]
 	protected void AdvanceCastRejected(CastError error) {
-		DLogWarning("AdvanceCast rejected!: " + error.ToString());
+		LogWarning("AdvanceCast rejected!: " + error.ToString());
 		InterruptCast();
 	}
 	
@@ -789,19 +789,19 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	protected void EndCastRejected(CastError error) {
 		switch(error) {
 			case CastError.CurrentSkillNull:
-				DLogWarning("EndCast rejected!: Didn't start a cast (current skill is null)");
+				LogWarning("EndCast rejected!: Didn't start a cast (current skill is null)");
 				break;
 				
 			case CastError.NoControl:
-				DLogWarning("EndCast rejected!: No control over the character (probably crowd controlled)");
+				LogWarning("EndCast rejected!: No control over the character (probably crowd controlled)");
 				break;
 				
 			case CastError.CastSpeedHack:
-				DLogWarning("EndCast rejected!: Cast speed hack");
+				LogWarning("EndCast rejected!: Cast speed hack");
 				break;
 				
 			default:
-				DLogWarning("EndCast rejected!: " + error.ToString());
+				LogWarning("EndCast rejected!: " + error.ToString());
 				break;
 		}
 		
@@ -810,7 +810,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	
 	[RPC]
 	protected void InstantCastRejected(CastError error) {
-		DLogWarning("InstantCast rejected!: " + error.ToString());
+		LogWarning("InstantCast rejected!: " + error.ToString());
 		currentSkill = null;
 	}
 	

@@ -142,6 +142,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
   m_RootGameObject: {fileID: 1477343904}
@@ -181,6 +185,10 @@ Prefab:
     - target: {fileID: 400000, guid: d903e98843ff7344685ac9afd509d1c9, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d903e98843ff7344685ac9afd509d1c9, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d903e98843ff7344685ac9afd509d1c9, type: 2}
@@ -1401,7 +1409,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 400000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
   m_RootGameObject: {fileID: 1187492648}
@@ -1834,6 +1846,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
   m_RootGameObject: {fileID: 1868767385}
@@ -1912,6 +1928,7 @@ MonoBehaviour:
   healthBarWidth: 48
   ownHealthBarWidth: 64
   skillInstanceDestructionTime: 9
+  matchAcceptTime: 15
   disableAnimationsOnServer: 0
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
@@ -2004,6 +2021,10 @@ Prefab:
     - target: {fileID: 400000, guid: c2ba9a8446b154141bd1cf7536fe4925, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c2ba9a8446b154141bd1cf7536fe4925, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c2ba9a8446b154141bd1cf7536fe4925, type: 2}
@@ -4533,7 +4554,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 400000, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 694dc663380ecea41935bd3b76a3ffb2, type: 2}
   m_RootGameObject: {fileID: 863312627}

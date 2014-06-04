@@ -157,7 +157,7 @@ public class PlayerMain : PlayerOnClient {
 		
 		if(stunned == 0 && slept == 0 && blockKeyDown != lastBlockStateSent) {
 			if(blockKeyDown) {
-				if(energy >= blockMinimumEnergyForUsage) {
+				if(energy >= Config.instance.blockMinimumEnergyForUsage) {
 					networkView.RPC("ClientStartBlock", uLink.RPCMode.Server);
 					lastBlockStateSent = blockKeyDown;
 				}
@@ -171,7 +171,7 @@ public class PlayerMain : PlayerOnClient {
 		bool hoverKeyPressed = inputManager.GetButton(buttons.Hover);
 		bool canHoverNow = movementKeysPressed && hoverKeyPressed && this.canHover;
 		
-		if(!hovering && canHoverNow && energy >= Entity.blockMinimumEnergyForUsage) {
+		if(!hovering && canHoverNow && energy >= Config.instance.blockMinimumEnergyForUsage) {
 			if(StartHover())
 				networkView.RPC("ClientStartHover", uLink.RPCMode.Server);
 		} else if(hovering && (!canHoverNow || energy <= 0)) {

@@ -163,8 +163,8 @@ public abstract class PlayerOnClient : Player {
 	}
 
 	// CreateLootTrail
-	public void CreateLootTrail(Entity victim) {
-		DLog("Creating loot trail");
+	public void CreateLootTrail(Entity killer, Entity victim, short skillId) {
+		Log("Creating loot trail");
 		var lootTrailObject = (GameObject)Object.Instantiate(Config.instance.lootTrail, victim.center, Cache.quaternionIdentity);
 		var lootTrail = lootTrailObject.GetComponent<LootTrail>();
 		lootTrail.target = this;
@@ -207,7 +207,7 @@ public abstract class PlayerOnClient : Player {
 	[RPC]
 	protected void M(Vector3 position, Vector3 direction, ushort rotationY, byte bitMask, uLink.NetworkMessageInfo info) {
 		if(info.timestamp <= ignoreNewPositionEarlierThanTimestamp) {
-			DSpamLog("Server position packet outdated, dropped!");
+			LogSpam("Server position packet outdated, dropped!");
 			return;
 		}
 		

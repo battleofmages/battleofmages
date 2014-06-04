@@ -11,6 +11,12 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 #region Methods
 	// Constructor
 	void InitBlock() {
+		// Center
+		centerOffset = new Vector3(0, height / 2, 0);
+
+		// The center offset isn't accurate because of customizable height.
+		// We modify it later on when we receive character customization.
+
 		// Position block sphere to center
 		blockSphere = InstantiateChild(Config.instance.blockSphere);
 		blockSphere.localPosition = centerOffset;

@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> {
 	public static Dictionary<ushort, Entity> idToEntity = new Dictionary<ushort, Entity>();
 
+	[NonSerialized]
+	public Transform myTransform;
+
 	// Guild
 	private string _guildName = "";
 	private string _guildTag = "";
@@ -55,10 +58,6 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	[NonSerialized]
 	public Transform charGraphicsBody;
 	
-	// Cache
-	[NonSerialized]
-	public Transform myTransform;
-	
 	// Proxy
 	protected float proxyInterpolationTime = 0f;
 	protected float serverRotationY;
@@ -71,28 +70,26 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 #region Methods
 	// Awake
 	protected virtual void Awake() {
-		// Components
-		myTransform = transform;
-		nameLabel = GetComponent<EntityLabel>();
-		entityGUI = GetComponent<EntityGUI>();
-		characterController = GetComponent<CharacterController>();
-		charGraphics = myTransform.FindChild("CharGraphics");
-
-		// Center
-		// This isn't accurate because of customizable height yet.
-		// We modify it later on when we receive character customization.
-		centerOffset = new Vector3(0, height / 2, 0);
-
-		// Stats
-		stats = new PlayerStats();
-		
 		// Init subsystems
+		InitComponents();
 		InitID();
 		InitEvents();
 		InitSkillSystem();
 		InitTraits();
 		InitBlock();
 		InitNetworkView();
+
+		// Stats
+		stats = new PlayerStats();
+	}
+
+	// InitComponents
+	void InitComponents() {
+		myTransform = transform;
+		nameLabel = GetComponent<EntityLabel>();
+		entityGUI = GetComponent<EntityGUI>();
+		characterController = GetComponent<CharacterController>();
+		charGraphics = myTransform.FindChild("CharGraphics");
 	}
 
 	// InstantiateChild
@@ -254,9 +251,8 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		}
 		
 		// Update combo counter
-		if(caster.comboCounter != null) {
+		if(caster.comboCounter != null)
 			caster.comboCounter.AddHit(dmg);
-		}
 		
 		// Last hit
 		entity.lastHitBy = caster;
@@ -480,23 +476,23 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	
 #region Log
 	// Debug log with player name as prefix
-	protected void DLog(object message) {
-		LogManager.General.Log(this.logPrefix + message);
+	protected void Log(object message) {
+		LogManager.General.Log(logPrefix + message);
 	}
 	
 	// Debug log warning with player name as prefix
-	protected void DLogWarning(object message) {
-		LogManager.General.LogWarning(this.logPrefix + message);
+	protected void LogWarning(object message) {
+		LogManager.General.LogWarning(logPrefix + message);
 	}
 	
 	// Debug log error with player name as prefix
-	protected void DLogError(object message) {
-		LogManager.General.LogError(this.logPrefix + message);
+	protected void LogError(object message) {
+		LogManager.General.LogError(logPrefix + message);
 	}
 	
 	// Debug log with player name as prefix
-	protected void DSpamLog(object message) {
-		LogManager.Spam.Log(this.logPrefix + message);
+	protected void LogSpam(object message) {
+		LogManager.Spam.Log(logPrefix + message);
 	}
 #endregion
 	
@@ -537,7 +533,10 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	}
 
 	// Is ready
-	public bool isReady {get; set;}
+	public bool isReady {
+		get;
+		set;
+	}
 
 	// Guild name
 	protected virtual string guildName {
@@ -606,11 +605,16 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	}
 	
 	// Party
-	public GameServerParty party {get; set;}
+	public GameServerParty party {
+		get;
+		set;
+	}
 	
 	// Score
 	public int score {
-		get { return stats.total.kills * 100 + (int)stats.total.damage / 100 + (int)stats.total.cc; }
+		get {
+			return stats.total.kills * 100 + (int)stats.total.damage / 100 + (int)stats.total.cc;
+		}
 	}
 	
 	// Spawn protection
@@ -632,7 +636,10 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	}
 
 	// Skill layer
-	public int skillLayer {get; set;}
+	public int skillLayer {
+		get;
+		set;
+	}
 	
 	// Layer mask for enemies
 	public int enemiesLayerMask {
@@ -688,64 +695,33 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 
 	[RPC]
 	protected void RegisterKill(ushort killerId, ushort victimId, short skillId) {
-		DLog("RegisterKill: " + killerId + ", " + victimId + ", " + skillId);
+		Log("RegisterKill: " + killerId + ", " + victimId + ", " + skillId);
 
-		// Find victim
+		// Find entities
 		Entity victim;
 		Entity killer;
 		
-		if(!Entity.idToEntity.TryGetValue(victimId, out victim))
+		if(!Entity.idToEntity.TryGetValue(victimId, out victim)) {
+			LogError("Could not find entity with ID: " + victimId);
 			return;
+		}
 
-		if(!Entity.idToEntity.TryGetValue(killerId, out killer))
+		if(!Entity.idToEntity.TryGetValue(killerId, out killer)) {
+			LogError("Could not find entity with ID: " + killerId);
 			return;
-
-		/*DLog(killerId);
-		DLog(victimId);
-		DLog(killer);
-		DLog(victim);*/
+		}
 
 		// Update stats
 		killer.stats.total.kills += 1;
 		victim.stats.total.deaths += 1;
 
-		// 
-		victim.isVisible = true;
-		
-		if(victim.nameLabel != null)
-			victim.nameLabel.enabled = false;
-
 		// On kill
 		if(killer.onKill != null)
-			killer.onKill(victim);
+			killer.onKill(killer, victim, skillId);
 
-		// Am I, the RPC receiver, the victim?
-		if(victim == this) {
-			if(onDeath != null)
-				onDeath();
-		}
-
-		// OnKillRegistered
-		var lobbyChat = LobbyChat.instance;
-
-		if(killer == Player.main) {
-			if(lobbyChat != null)
-				lobbyChat.AddEntry("You killed " + victim.name + ".");
-			
-			int xPos = UnityEngine.Random.Range(-10, 10);
-			Entity.SpawnText(killer, "+Kill", new Color(1.0f, 1.0f, 0.5f, 1.0f), xPos, 30);
-			Entity.SpawnText(killer, "+Exp", new Color(1.0f, 0.4f, 1.0f, 1.0f), xPos - 75, 30);
-		} else if(victim == Player.main) {
-			if(lobbyChat != null)
-				lobbyChat.AddEntry("You got killed by " + killer.name + ".");
-		} else {
-			if(lobbyChat != null)
-				lobbyChat.AddEntry(killer.name + " killed " + victim.name + ".");
-		}
-		
-		// Last kills window
-		if(LastKills.instance != null)
-			LastKills.instance.AddEntry(killer.name, Skill.idToSkill[skillId], victim.name);
+		// On death
+		if(victim.onDeath != null)
+			victim.onDeath();
 	}
 #endregion
 }

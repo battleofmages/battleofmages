@@ -109,7 +109,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	// Can block
 	public bool canBlock {
 		get {
-			return blockingEnabled && isAlive && !blocking && stunned == 0 && slept == 0 && stagger == 0 && energy > blockMinimumEnergyForUsage;
+			return blockingEnabled && isAlive && !blocking && stunned == 0 && slept == 0 && stagger == 0 && energy > Config.instance.blockMinimumEnergyForUsage;
 		}
 	}
 	

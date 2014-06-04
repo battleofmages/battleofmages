@@ -1,6 +1,5 @@
 using uLobby;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerAccount {
@@ -8,9 +7,10 @@ public class PlayerAccount {
 	public static Dictionary<string, PlayerAccount> playerNameToAccount = new Dictionary<string, PlayerAccount>();
 	public static HashSet<string> namesRequested = new HashSet<string>();
 	public static HashSet<string> emailsRequested = new HashSet<string>();
-	public static PlayerAccount mine = null;
+	public static PlayerAccount mine;
 	public const string loadingSymbol = "◔";
-	
+
+	// Account data
 	public string accountId;
 	public PlayerStats stats;
 	public PlayerStats ffaStats;
@@ -25,7 +25,8 @@ public class PlayerAccount {
 	public AccessLevel accessLevel;
 	public SkillBuild skillBuild;
 	public OnlineStatus onlineStatus;
-	
+
+	// Private account data
 	private string _playerName;
 	private string _email;
 	private FriendsList _friends;
@@ -33,18 +34,15 @@ public class PlayerAccount {
 	
 	// Private constructor
 	private PlayerAccount() {
-		
+		// ...
 	}
 	
 	// Get
 	public static PlayerAccount Get(string accountId) {
 		PlayerAccount acc;
 		
-		// Load from cache
-		if(PlayerAccount.idToAccount.ContainsKey(accountId)) {
-			acc = PlayerAccount.idToAccount[accountId];
-		// Create new account
-		} else {
+		// Load from cache or create new account
+		if(!PlayerAccount.idToAccount.TryGetValue(accountId, out acc)) {
 			acc = new PlayerAccount {
 				accountId = accountId
 			};
@@ -204,11 +202,11 @@ public class PlayerAccount {
 		get {
 			if(stats == null)
 				return new GUIContent(loadingSymbol);
-			
-			var divisions = InGameLobby.instance.divisions;
+
 			var leagueIndex = RankingGUI.GetLeagueIndex(stats.bestRanking);
 			
 			if(leagueIndex < 5) {
+				var divisions = InGameLobby.instance.divisions;
 				var content = divisions[stats.bestRanking % RankingGUI.leaguePoints / RankingGUI.divisionPoints];
 				var nextDivisionRankingPoints = ((int)(stats.bestRanking / RankingGUI.divisionPoints) + 1) * RankingGUI.divisionPoints - stats.bestRanking;
 				content.tooltip = string.Format("<b>{0}</b> points left to reach the next division", nextDivisionRankingPoints);
@@ -222,16 +220,20 @@ public class PlayerAccount {
 	// Guild name
 	public string guildName {
 		get {
+			// Still loading guild list
 			if(guildList == null)
 				return loadingSymbol;
-			
+
+			// Doesn't have a guild that is being represented
 			if(string.IsNullOrEmpty(guildList.mainGuildId))
 				return "-";
-			
+
+			// Try to get the guild object by guild ID
 			Guild mainGuild;
 			if(GameDB.guildIdToGuild.TryGetValue(guildList.mainGuildId, out mainGuild))
 				return mainGuild.name;
-			
+
+			// Should it fail, display no guild
 			return "-";
 		}
 	}

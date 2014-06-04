@@ -27,6 +27,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -83,6 +84,7 @@ MonoBehaviour:
   healthBarWidth: 48
   ownHealthBarWidth: 64
   skillInstanceDestructionTime: 9
+  matchAcceptTime: 15
   disableAnimationsOnServer: 0
   enemyRespawnTime: 20
   matchStatsSendDelay: 1

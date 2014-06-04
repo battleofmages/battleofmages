@@ -23,6 +23,12 @@ public class Config : SingletonMonoBehaviour<Config> {
 	public float playerMoveSpeed;
 	public int playerHP;
 	public float entityEnergy;
+	public float blockMinimumEnergyForUsage = 5.0f;
+	public float hoverEnergyCost = 9.0f;
+	public float hoverSpeedBonus = 0.7f;
+	public float blockSlowDown = 0.5f;
+	public float energyRegen = 4.0f;
+	public float blockEnergyDrain = 40.0f;
 
 	// Enemies
 	public float enemyReactionTime;
