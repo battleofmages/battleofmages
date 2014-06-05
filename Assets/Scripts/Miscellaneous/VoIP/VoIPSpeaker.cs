@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class VoIPSpeaker : MonoBehaviour {
 	private float[] samplesBuffer;
@@ -12,12 +11,13 @@ public class VoIPSpeaker : MonoBehaviour {
 	
 	private float lastSample;
 	private int delay = 1024;
-	
+
+	// Awake
 	void Awake() {
 		int dspBufferSize;
 		int dspBufferCount;
 		AudioSettings.GetDSPBufferSize(out dspBufferSize, out dspBufferCount);
-		LogManager.General.Log("DSP buffer size: " + dspBufferSize + ", " + dspBufferCount);
+		LogManager.General.Log("[VoIP] DSP buffer size: " + dspBufferSize + ", " + dspBufferCount);
 		
 		samplesBuffer = new float[dspBufferSize * dspBufferCount * 16];
 		realPlayOffset = 0;
@@ -26,7 +26,8 @@ public class VoIPSpeaker : MonoBehaviour {
 		playOffset = 0;
 		dataOffset = 0;
 	}
-	
+
+	// OnAudioFilterRead
 	void OnAudioFilterRead(float[] data, int channels) {
 		int dataLen = data.Length / channels;
 		
@@ -54,7 +55,8 @@ public class VoIPSpeaker : MonoBehaviour {
 			dataOffset = (int)(realDataOffsetEnd % samplesBuffer.Length);
 		}
 	}
-	
+
+	// AddSamples
 	public void AddSamples(float[] samples) {
 		// Delay
 		if(realPlayOffset == realDataOffsetEnd) {
@@ -74,7 +76,8 @@ public class VoIPSpeaker : MonoBehaviour {
 				dataOffset = 0;
 		}
 	}
-	
+
+	// Is playing
 	public bool isPlaying {
 		get {
 			return realPlayOffset >= realDataOffsetStart && realPlayOffset < realDataOffsetEnd;

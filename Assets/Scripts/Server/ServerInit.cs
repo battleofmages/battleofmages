@@ -300,6 +300,7 @@ public class ServerInit : uLink.MonoBehaviour {
 			player.networkView.RPC("ReceiveArtifactTree", uLink.RPCMode.All, Jboy.Json.WriteObject(ArtifactTree.GetStarterArtifactTree()));
 			
 			// After the skill build has been sent, switch the attunement
+			player.networkView.RPC("SwitchWeapon", uLink.RPCMode.All, (byte)0);
 			player.networkView.RPC("SwitchAttunement", uLink.RPCMode.All, (byte)0);
 		} else {
 			// TODO: We need to wait until this is finished in ApplyCharacterStats
@@ -317,6 +318,7 @@ public class ServerInit : uLink.MonoBehaviour {
 					player.networkView.RPC("ReceiveSkillBuild", uLink.RPCMode.All, player.skillBuild);
 					
 					// After the build has been sent, switch the attunement
+					player.networkView.RPC("SwitchWeapon", uLink.RPCMode.All, (byte)0);
 					player.networkView.RPC("SwitchAttunement", uLink.RPCMode.All, (byte)0);
 				}
 			);

@@ -35,23 +35,27 @@ public class Enemy : Entity {
 		// We use 1 layer below the game object layer for the enemy skills
 		skillLayer = layer - 1;
 
-		// Events
-		onDeath += OnDeath;
+		// Death
+		onDeath += () => {
+			if(animator != null)
+				animator.SetBool(deadHash, true);
+			
+			Invoke("DisableCollider", Config.instance.deathColliderDisableTime);
+		};
+
+		// Destroy
+		onDestroy += () => {
+			// Remove from global lists
+			Enemy.allEnemies.Remove(this);
+			Entity.idToEntity.Remove(id);
+			
+			// In case we stored some old pointers, react as if he is dead.
+			// Particularly useful for the Enemy threat based target finding.
+			health = 0;
+		};
 		
 		// Add to global list
 		Enemy.allEnemies.Add(this);
-	}
-	
-	// OnDestroy
-	protected override void OnDestroy() {
-		base.OnDestroy();
-		
-		Enemy.allEnemies.Remove(this);
-		Entity.idToEntity.Remove(id);
-		
-		// In case we stored some old pointers, react as if he is dead.
-		// Particularly useful for the Enemy threat based target finding.
-		health = 0;
 	}
 
 	// OnTargetReceived
@@ -60,15 +64,6 @@ public class Enemy : Entity {
 			//DLog("Doesn't have a target anymore, interrupting cast: " + currentSkill);
 			InterruptCast();
 		}
-	}
-
-	// OnDeath
-	void OnDeath() {
-		if(animator != null) {
-			animator.SetBool(deadHash, true);
-		}
-		
-		Invoke("DisableCollider", Config.instance.deathColliderDisableTime);
 	}
 	
 	// DisableCollider

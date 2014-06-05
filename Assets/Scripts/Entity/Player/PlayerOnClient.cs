@@ -42,7 +42,6 @@ public abstract class PlayerOnClient : Player {
 	protected float maxDistanceToServerSqr;
 	
 	protected bool blockKeyDown;
-	//protected bool showHealth;
 	
 	// Removes Y from hit point when player is hit
 	protected Vector3 raycastHitPointOnGround;
@@ -125,7 +124,7 @@ public abstract class PlayerOnClient : Player {
 			if(InGameLobby.instance != null) {
 				var margin = 2;
 				var leagueIcon = InGameLobby.instance.leagues[RankingGUI.GetLeagueIndex(stats.bestRanking)].image;
-				Rect leagueRect = this.nameLabel.rect;
+				Rect leagueRect = nameLabel.rect;
 				
 				// Invert y
 				leagueRect.y = Screen.height - (leagueRect.y + 1);
@@ -195,27 +194,22 @@ public abstract class PlayerOnClient : Player {
 		Invoke("DisableCollider", Config.instance.deathColliderDisableTime);
 		lastDeathTime = uLink.Network.time;
 	}
-	
-	// OnDestroy
-	protected override void OnDestroy() {
-		base.OnDestroy();
-	}
 #endregion
 	
 #region RPCs
 	// Server sent us new movement data
 	[RPC]
-	protected void M(Vector3 position, Vector3 direction, ushort rotationY, byte bitMask, uLink.NetworkMessageInfo info) {
+	protected void M(Vector3 newPosition, Vector3 direction, ushort rotationY, byte newBitMask, uLink.NetworkMessageInfo info) {
 		if(info.timestamp <= ignoreNewPositionEarlierThanTimestamp) {
 			LogSpam("Server position packet outdated, dropped!");
 			return;
 		}
 		
 		if(networkViewIsProxy) {
-			serverPosition = position + direction * this.moveSpeed * info.GetPacketArrivalTime();
+			serverPosition = newPosition + direction * moveSpeed * info.GetPacketArrivalTime();
 			
-			movementKeysPressed = (bitMask & 1) != 0;
-			jumping = (bitMask & 2) != 0;
+			movementKeysPressed = (newBitMask & 1) != 0;
+			jumping = (newBitMask & 2) != 0;
 			
 			proxyInterpolationTime = 0f;
 			interpolationStartPosition = myTransform.position;
@@ -224,7 +218,7 @@ public abstract class PlayerOnClient : Player {
 			animator.SetBool("Moving", movementKeysPressed);
 			animator.SetBool("Jump", jumping);
 		} else {
-			serverPosition = position;
+			serverPosition = newPosition;
 		}
 		
 		// Rotation

@@ -2,12 +2,14 @@
 
 public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> {
 	// Death
-	public delegate void DeathHandler();
-	public event DeathHandler onDeath;
+	public event CallBack onDeath;
 
 	// Kill
 	public delegate void KillHandler(Entity killer, Entity target, short skillId);
 	public event KillHandler onKill;
+
+	// Destroy
+	public event CallBack onDestroy;
 
 	// InitEvents
 	void InitEvents() {
@@ -49,8 +51,9 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	}
 
 	// OnDestroy
-	protected virtual void OnDestroy() {
-		// ...
+	void OnDestroy() {
+		if(onDestroy != null)
+			onDestroy();
 	}
 	
 	// OnGameStarted

@@ -30,18 +30,16 @@ public class PlayerMain : PlayerOnClient {
 		// Set main player
 		Player.main = this.GetComponent<Player>();
 		Player.main.isVisible = true;
+
+		// Destroy
+		onDestroy += () => {
+			Player.main = null;
+		};
 	}
 	
 	// Start
 	void Start() {
 		InvokeRepeating("SendToServer", 0.001f, 1.0f / (uLink.Network.sendRate * 2.0f));
-	}
-	
-	// OnDestroy
-	protected override void OnDestroy() {
-		base.OnDestroy();
-		
-		Player.main = null;
 	}
 	
 #region Update
@@ -60,7 +58,7 @@ public class PlayerMain : PlayerOnClient {
 		UpdateDebugger();
 		
 		// Animations
-		UpdateAnimations();
+		UpdateSkillAnimations();
 		
 		// Map boundaries
 		StayInMapBoundaries();

@@ -125,6 +125,18 @@ public abstract class Player : Entity {
 		} else {
 			healthBarWidth = Config.instance.healthBarWidth;
 		}
+
+		// Destroy
+		onDestroy += () => {
+			// Remove from global lists
+			Player.accountIdToPlayer.Remove(this.accountId);
+			Player.allPlayers.Remove(this);
+			Entity.idToEntity.Remove(this.id);
+			
+			// In case we stored some old pointers, react as if he is dead.
+			// Particularly useful for the Enemy threat based target finding.
+			health = 0;
+		};
 		
 		// Update player count
 		Player.allPlayers.Add(this);
@@ -133,24 +145,9 @@ public abstract class Player : Entity {
 	// On network instantiation
 	void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
 		if(info.networkView.initialData.TryRead<string>(out accountId)) {
-			//DLog("Account ID: " + accountId);
-			this.account = PlayerAccount.Get(accountId);
+			account = PlayerAccount.Get(accountId);
 			Player.accountIdToPlayer[accountId] = this;
 		}
-	}
-	
-	// OnDestroy
-	protected override void OnDestroy() {
-		base.OnDestroy();
-		
-		// Remove from global lists
-		Player.accountIdToPlayer.Remove(this.accountId);
-		Player.allPlayers.Remove(this);
-		Entity.idToEntity.Remove(this.id);
-		
-		// In case we stored some old pointers, react as if he is dead.
-		// Particularly useful for the Enemy threat based target finding.
-		health = 0;
 	}
 	
 	// UpdateLineOfSight

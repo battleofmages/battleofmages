@@ -66,7 +66,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 
 		// Animations
 		if(animator != null)
-			UpdateAnimations();
+			UpdateSkillAnimations();
 
 		// Map boundaries
 		StayInMapBoundariesServer();
@@ -340,14 +340,13 @@ public class PlayerOnServer : Player, CasterOnServer {
 			networkView.RPC("SwitchAttunement", player, currentAttunementId);
 
 			// Position and state
-			var myBitMask = this.bitMask;
 			networkView.RPC(
 				rpcState,
 				player,
 				myTransform.position,
 				moveVector,
 				(ushort)(charGraphics.eulerAngles.y * Cache.rotationFloatToShort),
-				(byte)myBitMask
+				(byte)bitMask
 			);
 			
 			Log("Resent data to player " + player.id);
@@ -449,11 +448,6 @@ public class PlayerOnServer : Player, CasterOnServer {
 		
 		// Respawn him after a certain time
 		Invoke("SendRespawn", Config.instance.playerRespawnTime);
-	}
-
-	// OnDestroy
-	protected override void OnDestroy() {
-		base.OnDestroy();
 	}
 
 #region Properties

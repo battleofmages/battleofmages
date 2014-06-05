@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PlayerProxy : PlayerOnClient {
@@ -19,7 +19,7 @@ public class PlayerProxy : PlayerOnClient {
 		UpdateProxyMovement();
 		
 		// Animations
-		UpdateAnimations();
+		UpdateSkillAnimations();
 		
 		// Map boundaries
 		StayInMapBoundaries();

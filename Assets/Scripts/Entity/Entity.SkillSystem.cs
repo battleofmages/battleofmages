@@ -423,53 +423,19 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	}
 
 	// Updates cast animations
-	protected void UpdateAnimations() {
+	protected void UpdateSkillAnimations() {
+		if(currentSkill == null)
+			return;
+
 		// Current state
 		skillAnimationState = animator.GetCurrentAnimatorStateInfo(AnimationLayer.Skill);
 		
-		if(currentSkill == null) {
-			if(skillAnimationState.nameHash == noCastState) {
-				// Prevent permanent transition
-				if(!animator.IsInTransition(AnimationLayer.Skill)) {
-					if(animator.GetBool(interruptedHash))
-						animator.SetBool(interruptedHash, false);
-					if(animator.GetBool(skillEndedHash))
-						animator.SetBool(skillEndedHash, false);
-				}
-			} /*else {
-				// Cancel animation if there is any
-				if(!interrupted)
-					InterruptCast();
-			}*/
-
-			return;
-		}
-		
-		// Next state
-		AnimatorStateInfo nextState = animator.GetNextAnimatorStateInfo(AnimationLayer.Skill);
-		
-		// Fix permanent Any State -> Cast transition
-		if(!currentSkill.currentStage.isInstantCast) {
-			if(nextState.nameHash != noCastState && animator.IsInTransition(AnimationLayer.Skill) && animator.GetBool(currentSkill.currentStage.castAnimName)) {
-				SetCastAnimationState(0, -1);
-				//LogManager.General.Log("Repeat on " + currentSkill.skillStageName);
-			}
-		} else {
-			//Debug.Log("Checking instant casts for " + currentSkill.currentStage.attackAnimName);
-			if(nextState.nameHash != noCastState && animator.IsInTransition(AnimationLayer.Skill) && animator.GetBool(currentSkill.currentStage.attackAnimName)) {
-				SetCastAnimationState(0, 0);
-				//LogManager.General.Log("Repeat on " + currentSkill.skillStageName);
-			}
-		}
-		
 		// Client sets current skill to null when he is in noCastState
-		//if(networkViewIsMine) {
 		if(currentSpellId == lastEndCastSpellId && animator.GetBool(skillEndedHash) && skillAnimationState.nameHash == noCastState) {
 			SetCastAnimationState(0, 0);
 			animator.SetBool(skillEndedHash, false);
 			currentSkill = null;
 		}
-		//}
 	}
 
 	// Ends the current skill so that the player can cast the next one

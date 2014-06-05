@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class EnemyOnClient : Enemy {
 	// Awake
@@ -37,10 +37,7 @@ public class EnemyOnClient : Enemy {
 		UpdateProxyMovement();
 
 		// Animations
-		UpdateAnimations();
-
-		/*if(Input.GetKey(KeyCode.U))
-			(Player.main as PlayerMain).CreateLootTrail(this);*/
+		UpdateSkillAnimations();
 	}
 	
 	// Server sent us new movement data
