@@ -5,24 +5,33 @@ using System.Collections.Generic;
 public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> {
 	public static Dictionary<ushort, Entity> idToEntity = new Dictionary<ushort, Entity>();
 
-	[NonSerialized]
-	public Transform myTransform;
+	protected float heightMultiplier = 1f;
+	protected bool reliablePosSent;
+	protected double lastRespawn;
+	protected Vector3 centerOffset;
+	protected byte currentWeaponSlotId;
+
+	// Proxy
+	protected float proxyInterpolationTime = 0f;
+	protected float serverRotationY;
+	protected Vector3 interpolationStartPosition;
+	
+	// Server and client side data
+	private string _entityName;
+	protected string logPrefix;
 
 	// Guild
 	private string _guildName = "";
 	private string _guildTag = "";
-	
+
+	[NonSerialized]
+	public Transform myTransform;
+
 	[NonSerialized]
 	public double ignoreNewPositionEarlierThanTimestamp;
 	
 	[NonSerialized]
 	public int disableSnappingToNewPosition = 0;
-
-	protected float heightMultiplier = 1f;
-	
-	protected bool reliablePosSent;
-
-	protected byte currentWeaponSlotId;
 
 	[NonSerialized]
 	public GameObject weaponModel;
@@ -32,40 +41,22 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	
 	[NonSerialized]
 	public Collider weaponModelProjectileDeflector;
-	
-	// Stats
+
 	[NonSerialized]
 	public PlayerStats stats;
-	
-	// Misc
+
 	[NonSerialized]
 	public Dictionary<Entity, int> hitsByPlayer;
 
 	[NonSerialized]
 	public Entity lastHitBy;
-	
-	protected double lastRespawn;
-	protected Vector3 centerOffset;
-	
-	// References to parts of the mesh
-	protected Transform playerSkeleton;
-	
+
 	[NonSerialized]
 	public Transform charGraphics;
-	
 	private Transform _charGraphicsModel;
 	
 	[NonSerialized]
 	public Transform charGraphicsBody;
-	
-	// Proxy
-	protected float proxyInterpolationTime = 0f;
-	protected float serverRotationY;
-	protected Vector3 interpolationStartPosition;
-	
-	// Server and client side data
-	private string _entityName;
-	protected string logPrefix;
 
 #region Methods
 	// Awake
@@ -92,38 +83,6 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		charGraphics = myTransform.FindChild("CharGraphics");
 	}
 
-	// InstantiateChild
-	public Transform InstantiateChild(GameObject prefab, Transform parent = null) {
-		var childTransform = ((GameObject)UnityEngine.Object.Instantiate(prefab)).transform;
-
-		// Move to same layer
-		Entity.MoveToLayer(childTransform, layer);
-
-		// Set parent
-		if(parent == null)
-			childTransform.parent = myTransform;
-		else
-			childTransform.parent = parent;
-
-		childTransform.localPosition = Cache.vector3Zero;
-		childTransform.localRotation = Cache.quaternionIdentity;
-
-		return childTransform;
-	}
-
-	// AddThreat
-	public void AddThreat(Entity caster, int dmg) {
-		if(this is EnemyOnServer) {
-			var enemy = this as EnemyOnServer;
-			int previousDmg = 0;
-			
-			if(enemy.entityToThreat.TryGetValue(caster, out previousDmg))
-				enemy.entityToThreat[caster] = previousDmg + dmg;
-			else
-				enemy.entityToThreat[caster] = dmg;
-		}
-	}
-	
 	// Applies damage to the player
 	public static void ApplyDamage(Entity entity, SkillInstance skillInstance, int power) {
 		// Dead entity or protected by spawn protection
@@ -268,6 +227,19 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		casterStats.damage += dmg;
 		playerStats.damageTaken += dmg;
 	}
+
+	// AddThreat
+	public void AddThreat(Entity caster, int dmg) {
+		if(this is EnemyOnServer) {
+			var enemy = this as EnemyOnServer;
+			int previousDmg;
+			
+			if(enemy.entityToThreat.TryGetValue(caster, out previousDmg))
+				enemy.entityToThreat[caster] = previousDmg + dmg;
+			else
+				enemy.entityToThreat[caster] = dmg;
+		}
+	}
 	
 	// Movement of proxies
 	protected void UpdateProxyMovement() {
@@ -303,23 +275,6 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	protected void ResetRotation() {
 		if(myTransform.localRotation != Cache.quaternionIdentity)
 			myTransform.localRotation = Cache.quaternionIdentity;
-	}
-	
-	// Fix angle clamping
-	public static float FixAngleClamping(float fromY, float toY) {
-		if(toY - fromY > 180)
-			return toY - 360;
-		else if(fromY - toY > 180)
-			return toY + 360;
-		
-		return toY;
-	}
-	
-	// MoveToLayer
-	public static void MoveToLayer(Transform root, int layer) {
-		root.gameObject.layer = layer;
-		foreach(Transform child in root)
-			MoveToLayer(child, layer);
 	}
 	
 	// Stay in map boundaries
@@ -370,6 +325,23 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	public int GetModifiedDamage(float dmg) {
 		return (int)(dmg * charStats.defenseDmgMultiplier);
 	}
+
+	// Fix angle clamping
+	public static float FixAngleClamping(float fromY, float toY) {
+		if(toY - fromY > 180)
+			return toY - 360;
+		else if(fromY - toY > 180)
+			return toY + 360;
+		
+		return toY;
+	}
+	
+	// MoveToLayer
+	public static void MoveToLayer(Transform root, int layer) {
+		root.gameObject.layer = layer;
+		foreach(Transform child in root)
+			MoveToLayer(child, layer);
+	}
 	
 	// SpawnText
 	public static void SpawnText(Entity target, string text, Color col, int customOffsetX = 0, int customOffsetY = 0) {
@@ -391,6 +363,25 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		DamageNumber shadowFD = dmgNumShadow.GetComponent<DamageNumber>();
 		shadowFD.target = target;
 		shadowFD.guiText.material.color = Color.black;
+	}
+
+	// InstantiateChild
+	public Transform InstantiateChild(GameObject prefab, Transform parent = null) {
+		var childTransform = ((GameObject)UnityEngine.Object.Instantiate(prefab)).transform;
+		
+		// Move to same layer
+		Entity.MoveToLayer(childTransform, layer);
+		
+		// Set parent
+		if(parent == null)
+			childTransform.parent = myTransform;
+		else
+			childTransform.parent = parent;
+		
+		childTransform.localPosition = Cache.vector3Zero;
+		childTransform.localRotation = Cache.quaternionIdentity;
+		
+		return childTransform;
 	}
 
 	// GetLookRotation

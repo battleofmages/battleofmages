@@ -711,7 +711,7 @@ Transform:
   - {fileID: 1968562747}
   - {fileID: 1173977605}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1 &883338591
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,7 +1203,7 @@ Transform:
   - {fileID: 1444448437}
   - {fileID: 1165736938}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
 --- !u!114 &1021456719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1659,7 +1659,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1 &1210075122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1893,6 +1893,12 @@ MonoBehaviour:
   playerMoveSpeed: 8
   playerHP: 8000
   entityEnergy: 50
+  blockMinimumEnergyForUsage: 5
+  hoverEnergyCost: 9
+  hoverSpeedBonus: .699999988
+  blockSlowDown: .5
+  energyRegen: 4
+  blockEnergyDrain: 40
   enemyReactionTime: .25
   hpAggroThreshold: 5000
   patrolSpeedModifier: .5
@@ -2199,7 +2205,7 @@ Transform:
   - {fileID: 1210075124}
   - {fileID: 1582849295}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!114 &1805119525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4281,7 +4287,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1 &1968562746
 GameObject:
   m_ObjectHideFlags: 0
