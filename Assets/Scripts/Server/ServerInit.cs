@@ -258,7 +258,7 @@ public class ServerInit : uLink.MonoBehaviour {
 				
 #if !UNITY_EDITOR
 				// Clean up
-				//DestroyServerAssets();
+				DestroyServerAssets();
 #endif
 			}
 		));
@@ -534,13 +534,13 @@ public class ServerInit : uLink.MonoBehaviour {
 		}
 		LogManager.General.Log("Audio clips destroyed.");
 		
-		// Remove all materials
+		/*// Remove all materials
 		var allMaterials = Resources.FindObjectsOfTypeAll(typeof(Material));
 		LogManager.General.Log(allMaterials.Length.ToString() + " materials loaded, going to destroy.");
 		foreach(var obj in allMaterials) {
 			Destroy(obj);
 		}
-		LogManager.General.Log("Materials destroyed.");
+		LogManager.General.Log("Materials destroyed.");*/
 		
 		// Remove occlusion area data
 		if(MapManager.occlusionArea) {
