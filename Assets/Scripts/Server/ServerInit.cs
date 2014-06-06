@@ -38,9 +38,9 @@ public class ServerInit : uLink.MonoBehaviour {
 	public static Dictionary<string, GameServerParty> accountToParty = new Dictionary<string, GameServerParty>();
 	
 	[HideInInspector]
-	public bool restrictedAccounts = false;
+	public bool restrictedAccounts;
 	
-	private bool batchMode = false;
+	private bool batchMode;
 	private int serverPort;
 	private int partyCount;
 	
