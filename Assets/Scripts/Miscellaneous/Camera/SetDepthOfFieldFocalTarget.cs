@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SetDepthOfFieldFocalTarget : MonoBehaviour {
 	private DepthOfFieldScatter depthOfFieldScatter;
 	
-	// Use this for initialization
-	void Start () {
+	// Start
+	void Start() {
 		depthOfFieldScatter = this.GetComponent<DepthOfFieldScatter>();
 	}
 	

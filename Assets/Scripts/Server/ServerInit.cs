@@ -634,8 +634,8 @@ public class ServerInit : uLink.MonoBehaviour {
 		LogManager.General.Log("Player successfully connected from " + netPlayer.ipAddress + ":" + netPlayer.port);
 		
 		// Instantly let him know about the server type
-		this.networkView.RPC("ReceiveServerType", netPlayer, GameManager.serverType);
-		this.networkView.RPC("LoadMap", netPlayer, mapName);
+		networkView.RPC("ReceiveServerType", netPlayer, GameManager.serverType);
+		networkView.RPC("LoadMap", netPlayer, mapName);
 		
 		string accountId;
 		string playerName;

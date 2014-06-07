@@ -6,8 +6,8 @@ public class Obstacle : SkillInstance {
 	public Transform spawnExplosion;
 	public Vector3 explosionOffsetPosition = Vector3.up;
 	
-	// Use this for initialization
-	void Start () {
+	// Start
+	void Start() {
 		Destroy(gameObject, duration);
 		
 		if(friendlyFire) {

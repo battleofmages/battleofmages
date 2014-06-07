@@ -8,13 +8,13 @@ public class ConstantRotation : MonoBehaviour {
 	
 	private Transform myTransform;
 
-	// Use this for initialization
-	void Start () {
+	// Start
+	void Start() {
 		myTransform = transform;
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	// Update
+	void Update() {
 		myTransform.Rotate(axis, rotationSpeed * Time.deltaTime, relativeTo);
 	}
 }

@@ -12,8 +12,8 @@ public class Intro : uLink.MonoBehaviour {
 	private bool goingToDisable;
 	private float startTime;
 	
-	// Use this for initialization
-	void Start () {
+	// Start
+	void Start() {
 		Restart();
 	}
 	

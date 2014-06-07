@@ -3,8 +3,8 @@ using UnityEngine;
 public class SummonWeapon : SkillInstance {
 	public GameObject weapon;
 	
-	// Use this for initialization
-	void Start () {
+	// Start
+	void Start() {
 		// Destroy old weapon of the caster
 		if(caster.weaponModel != null) {
 			Destroy(caster.weaponModel);

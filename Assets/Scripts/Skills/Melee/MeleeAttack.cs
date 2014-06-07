@@ -13,7 +13,7 @@ public class MeleeAttack : SkillInstance {
 	private float time;
 	
 	// Start
-	void Start () {
+	void Start() {
 		duration = skillStage.attackAnimDuration;
 
 		trail = caster.weaponModel.GetComponent<MeleeWeaponTrail>();

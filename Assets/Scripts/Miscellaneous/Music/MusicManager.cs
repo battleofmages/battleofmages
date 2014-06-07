@@ -42,7 +42,7 @@ public class MusicManager : LobbyModule<MusicManager> {
 	private float[] meter;
 
 	// Start
-	void Start () {
+	void Start() {
 		categoryDict = new Dictionary<string, MusicCategory>();
 		foreach(var category in categories) {
 			categoryDict[category.name] = category;

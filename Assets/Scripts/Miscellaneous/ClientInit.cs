@@ -11,8 +11,8 @@ public class ClientInit : uLink.MonoBehaviour {
 		server = null;
 	}
 	
-	// Use this for initialization
-	void Start () {
+	// Start
+	void Start() {
 		uLink.Network.publicKey = new uLink.PublicKey(
 @"r6tfUZ4YwT16YA4GGXN7xdd1A5rTIwSi5Yn6euIGK/Z0WrTkkgBVHnMtxFLtqmh8kh
 aUbPeoIIU5C/zwZitj5Ef7pd91LTrabTIDd4T9V/eMo2wHXfOxLJm6oC372pvMFQKL

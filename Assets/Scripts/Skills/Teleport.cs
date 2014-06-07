@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class Teleport : SkillInstance {
 	public float catchUpSpeed = 7.0f;
@@ -9,21 +8,21 @@ public class Teleport : SkillInstance {
 	private float charHalfHeight;
 	private Vector3 charHalfOffsetY;
 	
-	// Use this for initialization
-	void Start () {
+	// Start
+	void Start() {
 		charHalfHeight = this.caster.characterController.height / 2;
 		charHalfOffsetY = new Vector3(0, charHalfHeight, 0);
 		
 		teleportTo = MapManager.StayInMapBoundaries(new Vector3(hitPoint.x, hitPoint.y + charHalfHeight, hitPoint.z));
 		teleportTo += GetTerrainNormal() * safeOffsetNormal;
 		
-		this.caster.myTransform.position = teleportTo;
-		this.caster.serverPosition = teleportTo;
-		this.caster.clientPosition = teleportTo;
-		this.caster.hasControlOverMovement = true;
-		this.caster.immuneToPull += 1;
-		this.caster.ignoreNewPositionEarlierThanTimestamp = uLink.Network.time;
-		this.caster.disableSnappingToNewPosition += 1;
+		caster.myTransform.position = teleportTo;
+		caster.serverPosition = teleportTo;
+		caster.clientPosition = teleportTo;
+		caster.hasControlOverMovement = true;
+		caster.immuneToPull += 1;
+		caster.ignoreNewPositionEarlierThanTimestamp = uLink.Network.time;
+		caster.disableSnappingToNewPosition += 1;
 		
 		// Prevent snapping to client position
 		if(uLink.Network.isServer) {
