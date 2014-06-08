@@ -246,7 +246,10 @@ public class MusicManager : LobbyModule<MusicManager> {
 
 	// Volume
 	public float volume {
-		get { return _volume; }
+		get {
+			return _volume;
+		}
+		
 		set {
 			if(_volume == value)
 				return;
