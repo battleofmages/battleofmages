@@ -7,8 +7,8 @@ public class LaunchFrontal : SkillInstance {
 	public int fromAngle = -80;
 	public int toAngle = 80;
 	
-	// Use this for initialization
-	void Start () {
+	// Start
+	void Start() {
 		Detonate();
 	}
 	

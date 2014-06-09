@@ -8,19 +8,19 @@ public class TerrainTextureFinder : MonoBehaviour {
 	private Vector3 terrainPos;
 	
 	// Start
-	void Start () {
+	void Start() {
 		terrain = Terrain.activeTerrain;
 		terrainData = terrain.terrainData;
 		terrainPos = terrain.transform.position;
 	}
 	
 	// Update
-	void Update () {
+	void Update() {
 		surfaceIndex = GetMainTexture(transform.position);
 	}
 
 	// OnGUI
-	void OnGUI () {
+	void OnGUI() {
 		GUI.Box(new Rect( 100, 100, 200, 25 ), "index: "+surfaceIndex.ToString()+", name: "+terrainData.splatPrototypes[surfaceIndex].texture.name);
 	}
 

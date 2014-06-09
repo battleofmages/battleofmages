@@ -3,7 +3,7 @@ using System.Collections;
 
 public class KeyOverlay : HUDElement {
 	// Start
-	void Start () {
+	void Start() {
 		
 	}
 }

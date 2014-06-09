@@ -6,7 +6,7 @@ public class GenerateSecurityKeys : uLink.MonoBehaviour {
 	public int bitStrength = 128;
 	
 	// Use this for initialization
-	void Start () {
+	void Start() {
 		//var privateKey = uLink.PrivateKey.Generate(bitStrength);
 		//LogManager.General.Log(privateKey);
 		
