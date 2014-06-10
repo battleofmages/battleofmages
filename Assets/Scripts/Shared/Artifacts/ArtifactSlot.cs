@@ -1,23 +1,26 @@
-﻿using UnityEngine;
-using System.Collections;
-
-[System.Serializable]
+﻿[System.Serializable]
 public class ArtifactSlot {
 	public Artifact _artifact;
 	public byte requiredLevel;
-	
+
+	// Empty constructor
 	public ArtifactSlot() {
 		_artifact = null;
 		requiredLevel = 0;
 	}
-	
+
+	// Constructor
 	public ArtifactSlot(byte nRequiredLevel) {
 		_artifact = null;
 		requiredLevel = nRequiredLevel;
 	}
-	
+
+	// Artifact
 	public Artifact artifact {
-		get { return _artifact; }
+		get {
+			return _artifact;
+		}
+
 		set {
 			if(value == null || requiredLevel == value.level) {
 				_artifact = value;
