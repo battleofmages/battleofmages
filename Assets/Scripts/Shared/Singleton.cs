@@ -30,7 +30,7 @@ public abstract class SingletonMonoBehaviour<T> : uLink.MonoBehaviour where T : 
 	}
 }
 
-// SingletonMonoBehaviour
+// DestroyableSingletonMonoBehaviour
 public abstract class DestroyableSingletonMonoBehaviour<T> : uLink.MonoBehaviour where T : DestroyableSingletonMonoBehaviour<T> {
 	public static T instance = default(T);
 	

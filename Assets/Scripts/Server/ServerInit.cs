@@ -462,7 +462,7 @@ public class ServerInit : uLink.MonoBehaviour {
 		return partyId;
 	}
 	
-	// FFA
+	// FindFFAPartyWithLeastMembers
 	int FindFFAPartyWithLeastMembers() {
 		int partyId = GameServerParty.Undefined;
 		int lowestMembers = 1000000;
@@ -486,10 +486,12 @@ public class ServerInit : uLink.MonoBehaviour {
 		return partyId;
 	}
 	
+	// SendGameStart
 	public void SendGameStart() {
 		gameMode.SendGameStart();
 	}
 	
+	// SendGameStartCountdown
 	public void SendGameStartCountdown() {
 		gameMode.SendGameStartCountdown();
 	}

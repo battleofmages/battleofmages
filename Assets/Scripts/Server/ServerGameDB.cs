@@ -97,6 +97,7 @@ public class ServerGameDB {
 		}
 	}
 	
+	// SendArtifactRewards
 	public static IEnumerator SendArtifactRewards(Player player) {
 		string accountId = player.accountId;
 		
