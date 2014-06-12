@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 
 public class LogCategoryView {
+	// Constructor
 	public LogCategoryView(string nName) {
 		name = nName;
 		active = true;
@@ -21,6 +22,7 @@ public class LogCategoryView {
 	
 	public Thread tailThread;
 	
+	// Tail
 	public void Tail() {
 		using(
 			StreamReader reader = new StreamReader(
@@ -81,11 +83,13 @@ public class EditorLogViewer : EditorWindow {
 		new LogCategoryView("DB"),
 	};
 	
+	// Awake
 	public void Awake() {
 		//Debug.Log("Awake");
 		Refresh();
 	}
 	
+	// HandleOnPlayModeChanged
 	public void HandleOnPlayModeChanged() {
 		if(EditorApplication.isPlaying) {
 			Refresh();
@@ -94,6 +98,7 @@ public class EditorLogViewer : EditorWindow {
 		}
 	}
 	
+	// OnGUI
 	void OnGUI() {
 		using(new GUIHorizontal()) {
 			if(GUILayout.Button("Refresh"))
@@ -126,6 +131,7 @@ public class EditorLogViewer : EditorWindow {
 		}
 	}
 	
+	// Stop
 	void Stop() {
 		foreach(var cat in categories) {
 			if(cat.tailThread != null && cat.tailThread.IsAlive)
@@ -133,6 +139,7 @@ public class EditorLogViewer : EditorWindow {
 		}
 	}
 	
+	// Refresh
 	void Refresh() {
 		dateList = new List<string>(Directory.GetDirectories("./Logs/"));
 		dateList.Sort();

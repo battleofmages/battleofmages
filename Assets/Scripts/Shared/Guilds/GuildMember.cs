@@ -16,6 +16,7 @@ public class GuildMember {
 		Default
 	}
 	
+	// Empty constructor
 	public GuildMember() {
 		accountId = "";
 		name = "";
@@ -23,6 +24,7 @@ public class GuildMember {
 		joinDate = new TimeStamp();
 	}
 	
+	// Constructor
 	public GuildMember(string nAccountId, byte nRank) {
 		accountId = nAccountId;
 		name = "";
@@ -30,6 +32,7 @@ public class GuildMember {
 		joinDate = new TimeStamp();
 	}
 	
+	// Constructor
 	public GuildMember(string nAccountId, string nName, byte nRank) {
 		accountId = nAccountId;
 		name = nName;
