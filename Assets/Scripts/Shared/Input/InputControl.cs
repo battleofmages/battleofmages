@@ -12,24 +12,28 @@ public class InputControl {
 	public KeyCode gamePadKeyCode;
 	public bool active = true;
 	
+	// Key code string
 	public string keyCodeString {
 		get {
 			return InputControl.KeyCodeToString(keyCode);
 		}
 	}
 	
+	// Alt key code string
 	public string altKeyCodeString {
 		get {
 			return InputControl.KeyCodeToString(altKeyCode);
 		}
 	}
 	
+	// Key codes active
 	public bool keyCodesActive {
 		get {
 			return keyCode != KeyCode.None || altKeyCode != KeyCode.None;
 		}
 	}
 	
+	// Capture a key
 	public KeyCode Capture(bool altKey = false) {
 		KeyCode kc = Event.current.keyCode;
 		
@@ -66,6 +70,7 @@ public class InputControl {
 		return kc;
 	}
 	
+	// Erase
 	public void Erase(bool altKey = false) {
 		if(altKey)
 			altKeyCode = KeyCode.None;
