@@ -1,0 +1,2189 @@
+<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>uLobby</name>
+  </assembly>
+  <members>
+    <member name="T:uLobby.AccountManager">
+      <summary>
+            Implements uLobby's account management features.
+            </summary>
+    </member>
+    <member name="M:uLobby.AccountManager.RegisterAccount(System.String,System.String,System.Object[])">
+      <summary>
+            Registers a new account client-side.
+            </summary>
+      <remarks>
+            If the account was successfully registered, the <see cref="E:uLobby.AccountManager.OnAccountRegistered" /> event will be raised.
+            </remarks>
+      <param name="name"> The name of the new account. </param>
+      <param name="password"> The password of the new account. </param>
+      <param name="data"> Optional data to be stored alongside the account. </param>
+    </member>
+    <member name="M:uLobby.AccountManager.LogIn(System.String,System.String)">
+      <summary>
+            Logs in to an account client-side.
+            </summary>
+      <remarks>
+            If the account was successfully logged in to, the <see cref="E:uLobby.AccountManager.OnAccountLoggedIn" /> event will be raised.
+            Otherwise, the <see cref="E:uLobby.AccountManager.OnLogInFailed" /> event will be raised.
+            </remarks>
+      <param name="name"> The name of the account. </param>
+      <param name="password"> The password of the account. </param>
+    </member>
+    <member name="M:uLobby.AccountManager.LogOut">
+      <summary>
+            Logs out from the current account client-side.
+            </summary>
+      <remarks>
+            Logs this peer out from its currently logged in account. If the account was successfully logged out from,
+            the <see cref="E:uLobby.AccountManager.OnAccountLoggedOut" /> event will be raised.
+            </remarks>
+    </member>
+    <member name="P:uLobby.AccountManager.isLoggedIn">
+      <summary> Whether this peer is currently logged in to an account. </summary>
+    </member>
+    <member name="P:uLobby.AccountManager.loggedInAccount">
+      <summary> The currently logged in account of this peer, or <c>null</c> if not logged in. </summary>
+    </member>
+    <member name="E:uLobby.AccountManager.OnAccountRegistered">
+      <summary> Called lobby-side and client-side when an account was registered. </summary>
+    </member>
+    <member name="E:uLobby.AccountManager.OnAccountLoggedIn">
+      <summary> Called lobby-side and client-side when an account was logged in to. </summary>
+    </member>
+    <member name="E:uLobby.AccountManager.OnAccountLoggedOut">
+      <summary> Called lobby-side and client-side when an account was logged out from. </summary>
+    </member>
+    <member name="E:uLobby.AccountManager.OnRegisterFailed">
+      <summary> Called client-side when a request to register an account failed. </summary>
+    </member>
+    <member name="E:uLobby.AccountManager.OnLogInFailed">
+      <summary> Called client-side when a request to log in to an account failed. </summary>
+    </member>
+    <member name="P:uLobby.AccountManager.statistics">
+      <summary> Statistics for the account manager. </summary>
+    </member>
+    <member name="T:uLobby.AccountManager.OnAccountRegisteredHandler">
+      <summary> Handler for the <see cref="E:uLobby.AccountManager.OnAccountRegistered" /> event. </summary>
+      <param name="account"> The account that was registered. </param>
+    </member>
+    <member name="T:uLobby.AccountManager.OnAccountLoggedInHandler">
+      <summary> Handler for the <see cref="E:uLobby.AccountManager.OnAccountLoggedIn" /> event. </summary>
+      <param name="account"> The account that logged in. </param>
+    </member>
+    <member name="T:uLobby.AccountManager.OnAccountLoggedOutHandler">
+      <summary> Handler for the <see cref="E:uLobby.AccountManager.OnAccountLoggedOut" /> event. </summary>
+      <param name="account"> The account that logged out. </param>
+    </member>
+    <member name="T:uLobby.AccountManager.OnRegisterFailedHandler">
+      <summary> Handler for the <see cref="E:uLobby.AccountManager.OnRegisterFailed" /> event. </summary>
+      <param name="name"> The name of the account that failed to be registered. </param>
+      <param name="error"> The error that occurred. </param>
+    </member>
+    <member name="T:uLobby.AccountManager.OnLogInFailedHandler">
+      <summary> Handler for the <see cref="E:uLobby.AccountManager.OnLogInFailed" /> event. </summary>
+      <param name="name"> The name of the account that failed to log in. </param>
+      <param name="error"> The error that occurred. </param>
+    </member>
+    <member name="T:uLobby.AccountManager.Statistics">
+      <summary> Contains statistics for the account manager. </summary>
+    </member>
+    <member name="F:uLobby.AccountManager.Statistics.accountRegistrations">
+      <summary> The number of account registration operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.AccountManager.Statistics.logins">
+      <summary> The number of login operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.AccountManager.Statistics.logouts">
+      <summary> The number of logout operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.AccountManager.Statistics.databaseReads">
+      <summary> The number of database read operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.AccountManager.Statistics.databaseWrites">
+      <summary> The number of database write operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="T:uLobby.AccountManager.Master">
+      <summary>
+            Contains the lobby-side, authoritative AccountManager API. The methods in this class can only be executed by
+            the lobby.
+            </summary>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.RegisterAccount(System.String,System.String,System.Object[])">
+      <summary>
+            Registers a new account lobby-side.
+            </summary>
+      <remarks>
+            If the account was successfully registered, the <see cref="E:uLobby.AccountManager.OnAccountRegistered" /> event will be raised.
+            </remarks>
+      <param name="name"> The name of the new account. </param>
+      <param name="password"> The password of the new account. </param>
+      <param name="data"> Optional data to store alongside the account. </param>
+      <returns>
+            A request representing this operation, that upon completion contains the registered account.
+            </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.RegisterAccount(System.String,System.Byte[],System.Byte[])">
+      <summary>
+            Registers a new account lobby-side.
+            </summary>
+      <remarks>
+            If the account was successfully registered, the <see cref="E:uLobby.AccountManager.OnAccountRegistered" /> event will be raised.
+            </remarks>
+      <param name="name"> The name of the new account. </param>
+      <param name="passwordHash"> The password hash of the new account. </param>
+      <param name="data"> Optional data to store alongside the account. </param>
+      <returns>
+            A request representing this operation, that upon completion contains the registered account.
+            </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.LogIn(uLobby.LobbyPeer,System.String,System.Byte[])">
+      <summary>
+            Logs in to an account lobby-side.
+            </summary>
+      <remarks>
+            If the account was successfully logged in to, the <see cref="E:uLobby.AccountManager.OnAccountLoggedIn" /> event will be raised.
+            </remarks>
+      <param name="peer"> The peer to log in. </param>
+      <param name="accountName"> The name of the account. </param>
+      <param name="accountPasswordHash"> The password hash of the account. </param>
+      <returns>
+            A request representing this operation, that upon completion contains the account logged in to.
+            </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.LogIn(uLobby.LobbyPeer,System.String,System.String)">
+      <summary>
+            Logs in to an account lobby-side.
+            </summary>
+      <remarks>
+            If the account was successfully logged in to, the <see cref="E:uLobby.AccountManager.OnAccountLoggedIn" /> event will be raised.
+            </remarks>
+      <param name="peer"> The peer to log in. </param>
+      <param name="accountName"> The name of the account. </param>
+      <param name="accountPassword"> The password of the account, in plaintext. </param>
+      <returns>
+            A request representing this operation, that upon completion contains the account logged in to.
+            </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.LogOut(uLobby.LobbyPeer)">
+      <summary>
+            Logs out a peer from an account lobby-side.
+            </summary>
+      <remarks>
+            If the account was successfully logged out from, the <see cref="E:uLobby.AccountManager.OnAccountLoggedOut" /> event will be
+            raised.
+            </remarks>
+      <param name="peer"> The peer whose account will be logged out from. </param>
+      <returns>
+            A request representing this operation.
+            </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.IsLoggedIn(uLobby.IAccount)">
+      <summary>
+            Checks if an account is logged in to.
+            </summary>
+      <param name="account"> The account to check. </param>
+      <returns> Whether <paramref name="account" /> is logged in to. </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.IsLoggedIn(uLobby.LobbyPeer)">
+      <summary>
+            Checks if a peer is logged in to an account.
+            </summary>
+      <param name="peer"> The peer to check. </param>
+      <returns> Whether <paramref name="peer" /> is logged in to an account. </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.GetLoggedInAccount(uLobby.LobbyPeer)">
+      <summary>
+            Gets the account of a logged-in peer.
+            </summary>
+      <param name="peer"> The peer to get the account of. </param>
+      <returns> The account of <paramref name="peer" />. </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.GetLoggedInAccounts">
+      <summary>
+            Gets a list of all logged-in accounts.
+            </summary>
+      <returns> A list of all logged-in accounts. </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.GetLoggedInPeer(uLobby.IAccount)">
+      <summary>
+            Gets the peer of a logged-in account.
+            </summary>
+      <param name="account"> The account to get the peer of. </param>
+      <returns> The peer of <paramref name="account" />. </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.AccountExists(uLobby.IAccount)">
+      <summary>
+            Checks if an account exists. Can only be called lobby-side.
+            </summary>
+      <remarks>
+            This method checks whether an account is valid, i.e. represents a previously registered account. This
+            can be used for validating accounts, for example those sent over the network. Operations that rely on
+            valid accounts should check that they actually exist before using them.
+            </remarks>
+      <param name="account"> The account to check. </param>
+      <returns> A request representing this operation, that upon completion contains a boolean saying whether
+            <paramref name="account" /> represents a previously registered account. </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.GetAccount(uLobby.AccountID)">
+      <summary>
+            Gets the account with the specified ID. Can only be called lobby-side.
+            </summary>
+      <param name="accountID"> The ID of the account. </param>
+      <returns> A request representing this operation, that upon successful completion contains the account
+            with the specified ID. If no such account exists, the request will fail with an exception. </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.GetAccount(System.String)">
+      <summary>
+            Gets the account with the specified name. Can only be called lobby-side.
+            </summary>
+      <param name="name"> The name of the account. </param>
+      <returns> A request representing this operation, that upon successful completion contains the account
+            with the specified name. If no such account exists, the request will fail with an exception. </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.TryGetAccount(uLobby.AccountID)">
+      <summary>
+            Tries to get the account with the specified ID. Can only be called lobby-side.
+            </summary>
+      <param name="accountID"> The ID of the account. </param>
+      <returns> A request representing this operation, that upon completion contains the account with the
+            specified ID, or <c>null</c> if no such account exists. </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.TryGetAccount(System.String)">
+      <summary>
+            Tries to get the account with the specified name. Can only be called lobby-side.
+            </summary>
+      <param name="name"> The name of the account. </param>
+      <returns> A request representing this operation, that upon completion contains the account with the
+            specified name, or <c>null</c> if no such account exists. </returns>
+    </member>
+    <member name="M:uLobby.AccountManager.Master.UpdateAccount(uLobby.IAccount,uLobby.AccountUpdate)">
+      <summary>
+            Updates the fields of an account.
+            </summary>
+      <remarks>
+            After updating an account, any account instances that were fetched before the update may contain old
+            information. It is up to you to make sure that you use up-to-date account instances containing the new
+            information. However, since the ID can never be changed, old instances can still be used for referring
+            to the correct account.
+            </remarks>
+      <param name="account"> The account to update. </param>
+      <param name="update"> The update to apply to the account. </param>
+      <returns> A request representing this operation, that upon successful completion contains the updated
+            account.
+            </returns>
+    </member>
+    <member name="P:uLobby.AccountManager.Master.isAuthoritative">
+      <summary>
+            Sets or gets whether the account manager is authoritative.
+            </summary>
+      <remarks>
+            When the account manager is authoritative, requests sent from clients using the client-side API will be
+            ignored. Only the lobby-side API of this class can then be used for managing accounts.
+            </remarks>
+    </member>
+    <member name="T:uLobby.IAccount">
+      <summary>
+            Interface representing an account. Both the <see cref="T:uLobby.Account" /> and <see cref="T:uLobby.AccountID" /> classes implement
+            this interface, since any one of them uniquely identifies an account. This interface is used in places where
+            either a full account or an account ID are acceptable.
+            </summary>
+    </member>
+    <member name="P:uLobby.IAccount.id">
+      <summary> The account ID. </summary>
+    </member>
+    <member name="T:uLobby.AccountID">
+      <summary>
+            Used to identify accounts.
+            </summary>
+      <remarks>
+            This class is used for uniquely identifying accounts. It is used in most places where accounts are operated
+            upon. The <see cref="P:uLobby.AccountID.value" /> property contains the unique ID as a string value. This value should only be used
+            for internal purposes and should not be exposed to users.
+            </remarks>
+    </member>
+    <member name="P:uLobby.AccountID.value">
+      <summary> The ID as a string value. </summary>
+    </member>
+    <member name="T:uLobby.Account">
+      <summary>
+            Represents an account.
+            </summary>
+    </member>
+    <member name="P:uLobby.Account.name">
+      <summary> The account name. </summary>
+    </member>
+    <member name="P:uLobby.Account.id">
+      <summary> The account ID. </summary>
+    </member>
+    <member name="P:uLobby.Account.data">
+      <summary> The account data. </summary>
+    </member>
+    <member name="T:uLobby.AccountUpdate">
+      <summary>
+            Represents an update to an account.
+            </summary>
+      <remarks>
+            Multiple account fields can be updated simultaneously by setting several of the properties.
+            </remarks>
+      <example>
+            The following code can be used for updating the password and data of an account:
+            <code>
+            AccountManager.Master.UpdateAccount(account, new AccountUpdate() { password = "newPassword", data = new object[]
+            { "custom", "data", 34 } });
+            </code></example>
+    </member>
+    <member name="P:uLobby.AccountUpdate.password">
+      <summary> The new account password. </summary>
+    </member>
+    <member name="P:uLobby.AccountUpdate.data">
+      <summary> The new account data. </summary>
+    </member>
+    <member name="T:uLobby.AccountError">
+      <summary>
+            Represents an error that occurred while performing an account operation.
+            </summary>
+    </member>
+    <member name="F:uLobby.AccountError.NameAlreadyRegistered">
+      <summary> The name was already registered. </summary>
+    </member>
+    <member name="F:uLobby.AccountError.NameNotRegistered">
+      <summary> The name was not registered. </summary>
+    </member>
+    <member name="F:uLobby.AccountError.AlreadyLoggedIn">
+      <summary> The account was already logged in to. </summary>
+    </member>
+    <member name="F:uLobby.AccountError.NotLoggedIn">
+      <summary> The account was not logged in to. </summary>
+    </member>
+    <member name="F:uLobby.AccountError.InvalidPassword">
+      <summary> The password was invalid. </summary>
+    </member>
+    <member name="F:uLobby.AccountError.InvalidAccount">
+      <summary> A specified account was invalid. </summary>
+    </member>
+    <member name="F:uLobby.AccountError.Unknown">
+      <summary> An unknown error occurred. </summary>
+    </member>
+    <member name="T:uLobby.AccountException">
+      <summary>
+            Represents an exception that occurred while performing an account operation.
+            </summary>
+    </member>
+    <member name="P:uLobby.AccountException.error">
+      <summary> The error that occurred. </summary>
+    </member>
+    <member name="T:uLobby.FriendManager">
+      <summary>
+            Implements friend functionality for accounts.
+            </summary>
+      <remarks>
+            The client-side friend manager API operates on the currently logged in account.
+            </remarks>
+    </member>
+    <member name="M:uLobby.FriendManager.GetFriendList">
+      <summary>
+            Gets the friend list client-side.
+            </summary>
+      <returns> The friend list of the currently logged in account. </returns>
+    </member>
+    <member name="M:uLobby.FriendManager.AddFriend(uLobby.IAccount)">
+      <summary>
+            Adds a friend client-side.
+            </summary>
+      <remarks>
+            If the friend was successfully added, the <see cref="E:uLobby.FriendManager.OnFriendAdded" /> event will be raised.
+            </remarks>
+      <param name="friend"> The friend to add. </param>
+    </member>
+    <member name="M:uLobby.FriendManager.RemoveFriend(uLobby.IAccount)">
+      <summary>
+            Removes a friend client-side.
+            </summary>
+      <remarks>
+            If the friend was successfully removed, the <see cref="E:uLobby.FriendManager.OnFriendRemoved" /> event will be raised.
+            </remarks>
+      <param name="friend"> The friend to remove. </param>
+    </member>
+    <member name="M:uLobby.FriendManager.SendFriendInvitation(uLobby.IAccount)">
+      <summary>
+            Sends a friend invitation to an account client-side.
+            </summary>
+      <param name="recipient"> The account to invite. </param>
+    </member>
+    <member name="P:uLobby.FriendManager.isFriendListLoaded">
+      <summary> Whether the friend list has been loaded client-side. </summary>
+    </member>
+    <member name="E:uLobby.FriendManager.OnFriendListLoaded">
+      <summary> Called when the friend list has been loaded client-side. </summary>
+    </member>
+    <member name="E:uLobby.FriendManager.OnFriendAdded">
+      <summary> Called when a friend was added. </summary>
+    </member>
+    <member name="E:uLobby.FriendManager.OnFriendRemoved">
+      <summary> Called when a friend was removed. </summary>
+    </member>
+    <member name="E:uLobby.FriendManager.OnFriendLoggedIn">
+      <summary> Called when a friend logged in. </summary>
+    </member>
+    <member name="E:uLobby.FriendManager.OnFriendLoggedOut">
+      <summary> Called when a friend logged out. </summary>
+    </member>
+    <member name="E:uLobby.FriendManager.OnFriendInvitationReceived">
+      <summary> Called when a friend invitation was received. </summary>
+    </member>
+    <member name="E:uLobby.FriendManager.OnFriendInvitationAccepted">
+      <summary> Called when a sent friend invitation was accepted. </summary>
+    </member>
+    <member name="E:uLobby.FriendManager.OnFriendInvitationDeclined">
+      <summary> Called when a sent friend invitation was declined. </summary>
+    </member>
+    <member name="P:uLobby.FriendManager.statistics">
+      <summary> Statistics for the friend manager. </summary>
+    </member>
+    <member name="T:uLobby.FriendManager.OnFriendListLoadedHandler">
+      <summary> Handler for the <see cref="E:uLobby.FriendManager.OnFriendListLoaded" /> event. </summary>
+      <param name="friendList"> The loaded friend list. </param>
+    </member>
+    <member name="T:uLobby.FriendManager.OnFriendAddedHandler">
+      <summary> Handler for the <see cref="E:uLobby.FriendManager.OnFriendAdded" /> event. </summary>
+      <param name="friend"> The friend that was added. </param>
+    </member>
+    <member name="T:uLobby.FriendManager.OnFriendRemovedHandler">
+      <summary> Handler for the <see cref="E:uLobby.FriendManager.OnFriendRemoved" /> event. </summary>
+      <param name="friend"> The friend that was removed. </param>
+    </member>
+    <member name="T:uLobby.FriendManager.OnFriendLoggedInHandler">
+      <summary> Handler for the <see cref="E:uLobby.FriendManager.OnFriendLoggedIn" /> event. </summary>
+      <param name="friend"> The friend that logged in. </param>
+    </member>
+    <member name="T:uLobby.FriendManager.OnFriendLoggedOutHandler">
+      <summary> Handler for the <see cref="E:uLobby.FriendManager.OnFriendLoggedOut" /> event. </summary>
+      <param name="friend"> The friend that logged out. </param>
+    </member>
+    <member name="T:uLobby.FriendManager.OnFriendInvitationReceivedHandler">
+      <summary> Handler for the <see cref="E:uLobby.FriendManager.OnFriendInvitationReceived" /> event. </summary>
+      <param name="invitation"> The invitation that was received. </param>
+    </member>
+    <member name="T:uLobby.FriendManager.OnFriendInvitationAcceptedHandler">
+      <summary> Handler for the <see cref="E:uLobby.FriendManager.OnFriendInvitationAccepted" /> event. </summary>
+      <param name="invitation"> The invitation that was accepted. </param>
+    </member>
+    <member name="T:uLobby.FriendManager.OnFriendInvitationDeclinedHandler">
+      <summary> Handler for the <see cref="E:uLobby.FriendManager.OnFriendInvitationDeclined" /> event. </summary>
+      <param name="invitation"> The invitation that was declined. </param>
+    </member>
+    <member name="T:uLobby.FriendManager.Statistics">
+      <summary> Contains statistics for the friend manager. </summary>
+    </member>
+    <member name="F:uLobby.FriendManager.Statistics.friendListGets">
+      <summary> The number of friend list get operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.FriendManager.Statistics.friendSets">
+      <summary> The number of friend set operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.FriendManager.Statistics.friendAdds">
+      <summary> The number of friend add operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.FriendManager.Statistics.friendRemoves">
+      <summary> The number of friend remove operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.FriendManager.Statistics.friendInvitationSends">
+      <summary> The number of friend invitation send operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.FriendManager.Statistics.friendInvitationAccepts">
+      <summary> The number of friend invitation accept operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.FriendManager.Statistics.friendInvitationDeclines">
+      <summary> The number of friend invitation decline operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="T:uLobby.FriendManager.Master">
+      <summary>
+            Contains the lobby-side, authoritative FriendManager API. The methods in this class can only be executed by
+            the lobby.
+            </summary>
+    </member>
+    <member name="M:uLobby.FriendManager.Master.GetFriendList(uLobby.IAccount,System.Boolean)">
+      <summary>
+            Gets the friend list of an account lobby-side.
+            </summary>
+      <remarks>
+            The returned friend list is a static representation of the actual friend list at the time of the
+            operation, and will not change if the actual friend list is subsequently modified.
+            </remarks>
+      <param name="account"> The account to get the friend list of. </param>
+      <param name="verifyAccountExists"> Whether to check if <paramref name="account" /> exists before
+            continuing the operation. </param>
+      <returns> A request representing this operation, that upon completion contains the friend list of
+            <paramref name="account" />. </returns>
+    </member>
+    <member name="M:uLobby.FriendManager.Master.SetFriends``1(uLobby.IAccount,System.Collections.Generic.IEnumerable{``0},System.Boolean)">
+      <summary>
+            Sets the friends of an account lobby-side.
+            </summary>
+      <remarks>
+        <para>
+            	The current implementation will remove all friend invitations of the account. This is subject to
+            	change in the future, however.
+            	</para>
+      </remarks>
+      <param name="account"> The account to set the friend list of. </param>
+      <param name="friends"> The new friend list. </param>
+      <param name="verifyFriendsExist"> Whether to check if all accounts in <paramref name="friends" /> exist
+            before continuing the operation. </param>
+      <returns> A request representing this operation. </returns>
+    </member>
+    <member name="M:uLobby.FriendManager.Master.AddFriend(uLobby.IAccount,uLobby.IAccount,System.Boolean)">
+      <summary>
+            Adds a friend to an account lobby-side.
+            </summary>
+      <param name="account"> The account whose friend list will be operated upon. </param>
+      <param name="friend"> The friend to add to the friend list. </param>
+      <param name="verifyFriendExists"> Whether to check if <paramref name="friend" /> exists before continuing
+            the operation. </param>
+      <returns> A request representing this operation. </returns>
+    </member>
+    <member name="M:uLobby.FriendManager.Master.RemoveFriend(uLobby.IAccount,uLobby.IAccount)">
+      <summary>
+            Removes a friend from an account lobby-side.
+            </summary>
+      <param name="account"> The account whose friend list will be operated upon. </param>
+      <param name="friend"> The friend to remove from the friend list. </param>
+      <returns> A request representing this operation. </returns>
+    </member>
+    <member name="M:uLobby.FriendManager.Master.SendFriendInvitation(uLobby.IAccount,uLobby.IAccount,System.Boolean)">
+      <summary>
+            Sends a friend invitation to an account lobby-side.
+            </summary>
+      <param name="inviter"> The account the invitation will be sent from. </param>
+      <param name="recipient"> The account that will receive the invitation. </param>
+      <param name="verifyRecipientExists"> Whether to check if <paramref name="recipient" /> exists before
+            continuing the operation. </param>
+      <returns> A request representing this operation. </returns>
+    </member>
+    <member name="M:uLobby.FriendManager.Master.AcceptFriendInvitation(uLobby.FriendInvitation)">
+      <summary>
+            Accepts a friend invitation lobby-side.
+            </summary>
+      <remarks>
+        <para>
+            	Accepting a friend invitation will add both accounts as friends of each other, and remove the friend
+            	invitation from the recipient's list of received invitations.
+            	</para>
+        <para>
+            	If the friend invitation was successfully accepted, the <see cref="E:uLobby.FriendManager.OnFriendInvitationAccepted" />
+            	event will be raised in the peer logged in to the inviter account. Furthermore, the <see cref="E:uLobby.FriendManager.OnFriendAdded" /> event will be raised in the peers logged in to the inviter and recipient
+            	accounts.
+            	</para>
+      </remarks>
+      <param name="invitation"> The friend invitation to accept. </param>
+      <returns> A request representing this operation. </returns>
+    </member>
+    <member name="M:uLobby.FriendManager.Master.DeclineFriendInvitation(uLobby.FriendInvitation)">
+      <summary>
+            Declines a friend invitation lobby-side.
+            </summary>
+      <remarks>
+        <para>
+            	Declining a friend invitation will remove it from the recipient's list of received invitations.
+            	</para>
+        <para>
+            	If the friend invitation was successfully declined, the <see cref="E:uLobby.FriendManager.OnFriendInvitationDeclined" />
+            	event will be raised in the peer logged in to the inviter account.
+            	</para>
+      </remarks>
+      <param name="invitation"> The friend invitation to decline. </param>
+      <returns> A request representing this operation. </returns>
+    </member>
+    <member name="P:uLobby.FriendManager.Master.isAuthoritative">
+      <summary>
+            Sets or gets whether the friend manager is authoritative.
+            </summary>
+      <remarks>
+            When the friend manager is authoritative, requests sent from clients using the client-side API will be
+            ignored. Only the lobby-side API of this class can then be used for managing friends.
+            </remarks>
+    </member>
+    <member name="T:uLobby.FriendList">
+      <summary>
+            Represents the friend list of an account.
+            </summary>
+      <remarks>
+        <para>
+            	This class is used for getting the list of friends of an account, and its received friend invitations.
+            	</para>
+        <para>
+            	Client-side, instances of this class remain updated when the actual friend list changes. On the lobby side
+            	they do not, however, so you will have to refetch the friend list to get the latest state.
+            	</para>
+      </remarks>
+    </member>
+    <member name="M:uLobby.FriendList.GetFriends">
+      <summary>
+            Gets the friends in the friend list.
+            </summary>
+      <returns> The friends in the friend list. </returns>
+    </member>
+    <member name="M:uLobby.FriendList.GetReceivedFriendInvitations">
+      <summary>
+            Gets the list of received friend invitations.
+            </summary>
+      <returns> The list of received friend invitations. </returns>
+    </member>
+    <member name="P:uLobby.FriendList.account">
+      <summary> The account the friend list belongs to. </summary>
+    </member>
+    <member name="T:uLobby.FriendInfo">
+      <summary>
+            Represents a friend account.
+            </summary>
+    </member>
+    <member name="P:uLobby.FriendInfo.account">
+      <summary> The friend's account. </summary>
+    </member>
+    <member name="P:uLobby.FriendInfo.isOnline">
+      <summary> Whether the friend account is logged in to. </summary>
+    </member>
+    <member name="T:uLobby.FriendInvitation">
+      <summary>
+            Represents a friend invitation.
+            </summary>
+    </member>
+    <member name="M:uLobby.FriendInvitation.Accept">
+      <summary>
+            Accepts a friend invitation client-side.
+            </summary>
+      <remarks>
+            See <see cref="M:Master.AcceptFriendInvitation" /> for detailed information.
+            </remarks>
+    </member>
+    <member name="M:uLobby.FriendInvitation.Decline">
+      <summary>
+            Declines a friend invitation client-side.
+            </summary>
+      <remarks>
+            See <see cref="M:Master.DeclineFriendInvitation" /> for detailed information.
+            </remarks>
+    </member>
+    <member name="P:uLobby.FriendInvitation.inviter">
+      <summary> The sender account of the friend invitation. </summary>
+    </member>
+    <member name="P:uLobby.FriendInvitation.recipient">
+      <summary> The receiver account of the friend invitation. </summary>
+    </member>
+    <member name="T:uLobby.FriendError">
+      <summary>
+            Represents an error that occurred while performing a friend operation.
+            </summary>
+    </member>
+    <member name="F:uLobby.FriendError.AlreadyFriends">
+      <summary> Two or more accounts were already friends. </summary>
+    </member>
+    <member name="F:uLobby.FriendError.Unknown">
+      <summary> An unknown error occurred. </summary>
+    </member>
+    <member name="T:uLobby.FriendException">
+      <summary>
+            Represents an exception that occurred while performing a friend operation.
+            </summary>
+    </member>
+    <member name="P:uLobby.FriendListException.error">
+      <summary> The error that occurred. </summary>
+    </member>
+    <member name="P:uLobby.FriendException.error">
+      <summary> The error that occurred. </summary>
+    </member>
+    <member name="T:uLobby.IAccountOperations">
+      <summary>
+            This interface contains all methods related to storing, retrieving and finding accounts and information related to them. 
+            </summary>
+    </member>
+    <member name="M:uLobby.IAccountOperations.AddAccountCoroutine(uLobby.AccountRecord,uLobby.Request{uLobby.AccountRecord})">
+      <summary>
+            Adds an account to the database. This is by defnition a new account and is used in Register method of the
+            account manager module.
+            </summary>
+      <param name="account">The <see cref="T:uLobby.AccountRecord" /> containing all information about the account to be stored.</param>
+      <param name="request">The <see cref="T:uLobby.Request" /> that you can throw exceptions in if you fail to store the account</param>
+      <returns>
+      </returns>
+      <remarks>You don't have to use all of the information provided in the <see cref="T:uLobby.AccountRecord" />, For example you can use your own/database's id generation mechanism
+            instead of using the generated ID.
+            The ID is generated in another method of your own but based on your database system you might want to let it do the job.
+            </remarks>
+    </member>
+    <member name="M:uLobby.IAccountOperations.GetAccountCoroutine(uLobby.AccountID,System.String,System.Boolean,uLobby.Request{uLobby.Account})">
+      <summary>
+             This method should find and return the account which has the id or name provided. It should first see if the 
+             account with the id available and if the id was null, then it should check for the account with the name to see if it's available or not. 
+             You should not implement a method which returns an account with both name and id matched cause the way we use
+             it will cause it to always return nothing.
+             </summary>
+      <param name="accountID">The id of the account which should be returned</param>
+      <param name="accountName">Name of the account which should be retrieved.</param>
+      <param name="exceptionIfInvalid">If this is <c>true</c> then if you did not find the account, an exception should be thrown</param>
+      <param name="request">The request which you should put the found account in its result</param>
+      <returns>
+      </returns>
+      <example>
+            The following code is an in memory example implementation
+            <code>
+            IEnumerator IAccountOperations.GetAccountCoroutine(AccountID accountID, string accountName, bool exceptionIfInvalid, Request{Account} request)
+            {
+            		foreach (var account in accounts)
+            		{
+            			if (account.id == accountID || (accountID == null &amp;&amp; accountName == account.name))
+            			{
+            				DALImplementationUtility.RequestUtility.SetResult(request,DALImplementationUtility.CreateAccount(account));
+            				yield break;
+            			}
+            		}
+            		DALImplementationUtility.RequestUtility.SetResult(request,null);
+            		if (exceptionIfInvalid)
+            		{
+            			DALImplementationUtility.RequestUtility.ThrowException(request,(DALImplementationUtility.Exceptions.CreateAccountException("Account with id " + accountID + " and name " + accountName + " does not exist.")));
+            		}
+            		yield break;
+            	}
+            </code></example>
+    </member>
+    <member name="M:uLobby.IAccountOperations.GetAccountRecordCoroutine(uLobby.AccountID,uLobby.Request{uLobby.AccountRecord})">
+      <summary>
+            This method should return an <see cref="T:uLobby.AccountRecord" /> which contains all of the information regarding
+            the account with the specified ID.
+            </summary>
+      <param name="accountID">The <see cref="T:uLobby.AccountID" /> which the account owning it should be returned</param>
+      <param name="request">The request which you the result should be set in it.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:uLobby.IAccountOperations.GetAccountRecordCoroutine(System.String,uLobby.Request{uLobby.AccountRecord})">
+      <summary>
+      </summary>
+      <param name="name">
+      </param>
+      <param name="request">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:uLobby.IAccountOperations.UpdateAccountCoroutine(uLobby.IAccount,uLobby.AccountUpdate,uLobby.Request{uLobby.Account})">
+      <summary>
+            This method should update the information of the account specified. password and data can be changed and you can
+            check if they've been changed or not using the methods in <see cref="T:uLobby.StorageLayerUtility.AccountUpdateUtility" />.
+            </summary>
+      <param name="account">The account which should be updated.</param>
+      <param name="update">The updated information which you should use to update the account.</param>
+      <param name="request">The request which can be used for throwing exceptions.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:uLobby.IAccountOperations.GetNewAccountIDCoroutine(uLobby.Request{uLobby.AccountID})">
+      <summary>
+            This method should generate and return a new ID to be used by the account which we want to create.
+            </summary>
+      <param name="request">The <see cref="T:uLobby.Request" /> which you should put the result in it.</param>
+      <returns>
+      </returns>
+      <remarks>If you don't want to use the ID generated here when storing the data in <see cref="M:uLobby.IAccountOperations.AddAccountCoroutine(uLobby.AccountRecord,uLobby.Request{uLobby.AccountRecord})" /> then
+            you can create a dummy <see cref="T:uLobby.AccountID" /> using a constant string just like the mysql example.</remarks>
+    </member>
+    <member name="T:uLobby.IFriendOperations">
+      <summary>
+            This interface contains all methods related to storage and retrieval of friend lists for uLobby's friend list module. 
+            uLobby let's you know of the all friend lists for the friend in question and all of the invitations sent to him/her. AccountIDs
+            for all of them are provided and it's your duty as the implementer to connect <see cref="T:uLobby.AccountID" />s in these to
+            those related to the implementation of the <see cref="T:uLobby.IAccountOperations" /> to refer to the same accounts. 
+            </summary>
+      <remarks>We've not implemented account removal in uLobby but if you choose to implement it, keep in mind that
+            you should update these lists inside your database as well.</remarks>
+    </member>
+    <member name="M:uLobby.IFriendOperations.GetFriendListRecordCoroutine(uLobby.AccountID,uLobby.Request{uLobby.FriendListRecord})">
+      <summary>
+            This method should asynchronously retireves the data regarding a user's friends and invitations and
+            create a <see cref="T:uLobby.FriendListRecord" /> using them and set it as the result of the request.
+            </summary>
+      <param name="accountID">The account which you need to retrieve its friend list and invitation list.</param>
+      <param name="request">The <see cref="T:uLobby.Request" /> which you should feel with your results or throw exceptions in it.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:uLobby.IFriendOperations.SetFriendListRecordCoroutine(uLobby.AccountID,uLobby.FriendListRecord,uLobby.Request)">
+      <summary>
+            This method should stores all of the friends and invitations of an account into the storage system for later retrieval.
+            </summary>
+      <param name="accountID">The account that you want to store its friends and invitations</param>
+      <param name="record">The <see cref="T:uLobby.FriendListRecord" /> which you can read friends and invitations from.</param>
+      <param name="request">The <see cref="T:uLobby.Request" /> that you can throw exceptions in if things go wrong.</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="T:uLobby.IStorageManager">
+      <summary>
+            This interface contains all of the methods and properties related to general functionality and status of the storage system. Things like system's readiness for doing operations and system initialization are define here.
+            </summary>
+    </member>
+    <member name="M:uLobby.IStorageManager.Initialize">
+      <summary>
+            This method should initializes the storage and retrieval system and tries to make it ready to use.
+            </summary>
+      <example>
+            In connection based databases it should try to connect to the database, in file bases systems
+            it probably should try to open the file and ...
+            </example>
+      <remarks>This method will be called inside the lobby's InitializeLobby method. For many systems
+            you will not implement anything specific in this and just define your own methods in your class for initializing it.
+            </remarks>
+    </member>
+    <member name="P:uLobby.IStorageManager.isReadyToUse">
+      <summary>
+            This property should return that if the storage system is ready to use or not.
+            </summary>
+      <example>
+            For connection based systems you can make it return true after connection is established, for file based ones you might tell
+            it to return if the file is open or not.
+            </example>
+      <remarks>
+            You can always return true if the readiness of the system only will be known when you try to do the main operations. 
+            If you connect to your database just before you want to run a query, you can not decide in this method if the DB
+            connection is ready or not.
+            </remarks>
+    </member>
+    <member name="T:uLobby.Lobby">
+      <summary>
+            The entry point of the uLobby API.
+            </summary>
+      <remarks>
+            This class provides static methods for performing basic lobby tasks, such as initializing a lobby, connecting to
+            it as a client or server, sending RPCs between peers, querying about the lobby state, and more.
+            </remarks>
+    </member>
+    <member name="M:uLobby.Lobby.ConnectAsServer(System.Net.IPEndPoint)">
+      <summary>
+            Connects to the lobby as a server.
+            </summary>
+      <remarks>
+            This peer will get the peer type <c>LobbyPeerType.Server</c> after calling this method, unless an error
+            occurred.
+            </remarks>
+      <param name="lobby"> The endpoint of the lobby. </param>
+      <returns> LobbyConnectionError.NoError if the connection setup succeeded, otherwise the error that occurred.
+            </returns>
+    </member>
+    <member name="M:uLobby.Lobby.ConnectAsServer(System.String,System.Int32)">
+      <summary>
+            Connects to the lobby as a server.
+            </summary>
+      <remarks>
+            This peer will get the peer type <c>LobbyPeerType.Server</c> after calling this method, unless an error
+            occurred.
+            </remarks>
+      <param name="host"> The URL of the lobby. </param>
+      <param name="remotePort"> The port of the lobby. </param>
+      <returns> LobbyConnectionError.NoError if the connection setup succeeded, otherwise the error that occurred.
+            </returns>
+    </member>
+    <member name="M:uLobby.Lobby.ConnectAsClient(System.Net.IPEndPoint)">
+      <summary>
+            Connects to the lobby as a client.
+            </summary>
+      <remarks>
+            This peer will get the peer type <c>LobbyPeerType.Client</c> after calling this method, unless an error
+            occurred.
+            </remarks>
+      <param name="lobby"> The endpoint of the lobby. </param>
+      <returns> LobbyConnectionError.NoError if the connection setup succeeded, otherwise the error that occurred.
+            </returns>
+    </member>
+    <member name="M:uLobby.Lobby.ConnectAsClient(System.String,System.Int32)">
+      <summary>
+            Connects to the lobby as a client.
+            </summary>
+      <remarks>
+            This peer will get the peer type <c>LobbyPeerType.Client</c> after calling this method, unless an error
+            occurred.
+            </remarks>
+      <param name="host"> The URL of the lobby. </param>
+      <param name="remotePort"> The port of the lobby. </param>
+      <returns> LobbyConnectionError.NoError if the connection setup succeeded, otherwise the error that occurred.
+            </returns>
+    </member>
+    <member name="M:uLobby.Lobby.Disconnect(System.Int32)">
+      <summary>
+            Disconnects from the network.
+            </summary>
+      <remarks>
+            If this peer is a lobby, the lobby is shut down and all servers and clients are disconnected. If this peer
+            is a server or client, it is disconnected from the lobby.
+            </remarks>
+      <param name="timeout"> The time in milliseconds to linger before closing the connection, to allow outgoing
+            messages to arrive. </param>
+    </member>
+    <member name="M:uLobby.Lobby.DisconnectImmediate">
+      <summary>
+            Disconnects immediately from the network.
+            </summary>
+      <remarks>
+            Immediately closes the network connection without notifying others on the network or giving a chance for
+            outgoing messages to arrive.
+            </remarks>
+    </member>
+    <member name="M:uLobby.Lobby.CloseConnection(uLobby.LobbyPeer,System.Boolean,System.Int32)">
+      <summary>
+            Closes the connection to the specified peer.
+            </summary>
+      <remarks>
+            Only the lobby can close connections to arbitrary peers. Client-side, only the connection to the lobby can
+            be closed, which is equivalent to disconnecting.
+            </remarks>
+      <param name="peer"> The peer whose connection will be closed. </param>
+      <param name="sendDisconnectionNotification"> Whether to notify the peer that the connection will be closed,
+            or to close the connection immediately. </param>
+      <param name="timeout"> The time in milliseconds to linger before closing the connection, to allow outgoing
+            messages to arrive. </param>
+    </member>
+    <member name="M:uLobby.Lobby.AddListener(UnityEngine.MonoBehaviour)">
+      <summary>
+            Adds a component as a listener of RPCs and uLobby events.
+            </summary>
+      <remarks>
+            This method needs to be called in order for a component to be able to receive RPCs.
+            </remarks>
+      <param name="component"> The component to add as a listener.
+            </param>
+    </member>
+    <member name="M:uLobby.Lobby.RemoveListener(UnityEngine.MonoBehaviour)">
+      <summary>
+            Removes a component as a listener of RPCs and uLobby events.
+            </summary>
+      <param name="component"> The component to remove as a listener.
+            </param>
+    </member>
+    <member name="M:uLobby.Lobby.RPC(uLobby.LobbyMessageFlags,System.String,System.Collections.Generic.IEnumerable{uLobby.LobbyPeer},System.Object[])">
+      <summary>
+            Sends an RPC to a list of targets.
+            </summary>
+      <param name="flags"> Options for customizing the RPC. </param>
+      <param name="rpcName"> The name of the RPC. </param>
+      <param name="targets"> The peers to send the RPC to. </param>
+      <param name="args"> The RPC arguments. </param>
+    </member>
+    <member name="M:uLobby.Lobby.RPC(uLobby.LobbyMessageFlags,System.String,uLobby.LobbyPeer,System.Object[])">
+      <summary>
+            Sends an RPC to a single target.
+            </summary>
+      <param name="flags"> Options for customizing the RPC. </param>
+      <param name="rpcName"> The name of the RPC. </param>
+      <param name="target"> The peer to send the RPC to. </param>
+      <param name="args"> The RPC arguments. </param>
+    </member>
+    <member name="M:uLobby.Lobby.RPC(System.String,System.Collections.Generic.IEnumerable{uLobby.LobbyPeer},System.Object[])">
+      <summary>
+            Sends an RPC to a list of targets.
+            </summary>
+      <param name="rpcName"> The name of the RPC. </param>
+      <param name="targets"> The peers to send the RPC to. </param>
+      <param name="args"> The RPC arguments. </param>
+    </member>
+    <member name="M:uLobby.Lobby.RPC(System.String,uLobby.LobbyPeer,System.Object[])">
+      <summary>
+            Sends an RPC to a single target.
+            </summary>
+      <param name="rpcName"> The name of the RPC. </param>
+      <param name="target"> The peer to send the RPC to. </param>
+      <param name="args"> The RPC arguments. </param>
+    </member>
+    <member name="M:uLobby.Lobby.InitializeLobby(System.Int32,System.Int32)">
+      <summary>
+            Initializes a lobby.
+            </summary>
+      <remarks>
+        <para>
+            	Initializes a lobby without database access. None of the uLobby functionality that needs a database can
+            	be used if the lobby is initialized using this method.
+            	</para>
+        <para>
+            	This peer will get the peer type <c>LobbyPeerType.Lobby</c> after calling this method, unless an error
+            	occurred.
+            	</para>
+      </remarks>
+      <param name="maximumConnections"> The maximum number of concurrent connections the lobby accepts. </param>
+      <param name="listenPort"> The port the lobby will listen to for incoming connections. </param>
+      <returns> LobbyConnectionError.NoError if the lobby was successfully initialized, otherwise the error that
+            occurred. </returns>
+    </member>
+    <member name="M:uLobby.Lobby.InitializeLobby(System.Int32,System.Int32,System.String,System.Int32)">
+      <summary>
+            Initializes a lobby.
+            </summary>
+      <remarks>
+        <para>
+            	Initializes a lobby with database access. The database will be connected to on the specified URL and
+            	port.
+            	</para>
+        <para>
+            	This peer will get the peer type <c>LobbyPeerType.Lobby</c> after calling this method, unless an error
+            	occurred.
+            	</para>
+      </remarks>
+      <param name="maximumConnections"> The maximum number of concurrent connections the lobby accepts. </param>
+      <param name="listenPort"> The port the lobby will listen to for incoming connections. </param>
+      <param name="databaseURL"> The URL of the database. </param>
+      <param name="databasePort"> The port of the database. </param>
+      <returns> LobbyConnectionError.NoError if the lobby was successfully initialized, otherwise the error that
+            occurred. </returns>
+    </member>
+    <member name="M:uLobby.Lobby.InitializeSecurity(System.Boolean)">
+      <summary>
+            Initializes security for future peers, and optionally current peers. Can only be called lobby-side.
+            </summary>
+      <remarks>
+        <para>
+            	Initializes security in the lobby, meaning that all future peers will be requested to initialize
+            	security when connecting to the lobby. If <paramref name="includeCurrentPeers" /> is set to <c>true</c>,
+            	security will be initialized for all currently connected peers.
+            	</para>
+        <para>
+            	When security is initialized for a peer, all communication between the peer and the lobby is encrypted.
+            	</para>
+      </remarks>
+      <param name="includeCurrentPeers"> Whether to initialize security for all currently connected peers.
+            </param>
+    </member>
+    <member name="M:uLobby.Lobby.InitializeSecurity(uLobby.LobbyPeer)">
+      <summary>
+            Initializes security for a peer. Can only be called lobby-side.
+            </summary>
+      <remarks>
+            When security is initialized for a peer, all communication between the peer and the lobby is encrypted.
+            </remarks>
+      <param name="peer"> The peer to initialize security for. </param>
+    </member>
+    <member name="M:uLobby.Lobby.UninitializeSecurity(System.Boolean)">
+      <summary>
+            Uninitializes security for future peers, and optionally current peers. Can only be called lobby-side.
+            </summary>
+      <remarks>
+        <para>
+            	Uninitializes security in the lobby, meaning that future peers will no longer be requested to initialize
+            	security when connecting to the lobby. If <paramref name="includeCurrentPeers" /> is set to <c>true</c>,
+            	security will be uninitialized for all currently connected peers.
+            	</para>
+      </remarks>
+      <param name="includeCurrentPeers"> Whether to uninitialize security for all currently connected peers.
+            </param>
+    </member>
+    <member name="M:uLobby.Lobby.UninitializeSecurity(uLobby.LobbyPeer)">
+      <summary>
+            Uninitializes security for a peer. Can only be called lobby-side.
+            </summary>
+      <param name="peer"> The peer to uninitialize security for. </param>
+    </member>
+    <member name="M:uLobby.Lobby.GetPeers">
+      <summary>
+            Gets a list of all peers connected to the lobby. Can only be called lobby-side.
+            </summary>
+      <returns> A list of all peers connected to the lobby. </returns>
+    </member>
+    <member name="M:uLobby.Lobby.GetServers">
+      <summary>
+            Gets a list of all servers connected to the lobby. Can only be called lobby-side.
+            </summary>
+      <returns> A list of all servers connected to the lobby. </returns>
+    </member>
+    <member name="M:uLobby.Lobby.GetClients">
+      <summary>
+            Gets a list of all clients connected to the lobby. Can only be called lobby-side.
+            </summary>
+      <returns> A list of all clients connected to the lobby. </returns>
+    </member>
+    <member name="M:uLobby.Lobby.IsPeerConnected(uLobby.LobbyPeer)">
+      <summary>
+            Checks if a peer is connected to the lobby. Can only be called lobby-side.
+            </summary>
+      <param name="peer"> The peer to check. </param>
+      <returns> Whether <paramref name="peer" /> is connected to the lobby. </returns>.
+        </member>
+    <member name="P:uLobby.Lobby.peer">
+      <summary>
+            The local peer connected to the lobby, or <c>null</c> if not connected.
+            </summary>
+      <remarks>
+            Lobby-side, this is the same as <see cref="P:uLobby.Lobby.lobby" />.
+            </remarks>
+    </member>
+    <member name="P:uLobby.Lobby.lobby">
+      <summary>
+            The peer representing the lobby, or <c>null</c> if not connected.
+            </summary>
+      <remarks>
+            Lobby-side, this is the same as <see cref="P:uLobby.Lobby.peer" />.
+            </remarks>
+    </member>
+    <member name="P:uLobby.Lobby.peerType">
+      <summary> The peer type of this peer. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.connectionStatus">
+      <summary> The connection status of the network. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.isConnected">
+      <summary> Whether connected to the lobby or initialized as a lobby. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.isLobby">
+      <summary> Whether this peer has the lobby peer type. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.isServer">
+      <summary> Whether this peer has the server peer type. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.isClient">
+      <summary> Whether this peer has the client peer type. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.publicKey">
+      <seealso cref="P:uLobby.Lobby.privateKey" />
+    </member>
+    <member name="P:uLobby.Lobby.symmetricKeySize">
+      <summary>
+            The bit strength of the symmetric key used for secure communication. Can only be used by servers and
+            clients.
+            </summary>
+    </member>
+    <member name="E:uLobby.Lobby.OnConnected">
+      <summary> Called when connected to the lobby as a server or a client. </summary>
+    </member>
+    <member name="E:uLobby.Lobby.OnFailedToConnect">
+      <summary> Called when an attempt to connect to the lobby failed. </summary>
+    </member>
+    <member name="E:uLobby.Lobby.OnDisconnected">
+      <summary> Called client-side when disconnected from the lobby, or lobby-side when the lobby is shut down.
+            </summary>
+    </member>
+    <member name="E:uLobby.Lobby.OnSecurityInitialized">
+      <summary> Called lobby-side when security has been initialized for any peer, and client-side when initialized for the local peer. </summary>
+    </member>
+    <member name="E:uLobby.Lobby.OnSecurityUninitialized">
+      <summary> Called lobby-side when security has been uninitialized for any peer, and client-side when uninitialized for the local peer. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.config">
+      <summary> Configuration for the lobby. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.statistics">
+      <summary> Statistics for the lobby. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.isConnectedToDatabase">
+      <summary> Whether connected to the database. Only has meaning lobby-side. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.privateKey">
+      <summary>
+            The private RSA key used for initiating secure communication with the lobby. Can only be used lobby-side.
+            </summary>
+      <remarks>
+        <para>
+            	By generating a private-public key pair and setting each in the lobby and clients you can ensure
+            	authenticity of the lobby communication.
+            	</para>
+      </remarks>
+      <seealso cref="P:uLobby.Lobby.publicKey" />
+    </member>
+    <member name="E:uLobby.Lobby.OnLobbyInitialized">
+      <summary> Called after successfully initializing a lobby. </summary>
+    </member>
+    <member name="E:uLobby.Lobby.OnPeerConnected">
+      <summary> Called lobby-side when a peer connects to the lobby. </summary>
+    </member>
+    <member name="E:uLobby.Lobby.OnPeerDisconnected">
+      <summary> Called lobby-side when a peer disconnects from the lobby. </summary>
+    </member>
+    <member name="T:uLobby.Lobby.OnConnectedHandler">
+      <summary> Handler for the <see cref="E:uLobby.Lobby.OnConnected" /> event. </summary>
+    </member>
+    <member name="T:uLobby.Lobby.OnFailedToConnectHandler">
+      <summary> Handler for the <see cref="E:uLobby.Lobby.OnFailedToConnect" /> event. </summary>
+      <param name="error"> The error that occurred. </param>
+    </member>
+    <member name="T:uLobby.Lobby.OnDisconnectedHandler">
+      <summary> Handler for the <see cref="E:uLobby.Lobby.OnDisconnected" /> event. </summary>
+    </member>
+    <member name="T:uLobby.Lobby.OnSecurityInitializedHandler">
+      <summary> Handler for the <see cref="E:uLobby.Lobby.OnSecurityInitialized" /> event. </summary>
+      <param name="peer"> The peer for which security was initialized. </param>
+    </member>
+    <member name="T:uLobby.Lobby.OnSecurityUninitializedHandler">
+      <summary> Handler for the <see cref="E:uLobby.Lobby.OnSecurityUninitialized" /> event. </summary>
+      <param name="peer"> The peer for which security was uninitialized. </param>
+    </member>
+    <member name="T:uLobby.Lobby.Config">
+      <summary> Contains configuration parameters for the lobby. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.Config.localIP">
+      <summary> The local IP endpoint to use for network communication. </summary>
+      <remarks> This value can be used for selecting which network interface to use for network communication.
+            To have effect it needs to be set before initializing a lobby or connecting to a lobby. </remarks>
+    </member>
+    <member name="P:uLobby.Lobby.Config.maximumTransmissionUnit">
+      <summary> The maximum number of bytes that can be sent in a UDP packet. </summary>
+      <remarks>
+        <para>
+            Only modify this if you know what you are doing. The default value 1400 has been carefully chosen for
+            optimal speed and throughput in most link layers in IP networks. The value 1400 will ensure that UDP
+            packets with uLobby traffic (data and all headers) fit into a single Ethernet frame (1500 max) and thus
+            the packet loss risk will be minimal for each UDP packet.
+            </para>
+        <para>
+            This value can be set independently for the local and remote host.
+            </para>
+      </remarks>
+    </member>
+    <member name="P:uLobby.Lobby.Config.timeBetweenPings">
+      <summary> The number of seconds between ping messages. </summary>
+      <remarks>
+        <para>
+            The two hosts of a connection routinely send ping messages to the other side to check that the
+            connection is still alive. This value controls how often the local host sends a ping message to the
+            remote host. The default value is 10 seconds.
+            </para>
+        <para>
+            This value can be set independently for the local and remote host.
+            </para>
+      </remarks>
+    </member>
+    <member name="P:uLobby.Lobby.Config.timeoutDelay">
+      <summary> The number of seconds before a connection times out. </summary>
+      <remarks>
+        <para>
+            This value controls the delay before a connection times out. When no message has been received from the
+            remote host for a period longer than this delay, the connection is closed. The default value is 60
+            seconds.
+            </para>
+        <para>
+            This value can be set independently for the local and remote host.
+            </para>
+      </remarks>
+    </member>
+    <member name="P:uLobby.Lobby.Config.handshakeRetriesMaxCount">
+      <summary> The maximum number of reattempts to connect to the remote host before giving up. </summary>
+      <remarks>
+        <para>
+            When the first attempt to connect to a remote host fails, the local host will wait for <see cref="P:uLobby.Lobby.Config.handshakeRetryDelay" /> seconds and then attempt to connect again. This value controls how many
+            such reattempts will be made. The default value is 5 reattempts.
+            </para>
+        <para>
+            This value only has meaning for servers and clients.
+            </para>
+      </remarks>
+    </member>
+    <member name="P:uLobby.Lobby.Config.handshakeRetryDelay">
+      <summary> The time between successive connection reattempts. </summary>
+      <remarks>
+        <para>
+            When the first attempt to connect to a remote host fails, the local host will perform <see cref="P:uLobby.Lobby.Config.handshakeRetriesMaxCount" /> reattempts at establishing the connection. This value controls for how
+            long it will wait between each reattempt. The default value is 2.5 seconds.
+            </para>
+        <para>
+            This value only has meaning for servers and clients.
+            </para>
+      </remarks>
+    </member>
+    <member name="P:uLobby.Lobby.Config.receiveBufferSize">
+      <summary> The size of the buffer used for receiving messages, in bytes. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.Config.sendBufferSize">
+      <summary> The size of the buffer used for sending messages, in bytes. </summary>
+    </member>
+    <member name="T:uLobby.Lobby.Statistics">
+      <summary> Contains statistics for the lobby. </summary>
+    </member>
+    <member name="F:uLobby.Lobby.Statistics.peers">
+      <summary> The number of currently connected peers. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.Lobby.Statistics.servers">
+      <summary> The number of currently connected servers. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.Lobby.Statistics.clients">
+      <summary> The number of currently connected clients. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.Lobby.Statistics.peerConnects">
+      <summary> The number of peer connects that have been made. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.Lobby.Statistics.peerDisconnects">
+      <summary> The number of peer disconnects that have been made. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.Lobby.Statistics.rpcsSent">
+      <summary> The number of RPCs sent by this peer. </summary>
+    </member>
+    <member name="F:uLobby.Lobby.Statistics.rpcsReceived">
+      <summary> The number of RPCs received by this peer. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.Statistics.bytesSent">
+      <summary> The number of bytes sent by this peer. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.Statistics.bytesReceived">
+      <summary> The number of bytes received by this peer. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.Statistics.packetsSent">
+      <summary> The number of packets sent by this peer. </summary>
+    </member>
+    <member name="P:uLobby.Lobby.Statistics.packetsReceived">
+      <summary> The number of packets received by this peer. </summary>
+    </member>
+    <member name="T:uLobby.Lobby.OnLobbyInitializedHandler">
+      <summary> Handler for the <see cref="E:uLobby.Lobby.OnLobbyInitialized" /> event. </summary>
+    </member>
+    <member name="T:uLobby.Lobby.OnPeerConnectedHandler">
+      <summary> Handler for the <see cref="E:uLobby.Lobby.OnPeerConnected" /> event. </summary>
+      <param name="peer"> The peer that connected. </param>
+    </member>
+    <member name="T:uLobby.Lobby.OnPeerDisconnectedHandler">
+      <summary> Handler for the <see cref="E:uLobby.Lobby.OnPeerDisconnected" /> event. </summary>
+      <param name="peer"> The peer that disconnected. </param>
+    </member>
+    <member name="T:uLobby.LobbyConnectionStatus">
+      <summary>
+            Represents the status of the connection to the network.
+            </summary>
+    </member>
+    <member name="F:uLobby.LobbyConnectionStatus.Connected">
+      <summary> Connected to the network. </summary>
+      <remarks> Represents either being connected to the lobby or being initialized as a lobby. </remarks>
+    </member>
+    <member name="F:uLobby.LobbyConnectionStatus.Connecting">
+      <summary> Connecting to the network. </summary>
+    </member>
+    <member name="F:uLobby.LobbyConnectionStatus.Disconnected">
+      <summary> Disconnected from the network. </summary>
+      <remarks> Equivalent to <see cref="F:uLobby.LobbyPeerType.Disconnected" />. </remarks>
+    </member>
+    <member name="F:uLobby.LobbyConnectionStatus.Disconnecting">
+      <summary> Disconnecting from the network. </summary>
+      <remarks> Only results after a local call to <see cref="M:uLobby.Lobby.Disconnect(System.Int32)" />. </remarks>
+    </member>
+    <member name="T:uLobby.LobbyConnectionError">
+      <summary>
+            Represents an error that occurred in the lobby network.
+            </summary>
+    </member>
+    <member name="T:uLobby.LobbyMessageFlags">
+      <summary>
+            Options used for customizing various properties of RPCs.
+            </summary>
+      <remarks>
+        <para>
+            	If the <see cref="F:uLobby.LobbyMessageFlags.Unreliable" /> flag is set, the RPC will be sent on an unreliable channel, meaning that it
+            	may not reach the target. If this flag is not set, the RPC will be sent reliably and is guaranteed to reach
+            	its target.
+            	</para>
+        <para>
+            	If the <see cref="F:uLobby.LobbyMessageFlags.Unencrypted" /> flag is set, the RPC will never be encrypted, even if security has been
+            	initialized for the connection. This can be used for increasing performance when sending messages that do
+            	not need to be encrypted.
+            	</para>
+        <para>
+            	Normally, RPCs are type safe, meaning that the RPC contains type information for every argument in the RPC.
+            	If there is a mismatch between the types stored in the RPC and the arguments of the method implementing the
+            	RPC, uLobby will see this and log an error. To save bandwidth you can specify the <see cref="F:uLobby.LobbyMessageFlags.TypeUnsafe" />
+            	flag, which means no type information will be stored per argument. However, if an argument mismatch occurs
+            	this will not be detected and will most likely result in a deserialization error.
+            	</para>
+      </remarks>
+    </member>
+    <member name="F:uLobby.LobbyMessageFlags.Normal">
+      <summary> The default configuration. The RPC will be reliable, type safe and encrypted (if security is
+            initialized). </summary>
+    </member>
+    <member name="F:uLobby.LobbyMessageFlags.Unreliable">
+      <summary> The RPC will be sent on an unreliable channel. </summary>
+    </member>
+    <member name="F:uLobby.LobbyMessageFlags.Unencrypted">
+      <summary> The RPC will be sent unencrypted. </summary>
+    </member>
+    <member name="F:uLobby.LobbyMessageFlags.TypeUnsafe">
+      <summary> The RPC will not contain type information for arguments. </summary>
+    </member>
+    <member name="T:uLobby.LobbyMessageInfo">
+      <summary>
+            Contains information about an RPC message.
+            </summary>
+    </member>
+    <member name="F:uLobby.LobbyMessageInfo.sender">
+      <summary> The sender of the RPC. </summary>
+    </member>
+    <member name="T:uLobby.LobbyPeer">
+      <summary>
+            Represents a peer in the lobby network.
+            </summary>
+      <remarks>
+            A peer can be either of type lobby, server or client.
+            </remarks>
+    </member>
+    <member name="P:uLobby.LobbyPeer.type">
+      <summary> The type of the peer. </summary>
+    </member>
+    <member name="P:uLobby.LobbyPeer.endpoint">
+      <summary> The endpoint of the peer. </summary>
+      <remarks> This value is only valid lobby-side, unless this peer instance represents the local peer.
+            </remarks>
+    </member>
+    <member name="P:uLobby.LobbyPeer.lobby">
+      <summary> The peer representing the lobby, or <c>null</c> if not connected. </summary>
+      <remarks> This is identical to <see cref="P:uLobby.Lobby.lobby" />. </remarks>
+    </member>
+    <member name="T:uLobby.LobbyPeerType">
+      <summary>
+            Represents the type of a <see cref="T:uLobby.LobbyPeer" />.
+            </summary>
+      <remarks>
+        <para>
+            A peer gets its type immediately after initializing a lobby or calling one of the connect methods of <see cref="F:uLobby.LobbyPeerType.Lobby" /> successfully, and retains this type until disconnecting from the network.
+            </para>
+        <para>
+            The peer type does not indicate the status of the connection to the network. Use the <see cref="!:Lobby.connectionStatus" /> property to get this information.
+            </para>
+      </remarks>
+    </member>
+    <member name="F:uLobby.LobbyPeerType.Lobby">
+      <summary> Lobby peer type. </summary>
+    </member>
+    <member name="F:uLobby.LobbyPeerType.Server">
+      <summary> Server peer type. </summary>
+    </member>
+    <member name="F:uLobby.LobbyPeerType.Client">
+      <summary> Client peer type. </summary>
+    </member>
+    <member name="F:uLobby.LobbyPeerType.Connecting">
+      <summary> Connecting to the network. </summary>
+    </member>
+    <member name="F:uLobby.LobbyPeerType.Disconnected">
+      <summary> Disconnected from the network. </summary>
+    </member>
+    <member name="T:uLobby.LogLevel">
+      <summary>
+            The available log levels that can be set for minimum uLink logging and also can be set per log category.
+            </summary>
+    </member>
+    <member name="F:uLobby.LogLevel.Off">
+      <summary>
+            Logs nothing.
+            </summary>
+    </member>
+    <member name="F:uLobby.LogLevel.Error">
+      <summary>
+            Logs errors only
+            </summary>
+    </member>
+    <member name="F:uLobby.LogLevel.Warning">
+      <summary>
+            Logs warnings and errors.
+            </summary>
+    </member>
+    <member name="F:uLobby.LogLevel.Info">
+      <summary>
+            Logs info messages, warnings and errors.
+            </summary>
+    </member>
+    <member name="F:uLobby.LogLevel.Debug">
+      <summary>
+            Logs debug messages, info messages, warnings and errors. The most detailed log level available.
+            </summary>
+    </member>
+    <member name="F:uLobby.LogLevel.Informational">
+      <summary>
+            Deprecated, please use NetworkLogLevel.Info instead
+            </summary>
+    </member>
+    <member name="F:uLobby.LogLevel.Full">
+      <summary>
+            Deprecated, please use NetworkLogLevel.Debug instead
+            </summary>
+    </member>
+    <member name="T:uLobby.LogFlags">
+      <summary>
+            The different log categories available in uLink. Read more in <see cref="T:uLink.NetworkLog" />.
+            </summary>
+    </member>
+    <member name="T:uLobby.LogUtility">
+      <summary>
+            Utility class for serializing log messages.
+            </summary>
+    </member>
+    <member name="T:uLobby.Log">
+      <summary>
+             Class for configuring uLink logging.
+             </summary>
+      <remarks>
+             The best way to get started with logging in uLink is to use the Editor menu: uLink - Edit Settings. 
+             There it is possbile to configure logging level per category and use the generated output to debug most problems.
+             By default the log messages are written to the Unity console window in the editor or the log file output_log.txt when 
+             running a build outside the editor.
+             Use this class to go one step further and control the log settings in your own code. Also use it to 
+             replace the 4 public Writers with your own faster implementations: 
+             <see cref="F:uLobby.Log.errorWriter" />, <see cref="F:uLobby.Log.warningWriter" />, <see cref="F:uLobby.Log.infoWriter" />, <see cref="F:uLobby.Log.debugWriter" />. 
+             with your own implementations it is possible to log events to 
+             screen or file(s) or database or whatever you like. 
+             Finally, it is possible to add your own logging categories like “Trading”, “Cheating attempts” or “Level loding” 
+             and set the log level individually for these categories.
+             </remarks>
+      <example> 
+             This example shows how to create and use your own log categories:
+             <code>
+             using UnityEngine;
+             using System.Collections;
+             public class CustomLog : MonoBehaviour 
+             {
+                //Define your own log categories like this
+                public const uLink.NetworkLogFlags CHEAT_ATTEMPTS = uLink.NetworkLogFlags.UserDefined1;
+                public const uLink.NetworkLogFlags TRADE_EVENT = uLink.NetworkLogFlags.UserDefined2;
+                public const uLink.NetworkLogFlags LEVEL_LOAD_EVENT = uLink.NetworkLogFlags.UserDefined3;
+            
+                void Start()
+                {
+                    //Set the log level for cheat attempts to the highest = Debug    
+                    uLink.NetworkLog.SetLevel(CHEAT_ATTEMPTS, uLink.NetworkLogLevel.Debug);
+            
+                    //Do some debug logging
+                    for (int i = 1; i != 5; i++)
+                    {
+                        uLink.NetworkLog.Debug(CHEAT_ATTEMPTS, "Detected cheat attempt nr ", i, " in the demo code.");
+                    }
+                }
+             }
+             </code></example>
+    </member>
+    <member name="F:uLobby.Log.errorWriter">
+      <summary>
+            The delegate writing error messages. Default implementation send output to the Editor console / output_log.txt file. 
+            </summary>
+      <remarks>Look at <see cref="T:uLink.NetworkLog.Writer" /> for code example replacing the default Writer.</remarks>
+    </member>
+    <member name="F:uLobby.Log.warningWriter">
+      <summary>
+            The delegate writing warning messages. Default implementation send output to the Editor console / output_log.txt file. 
+            </summary>
+      <remarks>Look at <see cref="T:uLink.NetworkLog.Writer" /> for code example replacing the default Writer.</remarks>
+    </member>
+    <member name="F:uLobby.Log.infoWriter">
+      <summary>
+            The delegate writing info messages. Default implementation send output to the Editor console / output_log.txt file. 
+            </summary>
+      <remarks>Look at <see cref="T:uLink.NetworkLog.Writer" /> for code example replacing the default Writer.</remarks>
+    </member>
+    <member name="F:uLobby.Log.debugWriter">
+      <summary>
+            The delegate writing debug messages. Default implementation send output to the Editor console / output_log.txt file. 
+            </summary>
+      <remarks>Look at <see cref="T:uLink.NetworkLog.Writer" /> for code example replacing the default Writer.</remarks>
+    </member>
+    <member name="F:uLobby.Log.minLevel">
+      <summary>
+            The minimum level for all logging categories. This can be overruled by setting a detailed log level for an individual category to a higher log level via <see cref="M:uLobby.Log.SetLevel(uLobby.LogFlags,uLobby.LogLevel)" />.
+            </summary>
+      <value>Default value is <see cref="F:uLink.NetworkLogLevel.Warning" /></value>
+    </member>
+    <member name="M:uLobby.Log.Debug(uLobby.LogFlags,System.Object[])">
+      <summary>
+            Sends a log message to the delegate <see cref="F:uLobby.Log.debugWriter" /> if the <see cref="F:uLink.NetworkLogLevel.Debug" /> log level for the specifed categories (flags) are set by either <see cref="M:uLobby.Log.SetLevel(uLobby.LogFlags,uLobby.LogLevel)" /> or <see cref="F:uLobby.Log.minLevel" />.
+            </summary>
+      <param name="flags">The categories this log message belongs to</param>
+      <param name="args">The objects that are to be concatenated to a log message if the debug log level for the flags is set</param>
+      <example>Example code for writing a message like "The server has now received 88 Fire RPCs from player Paul55".
+            <code>
+            uLink.NetworkLog.Debug(uLink.NetworkLogFlags.Server, "The server has now received ", numberOfFireRPCs, " Fire RPCs from player ", playerName);
+            </code></example>
+      <remarks>Please note that it is important to NOT use string concatenation with + to compose the log message. 
+            Instead send the objects individually just like the example code provided here. 
+            Otherwise you will lose performace. The concatenation would be executed even if the log level for the flags are 
+            turned off, and that is a waste of CPU resources.</remarks>
+    </member>
+    <member name="M:uLobby.Log.Info(uLobby.LogFlags,System.Object[])">
+      <summary>
+            Sends a log message to the delegate <see cref="F:uLobby.Log.infoWriter" /> if the <see cref="F:uLink.NetworkLogLevel.Info" /> log level for the specifed categories (flags) are set by either <see cref="M:uLobby.Log.SetLevel(uLobby.LogFlags,uLobby.LogLevel)" /> or <see cref="F:uLobby.Log.minLevel" />.
+            </summary>
+      <param name="flags">The categories this log message belongs to</param>
+      <param name="args">The objects that are to be concatenated to a log message if the info log level for the flags is set</param>
+      <example>Example code for writing a message like "The server has now received 88 Fire RPCs from player Paul55".
+            <code>
+            uLink.NetworkLog.Info(uLink.NetworkLogFlags.Server, "The server has now received ", numberOfFireRPCs, " Fire RPCs from player ", playerName);
+            </code></example>
+      <remarks>Please note that it is important NOT to use string concatenation with + to compose a nice log message. 
+            Instead send the arguments individually just like the example code provided here. 
+            Otherwise you will lose performace. The concatenation would be executed even if the logging 
+            is turned off, and that is a waste of CPU resources.</remarks>
+    </member>
+    <member name="M:uLobby.Log.Warning(uLobby.LogFlags,System.Object[])">
+      <summary>
+            Sends a log message to the delegate <see cref="F:uLobby.Log.warningWriter" /> if the <see cref="F:uLink.NetworkLogLevel.Warning" /> log level for the specifed categories (flags) are set by either <see cref="M:uLobby.Log.SetLevel(uLobby.LogFlags,uLobby.LogLevel)" /> or <see cref="F:uLobby.Log.minLevel" />.
+            </summary>
+      <param name="flags">The categories this log message belongs to</param>
+      <param name="args">The objects that are to be concatenated to a log message if the info log level for the flags is set</param>
+      <example>Example code for writing a message like "The server has now received 88 Fire RPCs from player Paul55".
+            <code>
+            uLink.NetworkLog.Warning(uLink.NetworkLogFlags.Server, "The server has now received ", numberOfFireRPCs, " Fire RPCs from player ", playerName);
+            </code></example>
+      <remarks>Please note that it is important NOT to use string concatenation with + to compose a nice log message. 
+            Instead send the arguments individually just like the example code provided here. 
+            Otherwise you will lose performace. The concatenation would be executed even if the logging 
+            is turned off, and that is a waste of CPU resources.</remarks>
+    </member>
+    <member name="M:uLobby.Log.Error(uLobby.LogFlags,System.Object[])">
+      <summary>
+            Sends a log message to the delegate <see cref="F:uLobby.Log.errorWriter" /> if the <see cref="F:uLink.NetworkLogLevel.Error" /> log level for the specifed categories (flags) are set by either <see cref="M:uLobby.Log.SetLevel(uLobby.LogFlags,uLobby.LogLevel)" /> or <see cref="F:uLobby.Log.minLevel" />.
+            </summary>
+      <param name="flags">The categories this log message belongs to</param>
+      <param name="args">The objects that are to be concatenated to a log message if the info log level for the flags is set</param>
+      <example>Example code for writing a message like "The server received an illegal Fire RPCs from player Paul55".
+            <code>
+            uLink.NetworkLog.Error(uLink.NetworkLogFlags.Server, "The server received an illegal Fire RPCs from player ", playerName);
+            </code></example>
+      <remarks>Please note that it is important NOT to use string concatenation with + to compose a nice log message. 
+            Instead send the arguments individually just like the example code provided here. 
+            Otherwise you will lose performace. The concatenation would be executed even if the logging 
+            is turned off, and that is a waste of CPU resources.</remarks>
+    </member>
+    <member name="M:uLobby.Log.HasLevel(uLobby.LogFlags,uLobby.LogLevel)">
+      <summary>
+            Returns true if the the categories (flags) are set by either <see cref="M:uLobby.Log.SetLevel(uLobby.LogFlags,uLobby.LogLevel)" /> or <see cref="F:uLobby.Log.minLevel" />.
+            </summary>
+    </member>
+    <member name="M:uLobby.Log.SetLevel(uLobby.LogFlags,uLobby.LogLevel)">
+      <summary>
+            Sets a detailed logging level for the specified categories (flags). If the categories (flags) is set to a lower log level than <see cref="F:uLobby.Log.minLevel" /> then <see cref="F:uLobby.Log.minLevel" /> overrules the detailed log level when logging.
+            </summary>
+    </member>
+    <member name="M:uLobby.Log.GetMaxLevel(uLobby.LogFlags)">
+      <summary>
+            Gets the highest detailed log level configured for any of the log categories (flags), where 
+            <see cref="F:uLink.NetworkLogLevel.Off" /> is the lowest and <see cref="F:uLink.NetworkLogLevel.Debug" /> is the highest.
+            </summary>
+    </member>
+    <member name="M:uLobby.Log.GetMinLevel(uLobby.LogFlags)">
+      <summary>
+            Gets the lowest detailed log level configured for any of the log categories (flags), where 
+            <see cref="F:uLink.NetworkLogLevel.Off" /> is the lowest and <see cref="F:uLink.NetworkLogLevel.Debug" /> is the highest.
+            </summary>
+    </member>
+    <member name="P:uLobby.Log.errorFlags">
+      <summary>
+            Gets or sets the log categories for the <see cref="F:uLobby.Log.errorWriter" />.
+            </summary>
+    </member>
+    <member name="P:uLobby.Log.warningFlags">
+      <summary>
+            Gets or sets the log categories for the <see cref="F:uLobby.Log.warningWriter" />.
+            </summary>
+    </member>
+    <member name="P:uLobby.Log.infoFlags">
+      <summary>
+            Gets or sets the log categories for the <see cref="F:uLobby.Log.infoWriter" />.
+            </summary>
+    </member>
+    <member name="P:uLobby.Log.debugFlags">
+      <summary>
+            Gets or sets the log categories for the <see cref="F:uLobby.Log.debugWriter" />.
+            </summary>
+    </member>
+    <member name="T:uLobby.Log.Writer">
+      <summary>
+            Implement one or several new delegates if there is a need to replace the default Writers in this class. 
+            </summary>
+      <example>
+            In your own implementation you can choose another destination for log messages. 
+            This example code shows how to send log messages to a file.
+            <code>
+            using UnityEngine;
+            using System.Collections;
+            using System.IO;
+            
+            public class CustomFileLog : MonoBehaviour 
+            {
+                public string logFileName = @"c:\temp\MyLog.txt";
+            
+                void Start()
+                {
+                    //This code replaces the default debugWriter with a new delegate
+                    uLink.NetworkLog.debugWriter = delegate(uLink.NetworkLogFlags flags, object[] args) 
+                    {
+                        string line = System.DateTime.Now + ", " + uLink.NetworkLogUtility.ToString(args) + "\r\n";
+                        File.AppendAllText(logFileName, line); 
+                    };
+            
+                    //Set the level to Debug for the category uLink.NetworkLogFlags.Server
+                    uLink.NetworkLog.SetLevel(uLink.NetworkLogFlags.Server, uLink.NetworkLogLevel.Debug);
+            
+                    //Do some debug logging to the file
+                    for (int i = 1; i != 5; i++)
+                    {
+                        uLink.NetworkLog.Debug(uLink.NetworkLogFlags.Server, "Hello ", i, " from demo code.");
+                    }
+                }
+            }
+            </code></example>
+    </member>
+    <member name="T:uLobby.Request">
+      <summary>
+            Represents an asynchronous lobby request.
+            </summary>
+      <remarks>
+        <para>
+            	This class is returned by many lobby operations that are asynchronous in their nature. For example,
+            	operations that need to work with the database are typically asynchronous and therefore return instances of
+            	this class.
+            	</para>
+        <para>
+            	You can use this class to keep track of operations, wait for them to finish, and check their status.
+            	</para>
+      </remarks>
+    </member>
+    <member name="M:uLobby.Request.WaitUntilDone">
+      <summary>
+            Returns a coroutine that finishes execution when the request is done.
+            </summary>
+    </member>
+    <member name="M:uLobby.Request.Check">
+      <summary>
+            Checks if an exception has occurred during the request, and if so
+            throws that exception.
+            </summary>
+    </member>
+    <member name="P:uLobby.Request.exception">
+      <summary> The exception that occurred during the request, or
+            <c>null</c> if none has occurred. </summary>
+    </member>
+    <member name="P:uLobby.Request.isDone">
+      <summary> Whether the request has finished its execution. </summary>
+    </member>
+    <member name="P:uLobby.Request.isSuccessful">
+      <summary> Whether the request has finished its execution and was successful. </summary>
+    </member>
+    <member name="E:uLobby.Request.OnDone">
+      <summary> Called when the request is done. </summary>
+    </member>
+    <member name="E:uLobby.Request.OnSuccessful">
+      <summary> Called when the request is done and was successful. </summary>
+    </member>
+    <member name="E:uLobby.Request.OnException">
+      <summary> Called when an exception occurred during the request. </summary>
+    </member>
+    <member name="T:uLobby.Request.OnDoneHandler">
+      <summary> Handler for the <see cref="E:uLobby.Request.OnDone" /> event. </summary>
+      <param name="request"> The request that is done. </param>
+    </member>
+    <member name="T:uLobby.Request.OnSuccessfulHandler">
+      <summary> Handler for the <see cref="E:uLobby.Request.OnSuccessful" /> event. </summary>
+      <param name="request"> The request that is done and was successful. </param>
+    </member>
+    <member name="T:uLobby.Request.OnExceptionHandler">
+      <summary> Handler for the <see cref="E:uLobby.Request.OnException" /> event. </summary>
+      <param name="request"> The request for which an exception occurred. </param>
+      <param name="exception"> The exception that occurred. </param>
+    </member>
+    <member name="T:uLobby.Request`1">
+      <summary>
+            Represents an asynchronous lobby request that returns a value.
+            </summary>
+      <remarks>
+            This class is identical to <see cref="T:uLobby.Request" />, but also provides a
+            result value upon finishing execution. This class is returned by many
+            asynchronous lobby operations that query for a value, or yield some sort
+            of result.
+            </remarks>
+      <typeparam name="T"> The type of the request result value. </typeparam>
+    </member>
+    <member name="E:uLobby.Request`1.OnDone">
+      <summary> See <see cref="E:uLobby.Request.OnDone" />. </summary>
+    </member>
+    <member name="E:uLobby.Request`1.OnSuccessful">
+      <summary> See <see cref="E:uLobby.Request.OnSuccessful" />. </summary>
+    </member>
+    <member name="E:uLobby.Request`1.OnException">
+      <summary> See <see cref="E:uLobby.Request.OnException" />. </summary>
+    </member>
+    <member name="P:uLobby.Request`1.result">
+      <summary> The result value of the request. </summary>
+      <remarks> The request must have finished successfully before getting
+            the result. </remarks>
+    </member>
+    <member name="T:uLobby.Request`1.OnDoneHandler">
+      <summary> See <see cref="T:uLobby.Request.OnDoneHandler" />. </summary>
+    </member>
+    <member name="T:uLobby.Request`1.OnSuccessfulHandler">
+      <summary> See <see cref="T:uLobby.Request.OnSuccessfulHandler" />. </summary>
+    </member>
+    <member name="T:uLobby.Request`1.OnExceptionHandler">
+      <summary> See <see cref="T:uLobby.Request.OnExceptionHandler" />. </summary>
+    </member>
+    <member name="T:uLobby.ServerRegistry">
+      <summary>
+            Implements support for registering servers in the lobby and listing them in clients.
+            </summary>
+    </member>
+    <member name="M:uLobby.ServerRegistry.AddServer(System.String,System.Int32,System.Object[])">
+      <summary>
+            Adds this server to the server registry. Can only be called by server peers.
+            </summary>
+      <param name="host"> The hostname that will be registered with this server. </param>
+      <param name="port"> The port that will be registered with this server. </param>
+      <param name="data"> Optional data that will be registered with this server. </param>
+    </member>
+    <member name="M:uLobby.ServerRegistry.AddServer(System.Int32,System.Object[])">
+      <summary>
+            Adds this server to the server registry, using the default IP address. Can only be called by server peers.
+            </summary>
+      <remarks>
+            The IP address registered with this server will be the one the lobby uses for communicating with it.
+            </remarks>
+      <param name="port"> The port that will be registered with this server. </param>
+      <param name="data"> Optional data that will be registered with this server. </param>
+    </member>
+    <member name="M:uLobby.ServerRegistry.RemoveServer">
+      <summary>
+            Removes this server from the server registry. Can only be called by server peers.
+            </summary>
+    </member>
+    <member name="M:uLobby.ServerRegistry.UpdateServerData(System.Object[])">
+      <summary>
+            Updates the data for this server in the server registry. Can only be called by server peers.
+            </summary>
+      <remarks>
+            When the data has been updated, the <see cref="E:uLobby.ServerRegistry.OnServerDataUpdated" /> event will be raised in all peers
+            using the server registry.
+            </remarks>
+      <param name="data"> The new data for this server. </param>
+    </member>
+    <member name="M:uLobby.ServerRegistry.GetServers">
+      <summary>
+            Gets the servers in the server registry.
+            </summary>
+      <returns> The servers in the server registry. </returns>
+    </member>
+    <member name="E:uLobby.ServerRegistry.OnServerAdded">
+      <summary> Called when a server was added to the registry. </summary>
+    </member>
+    <member name="E:uLobby.ServerRegistry.OnServerRemoved">
+      <summary> Called when a server was removed from the registry. </summary>
+    </member>
+    <member name="E:uLobby.ServerRegistry.OnServerDataUpdated">
+      <summary> Called when the data of a server was updated. </summary>
+    </member>
+    <member name="P:uLobby.ServerRegistry.statistics">
+      <summary> Statistics for the server registry. </summary>
+    </member>
+    <member name="T:uLobby.ServerRegistry.OnServerAddedHandler">
+      <summary> Handler for the <see cref="E:uLobby.ServerRegistry.OnServerAdded" /> event. </summary>
+      <param name="server"> The server that was added. </param>
+    </member>
+    <member name="T:uLobby.ServerRegistry.OnServerRemovedHandler">
+      <summary> Handler for the <see cref="E:uLobby.ServerRegistry.OnServerRemoved" /> event. </summary>
+      <param name="server"> The server that was removed. </param>
+    </member>
+    <member name="T:uLobby.ServerRegistry.OnServerDataUpdatedHandler">
+      <summary> Handler for the <see cref="E:uLobby.ServerRegistry.OnServerDataUpdated" /> event. </summary>
+      <param name="server"> The server which data was updated. </param>
+    </member>
+    <member name="T:uLobby.ServerRegistry.Statistics">
+      <summary> Contains statistics for the server registry. </summary>
+    </member>
+    <member name="F:uLobby.ServerRegistry.Statistics.serverAdds">
+      <summary> The number of server add operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.ServerRegistry.Statistics.serverRemoves">
+      <summary> The number of server remove operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="F:uLobby.ServerRegistry.Statistics.serverDataUpdates">
+      <summary> The number of server data update operations performed. </summary>
+      <remarks> This statistic only has meaning lobby-side. </remarks>
+    </member>
+    <member name="T:uLobby.ServerRegistry.Master">
+      <summary>
+            Contains the lobby-side, authoritative ServerRegistry API. The methods in this class can only be executed by
+            the lobby.
+            </summary>
+    </member>
+    <member name="M:uLobby.ServerRegistry.Master.AddServer(uLobby.LobbyPeer,System.String,System.Int32,System.Byte[])">
+      <summary>
+            Adds a server to the server registry lobby-side.
+            </summary>
+      <param name="peer"> The server's peer. </param>
+      <param name="host"> The hostname that will be registered with the server. </param>
+      <param name="port"> The port that will be registered with the server. </param>
+      <param name="data"> Optional data that will be registered with the server. </param>
+    </member>
+    <member name="M:uLobby.ServerRegistry.Master.RemoveServer(uLobby.LobbyPeer)">
+      <summary>
+            Removes the specified server from the server registry lobby-side.
+            </summary>
+      <param name="peer"> The peer of the server to remove. </param>
+    </member>
+    <member name="M:uLobby.ServerRegistry.Master.UpdateServerData(uLobby.LobbyPeer,System.Byte[])">
+      <summary>
+            Updates the data for a server in the server registry lobby-side.
+            </summary>
+      <remarks>
+            When the data has been updated, the <see cref="E:uLobby.ServerRegistry.OnServerDataUpdated" /> event will be raised in all peers
+            using the server registry.
+            </remarks>
+      <param name="peer"> The server's peer. </param>
+      <param name="data"> The new data for the server. </param>
+    </member>
+    <member name="P:uLobby.ServerRegistry.Master.isAuthoritative">
+      <summary>
+            Sets or gets whether the server registry is authoritative.
+            </summary>
+      <remarks>
+            When the server registry is authoritative, requests sent from clients using the client-side API will be
+            ignored. Only the lobby-side API of this class can then be used for modifying the registry.
+            </remarks>
+    </member>
+    <member name="T:uLobby.ServerInfo">
+      <summary>
+            Represents a server in the server registry.
+            </summary>
+    </member>
+    <member name="P:uLobby.ServerInfo.peer">
+      <summary> The peer of the server. </summary>
+    </member>
+    <member name="P:uLobby.ServerInfo.host">
+      <summary> The hostname or IP address of the server. </summary>
+    </member>
+    <member name="P:uLobby.ServerInfo.port">
+      <summary> The port of the server. </summary>
+    </member>
+    <member name="P:uLobby.ServerInfo.endpoint">
+      <summary> The endpoint of the server. </summary>
+      <remarks> This property is obsolete, use the <see cref="P:uLobby.ServerInfo.host" /> and <see cref="P:uLobby.ServerInfo.port" /> properties instead. </remarks>
+      <seealso cref="P:uLobby.ServerInfo.host" />
+      <seealso cref="P:uLobby.ServerInfo.port" />
+    </member>
+    <member name="P:uLobby.ServerInfo.data">
+      <summary> The data of the server. </summary>
+    </member>
+    <member name="T:uLobby.Statistic">
+      <summary>
+            A scalar value representing a statistic of the lobby.
+            </summary>
+    </member>
+    <member name="M:uLobby.Statistic.op_Implicit(uLobby.Statistic)~System.Int64">
+      <summary>
+            Returns the value represented by this statistic.
+            </summary>
+    </member>
+    <member name="P:uLobby.Statistic.perSecond">
+      <summary>
+            The delta value per second of the statistic.
+            </summary>
+    </member>
+    <member name="T:uLobby.OperationStatistic">
+      <summary>
+            Represents statistics for an operation.
+            </summary>
+    </member>
+    <member name="M:uLobby.OperationStatistic.op_Implicit(uLobby.OperationStatistic)~System.Int64">
+      <summary>
+            How many times the operation has been invoked.
+            </summary>
+    </member>
+    <member name="P:uLobby.OperationStatistic.successful">
+      <summary> How many times the operation has finished successfully. </summary>
+    </member>
+    <member name="P:uLobby.OperationStatistic.failed">
+      <summary> How many times the operation has failed. </summary>
+    </member>
+    <member name="T:uLobby.StorageLayerUtility">
+      <summary>
+            This class should only be used by those who want to implement their own custom storage layer for uLobby.
+            The methods in it are only useful when you want to implement the storage layer's interfaces and doesn't serve any other purpose.
+            </summary>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.CreateFriendInfo(uLobby.Account)">
+      <summary>
+            Creates a <see cref="T:uLobby.FriendInfo" /> which contains the specified <see cref="T:uLobby.Account" /> as friend.
+            </summary>
+      <param name="account">The account which should be the friend inside the <see cref="T:uLobby.FriendInfo" /></param>
+      <returns>The created <see cref="T:uLobby.FriendInfo" /> instance.</returns>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.CreateAccount(uLobby.AccountRecord)">
+      <summary>
+            Creates an <see cref="T:uLobby.Account" /> using the information inside the specified <see cref="T:uLobby.AccountRecord" /></summary>
+      <param name="record">The <see cref="T:uLobby.AccountRecord" /> which we get the account information from it.</param>
+      <returns>The created <see cref="T:uLobby.Account" /> instance.</returns>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.GetAccountRecord(uLobby.AccountID)">
+      <summary>
+            Returns the <see cref="T:uLobby.AccountRecord" /> which has the specified ID.
+            </summary>
+      <param name="accountID">The ID which we are looking for its <see cref="T:uLobby.AccountRecord" /></param>
+      <returns>A <see cref="T:uLobby.Request" /> which if successful can contain the <see cref="T:uLobby.AccountRecord" /> which has the specified id</returns>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.CreateAccountRecord(System.String,uLobby.SaltedPasswordHash,uLobby.AccountID,System.Byte[])">
+      <summary>
+            Creates an <see cref="T:uLobby.AccountRecord" /> which you can create <see cref="T:uLobby.Account" /> instances based on it.
+            </summary>
+      <param name="name">Name of the user account</param>
+      <param name="passwordHash">The hashed and salted password</param>
+      <param name="id">ID of the user which the database layer can use but you don't have to use it (like the mysql example)</param>
+      <param name="data">The data that the account has which can be <c>null</c>.</param>
+      <returns>The created <see cref="T:uLobby.AccountRecord" /></returns>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.CreateFriendInvitation(uLobby.Account,uLobby.Account)">
+      <summary>
+            Creates a <see cref="T:uLobby.FriendInvitation" />.
+            </summary>
+      <param name="inviter">The sender of the invitation</param>
+      <param name="recipient">The receiver/recipient of the invitation</param>
+      <returns>The created <see cref="T:uLobby.FriendInvitation" /> instance</returns>
+    </member>
+    <member name="T:uLobby.StorageLayerUtility.AccountUpdateUtility">
+      <summary>
+            This class contains all operations that you can do on <see cref="T:uLobby.AccountUpdate" /> which are only useful for
+            implementation of the storage layer.
+            </summary>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.AccountUpdateUtility.isPasswordChanged(uLobby.AccountUpdate)">
+      <summary>
+            Is the account's password changed during this update?
+            </summary>
+      <param name="update">The <see cref="T:uLobby.AccountUpdate" /> operation in question.</param>
+      <returns>
+        <c>true</c> if the password changed, <c>false</c> otherwise.</returns>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.AccountUpdateUtility.GetPassword(uLobby.AccountUpdate)">
+      <summary>
+            Returns the password of the account being updated.
+            </summary>
+      <param name="update">The <see cref="T:uLobby.AccountUpdate" /> operation which is updating an account</param>
+      <returns>The password of the account as an string</returns>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.AccountUpdateUtility.IsDataChanged(uLobby.AccountUpdate)">
+      <summary>
+            Is the account's data changed during the update operation?
+            </summary>
+      <param name="update">The <see cref="T:uLobby.AccountUpdate" /> operation in question.</param>
+      <returns>
+        <c>true</c> if the data of the account changed, <c>false</c> otherwise.</returns>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.AccountUpdateUtility.GetData(uLobby.AccountUpdate)">
+      <summary>
+            Returns the data of the account which is being updated.
+            </summary>
+      <param name="update">the <see cref="T:uLobby.AccountUpdate" /> containing the account being updated</param>
+      <returns>The data of the account being updated.</returns>
+    </member>
+    <member name="T:uLobby.StorageLayerUtility.FriendListRecordUtility">
+      <summary>
+            This class contains all operations that you can do on <see cref="T:uLobby.FriendListRecord" /> which are only useful for
+            implementation of the storage layer.
+            </summary>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.FriendListRecordUtility.CreateFriendListRecord">
+      <summary>
+            Creates a friend list record.
+            </summary>
+      <returns> An empty <see cref="T:uLobby.FriendListRecord" />.</returns>
+      <remarks>Used for creating <see cref="T:uLobby.FriendListRecord" />s when serializing and deserializing friend lists.</remarks>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.FriendListRecordUtility.GetFriendIDs(uLobby.FriendListRecord)">
+      <summary>
+            Returns <see cref="T:uLobby.AccountID" />s of all of the friends of the holder account
+            of this <see cref="T:uLobby.FriendListRecord" />.
+            </summary>
+      <param name="record">The <see cref="T:uLobby.FriendListRecord" /> which the operation will be done on it.</param>
+      <returns>IDs of the friends in the record.</returns>
+      <remarks>
+            This method is useful for getting the IDs when you want to save them to the database.
+            </remarks>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.FriendListRecordUtility.GetInviterIDs(uLobby.FriendListRecord)">
+      <summary>
+            Gets IDs of those accounts who invited the holder of this <see cref="T:uLobby.FriendListRecord" /> to friendship. 
+            </summary>
+      <param name="record">The <see cref="T:uLobby.FriendListRecord" /> to do the operation on.</param>
+      <returns>
+        <see cref="T:uLobby.AccountID" />s of the inviters</returns>
+      <remarks>
+            This method is useful for getting the IDs when you want to save them to the database.
+            </remarks>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.FriendListRecordUtility.AddFriend(uLobby.FriendListRecord,uLobby.FriendInfo)">
+      <summary>
+            Adds a friend to the record.
+            </summary>
+      <param name="record">The <see cref="T:uLobby.FriendListRecord" /> which the friend will be added to.</param>
+      <param name="info">The friend to be added.</param>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.FriendListRecordUtility.AddFriendInvitation(uLobby.FriendListRecord,uLobby.FriendInvitation)">
+      <summary>
+            Adds a friendship invitation to the record.
+            </summary>
+      <param name="record">The <see cref="T:uLobby.FriendListRecord" /> which the invitation will be added to it.</param>
+      <param name="invitation">The invitation which will be added to the list.</param>
+    </member>
+    <member name="T:uLobby.StorageLayerUtility.Exceptions">
+      <summary>
+            This class contains the methods related to throwing exceptions in friend and account related operations.
+            </summary>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.Exceptions.CreateAccountException(System.String)">
+      <summary>
+            Returns an <see cref="T:uLobby.AccountException" /> which then you can <c>throw</c>.
+            </summary>
+      <param name="message">The message which is the reason of the exception, this should describe what account operation and why has failed.</param>
+      <returns>The created <see cref="T:uLobby.AccountException" /> instance.</returns>
+      <remarks>You usually use this when you want to throw an exception and failed to do some operation on the database.</remarks>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.Exceptions.CreateFriendException(System.String)">
+      <summary>
+            Returns an <see cref="T:uLobby.FriendException" /> which then you can <c>throw</c>.
+            </summary>
+      <param name="message">The message which is the reason of the exception, this should describe what friend operation and why has failed.</param>
+      <returns>The created <see cref="T:uLobby.FriendException" /> instance.</returns>
+      <remarks>You usually use this when you want to throw an exception and failed to do some operation on the database.</remarks>
+    </member>
+    <member name="T:uLobby.StorageLayerUtility.RequestUtility">
+      <summary>
+            This class contains all methods which allow you to do additional operations on requests which are only required
+            for implementation of the storage layer.
+            </summary>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.RequestUtility.SetResult``1(uLobby.Request{``0},``0)">
+      <summary>
+             Sets the result of a request to a given value.
+             </summary>
+      <typeparam name="T">Type of the result which usually can be deferred by the compiler</typeparam>
+      <param name="request">The request to set its result.</param>
+      <param name="result">The result value which can be null.</param>
+      <remarks>Be careful to throw exceptions when required instead of only setting result to null.</remarks>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.RequestUtility.ThrowException(uLobby.Request,System.Exception)">
+      <summary>
+            Throws an exception in a request and causes it to finish and fail.
+            </summary>
+      <param name="request">The target request</param>
+      <param name="exception">The exception to be thrown</param>
+    </member>
+    <member name="M:uLobby.StorageLayerUtility.RequestUtility.PropagateException(uLobby.Request,uLobby.Request)">
+      <summary>
+            Sees if the <c>thisRequest</c> has an exception, propagates it to the <c>otherRequest</c>.  
+            </summary>
+      <param name="thisRequest">The request that we check if has thrown an exception to propagate it to the other one.</param>
+      <param name="otherRequest">The request that we propagate the exception of the main request to it.</param>
+      <returns>If any exception existed in <c>thisRequest</c> and propagated or not.</returns>
+    </member>
+  </members>
+</doc>

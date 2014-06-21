@@ -1,0 +1,93 @@
+END USER LICENSE AGREEMENT
+for the uLink Software 
+
+This End User License Agreement (hereinafter referred to as the ‘License’) is a legal agreement between you (hereinafter – the ‘End User’ or ‘you’) and Pikkotekk AB, including its affiliates and subsidiaries (hereinafter referred to as ‘MuchDifferent’).
+Hereinafter, MuchDifferent and End User are individually referred to as a ‘Party’ and collectively as the ‘Parties’.
+The terms of this License are intended to govern the use of the copy of proprietary Software, which is defined below.
+
+PLEASE READ CAREFULLY: 
+BY DOWNLOADING, INSTALLING, COPYING, ACCESSING, OR USING THIS SOFTWARE (AS DEFINED BELOW) AND/OR CLICKING ON THE 'ACCEPT' BUTTON BELOW, YOU (EITHER ON BEHALF OF YOURSELF AS AN INDIVIDUAL OR ON BEHALF OF AN ENTITY AS ITS AUTHORIZED REPRESENTATIVE) AGREE TO ALL OF THE TERMS OF THIS END USER LICENSE AGREEMENT REGARDING THE USE OF THE SOFTWARE. 
+YOU AGREE THAT YOUR USE OF THE SOFTWARE ACKNOWLEDGES THAT YOU HAVE READ THIS LICENSE, UNDERSTAND IT, AND AGREE TO BE BOUND BY ITS TERMS AND CONDITIONS, AND THAT YOU REPRESENT AND WARRANT THAT YOU ARE AN ADULT AND ARE EITHER ACCEPTING THIS LICENSE ON BEHALF OF YOURSELF OR ON BEHALF OF YOUR CHILD OR WARD, AS THE CASE MAY BE. IF THE END USER HAS NOT ATTAINED THE AGE OF MAJORITY, HE/SHE IS OBLIGED TO OBTAIN THE NECESSARY PERMISSION IN THE FORM REQUIRED BY LAW FROM THE PARENTS OR OTHER LEGAL REPRESENTATIVES.
+IF YOU DO NOT AGREE WITH ALL OF THE TERMS OF THIS LICENSE – DO NOT DOWNLOAD, INSTALL, COPY, ACCESS, OR USE THE SOFTWARE. CLICK ON THE 'CANCEL' BUTTON. THIS WILL CANCEL THE INSTALLATION.
+
+1. GRANT OF LICENSE
+1.1. Subject to the terms below, MuchDifferent hereby grants you a non-exclusive, non-transferable, world-wide, a 30 (thirty) days license to install and to use a computer program uLink (hereinafter referred to as the ‘Software’) for one Game Project (the ‘Game Title’). 
+1.2. The uLink is a network library for the Unity Game Engine that enables synchronization of state and message passing between a game client and a game server, and between game peers in a peer-to-peer network. The uLink integrates closely with the Unity game object model and provides a high-level abstraction for communication.
+1.2.1. The term ‘Software’ shall also include any upgrades, modified versions or updates of the Software licensed to you by this License. For the purpose of this License, use of the Software means to access, install, download, copy or otherwise benefit from using the Software. 
+1.3. The Software may not be used without a valid license. One license for the Software may be used to produce no more than one Game Title at a time. The Software may be installed on any number of computers used to produce the Game Title.
+1.4. End User may copy the Software for as reasonably necessary back-up, archival or disaster recovery purposes, but only with obligatory reproducing of all copyright, trademark, and other notices that appear on the original copy. For the avoidance of doubt the Software is licensed on a per-title basis.
+1.5. The runtime library files (uLink.dll) may be redistributed royalty-free with the Game Title, as long as the Game Title is produced using a licensed installation of the Software.
+1.6. Under this License End User is also bound by the Recommendation on how to disclose possible security vulnerabilities, described on the developer’s site (http://developer.muchdifferent.com/unitypark/General/HardeningTheSuite).
+
+2. LICENSING RESTRICTIONS
+2.1. The Software is licensed to End User by MuchDifferent and not sold.
+2.2. End User may not, nor allow any third party to: 
+(a) reverse engineer, decompile or disassemble the Software, except to the extent expressly permitted by applicable law, without MuchDifferent’s prior written consent;
+(b) remove any Software identification or proprietary rights notices of the Software or make any attempt to discover the source code; 
+(c) resell, lease, lend, rent, sublicense, or otherwise transfer the rights to the Software;
+(d) modify, or create derivative works based upon, the Software in whole or in part without the expressed written consent of MuchDifferent;
+(e) except with MuchDifferent’s prior written permission, publish any performance or benchmark tests or analysis relating to the Software; 
+(f) distribute copies of the Software;
+(g) otherwise use or copy the Software except as expressly provided herein.
+2.3. End User may permit use of the Software in accordance with the terms of this License by his subsidiary (any entity controlled by End User) only for so long as such entity remains End User’s subsidiary. End User shall be responsible and fully liable for each subsidiary’s compliance with or breach of the terms of this License.
+
+3. OWNERSHIP
+3.1. End User acknowledges that no title to the intellectual property in the Software is transferred to him. Title, ownership, patents, trademarks or brand names, copyright and other intellectual property rights in and to the Software shall remain that of MuchDifferent. 
+3.2. The Software is protected by copyright laws of Sweden and international treaties, as well as other intellectual property laws and treaties. 
+3.3. The rights granted herein are limited to MuchDifferent’s and its licensors’ intellectual property rights in the Software and do not include any other patents or intellectual property rights.
+3.4. End User is not licensed the right to use the MuchDifferent’s trademarks or logos or to sublicense any rights to the Software. 
+3.5. All rights not expressly granted in this License are reserved by MuchDifferent.
+
+4. INDEMNIFICATION
+4.1. End-User will indemnify, defend and hold harmless MuchDifferent and its respective affiliates, licensors and suppliers from and against all costs, expenses, damages, losses or liabilities, including reasonable legal fees for claims arising out of or relating to End-User’s breach of any of the terms of this License.
+4.2. MuchDifferent takes no responsibility for the actions of the users of the Software.
+
+5. TECHNICAL SUPPORT
+5.1. MuchDifferent may employ best efforts to provide free support and may notify End User of typical response times. At MuchDifferent's discretion, access to support may be restricted or prioritised in order to deliver a fair service. MuchDifferent reserves the right to alter, suspend, and terminate the support services at any time and for any reason. MuchDifferent may introduce and offer other support services from time-to-time. 
+5.2. The procedure of providing technical support may be handled in a separate Support agreement or in appropriate amendment to this License. Anyway any supplemental software, code, content, or media provided to End User in the course of technical support shall be considered as a part of the Software and a subject to the terms and conditions of this License.
+
+6. LIMITED WARRANTY AND DISCLAIMER
+6.1. YOU AGREE THAT MUCHDIFFERENT HAS MADE NO EXPRESS WARRANTIES, ORAL OR WRITTEN, TO YOU REGARDING THE SOFTWARE AND THAT THE SOFTWARE IS BEING PROVIDED TO YOU 'AS IS' WITHOUT WARRANTY OF ANY KIND. 
+6.2. MUCHDIFFERENT MAKES NO WARRANTY OR GUARANTEE AS TO ITS USE OR PERFORMANCE AND DOES NOT WARRANT OR GUARANTEE THAT THE OPERATION OF THE SOFTWARE WILL BE FAIL SAFE, UNINTERRUPTED OR FREE FROM ERRORS OR DEFECTS.
+6.3. MUCHDIFFERENT DISCLAIMS ANY AND ALL OTHER WARRANTIES, WHETHER EXPRESSED, IMPLIED, OR STATUTORY. 
+6.4. MuchDifferent does not seek to limit End User’s warranty rights to any extent not permitted by law.
+6.5. End User takes own responsibility for all actions made by using the Software.
+
+7. LIMITATION OF LIABILITY
+7.1. YOU USE THIS PROGRAM SOLELY AT YOUR OWN RISK. 
+7.2. IN NO EVENT SHALL MUCHDIFFERENT BE LIABLE TO YOU FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED DAMAGES FOR LOSS OF PROFITS, LOSS OF GOODWILL, LOSS OF PERSONNEL SALARIES, WORK STOPPAGE, AND/OR COMPUTER FAILURE OR MALFUNCTION, AND/OR COSTS OF PROCURING SUBSTITUTE SOFTWARE OR SERVICES, OR OTHER INCIDENTAL, INDIRECT, SPECIAL, COVER, RELIANCE OR CONSEQUENTIAL DAMAGES OF ANY KIND ARISING OUT OF THE USE OF THE SOFTWARE, EVEN IF MUCHDIFFERENT HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. 
+7.3. IN NO EVENT WILL MUCHDIFFERENT BE LIABLE FOR ANY CLAIM, WHETHER IN CONTRACT, TORT, AND/OR ANY OTHER THEORY OF LIABILITY, EXCEED THE COST OF THE SOFTWARE. 
+7.4. THIS LIMITATION SHALL APPLY TO CLAIMS OF PERSONAL INJURY TO THE EXTENT PERMITTED BY LAW.
+
+8. TERMINATION
+8.1. This License is effective for 30 (thirty) days after installation of Software. This License shall terminate automatically if you fail to comply with the limitations described in this License. No notice shall be required to effectuate such termination. 
+8.2. MuchDifferent may terminate your license in the event you materially breach the terms of this License and you fail to cure such breach within 7 (seven) days of receiving notice of such breach.
+8.3. If End User does not follow the Recommendation on how to disclose possible security vulnerabilities that may disrupt the functionality of the software for other users, as described on the developer’s site (http://developer.muchdifferent.com/unitypark/General/HardeningTheSuite), then the right to use the Software under this License can be terminated unilaterally by MuchDiffernt.
+8.4. Upon termination, End User must remove and destroy all copies of the Software. For the avoidance of doubt, failure to pay invoice, sharing of the Software between titles, and/or reselling the Software will immediately result in termination of this License.
+8.5. Any terms of this License which by their nature should survive the termination of this License shall survive such termination.
+
+9. PRIVACY
+9.1. By entering into this License, you agree that MuchDifferent may collect, retain and use personally identifiable data, including your name, address, e-mail address and payment details. Your personal information will be used primarily to provide services and Software functionality to you either by MuchDifferent or its contractors or business partners. MuchDifferent may also use your personal information for additional communication with you subject to applicable laws. By entering into this License, you agree to the transfer of your personal information to MuchDifferent offices worldwide for the purposes stated above. 
+9.2. You acknowledge and agree that the Software may contain functionality to gather statistical data for user analysis and debugging purposes. Such functionality may automatically collect information about your system (including without limitation information regarding network, licenses used, operating system types, versions, total scanners deployed, database size etc.) and submit such consolidated information to MuchDifferent. Information gathered this way is for MuchDifferent’s internal usage only and MuchDifferent engages itself not to share it with any third parties. 
+
+10. GOVERNING LAW AND JURISDICTION
+10.1. This License will be exclusively governed by and construed in accordance with the substantive laws in force of Sweden, excluding the conflict of law's provisions thereof. 
+10.2. In the event of a dispute or controversies arising from or regarding the performance, interpretation or breach of this License the competent court will be the Uppsala District Court in Sweden (Uppsala Tingsrätt).
+10.3. Except for actions for nonpayment or breach of MuchDifferent’s proprietary rights in the Software, no action, regardless of form, arising out of this License may be brought by either Party more than 1 (one) year after a Party knew or should have known of the claim.
+
+11. MISCELLANEOUS
+11.1. In the event of invalidity of any provision of this License, the Parties agree that such invalidity shall not affect the validity of the remaining portions of this License.
+11.2. You agree that this License like any written negotiated License signed by you. This License is enforceable against End User.
+
+12. ENTIRE LICENSE
+12.1. You agree that this is the entire License between you and MuchDifferent, which supersedes any prior License, whether written or oral, and all other communications between MuchDifferent and you relating to the subject matter of this License.
+12.2. This License may not be modified except by a written addendum issued by a duly authorized representative of MuchDifferent. No provision hereof shall be deemed waived unless such waiver shall be in writing and signed by MuchDifferent. 
+12.3. MuchDifferent reserves the right to, from time to time, impose changes to this License to maintain compatibility with any terms imposed by relevant third parties.
+
+CONTACT INFORMATION:
+
+Pikkotekk AB/ MuchDifferent
+Övre Slottsgatan 22C
+Uppsala, Sweden
+75312
+http://muchdifferent.com
