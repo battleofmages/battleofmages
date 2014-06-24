@@ -3,7 +3,6 @@
 // Global
 public class Config : SingletonMonoBehaviour<Config> {
 	// Settings
-	public const float maxProxyDistanceUntilSnapSqr = 1f * 1f;
 	public const float rotationInterpolationSpeed = 25f;
 	public const float maxSquaredDistanceOwnColliderAllowedInLoS = 6f * 6f;
 
@@ -44,7 +43,9 @@ public class Config : SingletonMonoBehaviour<Config> {
 	public float deathColliderDisableTime;
 	public int ownDmgOffset;
 
+	public float serverPositionPredictionFactor;
 	public float proxyInterpolationSpeed;
+	public float maxProxyDistanceUntilSnapSqr;
 	public float ownerInterpolationSpeed;
 	public float maxPositionPredictionTime;
 

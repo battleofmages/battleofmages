@@ -49,6 +49,12 @@ MonoBehaviour:
   playerMoveSpeed: 8
   playerHP: 8000
   entityEnergy: 50
+  blockMinimumEnergyForUsage: 5
+  hoverEnergyCost: 9
+  hoverSpeedBonus: .699999988
+  blockSlowDown: .5
+  energyRegen: 4
+  blockEnergyDrain: 40
   enemyReactionTime: .25
   hpAggroThreshold: 5000
   patrolSpeedModifier: .5
@@ -85,7 +91,7 @@ MonoBehaviour:
   ownHealthBarWidth: 64
   skillInstanceDestructionTime: 9
   matchAcceptTime: 15
-  disableAnimationsOnServer: 0
+  disableAnimationsOnServer: 1
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
   pingSendDelay: 1

@@ -622,7 +622,7 @@ public class PlayerMain : PlayerOnClient {
 			bool visible = show || !hide;
 			
 			if(subject == "serverPosition") {
-				showServerPosition = visible;
+				Debugger.instance.showServerPosition = visible;
 				
 				// Show server position for all players
 				/*foreach(Party pty in GameServerParty.partyList) {

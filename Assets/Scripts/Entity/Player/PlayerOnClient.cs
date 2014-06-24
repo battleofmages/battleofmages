@@ -2,8 +2,6 @@ using UnityEngine;
 using System.Linq;
 
 public abstract class PlayerOnClient : Player {
-	protected static bool showServerPosition;
-	
 	public bool ignoreNewPosition = false;
 	
 	//public float movementSensitivity;
@@ -204,9 +202,9 @@ public abstract class PlayerOnClient : Player {
 			LogSpam("Server position packet outdated, dropped!");
 			return;
 		}
-		
+
 		if(networkViewIsProxy) {
-			serverPosition = newPosition + direction * moveSpeed * info.GetPacketArrivalTime();
+			serverPosition = newPosition + direction * moveSpeed * info.GetPacketArrivalTime() * Config.instance.serverPositionPredictionFactor;
 			
 			movementKeysPressed = (newBitMask & 1) != 0;
 			jumping = (newBitMask & 2) != 0;
@@ -225,9 +223,9 @@ public abstract class PlayerOnClient : Player {
 		serverRotationY = rotationY * Cache.rotationShortToFloat;
 		
 		// Visualization
-		if(showServerPosition) {
+		if(Debugger.instance.showServerPosition) {
 			if(!serverPositionVisualization.gameObject.activeSelf) {
-				serverPositionVisualization.gameObject.SetActive(showServerPosition);
+				serverPositionVisualization.gameObject.SetActive(Debugger.instance.showServerPosition);
 			}
 			
 			serverPositionVisualization.position = serverPosition;
@@ -338,7 +336,7 @@ public abstract class PlayerOnClient : Player {
 		BasicRespawn(spawnPosition);
 		
 		// Set server position
-		serverPosition = myTransform.position;
+		serverPosition = spawnPosition;
 	}
 #endregion
 	

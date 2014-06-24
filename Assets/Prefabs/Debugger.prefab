@@ -42,6 +42,7 @@ MonoBehaviour:
   debugGUI: 0
   debugCasting: 0
   debugAnimator: 0
+  showServerPosition: 1
   skillTestMode: 0
 --- !u!1001 &100100000
 Prefab:

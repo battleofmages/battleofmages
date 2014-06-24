@@ -122,13 +122,6 @@ public abstract class Player : Entity {
 
 		charGraphicsModel = InstantiateChild(Config.instance.femalePrefab, charGraphics);
 
-		// Health bar width
-		if(networkViewIsMine) {
-			healthBarWidth = Config.instance.ownHealthBarWidth;
-		} else {
-			healthBarWidth = Config.instance.healthBarWidth;
-		}
-
 		// Destroy
 		onDestroy += () => {
 			// Remove from global lists
@@ -146,10 +139,19 @@ public abstract class Player : Entity {
 	}
 	
 	// On network instantiation
-	void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
+	protected override void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
+		base.uLink_OnNetworkInstantiate(info);
+
 		if(info.networkView.initialData.TryRead<string>(out accountId)) {
 			account = PlayerAccount.Get(accountId);
 			Player.accountIdToPlayer[accountId] = this;
+		}
+
+		// Health bar width
+		if(networkViewIsMine) {
+			healthBarWidth = Config.instance.ownHealthBarWidth;
+		} else {
+			healthBarWidth = Config.instance.healthBarWidth;
 		}
 	}
 	
@@ -192,7 +194,7 @@ public abstract class Player : Entity {
 							enemy.myTransform.position
 						);
 					} else {
-						enemy.Visible(enemy.myTransform.position);
+						enemy.Visible(enemy.serverPosition);
 					}
 					
 					// And I will be visible for him
@@ -519,7 +521,6 @@ public abstract class Player : Entity {
 		} else if(partyRespawn.spawn != null) {
 			myTransform.position = spawnPosition;
 			charGraphics.eulerAngles = new Vector3(0, partyRespawn.spawn.eulerAngles.y, 0);
-			serverPosition = myTransform.position;
 		}
 		
 		if(motor != null) {

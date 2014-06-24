@@ -28,7 +28,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 			
 			if(!uLink.Network.isServer && networkViewIsMine) {
 				if(crossHair != null)
-					crossHair.enabled = (value == null && ToggleMouseLook.instance.mouseLook.enabled);
+					crossHair.enabled = (value == null); //&& ToggleMouseLook.instance.mouseLook.enabled);
 				
 				if(_target != value && value != null && value.audio != null)
 					value.audio.PlayOneShot(Sounds.toggleTargetFocus);

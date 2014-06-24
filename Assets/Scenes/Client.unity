@@ -797,7 +797,7 @@ MonoBehaviour:
   interpolationSpeed: 5
   minDistance: 15
   maxDistance: 30
-  yFactor: .150000006
+  yFactor: 0
 --- !u!114 &901172076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1412,7 +1412,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
@@ -1647,6 +1647,7 @@ MonoBehaviour:
   debugGUI: 0
   debugCasting: 0
   debugAnimator: 0
+  showServerPosition: 1
   skillTestMode: 0
 --- !u!4 &1187492650
 Transform:
@@ -1935,7 +1936,7 @@ MonoBehaviour:
   ownHealthBarWidth: 64
   skillInstanceDestructionTime: 9
   matchAcceptTime: 15
-  disableAnimationsOnServer: 0
+  disableAnimationsOnServer: 1
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
   pingSendDelay: 1

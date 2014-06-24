@@ -1951,7 +1951,7 @@ MonoBehaviour:
   absoluteDimensions:
     serializedVersion: 2
     x: -200
-    y: 4
+    y: 0
     width: 400
     height: 50
   guiDepth: 0

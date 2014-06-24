@@ -6,6 +6,7 @@ public class Debugger : LobbyModule<Debugger> {
 	public bool debugGUI;
 	public bool debugCasting;
 	public bool debugAnimator;
+	public bool showServerPosition;
 	public bool skillTestMode;
 	
 	protected List<string> messages = new List<string>();

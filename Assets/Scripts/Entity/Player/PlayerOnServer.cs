@@ -65,8 +65,8 @@ public class PlayerOnServer : Player, CasterOnServer {
 		UpdateMovement();
 
 		// Animations
-		if(animator != null)
-			UpdateSkillAnimations();
+		//if(animator != null)
+		//	UpdateSkillAnimations();
 
 		// Map boundaries
 		StayInMapBoundariesServer();
@@ -406,7 +406,9 @@ public class PlayerOnServer : Player, CasterOnServer {
 	}
 	
 	// This is called when THIS prefab itself gets instantiated
-	void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
+	protected override void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
+		base.uLink_OnNetworkInstantiate(info);
+
 		Log("OnNetworkInstantiate: " + info.networkView.viewID);
 		
 		// Resend important data to newly connected player

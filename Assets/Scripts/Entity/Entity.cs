@@ -28,7 +28,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	public Transform myTransform;
 
 	[NonSerialized]
-	public double ignoreNewPositionEarlierThanTimestamp;
+	public double ignoreNewPositionEarlierThanTimestamp = -1d;
 	
 	[NonSerialized]
 	public int disableSnappingToNewPosition = 0;
@@ -68,7 +68,6 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		InitSkillSystem();
 		InitTraits();
 		InitBlock();
-		InitNetworkView();
 
 		// Stats
 		stats = new PlayerStats();
@@ -244,17 +243,23 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	// Movement of proxies
 	protected void UpdateProxyMovement() {
 		proxyInterpolationTime += Time.deltaTime;
-		
+
 		// Interpolate position
 		if(myTransform.position != serverPosition) {
+			/*Log("proxy movement " + proxyInterpolationTime);
+			Log("server " + serverPosition);
+			Log("myself " + myTransform.position);*/
+
 			// TODO: Use Slerp?
 			var targetPosition = Vector3.Lerp(interpolationStartPosition, serverPosition, proxyInterpolationTime * Config.instance.proxyInterpolationSpeed);
 			var offset = targetPosition - myTransform.position;
 			
-			if(offset.sqrMagnitude < Config.maxProxyDistanceUntilSnapSqr && collider.enabled)
+			if(offset.sqrMagnitude < Config.instance.maxProxyDistanceUntilSnapSqr && collider.enabled) {
 				characterController.Move(offset);
-			else
+			} else {
+				Log("Snapped to server position, squared distance: " + offset.sqrMagnitude);
 				myTransform.position = targetPosition;
+			}
 		}
 		
 		// Fix 0/360 clamping for the interpolation of proxy rotation
@@ -446,6 +451,11 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	protected virtual Vector3 GetHitPoint() {
 		return Cache.vector3Zero;
 	}
+
+	// On network instantiation
+	protected virtual void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info) {
+		InitNetworkView();
+	}
 #endregion
 	
 #region PartyMember
@@ -555,7 +565,10 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	}
 
 	// Server position
-	public Vector3 serverPosition {get; set;}
+	public Vector3 serverPosition {
+		get;
+		set;
+	}
 
 	// Client position
 	public Vector3 clientPosition {get; set;}
@@ -576,7 +589,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 			weaponBone = characterDefinition.weaponBone;
 
 			// Animator
-			if(Config.instance.disableAnimationsOnServer) {
+			if(Config.instance.disableAnimationsOnServer && uLink.Network.isServer) {
 				// Disable animations on server
 				var tmpAnimator = charGraphicsModel.GetComponent<Animator>();
 				if(tmpAnimator != null)

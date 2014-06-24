@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 400000, guid: f0be483e4762a4a4b83a5eb7a91ac2f5, type: 2}
-  projectileSpeed: 2500
+  projectileSpeed: 2400
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
