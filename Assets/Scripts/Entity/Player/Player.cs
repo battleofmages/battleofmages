@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public abstract class Player : Entity {
 	// Static
-	public static Player main = null;
+	public static PlayerMain main = null;
 	public static Transform playerRoot;
 	public static int count = 0;
 	public static Dictionary<string, Player> accountIdToPlayer = new Dictionary<string, Player>();
@@ -14,7 +14,10 @@ public abstract class Player : Entity {
 	public AudioSource movementSoundsSource;
 	public AudioClip flightSound;
 	public float flightSoundFadeTime;
-	
+
+	// ChangeParty event
+	public event CallBack onChangeParty;
+
 	// Cam position
 	protected Vector3 camPosition;
 	
@@ -673,6 +676,10 @@ public abstract class Player : Entity {
 				}
 			}
 		}
+
+		// Invoke event
+		if(onChangeParty != null)
+			onChangeParty();
 	}
 	
 	[RPC]

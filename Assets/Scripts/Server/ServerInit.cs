@@ -520,7 +520,7 @@ public class ServerInit : uLink.MonoBehaviour {
 	public void DestroyServerAssets() {
 		LogManager.General.Log("Going to destroy unneeded server assets");
 		
-		// Remove all textures
+		/*// Remove all textures
 		var allTextures = Resources.FindObjectsOfTypeAll(typeof(Texture));
 		LogManager.General.Log(allTextures.Length.ToString() + " textures loaded, going to destroy.");
 		foreach(var obj in allTextures) {
@@ -536,7 +536,7 @@ public class ServerInit : uLink.MonoBehaviour {
 		}
 		LogManager.General.Log("Audio clips destroyed.");
 		
-		/*// Remove all materials
+		// Remove all materials
 		var allMaterials = Resources.FindObjectsOfTypeAll(typeof(Material));
 		LogManager.General.Log(allMaterials.Length.ToString() + " materials loaded, going to destroy.");
 		foreach(var obj in allMaterials) {

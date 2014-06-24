@@ -22,11 +22,11 @@ public class CameraZoom : MonoBehaviour {
 	
 	// Update
 	void Update() {
-		if(mouseLook == null)
+		/*if(mouseLook == null)
 			mouseLook = GameObject.Find("CamPivot").GetComponent<MouseLook>();
 		
 		if(!mouseLook.enabled)
-			return;
+			return;*/
 		
 		float wheel = Input.GetAxis("Mouse ScrollWheel");
 		distance = Mathf.Clamp(distance - wheel * zoomSpeed, minDistance, maxDistance);

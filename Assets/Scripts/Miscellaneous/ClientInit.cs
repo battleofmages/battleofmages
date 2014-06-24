@@ -73,6 +73,8 @@ uzf/lC9NYarw==", @"EQ==");
 		
 		disconnected = false;
 		server = nServer;
+
+		Screen.showCursor = false;
 	}
 	
 	// Disconnected from server

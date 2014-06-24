@@ -1178,6 +1178,12 @@ MonoBehaviour:
   playerMoveSpeed: 8
   playerHP: 8000
   entityEnergy: 50
+  blockMinimumEnergyForUsage: 5
+  hoverEnergyCost: 9
+  hoverSpeedBonus: .699999988
+  blockSlowDown: .5
+  energyRegen: 4
+  blockEnergyDrain: 40
   enemyReactionTime: .25
   hpAggroThreshold: 5000
   patrolSpeedModifier: .5
@@ -1213,6 +1219,7 @@ MonoBehaviour:
   healthBarWidth: 48
   ownHealthBarWidth: 64
   skillInstanceDestructionTime: 9
+  matchAcceptTime: 15
   disableAnimationsOnServer: 0
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
@@ -6946,7 +6953,7 @@ MonoBehaviour:
     height: .800000012
   retrieveLobbyIP: 0
   lobbyIpURL: 
-  editorAutoLogin: 0
+  editorAutoLogin: 1
   editorAccountName: a
   editorPassword: a
   tooltipStyle:

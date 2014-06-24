@@ -1,7 +1,8 @@
 using UnityEngine;
-using System.Collections;
 
 public class PlayerMain : PlayerOnClient {
+	private GameObject camPivot;
+
 	// Awake
 	protected override void Awake() {
 		base.Awake();
@@ -17,24 +18,27 @@ public class PlayerMain : PlayerOnClient {
 		//charGraphics.FindChild("Cube").renderer.material.color = Color.blue;
 		
 		// Make the camera follow it
-		GameObject camPivot = GameObject.FindGameObjectWithTag("CamPivot");
+		camPivot = GameObject.FindGameObjectWithTag("CamPivot");
 		camPivot.transform.parent = transform;
 		camPivot.transform.localPosition = Cache.vector3Zero;
 		
 		// Enable components
-		camPivot.GetComponent<MouseLook>().enabled = true;
-		camPivot.GetComponent<CameraAboveTerrain>().enabled = true;
+		//camPivot.GetComponent<MouseLook>().enabled = true;
+		//camPivot.GetComponent<CameraAboveTerrain>().enabled = true;
 		
 		crossHair = GetComponent<CrossHair>();
 		
 		// Set main player
-		Player.main = this.GetComponent<Player>();
+		Player.main = this;
 		Player.main.isVisible = true;
 
 		// Destroy
 		onDestroy += () => {
 			Player.main = null;
 		};
+
+		// ChangeParty
+		onChangeParty += UpdateCameraYRotation;
 	}
 	
 	// Start
@@ -107,7 +111,8 @@ public class PlayerMain : PlayerOnClient {
 		animator.SetBool("Moving", movementKeysPressed);
 		
 		// Normalize move vector when needed, same speed for all directions
-		if(moveVector.sqrMagnitude > 1)
+		//if(moveVector.sqrMagnitude > 1)
+		if(moveVector != Cache.vector3Zero)
 			moveVector.Normalize();
 		
 		// Move speed
@@ -283,10 +288,10 @@ public class PlayerMain : PlayerOnClient {
 		this.selectedEntity = null;
 		
 		Vector3 vec;
-		if(ToggleMouseLook.instance.mouseLook.enabled)
+		/*if(ToggleMouseLook.instance.mouseLook.enabled)
 			vec = new Vector3(0.5f, 0.5f, 0);
-		else
-			vec = InputManager.GetRelativeMousePositionToScreen();
+		else*/
+		vec = InputManager.GetRelativeMousePositionToScreen();
 		
 		Ray ray = cam.ViewportPointToRay(vec);
 		
@@ -365,6 +370,22 @@ public class PlayerMain : PlayerOnClient {
 				Debugger.Label(" - " + info.clip.name + ": " + info.clip.length);
 			}
 		}
+	}
+
+	// UpdateCameraYRotation
+	public void UpdateCameraYRotation() {
+		if(party == null)
+			return;
+		
+		if(party.spawn == null)
+			return;
+		
+		// Camera Y rotation
+		camPivot.transform.eulerAngles = new Vector3(
+			camPivot.transform.eulerAngles.x,
+			party.spawn.eulerAngles.y,
+			camPivot.transform.eulerAngles.z
+		);
 	}
 #endregion
 	

@@ -2653,7 +2653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testServerType: 0
-  mapName: Nubek Outskirts
+  mapName: Tournament Field
   serverFrameRate: 50
   defaultServerPort: 7200
   proxyPrefab: {fileID: 100312, guid: 9faff002c4ef589479c95cb325fd792a, type: 2}

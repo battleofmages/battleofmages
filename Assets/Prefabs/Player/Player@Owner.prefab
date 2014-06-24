@@ -200,6 +200,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400312}
+  m_RootOrder: 2
 --- !u!4 &400150
 Transform:
   m_ObjectHideFlags: 1
@@ -211,6 +212,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400312}
+  m_RootOrder: 1
 --- !u!4 &400152
 Transform:
   m_ObjectHideFlags: 1
@@ -222,6 +224,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400312}
+  m_RootOrder: 3
 --- !u!4 &400154
 Transform:
   m_ObjectHideFlags: 1
@@ -233,6 +236,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!4 &400156
 Transform:
   m_ObjectHideFlags: 1
@@ -244,6 +248,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!4 &400158
 Transform:
   m_ObjectHideFlags: 1
@@ -255,6 +260,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!4 &400160
 Transform:
   m_ObjectHideFlags: 1
@@ -266,6 +272,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!4 &400162
 Transform:
   m_ObjectHideFlags: 1
@@ -277,6 +284,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!4 &400164
 Transform:
   m_ObjectHideFlags: 1
@@ -288,6 +296,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!4 &400308
 Transform:
   m_ObjectHideFlags: 1
@@ -299,6 +308,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400312}
+  m_RootOrder: 0
 --- !u!4 &400312
 Transform:
   m_ObjectHideFlags: 1
@@ -314,6 +324,7 @@ Transform:
   - {fileID: 400148}
   - {fileID: 400152}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!82 &8200000
 AudioSource:
   m_ObjectHideFlags: 1
@@ -555,6 +566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockingEnabled: 1
+  skillEffectsTimeApplied: []
   baseMoveSpeed: 0
   curHealthBarWidth: 0
   energy: 0
@@ -2166,7 +2178,7 @@ CharacterController:
   m_GameObject: {fileID: 100312}
   serializedVersion: 2
   m_Height: 1.70000005
-  m_Radius: .400000006
+  m_Radius: .5
   m_SlopeLimit: 65
   m_StepOffset: .300000012
   m_SkinWidth: .100000001

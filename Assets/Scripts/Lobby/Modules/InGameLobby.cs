@@ -521,7 +521,10 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 #region Properties
 	// Current state
 	public GameLobbyState currentState {
-		get { return _currentState; }
+		get {
+			return _currentState;
+		}
+
 		set {
 			statusMessage = "";
 			_currentState = value;

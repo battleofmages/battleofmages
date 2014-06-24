@@ -1,6 +1,5 @@
 using uLobby;
 using UnityEngine;
-using System.Collections;
 
 public enum InGameMenuState {
 	None,
@@ -234,8 +233,8 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 	}
 	
 	// uLink_OnConnectedToServer
-	void uLink_OnConnectedToServer(System.Net.IPEndPoint server) {
+	/*void uLink_OnConnectedToServer(System.Net.IPEndPoint server) {
 		Screen.showCursor = false;
 		Screen.lockCursor = true;
-	}
+	}*/
 }

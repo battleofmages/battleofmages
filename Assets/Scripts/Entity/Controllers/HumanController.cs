@@ -125,10 +125,10 @@ public class HumanController : Controller {
 		}
 		
 		// Only rotate around Y
-		if(!player.hovering) {
-			targetRotation.x = 0.0f;
-			targetRotation.z = 0.0f;
-		}
+		//if(!player.hovering) {
+		targetRotation.x = 0.0f;
+		targetRotation.z = 0.0f;
+		//}
 
 		// Movement
 		inputVector.x = horizontalMovement;
@@ -183,8 +183,8 @@ public class HumanController : Controller {
 			if(player.talkingWithNPC)
 				return false;
 			
-			if(!ToggleMouseLook.instance.mouseLook.enabled)
-				return false;
+			//if(!ToggleMouseLook.instance.mouseLook.enabled)
+			//	return false;
 
 			return true;
 		}

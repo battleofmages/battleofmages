@@ -62,6 +62,9 @@ public class GameServerParty : Party<Entity> {
 		foreach(GameServerParty pty in GameServerParty.partyList) {
 			pty.UpdateSpawn();
 		}
+
+		if(Player.main != null)
+			Player.main.UpdateCameraYRotation();
 		
 		LogManager.General.Log("Updated party spawns");
 	}

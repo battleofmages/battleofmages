@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class EntityGUI : MonoBehaviour {
 	public float yOffset;

@@ -690,12 +690,10 @@ public class Login : LobbyModule<Login> {
 				Application.Quit();
 			}
 #endif
-			
-			string version = "Development Version " + GUIHelper.MakePrettyVersion(clientVersionNumber);
-			Vector2 vSize = GUI.skin.label.CalcSize(new GUIContent(version));
-			
 			// Version number
 			if(gameLobby.currentState != GameLobbyState.Game) {
+				string version = "Development Version " + GUIHelper.MakePrettyVersion(clientVersionNumber);
+				Vector2 vSize = GUI.skin.label.CalcSize(new GUIContent(version));
 				GUI.Label(new Rect(GUIArea.width - vSize.x - margin - 2, GUIArea.height - vSize.y - margin, vSize.x, vSize.y), version);
 			}
 		}

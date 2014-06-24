@@ -7,7 +7,7 @@ public class MapManager {
 	
 	// Towns
 	public static string[] towns = new string[] {
-		"Nubek Outskirts",
+		"Tournament Field",
 		//"Nubek"
 		//"El Thea",
 		//"Tamburin",
@@ -16,12 +16,12 @@ public class MapManager {
 	// Arenas
 	public static string[] arenas = new string[] {
 		//"Alpha Tester Grounds",
-		"Nubek Outskirts"
+		"Tournament Field"
 	};
 	
 	// FFA maps
 	public static string[] ffaMaps = new string[] {
-		"Nubek Outskirts",
+		"Tournament Field",
 		//"Nubek",
 	};
 	

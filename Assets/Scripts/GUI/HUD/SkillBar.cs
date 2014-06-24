@@ -55,9 +55,11 @@ public class SkillBar : HUDElement {
 			time = 0f;
 			lastCurrentAttunement = player.currentAttunement;
 		}
-		
+
+		int skillCount = 5;
+		int attunementCount = player.currentWeapon.attunements.Count;
 		int miniMargin = mainMargin / 4;
-		int miniSkillBarWidth = (20 * (miniIconSize + miniMargin) - miniMargin);
+		int miniSkillBarWidth = (skillCount * attunementCount * (miniIconSize + miniMargin) - miniMargin);
 		int offsetX = ((int)GUIArea.width) / 2 - miniSkillBarWidth / 2 + (5 * (miniIconSize + miniMargin) - miniMargin) / 2;
 		//int offsetX = 0;
 		skillToShow = null;

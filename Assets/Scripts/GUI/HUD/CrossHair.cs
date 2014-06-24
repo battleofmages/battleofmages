@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class CrossHair : HUDElement {
 	public Texture2D tex;
@@ -21,6 +20,14 @@ public class CrossHair : HUDElement {
 		width = defaultWidth;
 		height = defaultHeight;
 	}
+
+	// Update
+	void Update() {
+		var vec = InputManager.GetRelativeMousePositionToScreen();
+		relativeDimensions.x = vec.x;
+		relativeDimensions.y = 1f - vec.y;
+		UpdateDimensions();
+	}
 	
 	// Draw
 	public override void Draw() {
@@ -30,7 +37,10 @@ public class CrossHair : HUDElement {
 	
 	// Width
 	public int width {
-		get { return _width; }
+		get {
+			return _width;
+		}
+
 		set {
 			if(_width == value)
 				return;
