@@ -775,7 +775,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 901172073}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -30}
+  m_LocalPosition: {x: -0, y: 0, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 348119281}
@@ -795,8 +795,8 @@ MonoBehaviour:
   distanceTo: {fileID: 348119281}
   zoomSpeed: 6
   interpolationSpeed: 5
-  minDistance: 15
-  maxDistance: 30
+  minDistance: 12
+  maxDistance: 25
   yFactor: 0
 --- !u!114 &901172076
 MonoBehaviour:
@@ -1647,7 +1647,7 @@ MonoBehaviour:
   debugGUI: 0
   debugCasting: 0
   debugAnimator: 0
-  showServerPosition: 1
+  showServerPosition: 0
   skillTestMode: 0
 --- !u!4 &1187492650
 Transform:
@@ -1929,7 +1929,9 @@ MonoBehaviour:
   spawnProtectionDuration: 2
   deathColliderDisableTime: 1
   ownDmgOffset: 24
+  serverPositionPredictionFactor: .5
   proxyInterpolationSpeed: 20
+  maxProxyDistanceUntilSnapSqr: 1
   ownerInterpolationSpeed: 2.20000005
   maxPositionPredictionTime: .0500000007
   healthBarWidth: 48
@@ -4215,6 +4217,8 @@ GameObject:
   - 4: {fileID: 1984968457}
   - 114: {fileID: 1984968456}
   - 114: {fileID: 1984968455}
+  - 114: {fileID: 1984968459}
+  - 114: {fileID: 1984968460}
   - 132: {fileID: 1984968454}
   - 114: {fileID: 1984968453}
   - 114: {fileID: 1984968452}
@@ -4344,6 +4348,143 @@ MonoBehaviour:
   rpcReceiver: 2
   listOfGameObjects: []
   _prefabRoot: {fileID: 0}
+--- !u!114 &1984968459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1984968451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a3e9169980cefd4fa3076d093794dfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleKey: 27
+--- !u!114 &1984968460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1984968451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c3590e50b01c4e48b85417083e57836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 200
+  menuItemsTown:
+  - content:
+      m_Text: ' Continue'
+      m_Image: {fileID: 2800000, guid: 316705eb2cbf0c14e9b5ed5ac5960266, type: 3}
+      m_Tooltip: 
+    menuState: 1
+  - content:
+      m_Text: ' Lobby'
+      m_Image: {fileID: 2800000, guid: da0867889b27a20458a971500b51c299, type: 3}
+      m_Tooltip: 
+    menuState: 2
+  - content:
+      m_Text: ' PvP'
+      m_Image: {fileID: 2800000, guid: 7ad479e295d4d3a45bc2d0cfab8a8266, type: 3}
+      m_Tooltip: 
+    menuState: 3
+  - content:
+      m_Text: ' Settings'
+      m_Image: {fileID: 2800000, guid: e31a49789c4b1db4991832c7f564a8f0, type: 3}
+      m_Tooltip: 
+    menuState: 4
+  - content:
+      m_Text: ' Logout'
+      m_Image: {fileID: 2800000, guid: c0c0b06fc98a80c418bed1451c9a3e29, type: 3}
+      m_Tooltip: 
+    menuState: 5
+  - content:
+      m_Text: ' Leave'
+      m_Image: {fileID: 2800000, guid: 85b18080878aed141a69803ed9644752, type: 3}
+      m_Tooltip: 
+    menuState: 6
+  menuItemsArena:
+  - content:
+      m_Text: ' Continue'
+      m_Image: {fileID: 2800000, guid: 316705eb2cbf0c14e9b5ed5ac5960266, type: 3}
+      m_Tooltip: 
+    menuState: 1
+  - content:
+      m_Text: ' Settings'
+      m_Image: {fileID: 2800000, guid: e31a49789c4b1db4991832c7f564a8f0, type: 3}
+      m_Tooltip: 
+    menuState: 4
+  - content:
+      m_Text: ' Logout'
+      m_Image: {fileID: 2800000, guid: c0c0b06fc98a80c418bed1451c9a3e29, type: 3}
+      m_Tooltip: 
+    menuState: 5
+  - content:
+      m_Text: ' Leave'
+      m_Image: {fileID: 2800000, guid: 85b18080878aed141a69803ed9644752, type: 3}
+      m_Tooltip: 
+    menuState: 6
+  contentStyle:
+    m_Name: 
+    m_Normal:
+      m_Background: {fileID: 2800000, guid: 0b8652f10ad83264e92b66c122ab8865, type: 3}
+      m_TextColor: {r: .720588207, g: .720588207, b: .720588207, a: 1}
+    m_Hover:
+      m_Background: {fileID: 2800000, guid: 0b8652f10ad83264e92b66c122ab8865, type: 3}
+      m_TextColor: {r: 1, g: 1, b: 1, a: 1}
+    m_Active:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Border:
+      m_Left: 0
+      m_Right: 5
+      m_Top: 5
+      m_Bottom: 5
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 5
+    m_Padding:
+      m_Left: 4
+      m_Right: 8
+      m_Top: 4
+      m_Bottom: 4
+    m_Overflow:
+      m_Left: 3
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 12800000, guid: 116760267479e3946aacfea7737ce4cc, type: 3}
+    m_FontSize: 18
+    m_FontStyle: 1
+    m_Alignment: 0
+    m_WordWrap: 0
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 0
+    m_FixedHeight: 0
+    m_StretchWidth: 0
+    m_StretchHeight: 0
+  currentState: 0
+  nextState: 0
 --- !u!1 &2013043185
 GameObject:
   m_ObjectHideFlags: 0

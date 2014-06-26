@@ -395,6 +395,7 @@ public class ServerInit : uLink.MonoBehaviour {
 		var party = GameServerParty.partyList[partyId];
 		player.networkView.RPC("ChangeLayer", uLink.RPCMode.All, party.layer);
 		player.networkView.RPC("Respawn", uLink.RPCMode.All, party.spawnComp.GetNextSpawnPosition());
+		player.networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, party.spawnComp.transform.eulerAngles.y);
 		
 		// On non account restricted servers we start the game instantly
 		if(GameManager.isTown || GameManager.isFFA || isTestServer) {

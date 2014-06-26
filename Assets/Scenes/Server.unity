@@ -267,7 +267,9 @@ MonoBehaviour:
   spawnProtectionDuration: 2
   deathColliderDisableTime: 1
   ownDmgOffset: 24
+  serverPositionPredictionFactor: .5
   proxyInterpolationSpeed: 20
+  maxProxyDistanceUntilSnapSqr: 1
   ownerInterpolationSpeed: 2.20000005
   maxPositionPredictionTime: .0500000007
   healthBarWidth: 48

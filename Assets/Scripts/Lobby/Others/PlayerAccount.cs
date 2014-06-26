@@ -8,7 +8,7 @@ public class PlayerAccount {
 	public static HashSet<string> namesRequested = new HashSet<string>();
 	public static HashSet<string> emailsRequested = new HashSet<string>();
 	public static PlayerAccount mine;
-	public const string loadingSymbol = "◔";
+	public const string loadingSymbol = "-";
 
 	// Account data
 	public string accountId;

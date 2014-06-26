@@ -26,8 +26,8 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 	public MainMenuItem[] menuItemsArena;
 	public GUIStyle contentStyle;
 	
-	private Transform camPivot;
-	private ToggleMouseLook toggleMouseLook;
+	//private Transform camPivot;
+	//private ToggleMouseLook toggleMouseLook;
 	
 	public InGameMenuState currentState = InGameMenuState.None;
 	
@@ -42,21 +42,32 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 	
 	// Start
 	void Start() {
-		camPivot = GameObject.Find("CamPivot").transform;
-		toggleMouseLook = camPivot.GetComponent<ToggleMouseLook>();
+		//camPivot = GameObject.Find("CamPivot").transform;
+		//toggleMouseLook = camPivot.GetComponent<ToggleMouseLook>();
 		drawRect = new Rect(0f, 0f, 0f, 0f);
+		enabled = false;
 	}
 	
 	// OnEnable
 	void OnEnable() {
 		currentState = InGameMenuState.None;
 		nextState = InGameMenuState.None;
+
+		Screen.showCursor = true;
+
+		if(Player.main != null)
+			Player.main.crossHair.enabled = false;
 	}
 	
 	// OnDisable
 	void OnDisable() {
 		currentState = InGameMenuState.None;
 		nextState = InGameMenuState.None;
+
+		Screen.showCursor = false;
+
+		if(Player.main != null)
+			Player.main.crossHair.enabled = true;
 		
 		if(InGameLobby.instance)
 			InGameLobby.instance.displayedAccount = PlayerAccount.mine;
@@ -146,7 +157,8 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 			
 			switch(state) {
 				case InGameMenuState.Continue:
-					toggleMouseLook.EnableMouseLook();
+					enabled = false;
+					//toggleMouseLook.EnableMouseLook();
 					break;
 					
 				case InGameMenuState.Lobby:

@@ -55,6 +55,7 @@ MonoBehaviour:
   blockSlowDown: .5
   energyRegen: 4
   blockEnergyDrain: 40
+  npcLabelColor: {r: .323529363, g: 1, b: .154411793, a: 1}
   enemyReactionTime: .25
   hpAggroThreshold: 5000
   patrolSpeedModifier: .5
@@ -84,7 +85,9 @@ MonoBehaviour:
   spawnProtectionDuration: 2
   deathColliderDisableTime: 1
   ownDmgOffset: 24
+  serverPositionPredictionFactor: .5
   proxyInterpolationSpeed: 20
+  maxProxyDistanceUntilSnapSqr: 1
   ownerInterpolationSpeed: 2.20000005
   maxPositionPredictionTime: .0500000007
   healthBarWidth: 48

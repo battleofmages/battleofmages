@@ -162,15 +162,15 @@ MonoBehaviour:
   - name: Previous attunement
     id: prev_attunement
     description: 
-    keyCode: 113
-    altKeyCode: 0
+    keyCode: 0
+    altKeyCode: 326
     gamePadKeyCode: 336
     active: 1
   - name: Next attunement
     id: next_attunement
     description: 
-    keyCode: 101
-    altKeyCode: 0
+    keyCode: 118
+    altKeyCode: 327
     gamePadKeyCode: 337
     active: 1
   - name: '-----------------------'
@@ -191,28 +191,28 @@ MonoBehaviour:
     id: skill_2
     description: 
     keyCode: 50
-    altKeyCode: 0
+    altKeyCode: 113
     gamePadKeyCode: 331
     active: 1
   - name: Skill 3
     id: skill_3
     description: 
     keyCode: 51
-    altKeyCode: 0
+    altKeyCode: 101
     gamePadKeyCode: 332
     active: 1
   - name: Skill 4
     id: skill_4
     description: 
     keyCode: 52
-    altKeyCode: 0
+    altKeyCode: 114
     gamePadKeyCode: 333
     active: 1
   - name: Skill 5
     id: skill_5
     description: 
     keyCode: 53
-    altKeyCode: 0
+    altKeyCode: 116
     gamePadKeyCode: 339
     active: 1
   - name: Skill 6

@@ -3,11 +3,11 @@ using System.Collections;
 
 public class MapManager {
 	// Starting town
-	public static string defaultTown = "Nubek Outskirts";
+	public static string defaultTown = "PvP Lobby";
 	
 	// Towns
 	public static string[] towns = new string[] {
-		"Tournament Field",
+		"PvP Lobby",
 		//"Nubek"
 		//"El Thea",
 		//"Tamburin",

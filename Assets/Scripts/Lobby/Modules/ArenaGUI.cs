@@ -1,6 +1,5 @@
 using uLobby;
 using UnityEngine;
-using System.Collections;
 
 public class ArenaGUI : LobbyModule<ArenaGUI> {
 	private static int queueButtonWidth = 150;

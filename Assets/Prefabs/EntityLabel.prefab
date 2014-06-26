@@ -36,7 +36,7 @@ GUIText:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   serializedVersion: 3
-  m_Text: Gui Text
+  m_Text: Entity Name
   m_Anchor: 7
   m_Alignment: 1
   m_PixelOffset: {x: 0, y: 20}
@@ -44,7 +44,7 @@ GUIText:
   m_TabSize: 4
   m_Font: {fileID: 12800000, guid: fe26b0448d1f6ec4abade77608546113, type: 3}
   m_Material: {fileID: 0}
-  m_FontSize: 14
+  m_FontSize: 15
   m_FontStyle: 1
   m_Color:
     serializedVersion: 2

@@ -172,7 +172,6 @@ GameObject:
   - 114: {fileID: 11400014}
   - 114: {fileID: 11400016}
   - 114: {fileID: 11400018}
-  - 114: {fileID: 11400022}
   - 114: {fileID: 11400028}
   - 114: {fileID: 11400024}
   - 114: {fileID: 11400030}
@@ -1079,10 +1078,10 @@ MonoBehaviour:
     width: 128
     height: 128
   guiDepth: 0
-  tex: {fileID: 2800000, guid: 2d0f9a78466f73d41bf52c197c090586, type: 3}
-  defaultWidth: 32
-  defaultHeight: 32
-  defaultColor: {r: 0, g: 0, b: 0, a: .87843138}
+  tex: {fileID: 2800000, guid: 25443a81efd7d824985b00a48a822c67, type: 3}
+  defaultWidth: 42
+  defaultHeight: 42
+  defaultColor: {r: 1, g: 1, b: 1, a: 1}
   color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &11400006
 MonoBehaviour:
@@ -1754,131 +1753,6 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
---- !u!114 &11400022
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100312}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c3590e50b01c4e48b85417083e57836, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 200
-  menuItemsTown:
-  - content:
-      m_Text: ' Continue'
-      m_Image: {fileID: 2800000, guid: 316705eb2cbf0c14e9b5ed5ac5960266, type: 3}
-      m_Tooltip: 
-    menuState: 1
-  - content:
-      m_Text: ' Lobby'
-      m_Image: {fileID: 2800000, guid: da0867889b27a20458a971500b51c299, type: 3}
-      m_Tooltip: 
-    menuState: 2
-  - content:
-      m_Text: ' PvP'
-      m_Image: {fileID: 2800000, guid: 7ad479e295d4d3a45bc2d0cfab8a8266, type: 3}
-      m_Tooltip: 
-    menuState: 3
-  - content:
-      m_Text: ' Settings'
-      m_Image: {fileID: 2800000, guid: e31a49789c4b1db4991832c7f564a8f0, type: 3}
-      m_Tooltip: 
-    menuState: 4
-  - content:
-      m_Text: ' Logout'
-      m_Image: {fileID: 2800000, guid: c0c0b06fc98a80c418bed1451c9a3e29, type: 3}
-      m_Tooltip: 
-    menuState: 5
-  - content:
-      m_Text: ' Leave'
-      m_Image: {fileID: 2800000, guid: 85b18080878aed141a69803ed9644752, type: 3}
-      m_Tooltip: 
-    menuState: 6
-  menuItemsArena:
-  - content:
-      m_Text: ' Continue'
-      m_Image: {fileID: 2800000, guid: 316705eb2cbf0c14e9b5ed5ac5960266, type: 3}
-      m_Tooltip: 
-    menuState: 1
-  - content:
-      m_Text: ' Settings'
-      m_Image: {fileID: 2800000, guid: e31a49789c4b1db4991832c7f564a8f0, type: 3}
-      m_Tooltip: 
-    menuState: 4
-  - content:
-      m_Text: ' Logout'
-      m_Image: {fileID: 2800000, guid: c0c0b06fc98a80c418bed1451c9a3e29, type: 3}
-      m_Tooltip: 
-    menuState: 5
-  - content:
-      m_Text: ' Leave'
-      m_Image: {fileID: 2800000, guid: 85b18080878aed141a69803ed9644752, type: 3}
-      m_Tooltip: 
-    menuState: 6
-  contentStyle:
-    m_Name: 
-    m_Normal:
-      m_Background: {fileID: 2800000, guid: 0b8652f10ad83264e92b66c122ab8865, type: 3}
-      m_TextColor: {r: .720588207, g: .720588207, b: .720588207, a: 1}
-    m_Hover:
-      m_Background: {fileID: 2800000, guid: 0b8652f10ad83264e92b66c122ab8865, type: 3}
-      m_TextColor: {r: 1, g: 1, b: 1, a: 1}
-    m_Active:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Focused:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnNormal:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnHover:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnActive:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnFocused:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Border:
-      m_Left: 0
-      m_Right: 5
-      m_Top: 5
-      m_Bottom: 5
-    m_Margin:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 5
-    m_Padding:
-      m_Left: 4
-      m_Right: 8
-      m_Top: 4
-      m_Bottom: 4
-    m_Overflow:
-      m_Left: 3
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Font: {fileID: 12800000, guid: 116760267479e3946aacfea7737ce4cc, type: 3}
-    m_FontSize: 18
-    m_FontStyle: 1
-    m_Alignment: 0
-    m_WordWrap: 0
-    m_RichText: 1
-    m_TextClipping: 0
-    m_ImagePosition: 0
-    m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 0
-    m_FixedHeight: 0
-    m_StretchWidth: 0
-    m_StretchHeight: 0
-  currentState: 0
-  nextState: 0
 --- !u!114 &11400024
 MonoBehaviour:
   m_ObjectHideFlags: 1

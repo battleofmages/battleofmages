@@ -1278,8 +1278,8 @@ MonoBehaviour:
           staggerDuration: .200000003
           energyCostAbs: 0
           lifeDrainRel: 0
-          canMoveWhileCasting: 0
-          canMoveWhileAttacking: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 5
       - skillName: Wind Thrust

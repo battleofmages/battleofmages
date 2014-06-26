@@ -63,8 +63,10 @@ public class GameServerParty : Party<Entity> {
 			pty.UpdateSpawn();
 		}
 
-		if(Player.main != null)
+		if(Player.main != null) {
+			// When the player has a party update his camera rotation
 			Player.main.UpdateCameraYRotation();
+		}
 		
 		LogManager.General.Log("Updated party spawns");
 	}

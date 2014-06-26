@@ -43,6 +43,9 @@ public class PlayerMain : PlayerOnClient {
 	
 	// Start
 	void Start() {
+		Screen.showCursor = false;
+		crossHair.enabled = true;
+
 		InvokeRepeating("SendToServer", 0.001f, 1.0f / (uLink.Network.sendRate * 2.0f));
 	}
 	
@@ -380,12 +383,13 @@ public class PlayerMain : PlayerOnClient {
 		if(party.spawn == null)
 			return;
 		
-		// Camera Y rotation
-		camPivot.transform.eulerAngles = new Vector3(
-			camPivot.transform.eulerAngles.x,
-			party.spawn.eulerAngles.y,
-			camPivot.transform.eulerAngles.z
-		);
+		// Set camera Y rotation
+		UpdateCameraYRotation(party.spawn);
+	}
+
+	// UpdateCameraYRotation
+	public void UpdateCameraYRotation(Transform spawn) {
+		SetCameraYRotation(spawn.transform.eulerAngles.y);
 	}
 #endregion
 	
@@ -732,5 +736,14 @@ public class PlayerMain : PlayerOnClient {
 		}*/
 		
 		return false;
+	}
+
+	[RPC]
+	public void SetCameraYRotation(float yAngle) {
+		camPivot.transform.eulerAngles = new Vector3(
+			camPivot.transform.eulerAngles.x,
+			yAngle,
+			camPivot.transform.eulerAngles.z
+		);
 	}
 }

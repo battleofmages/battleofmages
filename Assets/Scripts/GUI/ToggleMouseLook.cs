@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class ToggleMouseLook : DestroyableSingletonMonoBehaviour<ToggleMouseLook> {
 	public KeyCode toggleKey = KeyCode.LeftAlt;
@@ -8,7 +7,8 @@ public class ToggleMouseLook : DestroyableSingletonMonoBehaviour<ToggleMouseLook
 	public MouseLook mouseLook;
 	
 	private bool dimBackground;
-	
+
+	// OnGUI
 	void OnGUI() {
 		GUI.depth = guiDepth;
 		
@@ -75,12 +75,14 @@ public class ToggleMouseLook : DestroyableSingletonMonoBehaviour<ToggleMouseLook
 		if(Player.main != null)
 			Player.main.GetComponent<CrossHair>().enabled = false;
 	}
-	
+
+	// ShowMenu
 	void ShowMenu() {
 		if(Player.main != null)
 			Player.main.GetComponent<MainMenu>().enabled = true;
 	}
-	
+
+	// HideMenu
 	void HideMenu() {
 		if(Player.main != null)
 			Player.main.GetComponent<MainMenu>().enabled = false;

@@ -182,6 +182,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: d903e98843ff7344685ac9afd509d1c9, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d903e98843ff7344685ac9afd509d1c9, type: 2}
   m_RootGameObject: {fileID: 941774419}
@@ -393,6 +397,7 @@ MonoBehaviour:
   debugGUI: 0
   debugCasting: 0
   debugAnimator: 0
+  showServerPosition: 0
   skillTestMode: 0
 --- !u!1 &437403176
 GameObject:
@@ -514,6 +519,10 @@ Prefab:
     - target: {fileID: 400000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
@@ -1213,14 +1222,16 @@ MonoBehaviour:
   spawnProtectionDuration: 2
   deathColliderDisableTime: 1
   ownDmgOffset: 24
+  serverPositionPredictionFactor: .5
   proxyInterpolationSpeed: 20
+  maxProxyDistanceUntilSnapSqr: 1
   ownerInterpolationSpeed: 2.20000005
   maxPositionPredictionTime: .0500000007
   healthBarWidth: 48
   ownHealthBarWidth: 64
   skillInstanceDestructionTime: 9
   matchAcceptTime: 15
-  disableAnimationsOnServer: 0
+  disableAnimationsOnServer: 1
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
   pingSendDelay: 1
@@ -1235,7 +1246,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &768898719
 GameObject:
   m_ObjectHideFlags: 0
@@ -2591,15 +2602,15 @@ MonoBehaviour:
   - name: Previous attunement
     id: prev_attunement
     description: 
-    keyCode: 113
-    altKeyCode: 0
+    keyCode: 0
+    altKeyCode: 326
     gamePadKeyCode: 336
     active: 1
   - name: Next attunement
     id: next_attunement
     description: 
-    keyCode: 101
-    altKeyCode: 0
+    keyCode: 118
+    altKeyCode: 327
     gamePadKeyCode: 337
     active: 1
   - name: '-----------------------'
@@ -2620,28 +2631,28 @@ MonoBehaviour:
     id: skill_2
     description: 
     keyCode: 50
-    altKeyCode: 0
+    altKeyCode: 113
     gamePadKeyCode: 331
     active: 1
   - name: Skill 3
     id: skill_3
     description: 
     keyCode: 51
-    altKeyCode: 0
+    altKeyCode: 101
     gamePadKeyCode: 332
     active: 1
   - name: Skill 4
     id: skill_4
     description: 
     keyCode: 52
-    altKeyCode: 0
+    altKeyCode: 114
     gamePadKeyCode: 333
     active: 1
   - name: Skill 5
     id: skill_5
     description: 
     keyCode: 53
-    altKeyCode: 0
+    altKeyCode: 116
     gamePadKeyCode: 339
     active: 1
   - name: Skill 6
@@ -4070,8 +4081,8 @@ MonoBehaviour:
           staggerDuration: .200000003
           energyCostAbs: 0
           lifeDrainRel: 0
-          canMoveWhileCasting: 0
-          canMoveWhileAttacking: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 5
       - skillName: Wind Thrust
@@ -4946,7 +4957,7 @@ Transform:
   - {fileID: 1830925594}
   - {fileID: 1782369166}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!114 &1450956970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6904,6 +6915,7 @@ GameObject:
   - 114: {fileID: 2051072778}
   - 114: {fileID: 2051072779}
   - 114: {fileID: 2051072791}
+  - 114: {fileID: 2051072792}
   - 114: {fileID: 2051072777}
   m_Layer: 0
   m_Name: Login
@@ -6936,7 +6948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2492f4e6e2bdfee4ab03ad4341aacc0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lobbyHost: 37.139.29.70
+  lobbyHost: 127.0.0.1
   editorLobbyHost: 127.0.0.1
   lobbyPort: 1310
   lobbyFrameRate: 60
@@ -10277,6 +10289,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySlotSize: 32
+--- !u!114 &2051072792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2051072769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25ce712727d56b43802c8dd63383ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2066160143
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [RequireComponent(typeof(SphereCollider))]
 
@@ -7,13 +6,20 @@ public class NPC : Entity,  ActionTarget {
 	public string componentName;
 	
 	private NPCModule module;
-	
+
+	// Start
 	void Start() {
 		// Disable colliders on server
 		// Don't use if(uLink.Network.isServer) because we might not have initialized the server yet
 		if(Application.loadedLevelName == "Server") {
-			this.collider.enabled = false;
+			collider.enabled = false;
 		}
+
+		// NPC text color
+		/*var entityLabel = GetComponent<EntityLabel>();
+		if(entityLabel != null) {
+			entityLabel.textColor = Config.instance.npcLabelColor;
+		}*/
 	}
 	
 	// Action key
@@ -27,7 +33,7 @@ public class NPC : Entity,  ActionTarget {
 	
 	// Player comes in range
 	void OnTriggerEnter(Collider coll) {
-		if(GameManager.serverType != ServerType.Town)
+		if(!GameManager.isPvE)
 			return;
 		
 		if(Player.main == null)
@@ -41,9 +47,12 @@ public class NPC : Entity,  ActionTarget {
 		
 		if(InGameLobby.instance)
 			InGameLobby.instance.displayedAccount = PlayerAccount.mine;
-		
+
+		// Chat alpha
 		//Camera.main.GetComponent<ChatGUI>().msgColor = new Color(1f, 1f, 1f, 0.1f);
-		GameObject.FindGameObjectWithTag("CamPivot").GetComponent<ToggleMouseLook>().DisableMouseLook();
+
+		// Disable mouse look
+		//GameObject.FindGameObjectWithTag("CamPivot").GetComponent<ToggleMouseLook>().DisableMouseLook();
 		
 		if(InGameLobby.instance != null && module == null) {
 			if(componentName == "InGameLobby") {
@@ -75,9 +84,12 @@ public class NPC : Entity,  ActionTarget {
 		
 		if(InGameLobby.instance)
 			InGameLobby.instance.displayedAccount = PlayerAccount.mine;
-		
+
+		// Chat alpha
 		//Camera.main.GetComponent<ChatGUI>().msgColor = new Color(1f, 1f, 1f, 1.0f);
-		GameObject.FindGameObjectWithTag("CamPivot").GetComponent<ToggleMouseLook>().EnableMouseLook();
+
+		// Disable mouse look
+		//GameObject.FindGameObjectWithTag("CamPivot").GetComponent<ToggleMouseLook>().EnableMouseLook();
 		
 		if(module != null)
 			module.OnNPCExit();

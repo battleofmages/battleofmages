@@ -126,9 +126,10 @@ public class HumanController : Controller {
 		
 		// Only rotate around Y
 		//if(!player.hovering) {
-		targetRotation.x = 0.0f;
-		targetRotation.z = 0.0f;
+		//	targetRotation.x = 0.0f;
+		//	targetRotation.z = 0.0f;
 		//}
+		targetRotation = Quaternion.AngleAxis(targetRotation.eulerAngles.y, Vector3.up);
 
 		// Movement
 		inputVector.x = horizontalMovement;

@@ -266,15 +266,17 @@ public class PlayerOnServer : Player, CasterOnServer {
 	
 	// After death state
 	void SendRespawn() {
-		Vector3 spawnPos;
+		Spawn spawn;
 		
 		if(GameManager.isTown) {
-			spawnPos = GameServerParty.partyList[0].spawnComp.GetNextSpawnPosition();
+			spawn = GameServerParty.partyList[0].spawnComp;
 		} else {
-			spawnPos = this.party.spawnComp.GetNextSpawnPosition();
+			spawn = party.spawnComp;
 		}
-		
+
+		var spawnPos = spawn.GetNextSpawnPosition();
 		networkView.RPC("Respawn", uLink.RPCMode.Others, spawnPos);
+		networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, spawn.transform.eulerAngles.y);
 		Respawn(spawnPos);
 	}
 	
