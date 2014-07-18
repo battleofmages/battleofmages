@@ -1,9 +1,7 @@
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class GuildList {
+public class GuildList : JsonSerializable<GuildList> {
 	public string mainGuildId;
 	public List<string> idList;
 	
@@ -25,15 +23,5 @@ public class GuildList {
 		}
 		
 		idList.Remove(guildId);
-	}
-	
-	// Writer
-	public static void JsonSerializer(Jboy.JsonWriter writer, object instance) {
-		GenericSerializer.WriteJSONClassInstance<GuildList>(writer, (GuildList)instance);
-	}
-	
-	// Reader
-	public static object JsonDeserializer(Jboy.JsonReader reader) {
-		return GenericSerializer.ReadJSONClassInstance<GuildList>(reader);
 	}
 }

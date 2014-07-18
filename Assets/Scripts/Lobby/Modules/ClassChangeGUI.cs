@@ -9,7 +9,9 @@ public class ClassChangeGUI : LobbyModule<ClassChangeGUI> {
 	// Draw
 	public override void Draw() {
 		using(new GUIVertical("box")) {
-			GUILayout.Label("Work in progress");
+			GUILayout.Label("<size=32>Class change</size>");
+			GUILayout.Space(16);
+			GUILayout.Label("Work in progress.");
 		}
 	}
 }

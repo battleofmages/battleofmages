@@ -1,5 +1,6 @@
 using UnityEngine;
 using uGameDB;
+using uLobby;
 using Jboy;
 using System.Collections;
 using System.Collections.Generic;
@@ -183,17 +184,21 @@ public class GameDB : SingletonMonoBehaviour<GameDB> {
 		return email == "a" || email == "b" || email == "c" || email == "d" || email == "e";
 	}
 	
-	// Salt password
-	public static string SaltPassword(string password) {
-		// TODO: Dynamically generated salts
-		string salt = "c90e8eca04f64d70baacc9d0a5c4c72e" + password;
-		return password + salt;
+	// Static salt password
+	public static string StaticSaltPassword(string password) {
+		// Note that we can't use a dynamically generated salt here
+		// because this is not the hash used in the actual database.
+		// This is merely the hash stored in the registry and if we want
+		// to provide the ability to log in via the website we'd need a way
+		// for the website to access the registry to look up the salt.
+		// Obviously that's not possible.
+		return password + "c90e8eca04f64d70baacc9d0a5c4c72e" + password;
 	}
 	
 	// Encrypt a password using SHA512
 	public static byte[] EncryptPassword(string password) {
 		// Make precalculated, generic rainbow tables ineffective by using a salt
-		password = SaltPassword(password);
+		password = StaticSaltPassword(password);
 		
 		// Encrypt the password
 		System.Security.Cryptography.SHA512 sha512 = System.Security.Cryptography.SHA512.Create();
@@ -202,7 +207,14 @@ public class GameDB : SingletonMonoBehaviour<GameDB> {
 	
 	// Encrypt a password using SHA512
 	public static string EncryptPasswordString(string password) {
-		return System.Text.Encoding.UTF8.GetString(EncryptPassword(password));
+		return System.Convert.ToBase64String(EncryptPassword(password));
+	}
+	
+	// GetRandomString
+	public static string GetRandomString(int lengthInBytes) {
+		byte[] array = new byte[lengthInBytes];
+		System.Security.Cryptography.RandomNumberGenerator.Create().GetBytes(array);
+		return System.Convert.ToBase64String(array);
 	}
 	
 	// Formats bucket name

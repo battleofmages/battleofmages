@@ -3,7 +3,7 @@
 --- !u!129 &1
 PlayerSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
+  serializedVersion: 3
   AndroidProfiler: 0
   defaultScreenOrientation: 0
   targetDevice: 2
@@ -19,11 +19,12 @@ PlayerSettings:
   defaultScreenWidthWeb: 1024
   defaultScreenHeightWeb: 576
   m_RenderingPath: 2
-  m_MobileRenderingPath: 1
+  m_MobileRenderingPath: 2
   m_ActiveColorSpace: 0
   m_MTRendering: 1
-  m_MobileMTRendering: 0
+  m_MobileMTRendering: 1
   m_UseDX11: 1
+  m_Stereoscopic3D: 0
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
   displayResolutionDialog: 0
@@ -56,24 +57,16 @@ PlayerSettings:
   xboxSpeechDB: 0
   xboxEnableHeadOrientation: 0
   xboxEnableGuest: 0
-  wiiHio2Usage: -1
-  wiiLoadingScreenRectPlacement: 0
-  wiiLoadingScreenBackground: {r: 1, g: 1, b: 1, a: 1}
-  wiiLoadingScreenPeriod: 1000
-  wiiLoadingScreenFileName: 
-  wiiLoadingScreenRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  videoMemoryForVertexBuffers: 0
   m_SupportedAspectRatios:
     4:3: 1
     5:4: 1
     16:10: 1
     16:9: 1
     Others: 1
-  iPhoneBundleIdentifier: com.Company.ProductName
+  iPhoneBundleIdentifier: com.freezingwind.battleofmages
+  metroEnableIndependentInputSource: 0
+  metroEnableLowLatencyPresentationAPI: 0
   productGUID: f692882856508f3439fd4cc060e36026
   iPhoneBundleVersion: 1.0
   AndroidBundleVersionCode: 1
@@ -116,19 +109,11 @@ PlayerSettings:
   - m_BuildTarget: Standalone
     m_StaticBatching: 1
     m_DynamicBatching: 1
+  - m_BuildTarget: Android
+    m_StaticBatching: 1
+    m_DynamicBatching: 1
   webPlayerTemplate: APPLICATION:No Context Menu
   m_TemplateCustomTags: {}
-  wiiRegion: 1
-  wiiGameCode: RABA
-  wiiGameVersion: 
-  wiiCompanyCode: ZZ
-  wiiSupportsNunchuk: 0
-  wiiSupportsClassicController: 0
-  wiiSupportsBalanceBoard: 0
-  wiiSupportsMotionPlus: 0
-  wiiControllerCount: 1
-  wiiFloatingPointExceptions: 0
-  wiiScreenCrashDumps: 1
   XboxTitleId: 
   XboxImageXexPath: 
   XboxSpaPath: 
@@ -151,12 +136,30 @@ PlayerSettings:
   ps3TrophyCommSig: 
   ps3SaveGameSlots: 1
   ps3TrialMode: 0
+  psp2Splashimage: {fileID: 0}
+  psp2LiveAreaGate: {fileID: 0}
+  psp2LiveAreaBackround: {fileID: 0}
+  psp2NPTrophyPackPath: 
+  psp2NPCommsID: 
+  psp2NPCommsPassphrase: 
+  psp2NPCommsSig: 
+  psp2ParamSfxPath: 
+  psp2PackagePassword: 
+  psp2DLCConfigPath: 
+  psp2ThumbnailPath: 
+  psp2BackgroundPath: 
+  psp2SoundPath: 
+  psp2TrophyCommId: 
+  psp2TrophyPackagePath: 
+  psp2PackagedResourcesPath: 
   flashStrippingLevel: 2
   spritePackerPolicy: 
   scriptingDefineSymbols:
     0: "U\x01"
   metroPackageName: 
   metroPackageLogo: 
+  metroPackageLogo140: 
+  metroPackageLogo180: 
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
@@ -164,18 +167,42 @@ PlayerSettings:
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: 
+  metroTileLogo80: 
   metroTileLogo: 
+  metroTileLogo140: 
+  metroTileLogo180: 
+  metroTileWideLogo80: 
   metroTileWideLogo: 
+  metroTileWideLogo140: 
+  metroTileWideLogo180: 
+  metroTileSmallLogo80: 
   metroTileSmallLogo: 
+  metroTileSmallLogo140: 
+  metroTileSmallLogo180: 
+  metroSmallTile80: 
+  metroSmallTile: 
+  metroSmallTile140: 
+  metroSmallTile180: 
+  metroLargeTile80: 
+  metroLargeTile: 
+  metroLargeTile140: 
+  metroLargeTile180: 
   metroTileShortName: 
   metroCommandLineArgsFile: 
   metroTileShowName: 0
+  metroMediumTileShowName: 0
+  metroLargeTileShowName: 0
+  metroWideTileShowName: 0
+  metroDefaultTileSize: 1
   metroTileForegroundText: 1
   metroTileBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   metroSplashScreenImage: 
+  metroSplashScreenImage140: 
+  metroSplashScreenImage180: 
   metroSplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   metroSplashScreenUseBackgroundColor: 0
   metroCapabilities: {}
+  metroUnprocessedPlugins: []
   metroCompilationOverrides: 1
   blackberryDeviceAddress: 
   blackberryDevicePassword: 
@@ -201,7 +228,9 @@ PlayerSettings:
   tizenProductURL: 
   tizenCertificatePath: 
   tizenCertificatePassword: 
-  tizenSaveLogPath: 
+  tizenGPSPermissions: 0
+  tizenMicrophonePermissions: 0
+  stvDeviceAddress: 
   firstStreamedLevelWithResources: 0
   unityRebuildLibraryVersion: 9
   unityForwardCompatibleVersion: 39

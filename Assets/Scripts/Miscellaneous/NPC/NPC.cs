@@ -109,7 +109,9 @@ public class NPC : Entity,  ActionTarget {
 			return;
 		
 		//using(new GUIArea(Screen.width * 0.75f, Screen.height * 0.75f)) {
+		//using(new GUIVertical("box")) {
 		module.Draw();
+		//}
 		//}
 	}
 }

@@ -42,6 +42,9 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 	
 	// Draw
 	public override void Draw() {
+		if(currentQueue != 0)
+			return;
+
 		using(new GUIVertical()) { //GUILayout.MinWidth(200)
 			DrawMatchmakingQueues();
 		}

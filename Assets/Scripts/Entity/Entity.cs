@@ -254,7 +254,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 			var targetPosition = Vector3.Lerp(interpolationStartPosition, serverPosition, proxyInterpolationTime * Config.instance.proxyInterpolationSpeed);
 			var offset = targetPosition - myTransform.position;
 			
-			if(offset.sqrMagnitude < Config.instance.maxProxyDistanceUntilSnapSqr && collider.enabled) {
+			if(offset.sqrMagnitude < Config.instance.maxProxyDistanceUntilSnapSqr && collider.enabled && proxyInterpolationTime < 1f) {
 				characterController.Move(offset);
 			} else {
 				Log("Snapped to server position, squared distance: " + offset.sqrMagnitude);

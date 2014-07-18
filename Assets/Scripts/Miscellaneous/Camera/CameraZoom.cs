@@ -27,8 +27,13 @@ public class CameraZoom : MonoBehaviour {
 		
 		if(!mouseLook.enabled)
 			return;*/
-		
+
 		float wheel = Input.GetAxis("Mouse ScrollWheel");
+
+		// Zoom doesn't work while main menu is on or while the player is talking with an NPC
+		if(MainMenu.instance.enabled || (Player.main != null && Player.main.talkingWithNPC))
+			return;
+
 		distance = Mathf.Clamp(distance - wheel * zoomSpeed, minDistance, maxDistance);
 		
 		var targetPosition = new Vector3(0, -(maxDistance - distance) * yFactor, -distance);

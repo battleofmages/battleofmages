@@ -1,7 +1,5 @@
 using uLobby;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 [RequireComponent(typeof(LobbyChat))]
 
@@ -635,7 +633,7 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 			Player.main.talkingWithNPC = null;
 			
 			// Activate main menu
-			ToggleMouseLook.instance.DisableMouseLook();
+			//ToggleMouseLook.instance.DisableMouseLook();
 			
 			// Show lobby
 			MainMenu.instance.nextState = InGameMenuState.Lobby;
