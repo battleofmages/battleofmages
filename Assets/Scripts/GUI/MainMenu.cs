@@ -157,8 +157,7 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 			
 			switch(state) {
 				case InGameMenuState.Continue:
-					enabled = false;
-					//toggleMouseLook.EnableMouseLook();
+					CameraMode.current.Continue();
 					break;
 					
 				case InGameMenuState.Lobby:

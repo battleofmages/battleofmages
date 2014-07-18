@@ -14,21 +14,38 @@ public class NPC : Entity,  ActionTarget {
 		if(Application.loadedLevelName == "Server") {
 			collider.enabled = false;
 		}
-
-		// NPC text color
-		/*var entityLabel = GetComponent<EntityLabel>();
-		if(entityLabel != null) {
-			entityLabel.textColor = Config.instance.npcLabelColor;
-		}*/
 	}
 	
 	// Action key
 	public void OnAction(Entity entity) {
-		OnTriggerEnter(entity.collider);
+		// Play sound
+		Sounds.instance.PlayMenuNavigate();
+
+		// Set NPC
+		Player.main.talkingWithNPC = this;
+		
+		// Chat alpha
+		//Camera.main.GetComponent<ChatGUI>().msgColor = new Color(1f, 1f, 1f, 0.1f);
+		
+		// Disable mouse look
+		CameraMode.current.OnNPCAction(this);
+
+		// Reset account
+		if(InGameLobby.instance)
+			InGameLobby.instance.displayedAccount = PlayerAccount.mine;
+
+		if(module != null)
+			module.OnNPCTalk();
 	}
-	
+
+	// CanAction
 	public bool CanAction(Entity entity) {
 		return ((Player)entity).talkingWithNPC == null;
+	}
+
+	// GetCursorPosition
+	public Vector3 GetCursorPosition() {
+		return center;
 	}
 	
 	// Player comes in range
@@ -43,16 +60,6 @@ public class NPC : Entity,  ActionTarget {
 			return;
 		
 		Player.main.actionTarget = this;
-		Player.main.talkingWithNPC = this;
-		
-		if(InGameLobby.instance)
-			InGameLobby.instance.displayedAccount = PlayerAccount.mine;
-
-		// Chat alpha
-		//Camera.main.GetComponent<ChatGUI>().msgColor = new Color(1f, 1f, 1f, 0.1f);
-
-		// Disable mouse look
-		//GameObject.FindGameObjectWithTag("CamPivot").GetComponent<ToggleMouseLook>().DisableMouseLook();
 		
 		if(InGameLobby.instance != null && module == null) {
 			if(componentName == "InGameLobby") {
@@ -63,7 +70,7 @@ public class NPC : Entity,  ActionTarget {
 				module = (NPCModule)InGameLobby.instance.GetComponent(componentName);
 			}
 		}
-		
+
 		if(module != null)
 			module.OnNPCEnter();
 	}
@@ -94,7 +101,8 @@ public class NPC : Entity,  ActionTarget {
 		if(module != null)
 			module.OnNPCExit();
 	}
-	
+
+	// Draw
 	public void Draw() {
 		if(uLink.Network.isServer)
 			return;

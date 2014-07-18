@@ -80,7 +80,7 @@ If you'd like this game to improve and stay alive please consider a little donat
 		}
 	}
 	
-	// On speaking with an NPC
+	// On coming close to the NPC
 	public override void OnNPCEnter() {
 		// Fetch the new crystal balance
 		InGameLobby.instance.currentLobbyModule = this;

@@ -52,5 +52,6 @@ public abstract class LobbyModule<T> : SingletonMonoBehaviour<T>, NPCModule, Dra
 	public virtual void Draw() {}
 	public virtual void OnClick() {}
 	public virtual void OnNPCEnter() {}
+	public virtual void OnNPCTalk() {}
 	public virtual void OnNPCExit() {}
 }

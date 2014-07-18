@@ -14,6 +14,8 @@ public class ToggleMouseLook : DestroyableSingletonMonoBehaviour<ToggleMouseLook
 		
 		// Toggle mouse look with toggle key
 		if(Event.current.type == EventType.KeyDown && Event.current.keyCode == toggleKey) {
+			//Sounds.instance.PlayMenuBack();
+
 			if(mouseLook.enabled) {
 				DisableMouseLook();
 			} else {
@@ -22,18 +24,21 @@ public class ToggleMouseLook : DestroyableSingletonMonoBehaviour<ToggleMouseLook
 			
 			Event.current.Use();
 		}
-		
+
+		// IMPORTANT:
+		// The cursor settings should stay inside
+		// a main loop because they could be lost.
+
+		// Lock cursor and hide it when mouse look is enabled
 		if(mouseLook.enabled) {
 			Screen.showCursor = false;
 			Screen.lockCursor = true;
-			return;
-		}
-		
-		Screen.showCursor = true;
-		Screen.lockCursor = false;
-		
-		if(dimBackground) {
-			if(MainMenu.instance.currentState == InGameMenuState.Lobby) {
+		// Show cursor and unlock it when mouse look is disabled
+		} else {
+			Screen.showCursor = true;
+			Screen.lockCursor = false;
+			
+			if(dimBackground && MainMenu.instance.currentState == InGameMenuState.Lobby) {
 				GUI.backgroundColor = new Color(1f, 1f, 1f, 0.95f);
 				GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "", backgroundBoxStyle);
 			}
@@ -56,7 +61,7 @@ public class ToggleMouseLook : DestroyableSingletonMonoBehaviour<ToggleMouseLook
 		HideMenu();
 		
 		if(Player.main.target == null)
-			Player.main.GetComponent<CrossHair>().enabled = true;
+			Player.main.crossHair.enabled = true;
 	}
 
 	// DisableMouseLook
@@ -73,18 +78,16 @@ public class ToggleMouseLook : DestroyableSingletonMonoBehaviour<ToggleMouseLook
 		mouseLook.enabled = false;
 		
 		if(Player.main != null)
-			Player.main.GetComponent<CrossHair>().enabled = false;
+			Player.main.crossHair.enabled = false;
 	}
 
 	// ShowMenu
 	void ShowMenu() {
-		if(Player.main != null)
-			Player.main.GetComponent<MainMenu>().enabled = true;
+		MainMenu.instance.enabled = true;
 	}
 
 	// HideMenu
 	void HideMenu() {
-		if(Player.main != null)
-			Player.main.GetComponent<MainMenu>().enabled = false;
+		MainMenu.instance.enabled = false;
 	}
 }

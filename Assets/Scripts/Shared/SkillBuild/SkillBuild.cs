@@ -77,7 +77,7 @@ public class SkillBuild : JsonSerializable<SkillBuild> {
 						}
 					},
 					
-					/*// Dark
+					// Dark
 					new AttunementBuild {
 						attunementId = 20,
 						skills = new int[] {
@@ -99,7 +99,7 @@ public class SkillBuild : JsonSerializable<SkillBuild> {
 							403,
 							404
 						}
-					},*/
+					},
 				},
 			},
 

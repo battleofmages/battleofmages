@@ -19,7 +19,7 @@ RenderSettings:
   m_LinearFogStart: 0
   m_LinearFogEnd: 1000
   m_AmbientLight: {r: .352941185, g: .352941185, b: .352941185, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 16522f49031ff414abdf1f83f1b6a36c, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a2126534b3a11b34e977105bd9e3cc03, type: 2}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -870,7 +870,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 190911176}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Objects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17620,7 +17620,7 @@ GameObject:
   - 33: {fileID: 805616554}
   - 23: {fileID: 805616553}
   - 64: {fileID: 805616552}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: building4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38353,7 +38353,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d99016bc4f0d1d848be624ec4b5f2be6, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d99016bc4f0d1d848be624ec4b5f2be6, type: 3}
@@ -39815,7 +39815,7 @@ MonoBehaviour:
   linearFogStart: 0
   linearFogEnd: 1000
   ambientLight: {r: .352941185, g: .352941185, b: .352941185, a: 1}
-  skyboxMaterial: {fileID: 2100000, guid: 16522f49031ff414abdf1f83f1b6a36c, type: 2}
+  skyboxMaterial: {fileID: 2100000, guid: a2126534b3a11b34e977105bd9e3cc03, type: 2}
 --- !u!4 &1747586034
 Transform:
   m_ObjectHideFlags: 0

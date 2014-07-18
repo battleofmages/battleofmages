@@ -125,11 +125,7 @@ public class HumanController : Controller {
 		}
 		
 		// Only rotate around Y
-		//if(!player.hovering) {
-		//	targetRotation.x = 0.0f;
-		//	targetRotation.z = 0.0f;
-		//}
-		targetRotation = Quaternion.AngleAxis(targetRotation.eulerAngles.y, Vector3.up);
+		targetRotation = CameraMode.current.FixTargetRotation(player, targetRotation);
 
 		// Movement
 		inputVector.x = horizontalMovement;
@@ -183,11 +179,8 @@ public class HumanController : Controller {
 			
 			if(player.talkingWithNPC)
 				return false;
-			
-			//if(!ToggleMouseLook.instance.mouseLook.enabled)
-			//	return false;
 
-			return true;
+			return CameraMode.current.CanStartCast();
 		}
 	}
 

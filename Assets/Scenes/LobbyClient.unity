@@ -480,6 +480,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
   m_RootGameObject: {fileID: 1450956968}
@@ -5497,6 +5501,10 @@ MonoBehaviour:
     type: 3}
   buttonClick: {fileID: 8300000, guid: f69851e48ee1191429ebc3f68447eef4, type: 3}
   queueMatchFound: {fileID: 8300000, guid: ee9bec3adadab5d4084df17a8d4d70e1, type: 3}
+  loginSuccess: {fileID: 8300000, guid: eb2014ec10828814aa27e07c4261725b, type: 3}
+  loginFail: {fileID: 0}
+  menuBack: {fileID: 8300000, guid: 2126d6d7814592e47ac2147b8b3af827, type: 3}
+  menuNavigate: {fileID: 0}
 --- !u!1 &1811561126
 GameObject:
   m_ObjectHideFlags: 0
@@ -6965,7 +6973,7 @@ MonoBehaviour:
     height: .800000012
   retrieveLobbyIP: 0
   lobbyIpURL: 
-  editorAutoLogin: 1
+  editorAutoLogin: 0
   editorAccountName: a
   editorPassword: a
   tooltipStyle:

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerMain : PlayerOnClient {
 	private GameObject camPivot;
+	private CameraMode cameraMode;
 
 	// Awake
 	protected override void Awake() {
@@ -14,18 +15,15 @@ public class PlayerMain : PlayerOnClient {
 		inputManager = InputManager.instance;
 		buttons = new HumanController.InputButtons(inputManager);
 		
-		// Paint own character
-		//charGraphics.FindChild("Cube").renderer.material.color = Color.blue;
-		
-		// Make the camera follow it
+		// Make the camera follow me
+		var cameraModes = GameObject.Find("CameraModes");
+		cameraModes.transform.parent = myTransform;
+		cameraModes.transform.localPosition = Cache.vector3Zero;
+		cameraModes.transform.localRotation = Cache.quaternionIdentity;
+
+		// Assign values
 		camPivot = GameObject.FindGameObjectWithTag("CamPivot");
-		camPivot.transform.parent = transform;
-		camPivot.transform.localPosition = Cache.vector3Zero;
-		
-		// Enable components
-		//camPivot.GetComponent<MouseLook>().enabled = true;
-		//camPivot.GetComponent<CameraAboveTerrain>().enabled = true;
-		
+		cameraMode = camPivot.GetComponent<CameraMode>();
 		crossHair = GetComponent<CrossHair>();
 		
 		// Set main player
@@ -206,7 +204,7 @@ public class PlayerMain : PlayerOnClient {
 		}
 		
 		// Action key
-		if(actionTarget != null && actionTarget.CanAction(this)) {
+		if(actionTarget != null && actionTarget.CanAction(this) && !MainMenu.instance.enabled) {
 			// TODO: Draw info that user can use an action key
 			
 			if(inputManager.GetButtonDown(buttons.Action))
@@ -290,13 +288,7 @@ public class PlayerMain : PlayerOnClient {
 		// Reset selected player
 		this.selectedEntity = null;
 		
-		Vector3 vec;
-		/*if(ToggleMouseLook.instance.mouseLook.enabled)
-			vec = new Vector3(0.5f, 0.5f, 0);
-		else*/
-		vec = InputManager.GetRelativeMousePositionToScreen();
-		
-		Ray ray = cam.ViewportPointToRay(vec);
+		Ray ray = cam.ViewportPointToRay(cameraMode.GetCursorPosition3D());
 		
 		// Do the raycast
 		if(Physics.Raycast(ray, out raycastHit, Config.instance.raycastMaxDistance)) {

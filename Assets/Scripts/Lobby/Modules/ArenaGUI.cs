@@ -50,11 +50,6 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 		}
 	}
 	
-	// On speaking with an NPC
-	public override void OnNPCEnter() {
-		Sounds.instance.PlayButtonClick();
-	}
-	
 	// Matchmaking queue buttons
 	public void DrawMatchmakingQueues() {
 		using(new GUIHorizontalCenter()) {

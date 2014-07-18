@@ -139,7 +139,7 @@ public sealed class ProfileGUI : LobbyModule<ProfileGUI> {
 		}
 	}
 	
-	// On speaking with an NPC
+	// On coming close to the NPC
 	public override void OnNPCEnter() {
 		InGameLobby.instance.currentLobbyModule = this;
 	}

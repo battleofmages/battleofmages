@@ -23,7 +23,7 @@ public class CrossHair : HUDElement {
 
 	// Update
 	void Update() {
-		var vec = InputManager.GetRelativeMousePositionToScreen();
+		var vec = CameraMode.current.GetCursorPosition3D();
 		relativeDimensions.x = vec.x;
 		relativeDimensions.y = 1f - vec.y;
 		UpdateDimensions();

@@ -6,9 +6,10 @@ public class ToggleMainMenu : MonoBehaviour {
 	// OnGUI
 	void OnGUI() {
 		if(Event.current.type == EventType.KeyDown && Event.current.keyCode == toggleKey) {
+			Sounds.instance.PlayButtonClick();
+
 			// Toggle main menu
-			var mainMenu = GetComponent<MainMenu>();
-			mainMenu.enabled = !mainMenu.enabled;
+			MainMenu.instance.enabled = !MainMenu.instance.enabled;
 
 			// Prevent event from bubbling
 			Event.current.Use();

@@ -158,7 +158,7 @@ public class MusicManager : LobbyModule<MusicManager> {
 		}
 	}
 	
-	// On speaking with an NPC
+	// On coming close to the NPC
 	public override void OnNPCEnter() {
 		InGameLobby.instance.currentLobbyModule = this;
 	}

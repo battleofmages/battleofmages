@@ -44,12 +44,19 @@ public sealed class RankingGUI : LobbyModule<RankingGUI> {
 
 	// OnClick
 	public override void OnClick() {
-		if(pendingRankingListRequests == 0) {
-			Sounds.instance.PlayButtonClick();
-			
-			for(byte i = 0; i < GameDB.numRankingPages; i++) {
-				SendRankingListRequest((byte)RankingSubject.Player, i);
-			}
+		if(pendingRankingListRequests > 0)
+			return;
+
+		Sounds.instance.PlayButtonClick();
+	}
+
+	// RequestRankingLists
+	private void RequestRankingLists() {
+		if(pendingRankingListRequests > 0)
+			return;
+
+		for(byte i = 0; i < GameDB.numRankingPages; i++) {
+			SendRankingListRequest((byte)RankingSubject.Player, i);
 		}
 	}
 	
@@ -128,10 +135,9 @@ public sealed class RankingGUI : LobbyModule<RankingGUI> {
 		GUI.contentColor = Color.white;
 	}
 	
-	// On speaking with an NPC
+	// On coming close to the NPC
 	public override void OnNPCEnter() {
-		// Fetch the new ranking list
-		InGameLobby.instance.currentLobbyModule = this;
+		RequestRankingLists();
 	}
 	
 	// Draw a single rank entry

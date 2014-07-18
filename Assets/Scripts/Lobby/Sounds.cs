@@ -9,6 +9,10 @@ public class Sounds : SingletonMonoBehaviour<Sounds> {
 	public AudioClip toggleTargetFocusSound;
 	public AudioClip buttonClick;
 	public AudioClip queueMatchFound;
+	public AudioClip loginSuccess;
+	public AudioClip loginFail;
+	public AudioClip menuBack;
+	public AudioClip menuNavigate;
 	
 	void Start() {
 		toggleTargetFocus = toggleTargetFocusSound;
@@ -16,6 +20,22 @@ public class Sounds : SingletonMonoBehaviour<Sounds> {
 	
 	public void PlayButtonClick() {
 		audio.PlayOneShot(buttonClick);
+	}
+
+	public void PlayMenuBack() {
+		audio.PlayOneShot(menuBack);
+	}
+
+	public void PlayMenuNavigate() {
+		audio.PlayOneShot(menuNavigate);
+	}
+
+	public void PlayLoginSuccess() {
+		audio.PlayOneShot(loginSuccess);
+	}
+
+	public void PlayLoginFail() {
+		audio.PlayOneShot(loginFail);
 	}
 	
 	public void PlayQueueMatchFound() {

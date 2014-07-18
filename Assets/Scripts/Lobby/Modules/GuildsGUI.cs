@@ -75,7 +75,7 @@ public sealed class GuildsGUI : LobbyModule<GuildsGUI> {
 		}
 	}
 	
-	// On speaking with an NPC
+	// On coming close to the NPC
 	public override void OnNPCEnter() {
 		// Fetch the new guild list
 		InGameLobby.instance.currentLobbyModule = this;

@@ -25,7 +25,7 @@ public class ScoreBoard : HUDElement {
 	
 	// Start
 	void Start() {
-		camPivot = GameObject.Find("CamPivot").transform;
+		camPivot = GameObject.FindWithTag("CamPivot").transform;
 		toggleMouseLook = camPivot.GetComponent<ToggleMouseLook>();
 		crossHair = this.GetComponent<CrossHair>();
 		

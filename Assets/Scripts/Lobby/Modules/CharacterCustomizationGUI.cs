@@ -138,11 +138,6 @@ public sealed class CharacterCustomizationGUI : LobbyModule<CharacterCustomizati
 			Player.main.networkView.RPC("ClientCharacterCustomization", uLink.RPCMode.Server, custom);
 	}
 	
-	// On speaking with an NPC
-	public override void OnNPCEnter() {
-		Sounds.instance.PlayButtonClick();
-	}
-	
 	// On leaving the NPC
 	public override void OnNPCExit() {
 		SendCustomization();

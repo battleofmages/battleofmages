@@ -27,9 +27,4 @@ public class OnlinePlayersGUI : LobbyModule<OnlinePlayersGUI> {
 			GUILayout.Label(_("{0} online.", GUIHelper.Plural(InGameLobby.instance.totalOnlinePlayers, "player")), onlinePlayerCountStyle);
 		}
 	}
-	
-	// On speaking with an NPC
-	public override void OnNPCEnter() {
-		Sounds.instance.PlayButtonClick();
-	}
 }

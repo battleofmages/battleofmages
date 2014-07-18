@@ -132,7 +132,7 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 		GUILayout.EndHorizontal();
 	}
 	
-	// On speaking with an NPC
+	// On coming close to the NPC
 	public override void OnNPCEnter() {
 		InGameLobby.instance.currentLobbyModule = this;
 	}

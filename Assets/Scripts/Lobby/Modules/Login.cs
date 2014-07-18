@@ -788,6 +788,9 @@ public class Login : LobbyModule<Login> {
 		PlayerPrefs.SetString("AccountSaltedAndHashedPassword", accountPasswordEncrypted);
 		
 		Login.myAccount = account;
+
+		// Play sound
+		Sounds.instance.PlayLoginSuccess();
 		
 		// Reconnect from game?
 		if(gameLobby.currentState == GameLobbyState.Game) {
