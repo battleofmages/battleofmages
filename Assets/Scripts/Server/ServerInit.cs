@@ -23,12 +23,10 @@ public class ServerInit : uLink.MonoBehaviour {
 	
 	//************************************************************************************************
 	// Owner is the actual player using the client Scene. It has animations + camera.  
-	// OwnerInit.cs connects the owner to the camera.
 	//
 	// Proxy is what appears on the the opponent players computers, It has animations but no camera connection.
 	//
-	// Creator is instansiated in the server and it has no camera. It has the animation script, but it has been 
-	// deactivated.  Just turn it on if you really do want to see animations on the server.
+	// Creator is instantiated on the server and it has no camera.
 	//************************************************************************************************
 	public GameObject proxyPrefab = null;
 	public GameObject ownerPrefab = null;
@@ -396,26 +394,51 @@ public class ServerInit : uLink.MonoBehaviour {
 		player.networkView.RPC("ChangeLayer", uLink.RPCMode.All, party.layer);
 
 		// Respawn position
-		Vector3 respawnPosition;
-
 		if(GameManager.isPvE) {
-			PositionsDB.GetPosition(accountId, data => {
-				if(data != Vector3.zero)
-					respawnPosition = data;
-				else
-					respawnPosition = party.spawnComp.GetNextSpawnPosition();
-				
-				player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
+			PortalDB.GetPortal(accountId, portalInfo => {
+				// Player did not come via a portal
+				if(portalInfo == null) {
+					PositionsDB.GetPosition(accountId, data => {
+						Vector3 respawnPosition;
+
+						if(data != Vector3.zero)
+							respawnPosition = data;
+						else
+							respawnPosition = party.spawnComp.GetNextSpawnPosition();
+						
+						player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
+					});
+				// Player did come via a portal
+				} else {
+					Vector3 respawnPosition;
+					var portals = GameObject.FindGameObjectsWithTag("Portal");
+
+					foreach(var portal in portals) {
+						if(portal.GetComponent<Portal>().portalId == portalInfo.id) {
+							respawnPosition = portal.transform.position;
+
+							// Respawn
+							player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
+
+							// Update position to be 100% sure our position data is correct now
+							PositionsDB.SetPosition(accountId, respawnPosition);
+							
+							// Delete portal info so we won't use it again
+							PortalDB.RemovePortal(accountId);
+
+							break;
+						}
+					}
+				}
 			});
 		} else {
-			respawnPosition = party.spawnComp.GetNextSpawnPosition();
-			player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
+			player.networkView.RPC("Respawn", uLink.RPCMode.All, party.spawnComp.GetNextSpawnPosition());
 		}
 
 		//player.networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, party.spawnComp.transform.eulerAngles.y);
 		
 		// On non account restricted servers we start the game instantly
-		if(GameManager.isTown || GameManager.isFFA || isTestServer) {
+		if(!GameManager.isArena || isTestServer) {
 			player.networkView.RPC("StartGame", uLink.RPCMode.Owner);
 			GameManager.gameStarted = true;
 		}

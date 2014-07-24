@@ -315,10 +315,12 @@ public class GameDB : SingletonMonoBehaviour<GameDB> {
 		
 		if(request.isSuccessful) {
 			LogManager.DB.Log(FormatSuccess(key, "remove", bucketName, null) + " (" + stopWatch.ElapsedMilliseconds + " ms)");
-			func(true);
+			if(func != null)
+				func(true);
 		} else {
 			LogManager.DB.LogWarning(FormatFail(key, "remove", bucketName) + " (" + stopWatch.ElapsedMilliseconds + " ms)");
-			func(false);
+			if(func != null)
+				func(false);
 		}
 	}
 	

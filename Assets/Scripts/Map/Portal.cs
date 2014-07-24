@@ -2,7 +2,6 @@
 using UnityEngine;
 
 public class Portal : MonoBehaviour, ActionTarget {
-	public string mapName;
 	public ServerType serverType = ServerType.World;
 	public int portalId;
 	public int targetPortalId;
@@ -39,7 +38,7 @@ public class Portal : MonoBehaviour, ActionTarget {
 
 	// OnAction
 	public void OnAction(Entity entity) {
-		Lobby.RPC("ActivatePortal", Lobby.lobby, mapName, serverType, portalId);
+		Lobby.RPC("ActivatePortal", Lobby.lobby, gameObject.name, serverType, portalId);
 	}
 	
 	// CanAction

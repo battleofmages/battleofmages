@@ -38683,9 +38683,9 @@ GameObject:
   - 135: {fileID: 1418300533}
   - 114: {fileID: 1418300532}
   m_Layer: 2
-  m_Name: 'Portal: Nubek Outskirts'
-  m_TagString: Untagged
-  m_Icon: {fileID: -1003283189, guid: 0000000000000000d000000000000000, type: 0}
+  m_Name: Nubek Outskirts
+  m_TagString: Portal
+  m_Icon: {fileID: 1319202362, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -38713,7 +38713,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61371399aad3d18449846c2103203276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapName: Nubek Outskirts
   serverType: 3
   portalId: 0
   targetPortalId: 0

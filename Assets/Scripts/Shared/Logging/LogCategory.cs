@@ -79,31 +79,31 @@ public class LogCategory {
 	
 	// GenerateReport
 	public void GenerateReport() {
-		this.Log("Platform: " + Application.platform.ToString());
-		this.Log("Unity player version: " + Application.unityVersion);
-		this.Log("Device ID: " + SystemInfo.deviceUniqueIdentifier);
+		Log("Platform: " + Application.platform);
+		Log("Unity player version: " + Application.unityVersion);
+		Log("Device ID: " + SystemInfo.deviceUniqueIdentifier);
 		
 		if(Application.genuineCheckAvailable)
-			this.Log("Genuine: " + Application.genuine.ToString());
+			Log("Genuine: " + Application.genuine);
 		
 		// CPU
-		this.Log("Processor count: " + SystemInfo.processorCount.ToString());
+		Log("Processor count: " + SystemInfo.processorCount);
 		
 		// RAM
-		this.Log("System memory: " + SystemInfo.systemMemorySize.ToString() + " MB");
+		Log("System memory: " + SystemInfo.systemMemorySize + " MB");
 		
 		// GPU
-		this.Log("Graphics device: " + SystemInfo.graphicsDeviceName);
-		this.Log("Graphics memory: " + SystemInfo.graphicsMemorySize + " MB");
-		this.Log("Graphics device version: " + SystemInfo.graphicsDeviceVersion);
-		this.Log("Graphics device vendor: " + SystemInfo.graphicsDeviceVendor);
-		this.Log("Shadows: " + (SystemInfo.supportsShadows ? "Supported" : "Not supported"));
-		this.Log("Image Effects: " + (SystemInfo.supportsImageEffects ? "Supported" : "Not supported"));
-		this.Log("Render Textures: " + (SystemInfo.supportsRenderTextures ? "Supported" : "Not supported"));
+		Log("Graphics device: " + SystemInfo.graphicsDeviceName);
+		Log("Graphics memory: " + SystemInfo.graphicsMemorySize + " MB");
+		Log("Graphics device version: " + SystemInfo.graphicsDeviceVersion);
+		Log("Graphics device vendor: " + SystemInfo.graphicsDeviceVendor);
+		Log("Shadows: " + (SystemInfo.supportsShadows ? "Supported" : "Not supported"));
+		Log("Image Effects: " + (SystemInfo.supportsImageEffects ? "Supported" : "Not supported"));
+		Log("Render Textures: " + (SystemInfo.supportsRenderTextures ? "Supported" : "Not supported"));
 		
 		// Misc
-		this.Log("Internet reachability: " + Application.internetReachability.ToString());
-		this.Log("Language: " + Application.systemLanguage.ToString());
-		this.Log("Data path: " + Application.dataPath);
+		Log("Internet reachability: " + Application.internetReachability);
+		Log("Language: " + Application.systemLanguage);
+		Log("Data path: " + Application.dataPath);
 	}
 }

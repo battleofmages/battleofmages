@@ -6,7 +6,7 @@ public static class PositionsDB {
 	// --------------------------------------------------------------------------------
 	
 	// Set position
-	public static Coroutine SetPosition(string accountId, Vector3 position, GameDB.ActionOnResult<Vector3> func) {
+	public static Coroutine SetPosition(string accountId, Vector3 position, GameDB.ActionOnResult<Vector3> func = null) {
 		return GameDB.instance.StartCoroutine(GameDB.Set<Vector3>(
 			"AccountToPosition",
 			accountId,
