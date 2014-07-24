@@ -149,6 +149,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3aaac5b502fdbe840a134778a9d1add5, type: 2}
   m_RootGameObject: {fileID: 509383656}
@@ -280,6 +284,7 @@ MonoBehaviour:
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
   pingSendDelay: 1
+  savePositionDelay: 2
 --- !u!4 &509383658
 Transform:
   m_ObjectHideFlags: 0
@@ -291,7 +296,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &654793634
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +364,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!114 &670021523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1644,8 +1649,8 @@ MonoBehaviour:
           staggerDuration: .200000003
           energyCostAbs: 0
           lifeDrainRel: 0
-          canMoveWhileCasting: 0
-          canMoveWhileAttacking: 0
+          canMoveWhileCasting: 1
+          canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 5
       - skillName: Wind Thrust

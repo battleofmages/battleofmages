@@ -61,6 +61,7 @@ public class Config : SingletonMonoBehaviour<Config> {
 	public float enemyRespawnTime;
 	public float matchStatsSendDelay;
 	public float pingSendDelay;
+	public float savePositionDelay;
 	
 	// Awake
 	protected override void Awake() {

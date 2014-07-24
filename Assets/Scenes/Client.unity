@@ -653,7 +653,7 @@ MonoBehaviour:
   distanceTo: {fileID: 348119281}
   zoomSpeed: 6
   interpolationSpeed: 5
-  minDistance: 6
+  minDistance: 4
   maxDistance: 20
   yFactor: .100000001
 --- !u!1 &348119280
@@ -1699,6 +1699,10 @@ MonoBehaviour:
     type: 3}
   buttonClick: {fileID: 8300000, guid: f69851e48ee1191429ebc3f68447eef4, type: 3}
   queueMatchFound: {fileID: 8300000, guid: ee9bec3adadab5d4084df17a8d4d70e1, type: 3}
+  loginSuccess: {fileID: 8300000, guid: eb2014ec10828814aa27e07c4261725b, type: 3}
+  loginFail: {fileID: 0}
+  menuBack: {fileID: 0}
+  menuNavigate: {fileID: 8300000, guid: 7b479eb614ce67446acb2008d3dae465, type: 3}
 --- !u!4 &1165736938
 Transform:
   m_ObjectHideFlags: 0
@@ -2216,6 +2220,7 @@ MonoBehaviour:
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
   pingSendDelay: 1
+  savePositionDelay: 2
 --- !u!4 &1477343906
 Transform:
   m_ObjectHideFlags: 0
@@ -4695,7 +4700,7 @@ MonoBehaviour:
       m_Tooltip: 
     menuState: 1
   - content:
-      m_Text: ' Lobby'
+      m_Text: ' Profile'
       m_Image: {fileID: 2800000, guid: da0867889b27a20458a971500b51c299, type: 3}
       m_Tooltip: 
     menuState: 2

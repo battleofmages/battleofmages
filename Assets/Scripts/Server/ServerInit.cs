@@ -384,7 +384,7 @@ public class ServerInit : uLink.MonoBehaviour {
 		
 		if(GameManager.isArena)
 			player.networkView.RPC("GameMaxScore", uLink.RPCMode.Owner, gameMode.scoreNeededToWin);
-		
+
 		// Data all players need to know about the new player
 		player.networkView.RPC("ReceivePlayerInfo", uLink.RPCMode.All, playerName, stats.bestRanking);
 		
@@ -394,8 +394,25 @@ public class ServerInit : uLink.MonoBehaviour {
 		
 		var party = GameServerParty.partyList[partyId];
 		player.networkView.RPC("ChangeLayer", uLink.RPCMode.All, party.layer);
-		player.networkView.RPC("Respawn", uLink.RPCMode.All, party.spawnComp.GetNextSpawnPosition());
-		player.networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, party.spawnComp.transform.eulerAngles.y);
+
+		// Respawn position
+		Vector3 respawnPosition;
+
+		if(GameManager.isPvE) {
+			PositionsDB.GetPosition(accountId, data => {
+				if(data != Vector3.zero)
+					respawnPosition = data;
+				else
+					respawnPosition = party.spawnComp.GetNextSpawnPosition();
+				
+				player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
+			});
+		} else {
+			respawnPosition = party.spawnComp.GetNextSpawnPosition();
+			player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
+		}
+
+		//player.networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, party.spawnComp.transform.eulerAngles.y);
 		
 		// On non account restricted servers we start the game instantly
 		if(GameManager.isTown || GameManager.isFFA || isTestServer) {
@@ -592,17 +609,13 @@ public class ServerInit : uLink.MonoBehaviour {
 		
 		// Disable network emulation on server
 		LogManager.General.Log("Disabling network emulation");
-		uLink.Network.emulation.minLatency = 0;
-		uLink.Network.emulation.maxLatency = 0;
-		uLink.Network.emulation.maxBandwidth = 0;
-		uLink.Network.emulation.chanceOfDuplicates = 0;
-		uLink.Network.emulation.chanceOfLoss = 0;
+		NetworkHelper.DisableNetworkEmulation();
 		
 		// Fastest quality level on server
 		LogManager.General.Log("Enabling lowest quality level");
 		QualitySettings.SetQualityLevel(0);
 	}
-	
+
 	// Player tries to connect
 	void uLink_OnPlayerApproval(NetworkPlayerApproval approval) {
 		LogManager.General.Log("A player is trying to connect...check for approval");

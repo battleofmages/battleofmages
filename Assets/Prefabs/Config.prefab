@@ -55,7 +55,6 @@ MonoBehaviour:
   blockSlowDown: .5
   energyRegen: 4
   blockEnergyDrain: 40
-  npcLabelColor: {r: .323529363, g: 1, b: .154411793, a: 1}
   enemyReactionTime: .25
   hpAggroThreshold: 5000
   patrolSpeedModifier: .5
@@ -98,6 +97,7 @@ MonoBehaviour:
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
   pingSendDelay: 1
+  savePositionDelay: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

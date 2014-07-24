@@ -1239,6 +1239,7 @@ MonoBehaviour:
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
   pingSendDelay: 1
+  savePositionDelay: 2
 --- !u!4 &646973011
 Transform:
   m_ObjectHideFlags: 0
@@ -5503,8 +5504,8 @@ MonoBehaviour:
   queueMatchFound: {fileID: 8300000, guid: ee9bec3adadab5d4084df17a8d4d70e1, type: 3}
   loginSuccess: {fileID: 8300000, guid: eb2014ec10828814aa27e07c4261725b, type: 3}
   loginFail: {fileID: 0}
-  menuBack: {fileID: 8300000, guid: 2126d6d7814592e47ac2147b8b3af827, type: 3}
-  menuNavigate: {fileID: 0}
+  menuBack: {fileID: 0}
+  menuNavigate: {fileID: 8300000, guid: 7b479eb614ce67446acb2008d3dae465, type: 3}
 --- !u!1 &1811561126
 GameObject:
   m_ObjectHideFlags: 0
@@ -6973,7 +6974,7 @@ MonoBehaviour:
     height: .800000012
   retrieveLobbyIP: 0
   lobbyIpURL: 
-  editorAutoLogin: 0
+  editorAutoLogin: 1
   editorAccountName: a
   editorPassword: a
   tooltipStyle:

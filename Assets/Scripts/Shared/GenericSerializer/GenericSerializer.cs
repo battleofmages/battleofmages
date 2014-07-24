@@ -83,6 +83,8 @@ public class GenericSerializer {
 			return Jboy.Json.ReadObject<int[]>(reader);
 		} else if(fieldType == typeof(Color)) {
 			return ColorSerializer.JsonDeserializer(reader);
+		} else if(fieldType == typeof(ServerType)) {
+			return ServerTypeSerializer.JsonDeserializer(reader);
 		} else if(fieldType == typeof(PlayerQueueStats)) {
 			return GenericSerializer.ReadJSONClassInstance<PlayerQueueStats>(reader);
 		} else if(fieldType == typeof(PlayerQueueStats[])) {

@@ -294,11 +294,11 @@ public class PlayerMain : PlayerOnClient {
 		if(Physics.Raycast(ray, out raycastHit, Config.instance.raycastMaxDistance)) {
 			// TODO: Targeting info
 			GameObject targetObject = raycastHit.collider.gameObject;
-			var player = targetObject.GetComponent<Entity>();
+			var targetEntity = targetObject.GetComponent<Entity>();
 			
-			if(player != this) {
-				if(player != null) {
-					if(player.layer != this.layer) {
+			if(targetEntity != this) {
+				if(targetEntity != null) {
+					if(targetEntity.layer != this.layer) {
 						crossHair.color = Color.red;
 					} else {
 						crossHair.color = Color.green;
@@ -308,9 +308,9 @@ public class PlayerMain : PlayerOnClient {
 					crossHair.height = (int)(crossHair.defaultHeight * 1.1f);
 					
 					// Remove hitPoint Y
-					raycastHitPointOnGround = new Vector3(raycastHit.point.x, player.myTransform.position.y, raycastHit.point.z);
+					raycastHitPointOnGround = new Vector3(raycastHit.point.x, targetEntity.myTransform.position.y, raycastHit.point.z);
 					
-					this.selectedEntity = player;
+					this.selectedEntity = targetEntity;
 				} else {
 					crossHair.color = crossHair.defaultColor;
 					crossHair.width = crossHair.defaultWidth;

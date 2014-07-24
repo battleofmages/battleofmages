@@ -11,6 +11,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 	
 	private int lastHPSent;
 	private Vector3 lastPositionSent;
+	private Vector3 lastPositionSaved;
 	private bool lastMovementKeysPressedReceived;
 	private double startedSkillCast;
 	
@@ -51,10 +52,11 @@ public class PlayerOnServer : Player, CasterOnServer {
 	void Start() {
 		InvokeRepeating("SendToClients", 0.01f, 1.0f / uLink.Network.sendRate);
 		
-		if(GameManager.isArena || GameManager.isFFA) {
+		if(GameManager.isPvP) {
 			InvokeRepeating("SendInstanceStats", 0.01f, Config.instance.matchStatsSendDelay);
-		} else if(GameManager.isTown) {
+		} else {
 			InvokeRepeating("SendPing", 0.01f, Config.instance.pingSendDelay);
+			InvokeRepeating("SavePosition", 0.01f, Config.instance.savePositionDelay);
 		}
 	}
 	
@@ -278,6 +280,20 @@ public class PlayerOnServer : Player, CasterOnServer {
 		networkView.RPC("Respawn", uLink.RPCMode.Others, spawnPos);
 		networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, spawn.transform.eulerAngles.y);
 		Respawn(spawnPos);
+	}
+
+	// Save position in database
+	void SavePosition() {
+		if(string.IsNullOrEmpty(accountId))
+			return;
+
+		if(position == lastPositionSaved)
+			return;
+
+		// Save in DB
+		PositionsDB.SetPosition(accountId, position, null);
+
+		lastPositionSaved = position;
 	}
 	
 	// Stay in map boundaries on server side

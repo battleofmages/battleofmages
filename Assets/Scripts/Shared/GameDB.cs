@@ -92,6 +92,7 @@ public class GameDB : SingletonMonoBehaviour<GameDB> {
 		// Register JSON codecs for integrated types
 		Json.AddCodec<Color>(ColorSerializer.JsonDeserializer, ColorSerializer.JsonSerializer);
 		Json.AddCodec<Texture2D>(Texture2DSerializer.JsonDeserializer, Texture2DSerializer.JsonSerializer);
+		Json.AddCodec<ServerType>(ServerTypeSerializer.JsonDeserializer, ServerTypeSerializer.JsonSerializer);
 		
 		// BitStream codecs
 		uLink.BitStreamCodec.AddAndMakeArray<RankEntry>(RankEntry.ReadFromBitStream, RankEntry.WriteToBitStream);
