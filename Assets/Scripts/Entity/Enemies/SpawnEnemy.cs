@@ -10,7 +10,7 @@ public class SpawnEnemy : MonoBehaviour {
 		if(!uLink.Network.isServer)
 			return;
 		
-		if(GameManager.isTown || GameManager.isWorld)
+		if(GameManager.isTown || GameManager.isWorld || GameManager.isArena)
 			SpawnSingleEnemy();
 	}
 	

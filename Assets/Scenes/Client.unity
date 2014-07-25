@@ -1602,6 +1602,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
+      propertyPath: skillTestMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
+      propertyPath: showServerPosition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
+      propertyPath: debugAnimator
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
+      propertyPath: debugCasting
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
+      propertyPath: debugGUI
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
   m_RootGameObject: {fileID: 1187492648}
@@ -2039,6 +2059,30 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[4].stages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].castVoices.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].castVoices.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 104.495697
@@ -2070,6 +2114,130 @@ Prefab:
     - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].skillName
+      value: Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].id
+      value: 106
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].canHold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].skillName
+      value: Meteor Shower
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].id
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].canHold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].cooldown
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].description
+      value: Test Spell
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].castDuration
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].posType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].posOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].animType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].castEffectPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].castVoices.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: b309b8319ce29ce41a5091e2e73a5865, type: 3}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].powerMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].canMoveWhileCasting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].canMoveWhileAttacking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[4].skillName
+      value: Fiery Blades
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[4].id
+      value: 104
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[4].canHold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].cooldown
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].description
+      value: Meteorites start raining from the sky.
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].castDuration
+      value: .300000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].posType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].posOffset.y
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].animType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].castEffectPrefab
+      value: 
+      objectReference: {fileID: 100000, guid: a15f4c08e6ea16c4dbfd2ada8123ab36, type: 2}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].castVoices.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: b309b8319ce29ce41a5091e2e73a5865, type: 3}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].powerMultiplier
+      value: .375
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].effectId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].effectId
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
