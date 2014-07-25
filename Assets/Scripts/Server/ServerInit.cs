@@ -539,7 +539,9 @@ public class ServerInit : uLink.MonoBehaviour {
 	
 	// GUI
 	void OnGUI() {
+
 		if(!batchMode) {
+
 			if(uZone.Instance.wasStartedByuZone && uZone.Instance.isConnected)
 				GUI.Label(new Rect(5, 25, 200, 25), "Connected to uZone");
 			else
