@@ -416,9 +416,11 @@ public class ServerInit : uLink.MonoBehaviour {
 					Vector3 respawnPosition;
 					var portals = GameObject.FindGameObjectsWithTag("Portal");
 
-					foreach(var portal in portals) {
-						if(portal.GetComponent<Portal>().portalId == portalInfo.id) {
-							respawnPosition = portal.transform.position;
+					foreach(var portalObject in portals) {
+						var portal = portalObject.GetComponent<Portal>();
+
+						if(portal.portalId == portalInfo.id) {
+							respawnPosition = portal.spawns[Random.Range(0, portal.spawns.Length - 1)].position;
 
 							// Respawn
 							LogManager.General.Log("Player came via a portal: Respawning at " + respawnPosition);

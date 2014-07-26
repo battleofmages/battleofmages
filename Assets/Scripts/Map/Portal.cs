@@ -5,6 +5,7 @@ public class Portal : MonoBehaviour, ActionTarget {
 	public ServerType serverType = ServerType.World;
 	public int portalId;
 	public int targetPortalId;
+	public Transform[] spawns;
 
 	// Player comes in range
 	void OnTriggerEnter(Collider coll) {
