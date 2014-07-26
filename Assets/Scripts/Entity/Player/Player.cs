@@ -18,6 +18,10 @@ public abstract class Player : Entity {
 	// ChangeParty event
 	public event CallBack onChangeParty;
 
+	// Respawn event
+	public delegate void RespawnHandler(Vector3 position);
+	public event RespawnHandler onRespawn;
+
 	// Cam position
 	protected Vector3 camPosition;
 	
@@ -582,6 +586,10 @@ public abstract class Player : Entity {
 		
 		// Fill HP
 		health = maxHealth;
+
+		// Event handler
+		if(onRespawn != null)
+			onRespawn(spawnPosition);
 	}
 	
 	/*

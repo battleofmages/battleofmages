@@ -401,10 +401,13 @@ public class ServerInit : uLink.MonoBehaviour {
 					PositionsDB.GetPosition(accountId, data => {
 						Vector3 respawnPosition;
 
-						if(data != Vector3.zero)
-							respawnPosition = data;
-						else
+						if(data != null) {
+							respawnPosition = data.ToVector3();
+							LogManager.General.Log("Found player position: Respawning at " + respawnPosition);
+						} else {
 							respawnPosition = party.spawnComp.GetNextSpawnPosition();
+							LogManager.General.Log("Couldn't find player position: Respawning at " + respawnPosition);
+						}
 						
 						player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
 					});
@@ -418,6 +421,7 @@ public class ServerInit : uLink.MonoBehaviour {
 							respawnPosition = portal.transform.position;
 
 							// Respawn
+							LogManager.General.Log("Player came via a portal: Respawning at " + respawnPosition);
 							player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
 
 							// Update position to be 100% sure our position data is correct now
@@ -432,7 +436,10 @@ public class ServerInit : uLink.MonoBehaviour {
 				}
 			});
 		} else {
-			player.networkView.RPC("Respawn", uLink.RPCMode.All, party.spawnComp.GetNextSpawnPosition());
+			var respawnPosition = party.spawnComp.GetNextSpawnPosition();
+
+			LogManager.General.Log("PvP game: Respawning at " + respawnPosition);
+			player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
 		}
 
 		//player.networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, party.spawnComp.transform.eulerAngles.y);

@@ -38,7 +38,29 @@ public class Portal : MonoBehaviour, ActionTarget {
 
 	// OnAction
 	public void OnAction(Entity entity) {
-		Lobby.RPC("ActivatePortal", Lobby.lobby, gameObject.name, serverType, portalId);
+		if(!enabled)
+			return;
+
+		// We save it here because the game object might be destroyed in the lambda
+		string mapNameCached = mapName;
+
+		// Send a request to the lobby to change the map
+		Lobby.RPC("ActivatePortal", Lobby.lobby, mapNameCached, serverType, portalId);
+
+		// Disable portal
+		enabled = false;
+
+		// Activate loading screen
+		LoadingScreen.instance.Enable(() => {
+			LoadingScreen.instance.statusMessage = "Teleporting to: <color=yellow>" + mapNameCached + "</color>";
+		});
+	}
+
+	// Map name
+	public string mapName {
+		get {
+			return gameObject.name;
+		}
 	}
 	
 	// CanAction

@@ -61,7 +61,7 @@ public class MapManager {
 		var asyncLoadLevel = Application.LoadLevelAdditiveAsync(mapName);
 
 		if(LoadingScreen.instance != null) {
-			LoadingScreen.instance.loadingText = "Loading map: " + mapName + "...";
+			LoadingScreen.instance.loadingText = "Loading map: <color=yellow>" + mapName + "</color>...";
 			LoadingScreen.instance.asyncLoadLevel = asyncLoadLevel;
 		}
 
