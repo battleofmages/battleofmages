@@ -4,8 +4,9 @@ Battle of Mages
 General info
 ---------------------
 
-An MMO/JRPG with a heavy focus on PvP, see https://battleofmages.com/ for more info.
+An Indie MMO J-RPG with a heavy focus on PvP, see https://battleofmages.com/ for more info.
 
+![Battle of Mages - Alpha](http://puu.sh/54B8A.jpg)
 ![Battle of Mages - Alpha](http://puu.sh/62fVO)
 ![Battle of Mages - Alpha](http://i.imgur.com/e6jBpc9.png)
 ![Battle of Mages - Alpha](http://puu.sh/6ieJt.jpg)
