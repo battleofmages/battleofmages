@@ -8,7 +8,8 @@ public class PlayerOnServer : Player, CasterOnServer {
 	
 	[HideInInspector]
 	public bool clientGrounded;
-	
+
+	private int respawnCount;
 	private int lastHPSent;
 	private Vector3 lastPositionSent;
 	private Vector3 lastPositionSaved;
@@ -38,7 +39,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 	//private double ltsClientNoTarget;
 	
 	// Sets up calling SendToClients constantly
-	protected override void Awake () {
+	protected override void Awake() {
 		base.Awake();
 		
 		maxDistanceToClientHackLogSqr = maxDistanceToClientHackLog * maxDistanceToClientHackLog;
@@ -46,6 +47,11 @@ public class PlayerOnServer : Player, CasterOnServer {
 
 		// Events
 		onDeath += OnDeath;
+
+		// Count respawns so we know when we can save position data
+		onRespawn += pos => {
+			respawnCount += 1;
+		};
 	}
 
 	// Start
@@ -284,10 +290,16 @@ public class PlayerOnServer : Player, CasterOnServer {
 
 	// Save position in database
 	void SavePosition() {
-		if(string.IsNullOrEmpty(accountId))
+		// Did we already save the position?
+		if(position == lastPositionSaved)
 			return;
 
-		if(position == lastPositionSaved)
+		// Only save position when we already loaded it and respawned
+		if(respawnCount == 0)
+			return;
+
+		// Account ID not available for some reason?
+		if(string.IsNullOrEmpty(accountId))
 			return;
 
 		// Save in DB
@@ -441,7 +453,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 			
 			entity.ResendDataToPlayer(info.networkView.owner);
 		}
-		
+
 		// Set client position
 		clientPosition = myTransform.position;
 	}

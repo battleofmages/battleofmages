@@ -12,7 +12,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: Freezing Wind
   productName: Battle of Mages
-  defaultCursor: {fileID: 0}
+  defaultCursor: {fileID: 2800000, guid: 6ff591031a2892a479a2a06a3ea57c1b, type: 3}
   cursorHotspot: {x: 0, y: 0}
   defaultScreenWidth: 1024
   defaultScreenHeight: 576
@@ -103,7 +103,7 @@ PlayerSettings:
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
-    - m_Icon: {fileID: 2800000, guid: 440eeb3391eb30147a09f44041addab4, type: 3}
+    - m_Icon: {fileID: 2800000, guid: 21f9f12c640f80e4fa95bd6e6ea170f7, type: 3}
       m_Size: 128
   m_BuildTargetBatching:
   - m_BuildTarget: Standalone

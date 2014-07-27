@@ -38,7 +38,7 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 		
 		// We need to stop receiving because the level must be loaded first.
 		// Once the level is loaded, rpc's and other state update attached to objects in the level are allowed to fire
-		uLink.Network.isMessageQueueRunning = false;
+		//uLink.Network.isMessageQueueRunning = false;
 		
 		// Remove parties
 		GameServerParty.partyList.Clear();
@@ -101,28 +101,46 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 		MusicManager.instance.transform.rotation = Cache.quaternionIdentity;
 		MusicManager.instance.transform.localScale = Cache.vector3Zero;
 	}
-	
-	// Enables loading screen
-	protected void Enable() {
-		statusMessage = null;
-		enabled = true;
+
+	// OnEnable
+	void OnEnable() {
 		backgroundColor = new Color(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b, 0f);
 		LogManager.General.Log("Loading screen enabled");
-		
-		this.Fade(
-			fadeTime,
-			val => {
-				this.backgroundColor = new Color(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b, val);
-			},
-			() => {
-				// Time scale
-				Time.timeScale = 0f;
-				
+	}
+	
+	// Enables loading screen
+	public void Enable(CallBack fadeEndFunction = null) {
+		statusMessage = null;
+
+		if(fadeEndFunction == null) {
+			fadeEndFunction = () => {
 				// Start background loading process
 				LogManager.Spam.Log("Starting loading coroutine now");
 				StartCoroutine(LoadingProcess(level));
-			}
-		);
+			};
+		}
+
+		// Enabled already?
+		if(enabled) {
+			// Custom callback
+			fadeEndFunction();
+		} else {
+			this.Fade(
+				fadeTime,
+				val => {
+					this.backgroundColor = new Color(this.backgroundColor.r, this.backgroundColor.g, this.backgroundColor.b, val);
+				},
+				() => {
+					// Time scale
+					Time.timeScale = 0f;
+					
+					// Custom callback
+					fadeEndFunction();
+				}
+			);
+
+			enabled = true;
+		}
 	}
 	
 	// Disables loading screen
@@ -135,6 +153,7 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 			() => {
 				this.enabled = false;
 				statusMessage = null;
+				asyncLoadLevel = null;
 				LogManager.General.Log("Loading screen disabled");
 			}
 		);

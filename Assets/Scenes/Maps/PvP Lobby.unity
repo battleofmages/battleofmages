@@ -18312,6 +18312,33 @@ Transform:
   - {fileID: 28140047}
   m_Father: {fileID: 257908558}
   m_RootOrder: 0
+--- !u!1 &991168795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 991168796}
+  m_Layer: 0
+  m_Name: Spawn 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &991168796
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 991168795}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1418300531}
+  m_RootOrder: 1
 --- !u!1 &1004524918
 GameObject:
   m_ObjectHideFlags: 0
@@ -38700,6 +38727,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1413187383}
+  - {fileID: 991168796}
   m_Father: {fileID: 1423155661}
   m_RootOrder: 0
 --- !u!114 &1418300532
@@ -38716,6 +38744,8 @@ MonoBehaviour:
   serverType: 3
   portalId: 0
   targetPortalId: 0
+  spawns:
+  - {fileID: 991168796}
 --- !u!135 &1418300533
 SphereCollider:
   m_ObjectHideFlags: 0

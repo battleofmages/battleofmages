@@ -66,6 +66,9 @@ public class ToggleMouseLook : DestroyableSingletonMonoBehaviour<ToggleMouseLook
 
 	// DisableMouseLook
 	public void DisableMouseLook(bool showMainMenu = true) {
+		if(Player.main == null)
+			return;
+
 		// Talking with NPC
 		if(Player.main.talkingWithNPC != null) {
 			HideMenu();
@@ -76,9 +79,7 @@ public class ToggleMouseLook : DestroyableSingletonMonoBehaviour<ToggleMouseLook
 		}
 		
 		mouseLook.enabled = false;
-		
-		if(Player.main != null)
-			Player.main.crossHair.enabled = false;
+		Player.main.crossHair.enabled = false;
 	}
 
 	// ShowMenu
