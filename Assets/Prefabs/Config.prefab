@@ -45,7 +45,7 @@ MonoBehaviour:
   dangerDetector: {fileID: 100000, guid: 29152084510c9674aa30ebf25860c1a3, type: 2}
   blockSphere: {fileID: 100000, guid: 93841637a8fbd5d43bc7359406b4cfbc, type: 2}
   lootTrail: {fileID: 100000, guid: 86883fe9b8b8d5f45993e32a7b0bda07, type: 2}
-  font: {fileID: 12800000, guid: 69922d1f034ce224da995d980e5f2862, type: 3}
+  guiSkin: {fileID: 0}
   playerMoveSpeed: 8
   playerHP: 8000
   entityEnergy: 50

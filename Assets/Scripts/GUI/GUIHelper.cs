@@ -23,25 +23,29 @@ public class GUIHelper : MonoBehaviour {
 	}
 	
 	// BeginBox
-	public static void BeginBox(int x, int y, int width, int height, GUIStyle style = null, int xOffset = 10, int yOffset = 5) {
+	public static void BeginBox(float x, float y, float width, float height, GUIStyle style = null) {
 		GUILayout.BeginArea(new Rect(x, y, width, height));
 		GUILayout.BeginVertical(style != null ? style : "box");
-		GUILayout.FlexibleSpace();
-		GUILayout.EndVertical();
-		GUILayout.EndArea();
-		
-		GUILayout.BeginArea(new Rect(x + xOffset, y + yOffset, width - xOffset * 2, height - yOffset * 2));
-		//GUILayout.FlexibleSpace();
+
+		//var padding = GUI.skin.box.padding;
+		//GUILayout.BeginArea(new Rect(x + padding.left, y + padding.top, width - padding.left - padding.right, height - padding.top - padding.bottom));
 	}
 
 	// BeginBox
-	public static void BeginBox(int width, int height) {
+	public static void BeginBox(float width, float height) {
 		BeginBox(Screen.width / 2 - width / 2, Screen.height / 2 - height / 2, width, height);
 	}
 	
 	// BeginArea
 	public static void BeginArea(int width, int height) {
 		GUILayout.BeginArea(new Rect(Screen.width / 2 - width / 2, Screen.height / 2 - height / 2, width, height));
+	}
+
+	// EndBox
+	public static void EndBox() {
+		//GUILayout.FlexibleSpace();
+		GUILayout.EndVertical();
+		GUILayout.EndArea();
 	}
 
 	// PlayerNameField
@@ -101,12 +105,6 @@ public class GUIHelper : MonoBehaviour {
 		return val;
 	}
 
-	public static void EndBox() {
-		//GUILayout.FlexibleSpace();
-		GUILayout.Space(5);
-		GUILayout.EndArea();
-	}
-	
 	// Rect picker
 	public static void RectPicker(ref Rect rect) {
 		rect.x = float.Parse(GUILayout.TextField(rect.x.ToString()));

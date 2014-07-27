@@ -17,7 +17,7 @@ public class Config : SingletonMonoBehaviour<Config> {
 	public GameObject blockSphere;
 	public GameObject lootTrail;
 
-	public Font font;
+	public GUISkin guiSkin;
 	
 	public float playerMoveSpeed;
 	public int playerHP;
@@ -75,12 +75,5 @@ public class Config : SingletonMonoBehaviour<Config> {
 		}
 		
 		base.Awake();
-	}
-
-	// OnGUI
-	public void OnGUI() {
-		// Set font
-		if(GUI.skin.font != font)
-			GUI.skin.font = font;
 	}
 }

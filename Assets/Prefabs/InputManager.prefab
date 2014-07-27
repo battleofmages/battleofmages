@@ -163,14 +163,14 @@ MonoBehaviour:
     id: prev_attunement
     description: 
     keyCode: 0
-    altKeyCode: 326
+    altKeyCode: 327
     gamePadKeyCode: 336
     active: 1
   - name: Next attunement
     id: next_attunement
     description: 
     keyCode: 118
-    altKeyCode: 327
+    altKeyCode: 326
     gamePadKeyCode: 337
     active: 1
   - name: '-----------------------'
