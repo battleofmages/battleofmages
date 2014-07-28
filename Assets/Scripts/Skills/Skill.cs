@@ -294,7 +294,7 @@ public class Skill {
 	public Texture2D icon {
 		get {
 			if(iconWWW == null)
-				iconWWW = new WWWResource<Texture2D>("https://battleofmages.com/assets/skill-icons/" + skillName + ".png");
+				iconWWW = new WWWResource<Texture2D>(skillName, "https://battleofmages.com/assets/skill-icons/" + skillName + ".png");
 
 			return iconWWW.data;
 		}

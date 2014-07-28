@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class WWWResource<T> {
+	public Dictionary<string, T> keyToData = new Dictionary<string, T>();
+
+	public string key;
 	public string url;
 	public WWW request;
 	protected T cached;
 	protected int retries;
 	
 	// Constructor
-	public WWWResource(string nURL) {
+	public WWWResource(string nKey, string nURL) {
+		key = nKey;
 		url = nURL.Replace(" ", "%20");
-		StartRequest();
+
+		if(!keyToData.TryGetValue(key, out cached))
+			StartRequest();
 	}
 	
 	// Data
@@ -24,6 +31,8 @@ public class WWWResource<T> {
 
 						request = null;
 						StartRequest();
+
+						return default(T);
 					} else if(typeof(T) == typeof(Texture2D)) {
 						cached = (T)(object)request.texture;
 					} else if(typeof(T) == typeof(AudioClip)) {
@@ -31,6 +40,8 @@ public class WWWResource<T> {
 					} else if(typeof(T) == typeof(string)) {
 						cached = (T)(object)request.text;
 					}
+
+					keyToData[key] = cached;
 				}
 			}
 			
