@@ -35,19 +35,11 @@ public class VoIP : uLink.MonoBehaviour {
 	
 	// Start
 	void Start() {
-		int tempInt = 0;
-
-		foreach (string device in Microphone.devices) {
-			tempInt++;
-			LogManager.General.LogWarning(device);
-
-		}
-		if(tempInt < 1) { 
+		if(Microphone.devices.Length < 1) { 
 			LogManager.General.LogWarning("No Microphone plugged in");
 			this.enabled = false;
 		}
 		else {
-
 #if UNITY_WEBPLAYER
 			// TODO: Request authorization
 			this.enabled = false;
