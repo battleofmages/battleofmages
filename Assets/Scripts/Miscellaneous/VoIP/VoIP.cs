@@ -35,50 +35,55 @@ public class VoIP : uLink.MonoBehaviour {
 	
 	// Start
 	void Start() {
+		if(Microphone.devices.Length < 1) { 
+			LogManager.General.LogWarning("No Microphone plugged in");
+			this.enabled = false;
+		}
+		else {
 #if UNITY_WEBPLAYER
-		// TODO: Request authorization
-		this.enabled = false;
-		return;
+			// TODO: Request authorization
+			this.enabled = false;
+			return;
 #endif
-		sampleBufferSize = frequency / sendPacketFrequency;
-		nextVisualizationSamples = new float[sampleBufferSize];
-		
-		samples = null;
-		audioSources = audioSourcesObject.GetComponents<AudioSource>();
-		speaker = audioSourcesObject.GetComponent<VoIPSpeaker>();
-		networkViewIsMine = networkView.isMine;
-		
-		if(networkViewIsMine) {
-			pushToTalkButton = InputManager.instance.GetButtonIndex("push_to_talk");
+			sampleBufferSize = frequency / sendPacketFrequency;
+			nextVisualizationSamples = new float[sampleBufferSize];
 			
-			Microphone.GetDeviceCaps(null, out minFrequency, out maxFrequency);
-			LogManager.General.Log(string.Format("[VoIP] Microphone frequencies: Min: {0}, Max: {1}", minFrequency, maxFrequency));
-			
-			if(frequency < minFrequency)
-				frequency = minFrequency;
-			
-			if(frequency > maxFrequency && maxFrequency != 0)
-				frequency = maxFrequency;
-			
-			LogManager.General.Log("[VoIP] Microphone sample buffer size: " + sampleBufferSize);
-			LogManager.General.Log("[VoIP] Microphone frequency: " + frequency);
-			
-			// Create audio clips
-			for(int i = 0; i < audioSources.Length; i++) {
-				var clipSamples = new float[2048 * 16];
+			samples = null;
+			audioSources = audioSourcesObject.GetComponents<AudioSource>();
+			speaker = audioSourcesObject.GetComponent<VoIPSpeaker>();
+			networkViewIsMine = networkView.isMine;
+
+			if(networkViewIsMine) {
+				pushToTalkButton = InputManager.instance.GetButtonIndex("push_to_talk");
 				
-				for(int j = 0; j < clipSamples.Length; j++) {
-					clipSamples[j] = 1.0f;
+				Microphone.GetDeviceCaps(null, out minFrequency, out maxFrequency);
+				LogManager.General.Log(string.Format("[VoIP] Microphone frequencies: Min: {0}, Max: {1}", minFrequency, maxFrequency));
+				
+				if(frequency < minFrequency)
+					frequency = minFrequency;
+				
+				if(frequency > maxFrequency && maxFrequency != 0)
+					frequency = maxFrequency;
+				
+				LogManager.General.Log("[VoIP] Microphone sample buffer size: " + sampleBufferSize);
+				LogManager.General.Log("[VoIP] Microphone frequency: " + frequency);
+				
+				// Create audio clips
+				for(int i = 0; i < audioSources.Length; i++) {
+					var clipSamples = new float[2048 * 16];
+					
+					for(int j = 0; j < clipSamples.Length; j++) {
+						clipSamples[j] = 1.0f;
+					}
+					
+					var newClip = AudioClip.Create("VoIPAudioClip_" + i, clipSamples.Length, 1, frequency, true, false);
+					newClip.SetData(clipSamples, 0);
+					
+					audioSources[i].clip = newClip;
 				}
-				
-				var newClip = AudioClip.Create("VoIPAudioClip_" + i, clipSamples.Length, 1, frequency, true, false);
-				newClip.SetData(clipSamples, 0);
-				
-				audioSources[i].clip = newClip;
+				microphoneClip = Microphone.Start(null, true, 10, frequency);
+				while(Microphone.GetPosition(null) < 0) {} // HACK from Riro
 			}
-			
-			microphoneClip = Microphone.Start(null, true, 10, frequency);
-			while(Microphone.GetPosition(null) < 0) {} // HACK from Riro
 		}
 	}
 	

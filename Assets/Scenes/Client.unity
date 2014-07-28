@@ -1606,6 +1606,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
+      propertyPath: skillTestMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
+      propertyPath: showServerPosition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
+      propertyPath: debugAnimator
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
+      propertyPath: debugCasting
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
+      propertyPath: debugGUI
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27911d4e382b72244847e2d07da99d3f, type: 2}
   m_RootGameObject: {fileID: 1187492648}
@@ -1908,7 +1928,389 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1805119524}
   m_RootOrder: 0
+<<<<<<< HEAD
+--- !u!1 &1341848470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 22679e61290806444b6044ee60793a99, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1341848471}
+  m_Layer: 0
+  m_Name: Y Offset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1341848471
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 22679e61290806444b6044ee60793a99, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1341848470}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 330732497}
+  m_Father: {fileID: 505456780}
+  m_RootOrder: 0
+--- !u!1 &1444448436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
+  m_PrefabInternal: {fileID: 175257473}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1444448437}
+  - 82: {fileID: 1444448439}
+  - 114: {fileID: 1444448438}
+  m_Layer: 0
+  m_Name: AudioSource 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1444448437
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
+  m_PrefabInternal: {fileID: 175257473}
+  m_GameObject: {fileID: 1444448436}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1021456718}
+  m_RootOrder: 1
+--- !u!114 &1444448438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 1c74cc4f8cde28041acb2b2b2006d763,
+    type: 2}
+  m_PrefabInternal: {fileID: 175257473}
+  m_GameObject: {fileID: 1444448436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e739f87abaed14fb443454dc33a1e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &1444448439
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 8200000, guid: 1c74cc4f8cde28041acb2b2b2006d763,
+    type: 2}
+  m_PrefabInternal: {fileID: 175257473}
+  m_GameObject: {fileID: 1444448436}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 0
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 1
+  BypassListenerEffects: 1
+  BypassReverbZones: 1
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!1001 &1459948178
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[4].stages.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].castVoices.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].castVoices.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 104.495697
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 46.4199219
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 17.1771393
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].skillName
+      value: Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].id
+      value: 106
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].canHold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].skillName
+      value: Meteor Shower
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].id
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].canHold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].cooldown
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].description
+      value: Test Spell
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].castDuration
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].posType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].posOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].animType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].castEffectPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].castVoices.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: b309b8319ce29ce41a5091e2e73a5865, type: 3}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].powerMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].canMoveWhileCasting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].canMoveWhileAttacking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[4].skillName
+      value: Fiery Blades
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[4].id
+      value: 104
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[4].canHold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].cooldown
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].description
+      value: Meteorites start raining from the sky.
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].castDuration
+      value: .300000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].posType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].posOffset.y
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].animType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].castEffectPrefab
+      value: 
+      objectReference: {fileID: 100000, guid: a15f4c08e6ea16c4dbfd2ada8123ab36, type: 2}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].castVoices.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: b309b8319ce29ce41a5091e2e73a5865, type: 3}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].powerMultiplier
+      value: .375
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[5].stages.Array.data[0].effectId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+      propertyPath: weapons.Array.data[0].attunements.Array.data[0].skills.Array.data[6].stages.Array.data[0].effectId
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
+  m_RootGameObject: {fileID: 1868767385}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
+--- !u!1 &1471344666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1471344669}
+  - 114: {fileID: 1471344668}
+  - 114: {fileID: 1471344667}
+  m_Layer: 0
+  m_Name: Camera Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1471344667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1471344666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d53999a8a499cfb408b5ddbc2ac583b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  child: {fileID: 901172074}
+--- !u!114 &1471344668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1471344666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 322fcb7f00debd24599dda48c6678344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceTo: {fileID: 348119281}
+  zoomSpeed: 6
+  interpolationSpeed: 5
+  minDistance: 12
+  maxDistance: 25
+  yFactor: 0
+--- !u!4 &1471344669
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1471344666}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: -25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 348119281}
+  m_RootOrder: 0
+--- !u!1 &1477343904
+=======
 --- !u!1 &1247684695
+>>>>>>> 5c1e4a8d2e202c0d40200665382c2de198e0f1ab
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100000, guid: 044c73883b33b974ca3d670ce05017dd, type: 2}
