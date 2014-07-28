@@ -66,7 +66,7 @@ public class Skill {
 	public bool canHold;
 	public List<Stage> stages;
 	
-	// Skill
+	// Constructor
 	public Skill(
 		string nSkillName,
 		int nID,
@@ -288,9 +288,17 @@ public class Skill {
 	
 	[System.NonSerialized]
 	public Weapon _weapon;
-	
-	[System.NonSerialized]
-	public Texture2D icon;
+
+	// Icon
+	protected WWWResource<Texture2D> iconWWW;
+	public Texture2D icon {
+		get {
+			if(iconWWW == null)
+				iconWWW = new WWWResource<Texture2D>("https://battleofmages.com/assets/skill-icons/" + skillName + ".png");
+
+			return iconWWW.data;
+		}
+	}
 	
 	[System.NonSerialized]
 	public GameObject[] prefabs;
@@ -445,9 +453,6 @@ public class Skill {
 		rootFolder += skillName + "/";
 		
 		try {
-			if(!uLink.Network.isServer)
-				icon = (Texture2D)Resources.Load(rootFolder + skillName);
-			
 			for(int i = 0; i < Rune.maxLevel; i++) {
 				prefabs[i] = (GameObject)Resources.Load(rootFolder + skillName + " " + Skill.prefabPostfixForLevel[i]);
 			}

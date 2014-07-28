@@ -1187,7 +1187,7 @@ MonoBehaviour:
   dangerDetector: {fileID: 100000, guid: 29152084510c9674aa30ebf25860c1a3, type: 2}
   blockSphere: {fileID: 100000, guid: 93841637a8fbd5d43bc7359406b4cfbc, type: 2}
   lootTrail: {fileID: 100000, guid: 86883fe9b8b8d5f45993e32a7b0bda07, type: 2}
-  guiSkin: {fileID: 0}
+  guiSkin: {fileID: 11400000, guid: 917b4f4d9a763474a8dc67ca8de90a35, type: 2}
   playerMoveSpeed: 8
   playerHP: 8000
   entityEnergy: 50
@@ -2872,7 +2872,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a fireball.
           castDuration: .200000003
           posType: 0
@@ -2891,7 +2891,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 1
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a strong fireball.
           castDuration: .400000006
           posType: 0
@@ -2910,7 +2910,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 1
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a very strong fireball.
           castDuration: .400000006
           posType: 0
@@ -3065,7 +3065,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: 0
+        - cooldown: .5
           description: Summons an iceball which slows enemies.
           castDuration: .200000003
           posType: 0
@@ -3084,7 +3084,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 2
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a strong iceball which slows enemies.
           castDuration: .400000006
           posType: 0
@@ -3103,7 +3103,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 2
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a very strong iceball which slows enemies.
           castDuration: .400000006
           posType: 0
@@ -3377,7 +3377,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: 0
+        - cooldown: .5
           description: Summons 3 dark projectiles, each engraving a dark rune.
           castDuration: .300000012
           posType: 0
@@ -3396,7 +3396,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 3
-        - cooldown: 0
+        - cooldown: .5
           description: Summons 4 dark projectiles, each engraving a dark rune.
           castDuration: .400000006
           posType: 0
@@ -3415,7 +3415,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 3
-        - cooldown: 0
+        - cooldown: .5
           description: Summons 5 dark projectiles, each engraving a dark rune.
           castDuration: .400000006
           posType: 0
@@ -3664,7 +3664,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a lightball that searches for enemies close to it and
             flies towards them.
           castDuration: .200000003
@@ -3684,7 +3684,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 4
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a strong lightball that searches for enemies close
             to it and flies towards them.
           castDuration: .400000006
@@ -3704,7 +3704,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 4
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a very strong lightball that searches for enemies close
             to it and flies towards them.
           castDuration: .400000006
