@@ -109,6 +109,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
+      propertyPath: RiakNodes.Array.data[0].HostName
+      value: 95.85.6.12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
   m_RootGameObject: {fileID: 670021520}
@@ -232,7 +236,7 @@ MonoBehaviour:
   dangerDetector: {fileID: 100000, guid: 29152084510c9674aa30ebf25860c1a3, type: 2}
   blockSphere: {fileID: 100000, guid: 93841637a8fbd5d43bc7359406b4cfbc, type: 2}
   lootTrail: {fileID: 100000, guid: 86883fe9b8b8d5f45993e32a7b0bda07, type: 2}
-  font: {fileID: 12800000, guid: 69922d1f034ce224da995d980e5f2862, type: 3}
+  guiSkin: {fileID: 0}
   playerMoveSpeed: 8
   playerHP: 8000
   entityEnergy: 50
@@ -378,7 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RiakNodes:
-  - HostName: 37.139.29.70
+  - HostName: 95.85.6.12
     RiakPbcPort: 8087
     UniqueId: erza
     SocketPoolSize: 10
