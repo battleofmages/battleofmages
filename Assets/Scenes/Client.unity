@@ -3518,7 +3518,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 4
+        - cooldown: 5
           description: 'Pushes back enemies from its center: the closer the enemy
             is to the center, the stronger the effect.'
           castDuration: .200000003

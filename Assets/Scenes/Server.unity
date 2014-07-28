@@ -1288,7 +1288,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 4
+        - cooldown: 5
           description: 'Pushes back enemies from its center: the closer the enemy
             is to the center, the stronger the effect.'
           castDuration: .200000003
@@ -2659,8 +2659,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d4c2bcb4cb5a84ebef4a83b3b16a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testServerType: 0
-  mapName: Tournament Field
+  testServerType: 3
+  mapName: Nubek Outskirts
   serverFrameRate: 50
   defaultServerPort: 7200
   proxyPrefab: {fileID: 100312, guid: 9faff002c4ef589479c95cb325fd792a, type: 2}
