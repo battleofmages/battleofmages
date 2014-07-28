@@ -23,7 +23,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 104.495697, y: 46.4199219, z: 17.1771393}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -60,7 +60,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a fireball.
           castDuration: .200000003
           posType: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 1
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a strong fireball.
           castDuration: .400000006
           posType: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 1
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a very strong fireball.
           castDuration: .400000006
           posType: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: 0
+        - cooldown: .5
           description: Summons an iceball which slows enemies.
           castDuration: .200000003
           posType: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 2
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a strong iceball which slows enemies.
           castDuration: .400000006
           posType: 0
@@ -291,7 +291,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 2
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a very strong iceball which slows enemies.
           castDuration: .400000006
           posType: 0
@@ -565,7 +565,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: 0
+        - cooldown: .5
           description: Summons 3 dark projectiles, each engraving a dark rune.
           castDuration: .300000012
           posType: 0
@@ -584,7 +584,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 3
-        - cooldown: 0
+        - cooldown: .5
           description: Summons 4 dark projectiles, each engraving a dark rune.
           castDuration: .400000006
           posType: 0
@@ -603,7 +603,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 3
-        - cooldown: 0
+        - cooldown: .5
           description: Summons 5 dark projectiles, each engraving a dark rune.
           castDuration: .400000006
           posType: 0
@@ -852,7 +852,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a lightball that searches for enemies close to it and
             flies towards them.
           castDuration: .200000003
@@ -872,7 +872,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 4
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a strong lightball that searches for enemies close
             to it and flies towards them.
           castDuration: .400000006
@@ -892,7 +892,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 4
-        - cooldown: 0
+        - cooldown: .5
           description: Summons a very strong lightball that searches for enemies close
             to it and flies towards them.
           castDuration: .400000006
@@ -1225,30 +1225,7 @@ MonoBehaviour:
     - cooldown: .100000001
       name: Fire
       id: 110
-      skills:
-      - skillName: Combo
-        id: 1000
-        type: 2
-        canHold: 0
-        stages:
-        - cooldown: 0
-          description: 
-          castDuration: 0
-          posType: 2
-          posOffset: {x: 0, y: 0, z: 0}
-          rotType: 0
-          animType: 4
-          effectId: 0
-          castEffectPrefab: {fileID: 0}
-          castVoices: []
-          powerMultiplier: 1
-          staggerDuration: 0
-          energyCostAbs: 0
-          lifeDrainRel: 0
-          canMoveWhileCasting: 1
-          canMoveWhileAttacking: 1
-          isRuneDetonator: 0
-          runeType: 0
+      skills: []
       icon: {fileID: 2800000, guid: 741b3480f27114a45a8f77a63a0e84ad, type: 3}
     runeType: 0
     autoTarget: 0

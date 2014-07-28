@@ -207,7 +207,8 @@ public class SkillBar : HUDElement {
 				
 				x += iconSize + margin;
 			} else {
-				LogManager.General.LogWarning("Skill Icon for " + skill.skillName + " missing.");
+				// Skill icon has not been loaded yet
+				//LogManager.General.LogWarning("Skill Icon for " + skill.skillName + " missing.");
 			}
 		}
 		
