@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
@@ -36,29 +35,34 @@ public class InputControl {
 	// Capture a key
 	public KeyCode Capture(bool altKey = false) {
 		KeyCode kc = Event.current.keyCode;
-		
+
+		// Mouse buttons
 		for(int i = 0; i < 6; i++) {
 			if(Input.GetMouseButtonDown(i)) {
+				LogManager.General.Log("[InputControl] Captured mouse button: " + i);
 				kc = (KeyCode)(KeyCode.Mouse0 + i);
 			}
 		}
 		
 		if(kc == KeyCode.None) {
 			if(Input.GetKey(KeyCode.LeftShift)) {
+				LogManager.General.Log("[InputControl] Captured left shift");
 				kc = KeyCode.LeftShift;
 			} else if(Input.GetKey(KeyCode.RightShift)) {
+				LogManager.General.Log("[InputControl] Captured right shift");
 				kc = KeyCode.RightShift;
 			} else {
 				// Gamepad support
 				for(KeyCode i = KeyCode.JoystickButton0; i <= KeyCode.JoystickButton19; i++) {
 					if(Input.GetKey(i)) {
+						LogManager.General.Log("[InputControl] Captured gamepad key: " + i);
 						kc = i;
 						break;
 					}
 				}
 			}
 		}
-		
+
 		if(kc == KeyCode.None)
 			return KeyCode.None;
 		

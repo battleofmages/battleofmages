@@ -28,6 +28,9 @@ public class Login : LobbyModule<Login> {
 	public bool editorAutoLogin;
 	public string editorAccountName;
 	public string editorPassword;
+
+	public Vector2 loginGUIDimensions;
+	public Vector2 registerGUIDimensions;
 	
 	public GUIStyle tooltipStyle;
 	public Vector2 tooltipOffset;
@@ -161,6 +164,9 @@ public class Login : LobbyModule<Login> {
 	public override void Draw() {
 		// Top layer
 		GUI.depth = 0;
+
+		// Set GUI skin
+		GUI.skin = Config.instance.guiSkin;
 		
 		GUIArea.width = Screen.width;
 		GUIArea.height = Screen.height;
@@ -474,7 +480,7 @@ public class Login : LobbyModule<Login> {
 	
 #region GUIs
 	public void LoginGUI() {
-		GUIHelper.BeginBox(440, 292);
+		GUIHelper.BeginBox(loginGUIDimensions.x, loginGUIDimensions.y);
 
 		GUILayout.Label("Enter your account name and password to log in.");
 		GUILayout.Space(10);
@@ -575,7 +581,7 @@ public class Login : LobbyModule<Login> {
 	
 	// Registration
 	public void RegisterGUI() {
-		GUIHelper.BeginBox(440, 360);
+		GUIHelper.BeginBox(registerGUIDimensions.x, registerGUIDimensions.y);
 		
 		GUILayout.Label("Register a new account.");
 		GUILayout.Space(10);
