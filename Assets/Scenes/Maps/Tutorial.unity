@@ -164,6 +164,7 @@ GameObject:
   - 4: {fileID: 426995161}
   - 114: {fileID: 426995163}
   - 114: {fileID: 426995162}
+  - 114: {fileID: 426995164}
   m_Layer: 0
   m_Name: Map
   m_TagString: Map
@@ -213,13 +214,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fog: 1
-  fogColor: {r: .666666687, g: .509803951, b: .87843138, a: 1}
+  fogColor: {r: 0, g: 0, b: 0, a: 1}
   fogMode: 3
-  fogDensity: .0500000007
+  fogDensity: .100000001
   linearFogStart: 0
   linearFogEnd: 100
   ambientLight: {r: .200000003, g: .200000003, b: .200000003, a: 1}
   skyboxMaterial: {fileID: 2100000, guid: da976b1a4f7ebb949b0f71341e4f1821, type: 2}
+--- !u!114 &426995164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 426995160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1577b403880640846b69d4fad2c6f205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tracks:
+  - audioClip: {fileID: 8300000, guid: 763b16ca3b4ef7f40b5369ed87c439fa, type: 3}
+    pitchMin: 1
+    pitchMax: 1.04999995
+    isFirstTrack: 0
 --- !u!1 &673003793
 GameObject:
   m_ObjectHideFlags: 0

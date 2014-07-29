@@ -1223,7 +1223,7 @@ MonoBehaviour:
   dangerDetector: {fileID: 100000, guid: 29152084510c9674aa30ebf25860c1a3, type: 2}
   blockSphere: {fileID: 100000, guid: 93841637a8fbd5d43bc7359406b4cfbc, type: 2}
   lootTrail: {fileID: 100000, guid: 86883fe9b8b8d5f45993e32a7b0bda07, type: 2}
-  guiSkin: {fileID: 11400000, guid: 917b4f4d9a763474a8dc67ca8de90a35, type: 2}
+  font: {fileID: 12800000, guid: ee5f1f06f0db2d648ada5c8678b29d5c, type: 3}
   playerMoveSpeed: 8
   playerHP: 8000
   entityEnergy: 50
@@ -5023,7 +5023,7 @@ MonoBehaviour:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-  fadeDuration: 5
+  fadeDuration: 4
   playIcon: {fileID: 2800000, guid: f2a2b40b75afc51408c5cf4d878695cd, type: 3}
   pauseIcon: {fileID: 2800000, guid: 5f7c48fc1c845aa44a496d21725b2151, type: 3}
   stopIcon: {fileID: 2800000, guid: 419599bf8f565824fb9ea1bc76044adf, type: 3}
@@ -5148,35 +5148,6 @@ MonoBehaviour:
     m_StretchHeight: 0
   rawSpectrumLength: 4096
   bandLevelsCount: 16
-  categories:
-  - name: Lobby
-    tracks:
-    - audioClip: {fileID: 8300000, guid: b7b4cde4b8f83dc469df719de4fa6e05, type: 3}
-      pitchMin: 1
-      pitchMax: 1
-      isFirstTrack: 0
-  - name: Nubek Outskirts
-    tracks:
-    - audioClip: {fileID: 8300000, guid: 7408f57847d43784fb5d877b3f2a296b, type: 3}
-      pitchMin: 1
-      pitchMax: 1.04999995
-      isFirstTrack: 0
-  - name: Nubek Outskirts:Combat
-    tracks:
-    - audioClip: {fileID: 8300000, guid: 58130b969d4416347b70505d71810fdb, type: 3}
-      pitchMin: 1
-      pitchMax: 1.04999995
-      isFirstTrack: 0
-    - audioClip: {fileID: 8300000, guid: a9b254fe9fe2eab418c2939a259f7bbd, type: 3}
-      pitchMin: 1
-      pitchMax: 1.04999995
-      isFirstTrack: 0
-  - name: PvP Lobby
-    tracks:
-    - audioClip: {fileID: 8300000, guid: 763b16ca3b4ef7f40b5369ed87c439fa, type: 3}
-      pitchMin: 1
-      pitchMax: 1.01999998
-      isFirstTrack: 0
 --- !u!81 &1450956971
 AudioListener:
   m_ObjectHideFlags: 0
@@ -6953,6 +6924,7 @@ GameObject:
   - 114: {fileID: 2051072791}
   - 114: {fileID: 2051072792}
   - 114: {fileID: 2051072777}
+  - 114: {fileID: 2051072793}
   m_Layer: 0
   m_Name: Login
   m_TagString: Untagged
@@ -10338,6 +10310,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25ce712727d56b43802c8dd63383ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2051072793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2051072769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1577b403880640846b69d4fad2c6f205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tracks:
+  - audioClip: {fileID: 8300000, guid: b7b4cde4b8f83dc469df719de4fa6e05, type: 3}
+    pitchMin: 1
+    pitchMax: 1
+    isFirstTrack: 1
 --- !u!1 &2066160143
 GameObject:
   m_ObjectHideFlags: 0

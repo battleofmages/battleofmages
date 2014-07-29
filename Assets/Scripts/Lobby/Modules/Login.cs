@@ -419,7 +419,7 @@ public class Login : LobbyModule<Login> {
 		if(audioGameObject != null) {
 			audioGameObject.transform.parent = null;
 			audioGameObject.transform.position = Cache.vector3Zero;
-			musicManager.PlayCategory("Lobby");
+			musicManager.PlayCategory(GetComponent<MusicCategory>());
 		}
 		
 		// Frame rate

@@ -92,7 +92,7 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 		if(music != null) {
 			// NOTE: Music manager sets the volume itself
 			//music.volume = PlayerPrefs.GetFloat("Audio_MusicVolume", music.volume);
-			music.PlayCategory("Lobby");
+			music.PlayCategory(GetComponent<MusicCategory>());
 		}
 		
 		// Input - Mouse sensitivity

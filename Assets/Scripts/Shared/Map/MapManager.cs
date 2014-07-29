@@ -76,7 +76,8 @@ public class MapManager {
 		
 		mapBounds = mapInstance.GetComponent<MapBoundary>().bounds;
 		LogManager.General.Log("Map bounds: " + mapBounds);
-		
+
+		// Occlusion area
 		occlusionArea = mapInstance.transform.FindChild("Occlusion Area");
 		if(occlusionArea != null) {
 			LogManager.General.Log("Occlusion culling information available");
@@ -85,6 +86,9 @@ public class MapManager {
 			LogManager.General.Log("Occlusion culling information not available");
 			occlusionCullingActive = false;
 		}
+
+		// Play music
+		MusicManager.instance.PlayCategory(mapInstance.GetComponent<MusicCategory>());
 		
 		// Update spawn locations
 		GameServerParty.UpdateSpawns();

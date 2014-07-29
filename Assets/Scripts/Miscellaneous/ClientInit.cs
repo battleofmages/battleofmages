@@ -141,12 +141,9 @@ uzf/lC9NYarw==", @"EQ==");
 		// Music manager
 		var audioGameObject = GameObject.Find("Audio");
 		if(audioGameObject != null) {
-			var musicManager = audioGameObject.GetComponent<MusicManager>();
-			
-			// Play ingame music
+			// Correct position of audio object
 			audioGameObject.transform.parent = Camera.main.transform;
 			audioGameObject.transform.localPosition = Cache.vector3Zero;
-			musicManager.PlayCategory(mapName + (GameManager.isPvP ? ":Combat" : ""));
 		}
 		
 		StartCoroutine(MapManager.LoadMapAsync(mapName));

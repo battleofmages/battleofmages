@@ -23,10 +23,7 @@ public class MusicManager : LobbyModule<MusicManager> {
 	public int rawSpectrumLength;
 	public int bandLevelsCount;
 	
-	public MusicCategory[] categories;
-	
 	private float _volume = -1f;
-	private Dictionary<string, MusicCategory> categoryDict;
 	private AudioSource[] audioSources;
 	private AudioSource currentAudioSource;
 	private MusicCategory currentCategory;
@@ -43,11 +40,6 @@ public class MusicManager : LobbyModule<MusicManager> {
 
 	// Start
 	void Start() {
-		categoryDict = new Dictionary<string, MusicCategory>();
-		foreach(var category in categories) {
-			categoryDict[category.name] = category;
-		}
-		
 		audioSources = new AudioSource[2];
 		audioSources[0] = transform.GetChild(0).GetComponent<AudioSource>();
 		audioSources[1] = transform.GetChild(1).GetComponent<AudioSource>();
@@ -67,16 +59,11 @@ public class MusicManager : LobbyModule<MusicManager> {
 	}
 
 	// PlayCategory
-	public void PlayCategory(string categoryName) {
+	public void PlayCategory(MusicCategory category) {
 		if(!musicEnabled)
 			return;
-
-		if(!categoryDict.ContainsKey(categoryName)) {
-			LogManager.General.LogWarning("Music category '" + categoryName + "' does not exist");
-			return;
-		}
 		
-		currentCategory = categoryDict[categoryName];
+		currentCategory = category;
 		
 		if(currentAudioSource.isPlaying) {
 			CrossFadeNextClip();
@@ -224,6 +211,12 @@ public class MusicManager : LobbyModule<MusicManager> {
 
 	// PlayNextClip
 	void PlayNextClip() {
+		if(currentCategory == null) {
+			currentAudioSource.clip = null;
+			currentTrack = null;
+			return;
+		}
+		
 		var nextTrack = currentCategory.GetNextTrack(currentTrack);
 		currentAudioSource.clip = nextTrack.audioClip;
 		currentAudioSource.pitch = Random.Range(nextTrack.pitchMin, nextTrack.pitchMax);

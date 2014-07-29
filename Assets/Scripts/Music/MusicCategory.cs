@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class MusicCategory {
-	public string name;
+public class MusicCategory : MonoBehaviour {
 	public MusicTrack[] tracks;
 	
 	private List<MusicTrack> tracksLeftToPlay;
