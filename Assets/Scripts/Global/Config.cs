@@ -17,8 +17,8 @@ public class Config : SingletonMonoBehaviour<Config> {
 	public GameObject blockSphere;
 	public GameObject lootTrail;
 
-	public GUISkin guiSkin;
-	
+	public Font font;
+
 	public float playerMoveSpeed;
 	public int playerHP;
 	public float entityEnergy;

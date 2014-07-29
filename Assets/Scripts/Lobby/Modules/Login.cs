@@ -165,8 +165,9 @@ public class Login : LobbyModule<Login> {
 		// Top layer
 		GUI.depth = 0;
 
-		// Set GUI skin
-		GUI.skin = Config.instance.guiSkin;
+		// Set GUI font
+		if(GUI.skin.font != Config.instance.font)
+			GUI.skin.font = Config.instance.font;
 		
 		GUIArea.width = Screen.width;
 		GUIArea.height = Screen.height;

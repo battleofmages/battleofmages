@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MapManager {
 	// Starting town
-	public static string defaultTown = "PvP Lobby";
+	public static string startingMap = "Tutorial";
 	
 	// Towns
 	public static string[] towns = new string[] {
@@ -15,6 +15,7 @@ public class MapManager {
 
 	// Worlds
 	public static string[] worlds = new string[] {
+		"Tutorial",
 		"Nubek Outskirts"
 	};
 	

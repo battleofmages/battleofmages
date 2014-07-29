@@ -452,6 +452,14 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400004, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
+      propertyPath: categories.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
+      propertyPath: categories.Array.data[3].tracks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -483,6 +491,34 @@ Prefab:
     - target: {fileID: 400004, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
+      propertyPath: categories.Array.data[3].name
+      value: PvP Lobby
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
+      propertyPath: categories.Array.data[3].tracks.Array.data[0].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 763b16ca3b4ef7f40b5369ed87c439fa, type: 3}
+    - target: {fileID: 11400004, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
+      propertyPath: categories.Array.data[3].tracks.Array.data[0].pitchMin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
+      propertyPath: categories.Array.data[3].tracks.Array.data[0].pitchMax
+      value: 1.01999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
+      propertyPath: categories.Array.data[3].tracks.Array.data[1].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a9b254fe9fe2eab418c2939a259f7bbd, type: 3}
+    - target: {fileID: 11400004, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
+      propertyPath: categories.Array.data[3].tracks.Array.data[1].pitchMin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
+      propertyPath: categories.Array.data[3].tracks.Array.data[1].pitchMax
+      value: 1.04999995
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c74cc4f8cde28041acb2b2b2006d763, type: 2}
@@ -4037,30 +4073,7 @@ MonoBehaviour:
     - cooldown: .100000001
       name: Fire
       id: 110
-      skills:
-      - skillName: Combo
-        id: 1000
-        type: 2
-        canHold: 0
-        stages:
-        - cooldown: 0
-          description: 
-          castDuration: 0
-          posType: 2
-          posOffset: {x: 0, y: 0, z: 0}
-          rotType: 0
-          animType: 4
-          effectId: 0
-          castEffectPrefab: {fileID: 0}
-          castVoices: []
-          powerMultiplier: 1
-          staggerDuration: 0
-          energyCostAbs: 0
-          lifeDrainRel: 0
-          canMoveWhileCasting: 1
-          canMoveWhileAttacking: 1
-          isRuneDetonator: 0
-          runeType: 0
+      skills: []
       icon: {fileID: 2800000, guid: 741b3480f27114a45a8f77a63a0e84ad, type: 3}
     runeType: 0
     autoTarget: 0
@@ -4979,7 +4992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa09a30cc17df914d874ba62697a03a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicEnabled: 0
+  musicEnabled: 1
   fadeInCurve:
     serializedVersion: 2
     m_Curve:
@@ -5157,6 +5170,12 @@ MonoBehaviour:
     - audioClip: {fileID: 8300000, guid: a9b254fe9fe2eab418c2939a259f7bbd, type: 3}
       pitchMin: 1
       pitchMax: 1.04999995
+      isFirstTrack: 0
+  - name: PvP Lobby
+    tracks:
+    - audioClip: {fileID: 8300000, guid: 763b16ca3b4ef7f40b5369ed87c439fa, type: 3}
+      pitchMin: 1
+      pitchMax: 1.01999998
       isFirstTrack: 0
 --- !u!81 &1450956971
 AudioListener:
