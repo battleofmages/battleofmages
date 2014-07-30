@@ -732,6 +732,7 @@ public class PlayerMain : PlayerOnClient {
 
 	[RPC]
 	public void SetCameraYRotation(float yAngle) {
+		LogManager.General.Log("Setting camera Y rotation angle: " + yAngle + "°");
 		camPivot.transform.eulerAngles = new Vector3(
 			camPivot.transform.eulerAngles.x,
 			yAngle,

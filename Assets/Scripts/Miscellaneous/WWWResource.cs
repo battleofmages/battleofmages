@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 public class WWWResource<T> {
-	public Dictionary<string, T> keyToData = new Dictionary<string, T>();
+	public static Dictionary<string, T> keyToData = new Dictionary<string, T>();
 
 	public string key;
 	public string url;
@@ -15,7 +15,7 @@ public class WWWResource<T> {
 		key = nKey;
 		url = nURL.Replace(" ", "%20");
 
-		if(!keyToData.TryGetValue(key, out cached))
+		if(!WWWResource<T>.keyToData.TryGetValue(key, out cached))
 			StartRequest();
 	}
 	
