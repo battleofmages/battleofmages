@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 132: {fileID: 13200000}
   m_Layer: 2
-  m_Name: EntityLabel
+  m_Name: Entity Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 132: {fileID: 13200000}
   m_Layer: 0
-  m_Name: DamageNumber
+  m_Name: Damage Number
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,9 +57,9 @@ GUIText:
   m_PixelOffset: {x: 0, y: 0}
   m_LineSpacing: 1
   m_TabSize: 4
-  m_Font: {fileID: 12800000, guid: 865f0b1ef4dccec4cacfe0b9cf0ef0d3, type: 3}
+  m_Font: {fileID: 12800000, guid: d2e7db77bbf9cd649aa89bcccdf6c2bd, type: 3}
   m_Material: {fileID: 2100000, guid: 865f0b1ef4dccec4cacfe0b9cf0ef0d3, type: 3}
-  m_FontSize: 20
+  m_FontSize: 24
   m_FontStyle: 1
   m_Color:
     serializedVersion: 2

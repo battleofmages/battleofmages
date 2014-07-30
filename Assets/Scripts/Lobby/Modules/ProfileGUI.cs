@@ -76,7 +76,7 @@ public sealed class ProfileGUI : LobbyModule<ProfileGUI> {
 	// DrawOverview
 	void DrawOverview() {
 		using(new GUIHorizontalCenter()) {
-			GUILayout.Label("<size=50>" + stats.bestRanking + "</size> points", rankingPointsStyle);
+			GUILayout.Label(stats.bestRanking + " <size=18>points</size>", rankingPointsStyle);
 		}
 		
 		// Level

@@ -25,6 +25,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400004}
+  - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -84,6 +85,24 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Mesh: {fileID: 4300002, guid: 722cf8f9aef253d4cbc11286b21bf5cf, type: 3}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904ebeeb40dc7f146a9b44dfd177a792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabLabel: {fileID: 13200000, guid: 923af85830da3cb48bc70c8f910bbac8, type: 2}
+  initialColor: {r: 0, g: .924791336, b: 1, a: 1}
+  initialText: 
+  minDistance: .100000001
+  offset: {x: 0, y: 3.5, z: 0}
+  clampToScreen: 0
+  clampBorderSize: .0500000007
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
