@@ -5623,6 +5623,8 @@ MonoBehaviour:
   maximumX: 360
   minimumY: -60
   maximumY: 60
+  rotationX: 0
+  rotationY: 0
 --- !u!114 &1811561129
 MonoBehaviour:
   m_ObjectHideFlags: 0

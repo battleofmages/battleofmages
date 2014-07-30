@@ -732,11 +732,13 @@ public class PlayerMain : PlayerOnClient {
 
 	[RPC]
 	public void SetCameraYRotation(float yAngle) {
-		LogManager.General.Log("Setting camera Y rotation angle: " + yAngle + "°");
-		camPivot.transform.eulerAngles = new Vector3(
-			camPivot.transform.eulerAngles.x,
+		LogManager.General.Log("Setting camera Y rotation angle: " + (int)yAngle);
+		camPivot.GetComponent<MouseLook>().rotationY = yAngle;
+
+		/*charGraphics.eulerAngles = new Vector3(
+			charGraphics.eulerAngles.x,
 			yAngle,
-			camPivot.transform.eulerAngles.z
-		);
+			charGraphics.eulerAngles.z
+		);*/
 	}
 }

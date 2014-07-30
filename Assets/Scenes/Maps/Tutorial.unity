@@ -2360,8 +2360,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serverType: 2
-  portalId: 0
-  targetPortalId: 0
   spawns:
   - {fileID: 1169744299}
 --- !u!135 &879347633
@@ -2851,7 +2849,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1079109954}
   m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: -1.80433607, y: 0, z: -20.5}
+  m_LocalPosition: {x: -1.80433607, y: 0, z: -19.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1803721771}
@@ -3005,7 +3003,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1367960527}
   m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: 4.19566393, y: 0, z: -20.5}
+  m_LocalPosition: {x: 4.19566393, y: 0, z: -19.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 643898358}
@@ -4153,7 +4151,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1938127833}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.804336429, y: 0, z: -20.5}
+  m_LocalPosition: {x: -.804336429, y: 0, z: -19.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 75858667}
