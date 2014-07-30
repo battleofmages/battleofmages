@@ -8,8 +8,8 @@ public class Config : SingletonMonoBehaviour<Config> {
 
 	// Root objects
 	public static Transform particlesRoot;
-	
-	// Prefabs
+
+	[Header("Prefabs")]
 	public GameObject femalePrefab;
 	public GameObject malePrefab;
 	public GameObject damageNumber;
@@ -19,48 +19,84 @@ public class Config : SingletonMonoBehaviour<Config> {
 
 	public Font font;
 
+	[Header("Misc")]
+
+	[Range(1, 15)]
 	public float playerMoveSpeed;
+
+	[Range(100, 10000)]
 	public int playerHP;
+
+	[Range(0, 100)]
 	public float entityEnergy;
+
+	[Range(1, 10)]
 	public float blockMinimumEnergyForUsage = 5.0f;
+
+	[Range(1, 20)]
 	public float hoverEnergyCost = 9.0f;
+
+	[Range(0, 1)]
 	public float hoverSpeedBonus = 0.7f;
+
+	[Range(0, 1)]
 	public float blockSlowDown = 0.5f;
+
+	[Range(1, 10)]
 	public float energyRegen = 4.0f;
+
+	[Range(1, 100)]
 	public float blockEnergyDrain = 40.0f;
 
-	// Enemies
-	public float enemyReactionTime;
-	public int hpAggroThreshold;
-	public float patrolSpeedModifier;
-	
+	[Range(100, 200)]
 	public float entityVisibilityDistance;
+
 	public AnimationCurve playerLabelAlphaWithDistance;
 	public float raycastMaxDistance;
 
 	public float playerRespawnTime;
 	public double spawnProtectionDuration;
 	public float deathColliderDisableTime;
+	public float skillInstanceDestructionTime;
+	public float matchAcceptTime;
+
+	[Header("Enemies")]
+
+	[Range(0, 1)]
+	public float enemyReactionTime;
+	
+	[Range(100, 10000)]
+	public int hpAggroThreshold;
+	
+	[Range(0, 1)]
+	public float patrolSpeedModifier;
+
+	[Header("GUI")]
 	public int ownDmgOffset;
-
-	public float serverPositionPredictionFactor;
-	public float proxyInterpolationSpeed;
-	public float maxProxyDistanceUntilSnapSqr;
-	public float ownerInterpolationSpeed;
-	public float maxPositionPredictionTime;
-
 	public int healthBarWidth;
 	public int ownHealthBarWidth;
 
-	public float skillInstanceDestructionTime;
+	[Header("Lag compensation")]
 
-	public float matchAcceptTime;
+	[Range(0, 1)]
+	public float serverPositionPredictionFactor;
 
-	// Server
+	public float maxPositionPredictionTime;
+	public float maxProxyDistanceUntilSnapSqr;
+	public float proxyInterpolationSpeed;
+	public float ownerInterpolationSpeed;
+	
+	[Header("Server")]
 	public bool disableAnimationsOnServer;
 	public float enemyRespawnTime;
+
+	[Range(0.5f, 1)]
 	public float matchStatsSendDelay;
+
+	[Range(1, 3)]
 	public float pingSendDelay;
+
+	[Range(1, 3)]
 	public float savePositionDelay;
 	
 	// Awake

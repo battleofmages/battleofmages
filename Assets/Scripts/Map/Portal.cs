@@ -1,6 +1,7 @@
 ﻿using uLobby;
 using UnityEngine;
 
+[SelectionBase]
 public class Portal : MonoBehaviour, ActionTarget {
 	public ServerType serverType = ServerType.World;
 	public Transform[] spawns;

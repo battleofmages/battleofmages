@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
+[SelectionBase]
 public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> {
 	public static Dictionary<ushort, Entity> idToEntity = new Dictionary<ushort, Entity>();
 
