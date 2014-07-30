@@ -1234,9 +1234,6 @@ MonoBehaviour:
   blockSlowDown: .5
   energyRegen: 4
   blockEnergyDrain: 40
-  enemyReactionTime: .25
-  hpAggroThreshold: 5000
-  patrolSpeedModifier: .5
   entityVisibilityDistance: 130
   playerLabelAlphaWithDistance:
     serializedVersion: 2
@@ -1262,16 +1259,19 @@ MonoBehaviour:
   playerRespawnTime: 6
   spawnProtectionDuration: 2
   deathColliderDisableTime: 1
-  ownDmgOffset: 24
-  serverPositionPredictionFactor: .5
-  proxyInterpolationSpeed: 20
-  maxProxyDistanceUntilSnapSqr: 1
-  ownerInterpolationSpeed: 2.20000005
-  maxPositionPredictionTime: .0500000007
-  healthBarWidth: 48
-  ownHealthBarWidth: 64
   skillInstanceDestructionTime: 9
   matchAcceptTime: 15
+  enemyReactionTime: .25
+  hpAggroThreshold: 5000
+  patrolSpeedModifier: .5
+  ownDmgOffset: 24
+  healthBarWidth: 48
+  ownHealthBarWidth: 64
+  serverPositionPredictionFactor: .5
+  maxPositionPredictionTime: .0500000007
+  maxProxyDistanceUntilSnapSqr: 1
+  proxyInterpolationSpeed: 20
+  ownerInterpolationSpeed: 2.20000005
   disableAnimationsOnServer: 1
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
