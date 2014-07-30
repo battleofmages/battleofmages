@@ -25,6 +25,11 @@ public class LightningRenderer : MonoBehaviour {
 	// Use this for initialization
 	void Awake() {
 		lineRenderer = this.GetComponent<LineRenderer>();
+
+		// To be perfectly safe that those aren't null
+		currentPosition = new Vector3[_vertexCount];
+		nextPosition = new Vector3[_vertexCount];
+
 		vertexCount = startVertexCount;
 		
 		lineRenderer.SetWidth(width, width);

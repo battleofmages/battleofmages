@@ -21,7 +21,8 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 	public int width = 200;
 	private float height;
 	private float menuItemHeight;
-	
+
+	public MainMenuItem[] menuItemsWorld;
 	public MainMenuItem[] menuItemsTown;
 	public MainMenuItem[] menuItemsArena;
 	public GUIStyle contentStyle;
@@ -79,7 +80,20 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 			return;
 		
 		if(currentState != InGameMenuState.Lobby) {
-			menuItems = GameManager.serverType == ServerType.Town ? menuItemsTown : menuItemsArena;
+			switch(GameManager.serverType) {
+				case ServerType.World:
+					menuItems = menuItemsWorld;
+					break;
+
+				case ServerType.Town:
+					menuItems = menuItemsTown;
+					break;
+
+				default:
+					menuItems = menuItemsArena;
+					break;
+			}
+
 			menuItemHeight = contentStyle.CalcSize(menuItems[0].content).y + 4;
 			height = menuItems.Length * menuItemHeight;
 			
@@ -102,10 +116,10 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 						bool isLogOut = (i == menuItems.Length - 2);
 						
 						if(isLeave) {
-							if(GameManager.serverType == ServerType.Town) {
-								menuItems[i].content.text = " Exit game";
+							if(GameManager.isPvP) {
+								menuItems[i].content.text = " Leave";
 							} else {
-								menuItems[i].content.text = " Return to town";
+								menuItems[i].content.text = " Exit game";
 							}
 						}
 						

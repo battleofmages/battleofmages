@@ -825,6 +825,8 @@ MonoBehaviour:
   maximumX: 360
   minimumY: -60
   maximumY: 60
+  rotationX: 0
+  rotationY: 0
 --- !u!114 &505456784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1439,7 +1441,7 @@ MonoBehaviour:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-  fadeDuration: 5
+  fadeDuration: 4
   playIcon: {fileID: 2800000, guid: f2a2b40b75afc51408c5cf4d878695cd, type: 3}
   pauseIcon: {fileID: 2800000, guid: 5f7c48fc1c845aa44a496d21725b2151, type: 3}
   stopIcon: {fileID: 2800000, guid: 419599bf8f565824fb9ea1bc76044adf, type: 3}
@@ -1564,29 +1566,6 @@ MonoBehaviour:
     m_StretchHeight: 0
   rawSpectrumLength: 4096
   bandLevelsCount: 16
-  categories:
-  - name: Lobby
-    tracks:
-    - audioClip: {fileID: 8300000, guid: b7b4cde4b8f83dc469df719de4fa6e05, type: 3}
-      pitchMin: 1
-      pitchMax: 1
-      isFirstTrack: 0
-  - name: Nubek Outskirts
-    tracks:
-    - audioClip: {fileID: 8300000, guid: 7408f57847d43784fb5d877b3f2a296b, type: 3}
-      pitchMin: 1
-      pitchMax: 1.04999995
-      isFirstTrack: 0
-  - name: Nubek Outskirts:Combat
-    tracks:
-    - audioClip: {fileID: 8300000, guid: 58130b969d4416347b70505d71810fdb, type: 3}
-      pitchMin: 1
-      pitchMax: 1.04999995
-      isFirstTrack: 0
-    - audioClip: {fileID: 8300000, guid: a9b254fe9fe2eab418c2939a259f7bbd, type: 3}
-      pitchMin: 1
-      pitchMax: 1.04999995
-      isFirstTrack: 0
 --- !u!81 &1021456720
 AudioListener:
   m_ObjectHideFlags: 0
@@ -4219,7 +4198,7 @@ MonoBehaviour:
   dangerDetector: {fileID: 100000, guid: 29152084510c9674aa30ebf25860c1a3, type: 2}
   blockSphere: {fileID: 100000, guid: 93841637a8fbd5d43bc7359406b4cfbc, type: 2}
   lootTrail: {fileID: 100000, guid: 86883fe9b8b8d5f45993e32a7b0bda07, type: 2}
-  guiSkin: {fileID: 11400000, guid: 917b4f4d9a763474a8dc67ca8de90a35, type: 2}
+  font: {fileID: 12800000, guid: ee5f1f06f0db2d648ada5c8678b29d5c, type: 3}
   playerMoveSpeed: 8
   playerHP: 8000
   entityEnergy: 50
@@ -4674,6 +4653,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 200
+  menuItemsWorld:
+  - content:
+      m_Text: ' Continue'
+      m_Image: {fileID: 2800000, guid: 316705eb2cbf0c14e9b5ed5ac5960266, type: 3}
+      m_Tooltip: 
+    menuState: 1
+  - content:
+      m_Text: ' PvP'
+      m_Image: {fileID: 2800000, guid: 7ad479e295d4d3a45bc2d0cfab8a8266, type: 3}
+      m_Tooltip: 
+    menuState: 3
+  - content:
+      m_Text: ' Settings'
+      m_Image: {fileID: 2800000, guid: e31a49789c4b1db4991832c7f564a8f0, type: 3}
+      m_Tooltip: 
+    menuState: 4
+  - content:
+      m_Text: ' Logout'
+      m_Image: {fileID: 2800000, guid: c0c0b06fc98a80c418bed1451c9a3e29, type: 3}
+      m_Tooltip: 
+    menuState: 5
+  - content:
+      m_Text: ' Leave'
+      m_Image: {fileID: 2800000, guid: 85b18080878aed141a69803ed9644752, type: 3}
+      m_Tooltip: 
+    menuState: 6
   menuItemsTown:
   - content:
       m_Text: ' Continue'
