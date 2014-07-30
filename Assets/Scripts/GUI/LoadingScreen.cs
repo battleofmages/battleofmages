@@ -111,6 +111,7 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 	// Enables loading screen
 	public void Enable(CallBack fadeEndFunction = null) {
 		statusMessage = null;
+		asyncLoadLevel = null;
 
 		if(fadeEndFunction == null) {
 			fadeEndFunction = () => {

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class EntityGUI : MonoBehaviour {
 	public float yOffset;
@@ -8,7 +8,7 @@ public class EntityGUI : MonoBehaviour {
 	
 	protected Entity entity;
 	protected Camera cam;
-	protected EntityLabel nameLabel;
+	protected ObjectLabel nameLabel;
 	
 	// Start
 	void Start() {

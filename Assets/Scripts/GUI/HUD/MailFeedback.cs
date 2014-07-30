@@ -13,7 +13,7 @@ public class MailFeedback : HUDElement {
 	
 	// Draw
 	public override void Draw() {
-		if(!GameManager.isTown || MainMenu.instance.currentState == InGameMenuState.Lobby)
+		if(!GameManager.isPvE || MainMenu.instance.currentState == InGameMenuState.Lobby)
 			return;
 		
 		if(GUIHelper.Button(feedbackButtonContent)) {

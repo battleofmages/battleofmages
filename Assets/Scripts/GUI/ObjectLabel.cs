@@ -1,8 +1,6 @@
-using uLink;
 using UnityEngine;
-using System.Collections;
 
-public class EntityLabel : uLink.MonoBehaviour {
+public class ObjectLabel : uLink.MonoBehaviour {
 	public static Transform labelRoot;
 	
 	public GUIText prefabLabel;

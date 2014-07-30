@@ -76,7 +76,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	// InitComponents
 	void InitComponents() {
 		myTransform = transform;
-		nameLabel = GetComponent<EntityLabel>();
+		nameLabel = GetComponent<ObjectLabel>();
 		entityGUI = GetComponent<EntityGUI>();
 		characterController = GetComponent<CharacterController>();
 		charGraphics = myTransform.FindChild("CharGraphics");
@@ -685,7 +685,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	public Controller controller {get; set;}
 	public CrossHair crossHair {get; protected set;}
 	public CharacterDefinition characterDefinition {get; protected set;}
-	public EntityLabel nameLabel {get; protected set;}
+	public ObjectLabel nameLabel {get; protected set;}
 	public EntityGUI entityGUI {get; protected set;}
 	public CharacterController characterController {get; protected set;}
 	public ComboCounter comboCounter {get; protected set;}

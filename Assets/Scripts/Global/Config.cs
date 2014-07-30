@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 // Global
 public class Config : SingletonMonoBehaviour<Config> {
@@ -70,7 +70,7 @@ public class Config : SingletonMonoBehaviour<Config> {
 			Config.particlesRoot = GameObject.Find("Root/Particles").transform;
 			Entity.skillInstancesRoot = GameObject.Find("Root/SkillInstances").transform;
 			Player.playerRoot = GameObject.Find("Root/Players").transform;
-			EntityLabel.labelRoot = GameObject.Find("Root/Labels").transform;
+			ObjectLabel.labelRoot = GameObject.Find("Root/Labels").transform;
 			Enemy.enemiesRoot = GameObject.Find("Root/Enemies").transform;
 		}
 		

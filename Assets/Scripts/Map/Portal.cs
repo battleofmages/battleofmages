@@ -5,6 +5,12 @@ public class Portal : MonoBehaviour, ActionTarget {
 	public ServerType serverType = ServerType.World;
 	public Transform[] spawns;
 
+	// Start
+	void Start() {
+		// Set portal label text
+		transform.FindChild("Portal").GetComponent<ObjectLabel>().text = mapName;
+	}
+
 	// Player comes in range
 	void OnTriggerEnter(Collider coll) {
 		if(!GameManager.isPvE)

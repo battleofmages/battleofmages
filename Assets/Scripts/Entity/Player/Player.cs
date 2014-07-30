@@ -633,14 +633,14 @@ public abstract class Player : Entity {
 	// TODO: Change algorithm for object labels to O(n)
 	[RPC]
 	protected void ChangeParty(int partyId) {
-		EntityLabel nameLabel;
+		ObjectLabel nameLabel;
 		
 		if(uLink.Network.isClient) {
 			if(this.party != null) {
 				// Old group red
 				foreach(Player member in this.party.members) {
 					// Object label
-					nameLabel = member.GetComponent<EntityLabel>();
+					nameLabel = member.GetComponent<ObjectLabel>();
 					if(nameLabel != null) {
 						var partyColor = this.party.color;
 						nameLabel.textColor = new Color(
@@ -659,7 +659,7 @@ public abstract class Player : Entity {
 		GameServerParty.partyList[partyId].AddMember(this);
 		
 		// Default color
-		nameLabel = this.GetComponent<EntityLabel>();
+		nameLabel = this.GetComponent<ObjectLabel>();
 		if(nameLabel != null) {
 			var partyColor = this.party.color;
 			nameLabel.textColor = new Color(
@@ -674,7 +674,7 @@ public abstract class Player : Entity {
 		if(uLink.Network.isClient && Player.main && Player.main.party == this.party) {
 			foreach(Player member in Player.main.party.members) {
 				// Object label
-				nameLabel = member.GetComponent<EntityLabel>();
+				nameLabel = member.GetComponent<ObjectLabel>();
 				if(nameLabel != null) {
 					nameLabel.textColor = new Color(
 						1f,
