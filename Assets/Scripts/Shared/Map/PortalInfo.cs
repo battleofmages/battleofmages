@@ -1,5 +1,5 @@
 ﻿public class PortalInfo : JsonSerializable<PortalInfo> {
-	public int id;
+	public string mapName;
 	
 	// Empty constructor
 	public PortalInfo() {
@@ -7,7 +7,7 @@
 	}
 	
 	// Constructor
-	public PortalInfo(int portalId) {
-		id = portalId;
+	public PortalInfo(string nMapName) {
+		mapName = nMapName;
 	}
 }

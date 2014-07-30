@@ -407,6 +407,9 @@ public class ServerInit : uLink.MonoBehaviour {
 						} else {
 							respawnPosition = party.spawnComp.GetNextSpawnPosition();
 							LogManager.General.Log("Couldn't find player position: Respawning at " + respawnPosition);
+
+							// Adjust camera rotation
+							player.networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, party.spawnComp.transform.eulerAngles.y);
 						}
 						
 						player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
@@ -419,12 +422,16 @@ public class ServerInit : uLink.MonoBehaviour {
 					foreach(var portalObject in portals) {
 						var portal = portalObject.GetComponent<Portal>();
 
-						if(portal.portalId == portalInfo.id) {
-							respawnPosition = portal.spawns[Random.Range(0, portal.spawns.Length - 1)].position;
+						if(portal.mapName == portalInfo.mapName) {
+							var spawn = portal.spawns[Random.Range(0, portal.spawns.Length - 1)];
+							respawnPosition = spawn.position;
 
 							// Respawn
 							LogManager.General.Log("Player came via a portal: Respawning at " + respawnPosition);
 							player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
+
+							// Adjust camera rotation
+							player.networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, portal.transform.eulerAngles.y);
 
 							// Update position to be 100% sure our position data is correct now
 							PositionsDB.SetPosition(accountId, respawnPosition);
@@ -443,8 +450,6 @@ public class ServerInit : uLink.MonoBehaviour {
 			LogManager.General.Log("PvP game: Respawning at " + respawnPosition);
 			player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
 		}
-
-		//player.networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, party.spawnComp.transform.eulerAngles.y);
 		
 		// On non account restricted servers we start the game instantly
 		if(!GameManager.isArena || isTestServer) {

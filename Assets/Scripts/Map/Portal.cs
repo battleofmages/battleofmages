@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour, ActionTarget {
 	public ServerType serverType = ServerType.World;
-	public int portalId;
-	public int targetPortalId;
 	public Transform[] spawns;
 
 	// Player comes in range
@@ -43,17 +41,17 @@ public class Portal : MonoBehaviour, ActionTarget {
 			return;
 
 		// We save it here because the game object might be destroyed in the lambda
-		string mapNameCached = mapName;
+		string targetMapName = mapName;
 
 		// Send a request to the lobby to change the map
-		Lobby.RPC("ActivatePortal", Lobby.lobby, mapNameCached, serverType, portalId);
+		Lobby.RPC("ActivatePortal", Lobby.lobby, MapManager.currentMapName, targetMapName, serverType);
 
 		// Disable portal
 		enabled = false;
 
 		// Activate loading screen
 		LoadingScreen.instance.Enable(() => {
-			LoadingScreen.instance.statusMessage = "Teleporting to: <color=yellow>" + mapNameCached + "</color>";
+			LoadingScreen.instance.statusMessage = "Teleporting to: <color=yellow>" + targetMapName + "</color>";
 		});
 	}
 

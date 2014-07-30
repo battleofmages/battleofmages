@@ -8,7 +8,7 @@ public class MapManager {
 	// Towns
 	public static string[] towns = new string[] {
 		"PvP Lobby",
-		//"Nubek"
+		"Nubek"
 		//"El Thea",
 		//"Tamburin",
 	};
@@ -32,6 +32,7 @@ public class MapManager {
 	};
 	
 #if !LOBBY_SERVER
+	public static string currentMapName;
 	public static GameObject mapInstance;
 	public static Intro mapIntro;
 	public static Bounds mapBounds;
@@ -58,6 +59,7 @@ public class MapManager {
 
 		// Load map
 		LogManager.General.Log("Loading map '" + mapName + "'...");
+		currentMapName = mapName;
 		
 		var asyncLoadLevel = Application.LoadLevelAdditiveAsync(mapName);
 
@@ -88,13 +90,14 @@ public class MapManager {
 		}
 
 		// Play music
-		MusicManager.instance.PlayCategory(mapInstance.GetComponent<MusicCategory>());
+		if(MusicManager.instance != null)
+			MusicManager.instance.PlayCategory(mapInstance.GetComponent<MusicCategory>());
 		
 		// Update spawn locations
 		GameServerParty.UpdateSpawns();
 		
-		// Delete NPCs if needed
-		if(GameManager.isFFA || GameManager.isArena) {
+		// Delete NPCs on PvP areas
+		if(GameManager.isPvP) {
 			DeleteNPCs();
 		}
 		
@@ -138,6 +141,7 @@ public class MapManager {
 		LogManager.General.Log("Deleting old map");
 		Object.Destroy(mapInstance);
 		mapInstance = null;
+		currentMapName = null;
 	}
 	
 	// Stay in map boundaries
