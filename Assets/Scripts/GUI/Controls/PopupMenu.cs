@@ -60,7 +60,7 @@ public class PopupMenu {
 		for(int i = 0; i < contents.Length; i++) {
 			//GUILayoutUtility.GetRect(position.width, 24)
 			if(GUIHelper.Button(new Rect(position.x, curY, position.width, buttonHeight), contents[i])) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				
 				//GUIUtility.hotControl = controlID;
 				var callBack = callBacks[i];

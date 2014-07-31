@@ -221,7 +221,7 @@ public sealed class TraitsGUI : LobbyModule<TraitsGUI> {
 				GUI.backgroundColor = Color.white;
 			
 			if(GUIHelper.Button("Save", GUILayout.Width(96)) && charStats.valid) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				Lobby.RPC("ClientCharacterStats", Lobby.lobby, charStats);
 				
 				if(Player.main != null)
@@ -234,7 +234,7 @@ public sealed class TraitsGUI : LobbyModule<TraitsGUI> {
 			// Reset button
 			GUI.backgroundColor = Color.white;
 			if(GUIHelper.Button("Reset", GUILayout.Width(96))) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				PlayerAccount.mine.charStats = new CharacterStats(lastCharacterStatsSent);
 			}
 			
@@ -267,13 +267,13 @@ public sealed class TraitsGUI : LobbyModule<TraitsGUI> {
 		
 		GUI.enabled = accIsMine && (stat > 0);
 		if(GUIHelper.Button("-", buttonLayout)) {
-			Sounds.instance.PlayButtonClick();
+			Sounds.instance.buttonClick.Play();
 			stat -= 1;
 		}
 		
 		GUI.enabled = accIsMine && (stat < 100) && (charStats.statPointsLeft > 0);
 		if(GUIHelper.Button("+", buttonLayout)) {
-			Sounds.instance.PlayButtonClick();
+			Sounds.instance.buttonClick.Play();
 			stat += 1;
 		}
 		
@@ -287,7 +287,7 @@ public sealed class TraitsGUI : LobbyModule<TraitsGUI> {
 				GUI.contentColor = Color.white;
 			
 			if(GUIHelper.Button(i.ToString(), buttonLayout)) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				stat = i;
 			}
 		}

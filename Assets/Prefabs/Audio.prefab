@@ -256,7 +256,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Priority: 128
+  Priority: 10
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -500,10 +500,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23eeb9b9db1417c4e81e767a85c8c302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggleTargetFocusSound: {fileID: 8300000, guid: 5d085cf93000b4c438361d56e6dc259e,
-    type: 3}
+  toggleTargetFocus: {fileID: 8300000, guid: 5d085cf93000b4c438361d56e6dc259e, type: 3}
   buttonClick: {fileID: 8300000, guid: f69851e48ee1191429ebc3f68447eef4, type: 3}
   queueMatchFound: {fileID: 8300000, guid: ee9bec3adadab5d4084df17a8d4d70e1, type: 3}
+  queueMatchCanceled: {fileID: 0}
   loginSuccess: {fileID: 8300000, guid: eb2014ec10828814aa27e07c4261725b, type: 3}
   loginFail: {fileID: 0}
   menuBack: {fileID: 0}

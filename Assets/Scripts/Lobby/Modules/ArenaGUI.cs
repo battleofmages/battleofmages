@@ -72,7 +72,7 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 						for(byte i = 1; i <= QueueSettings.queueCount; i++) {
 							GUI.enabled = (i == 1);
 							if(GUIHelper.Button(_("<b><size=16>Play {0}v{0}v{0}v...</size></b>", i), GUILayout.Width(queueButtonWidth), GUILayout.Height(queueButtonHeight))) {
-								Sounds.instance.PlayButtonClick();
+								Sounds.instance.buttonClick.Play();
 								
 								Lobby.RPC("JoinFFARequest", Lobby.lobby, i);
 								matchFound = true;
@@ -91,7 +91,7 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 						
 						for(byte i = 3; i <= QueueSettings.queueCount; i++) {
 							if(GUIHelper.Button(_("<b><size=16>Play {0}v{0}</size></b>", i), GUILayout.Width(queueButtonWidth), GUILayout.Height(queueButtonHeight))) {
-								Sounds.instance.PlayButtonClick();
+								Sounds.instance.buttonClick.Play();
 								// ...
 							}
 						}
@@ -102,12 +102,12 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 						GUILayout.Label("RTS", gameTypeStyle);
 						
 						if(GUIHelper.Button("<b><size=16>Play as soldier</size></b>", GUILayout.Width(queueButtonWidth), GUILayout.Height(queueButtonHeight))) {
-							Sounds.instance.PlayButtonClick();
+							Sounds.instance.buttonClick.Play();
 							// ...
 						}
 						
 						if(GUIHelper.Button("<b><size=16>Play as strategist</size></b>", GUILayout.Width(queueButtonWidth), GUILayout.Height(queueButtonHeight))) {
-							Sounds.instance.PlayButtonClick();
+							Sounds.instance.buttonClick.Play();
 							// ...
 						}
 					}
@@ -119,7 +119,7 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 						
 						for(byte i = 3; i <= QueueSettings.queueCount; i++) {
 							if(GUIHelper.Button(_("<b><size=16>Play {0}v{0}</size></b>", i), GUILayout.Width(queueButtonWidth), GUILayout.Height(queueButtonHeight))) {
-								Sounds.instance.PlayButtonClick();
+								Sounds.instance.buttonClick.Play();
 								// ...
 							}
 						}
@@ -132,7 +132,7 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 						
 						for(byte i = 3; i <= QueueSettings.queueCount; i++) {
 							if(GUIHelper.Button(_("<b><size=16>Play {0}v{0}</size></b>", i), GUILayout.Width(queueButtonWidth), GUILayout.Height(queueButtonHeight))) {
-								Sounds.instance.PlayButtonClick();
+								Sounds.instance.buttonClick.Play();
 								// ...
 							}
 						}
@@ -164,7 +164,7 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 		}
 		
 		if(GUIHelper.Button(buttonCaption, GUILayout.Width(queueButtonWidth), GUILayout.Height(queueButtonHeight))) {
-			Sounds.instance.PlayButtonClick();
+			Sounds.instance.buttonClick.Play();
 			
 			if(i == currentQueue)
 				LeaveQueue();
@@ -253,7 +253,7 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 	void MatchFound() {
 		LogManager.General.Log("Match has been created");
 		
-		Sounds.instance.PlayQueueMatchFound();
+		Sounds.instance.queueMatchFound.Play();
 		matchFound = true;
 		matchFoundQueue = currentQueue;
 		
@@ -274,7 +274,7 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 	void MatchCanceled() {
 		LogManager.General.Log("Match has been canceled");
 		
-		Sounds.instance.PlayQueueMatchCanceled();
+		Sounds.instance.queueMatchCanceled.Play();
 		matchFound = false;
 		currentQueue = 0;
 		

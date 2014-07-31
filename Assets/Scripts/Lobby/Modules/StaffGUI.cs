@@ -19,7 +19,7 @@ public class StaffGUI : LobbyModule<StaffGUI> {
 	// OnClick
 	public override void OnClick() {
 		if(pendingStaffRequests == 0) {
-			Sounds.instance.PlayButtonClick();
+			Sounds.instance.buttonClick.Play();
 
 			LogManager.General.Log("Requesting staff information");
 			Lobby.RPC("StaffInfoRequest", Lobby.lobby);

@@ -532,7 +532,7 @@ public class Login : LobbyModule<Login> {
 			);
 			
 			if(GUIHelper.Button("Log in", GUILayout.Width(80)) || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return)) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				
 				// Log in to an account. We will get a response in the form of either the OnAccountRegistered callback, or
 				// OnLogInFailed if something went wrong.
@@ -563,7 +563,7 @@ public class Login : LobbyModule<Login> {
 		using(new GUIHorizontal()) {
 			// Register
 			if(GUIHelper.Button("Register account", GUILayout.Width(140))) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				ChangeState(State.Register);
 			}
 			
@@ -571,7 +571,7 @@ public class Login : LobbyModule<Login> {
 			if(accountNotActivated && accountEmail == inactiveEmail) {
 				GUILayout.FlexibleSpace();
 				if(GUIHelper.Button("Resend activation mail", GUILayout.Width(180))) {
-					Sounds.instance.PlayButtonClick();
+					Sounds.instance.buttonClick.Play();
 					Lobby.RPC("ResendActivationMail", Lobby.lobby, inactiveEmail);
 				}
 			}
@@ -629,7 +629,7 @@ public class Login : LobbyModule<Login> {
 		using(new GUIHorizontal()) {
 			GUI.enabled = (validationErrors == 0 || GameDB.IsTestAccount(accountEmail));
 			if(GUIHelper.Button("Register", GUILayout.Width(80))) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				
 				// Registers a new account. The OnAccountRegistered callback will be called if the account was registered -
 				// otherwise, the OnRegisterFailed callback is called.
@@ -651,7 +651,7 @@ public class Login : LobbyModule<Login> {
 		GUILayout.FlexibleSpace();
 
 		if (GUIHelper.Button("Back", GUILayout.Width(50))) {
-			Sounds.instance.PlayButtonClick();
+			Sounds.instance.buttonClick.Play();
 			ChangeState(State.LogIn);
 		}
 
@@ -673,7 +673,7 @@ public class Login : LobbyModule<Login> {
 		GUILayout.FlexibleSpace();
 		using(new GUIHorizontalCenter()) {
 			if(GUIHelper.Button("I agree.") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return)) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				ChangeState(State.Lobby);
 				gameLobby.UpdateAccountInfo();
 			}
@@ -693,7 +693,7 @@ public class Login : LobbyModule<Login> {
 			int cHeight = closeIcon.height + 5;
 			
 			if(GUI.Button(new Rect(GUIArea.width - cWidth - margin, margin, cWidth, cHeight), new GUIContent("", closeIcon, "Quit"))) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				Application.Quit();
 			}
 #endif
@@ -780,7 +780,7 @@ public class Login : LobbyModule<Login> {
 		GUILayout.FlexibleSpace();
 		
 		if(GUIHelper.Button("Reconnect", GUILayout.Width(100))) {
-			Sounds.instance.PlayButtonClick();
+			Sounds.instance.buttonClick.Play();
 			ConnectToLobby();
 		}
 		
@@ -797,7 +797,7 @@ public class Login : LobbyModule<Login> {
 		Login.myAccount = account;
 
 		// Play sound
-		Sounds.instance.PlayLoginSuccess();
+		Sounds.instance.loginSuccess.Play();
 		
 		// Reconnect from game?
 		if(gameLobby.currentState == GameLobbyState.Game) {

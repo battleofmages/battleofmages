@@ -117,7 +117,7 @@ public sealed class CharacterCustomizationGUI : LobbyModule<CharacterCustomizati
 			
 			if(Player.main == null) {
 				if(GUIHelper.Button("Finish")) {
-					Sounds.instance.PlayButtonClick();
+					Sounds.instance.buttonClick.Play();
 					SendCustomization();
 				}
 			}

@@ -67,7 +67,7 @@ public class PasswordChangeWindow : PopupWindow {
 					Validator.password.IsMatch(newPassword)
 				);
 				if(GUIHelper.Button("Change", controlID, GUILayout.Width(80))) {
-					Sounds.instance.PlayButtonClick();
+					Sounds.instance.buttonClick.Play();
 					
 					if(accept != null)
 						accept(oldPassword, newPassword);
@@ -79,7 +79,7 @@ public class PasswordChangeWindow : PopupWindow {
 				
 				GUI.enabled = true;
 				if(GUIHelper.Button("Cancel", controlID, GUILayout.Width(80))) {
-					Sounds.instance.PlayButtonClick();
+					Sounds.instance.buttonClick.Play();
 					
 					if(cancel != null)
 						cancel();

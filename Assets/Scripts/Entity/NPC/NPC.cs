@@ -19,7 +19,7 @@ public class NPC : Entity,  ActionTarget {
 	// Action key
 	public void OnAction(Entity entity) {
 		// Play sound
-		Sounds.instance.PlayMenuNavigate();
+		Sounds.instance.menuNavigate.Play();
 
 		// Set NPC
 		Player.main.talkingWithNPC = this;

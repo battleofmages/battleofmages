@@ -43,7 +43,7 @@ public sealed class GuildsGUI : LobbyModule<GuildsGUI> {
 	// OnClick
 	public override void OnClick() {
 		if(pendingGuildListRequests == 0) {
-			Sounds.instance.PlayButtonClick();
+			Sounds.instance.buttonClick.Play();
 			
 			Lobby.RPC("GuildListRequest", Lobby.lobby);
 			pendingGuildListRequests += 1;
@@ -135,7 +135,7 @@ public sealed class GuildsGUI : LobbyModule<GuildsGUI> {
 					// Guild name
 					GUILayout.BeginHorizontal("box");
 					if(GUIHelper.Button(guild.name, guildButtonStyle)) {
-						Sounds.instance.PlayButtonClick();
+						Sounds.instance.buttonClick.Play();
 						currentGuildId = guildId;
 						statusMessage = "";
 						scrollPosition = Vector2.zero;
@@ -205,7 +205,7 @@ public sealed class GuildsGUI : LobbyModule<GuildsGUI> {
 					
 					// Kick members
 					if(Guild.CanKick(currentGuildId, PlayerAccount.mine.accountId) && member.accountId != PlayerAccount.mine.accountId && GUIHelper.Button("Kick")) {
-						Sounds.instance.PlayButtonClick();
+						Sounds.instance.buttonClick.Play();
 						
 						// Save correct references for the lambda
 						var tmpMemberName = member.name;
@@ -223,7 +223,7 @@ public sealed class GuildsGUI : LobbyModule<GuildsGUI> {
 					
 					// Leave
 					if(member.accountId == PlayerAccount.mine.accountId && member.rank != (byte)GuildMember.Rank.Leader && GUIHelper.Button("Leave")) {
-						Sounds.instance.PlayButtonClick();
+						Sounds.instance.buttonClick.Play();
 						
 						// Save correct references for the lambda
 						var tmpGuildName = guild.ToString();
@@ -262,7 +262,7 @@ public sealed class GuildsGUI : LobbyModule<GuildsGUI> {
 			//playerToInvite = GUILayout.TextField(playerToInvite, GUILayout.Width(120));
 			
 			if(GUIHelper.Button("Invite", GUILayout.Width(70)) || (GUI.GetNameOfFocusedControl() == textFieldName && GUIHelper.ReturnPressed())) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				
 				new TextFieldWindow(
 					"Which player would you like to invite?",
@@ -288,7 +288,7 @@ public sealed class GuildsGUI : LobbyModule<GuildsGUI> {
 		
 		using(new GUIHorizontalCenter()) {
 			if(GUIHelper.Button(representText)) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				Lobby.RPC("GuildRepresentRequest", Lobby.lobby, currentGuildId, represent);
 				
 				// Live update in town
@@ -297,7 +297,7 @@ public sealed class GuildsGUI : LobbyModule<GuildsGUI> {
 			}
 			
 			if(Guild.CanDisband(currentGuildId, PlayerAccount.mine.accountId) && GUIHelper.Button("Disband")) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				var guild = GameDB.guildIdToGuild[currentGuildId];
 				
 				new Confirm("Do you really want to disband '" + guild.ToString() + "'?",
@@ -330,13 +330,13 @@ public sealed class GuildsGUI : LobbyModule<GuildsGUI> {
 						
 						// Accept
 						if(GUIHelper.Button("Accept")) {
-							Sounds.instance.PlayButtonClick();
+							Sounds.instance.buttonClick.Play();
 							Lobby.RPC("GuildInvitationResponse", Lobby.lobby, guildId, true);
 						}
 						
 						// Deny
 						if(GUIHelper.Button("Deny")) {
-							Sounds.instance.PlayButtonClick();
+							Sounds.instance.buttonClick.Play();
 							Lobby.RPC("GuildInvitationResponse", Lobby.lobby, guildId, false);
 						}
 					}
@@ -397,7 +397,7 @@ public sealed class GuildsGUI : LobbyModule<GuildsGUI> {
 			// Create guild button
 			GUI.enabled = (validationErrors == 0);
 			if(GUIHelper.Button("Create guild <b>" + guildName + " [" + guildTag + "]</b>")) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				Lobby.RPC("GuildCreationRequest", Lobby.lobby, guildName, guildTag);
 				statusMessage = "Creating guild...";
 			}

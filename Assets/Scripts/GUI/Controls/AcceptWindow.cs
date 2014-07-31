@@ -42,7 +42,7 @@ public abstract class AcceptWindow<AcceptCallBackType> : PopupWindow {
 				Event.current.Use();
 			
 			if(GUIHelper.Button(acceptText, controlID, GUILayout.Width(60)) || acceptedWithKey) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				
 				if(accept != null)
 					this.Accept();
@@ -52,7 +52,7 @@ public abstract class AcceptWindow<AcceptCallBackType> : PopupWindow {
 
 			GUI.backgroundColor = Color.red;
 			if(GUIHelper.Button(cancelText, controlID, GUILayout.Width(60))) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				
 				if(cancel != null)
 					cancel();

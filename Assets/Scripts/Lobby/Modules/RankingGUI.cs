@@ -47,7 +47,7 @@ public sealed class RankingGUI : LobbyModule<RankingGUI> {
 		if(pendingRankingListRequests > 0)
 			return;
 
-		Sounds.instance.PlayButtonClick();
+		Sounds.instance.buttonClick.Play();
 	}
 
 	// RequestRankingLists

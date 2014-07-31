@@ -169,7 +169,7 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 						GUI.backgroundColor = GUIColor.MenuItemInactive;
 					
 					if(GUIHelper.Button(QualitySettings.names[i])) {
-						Sounds.instance.PlayButtonClick();
+						Sounds.instance.buttonClick.Play();
 						QualitySettings.SetQualityLevel(i);
 						PlayerPrefs.SetInt("Graphics_QualityLevel", i);
 					}
@@ -264,7 +264,7 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 						GUI.backgroundColor = GUIColor.MenuItemInactive;
 					
 					if(GUIHelper.Button(audioSpeakerModeNames[i])) {
-						Sounds.instance.PlayButtonClick();
+						Sounds.instance.buttonClick.Play();
 						AudioSettings.speakerMode = mode;
 						PlayerPrefs.SetInt("Audio_SpeakerMode", i);
 					}
@@ -332,7 +332,7 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 				GUI.contentColor = Color.white;
 			
 			if(GUIHelper.Button(control.keyCodeString, settingValueStyle, GUILayout.Width(width)) && captureControl == null && enableCapture) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				captureControl = control;
 				captureAltKey = false;
 				lobbyChat.chatInputEnabled = false;
@@ -346,7 +346,7 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 				GUI.contentColor = Color.white;
 			
 			if(GUIHelper.Button(control.altKeyCodeString, settingValueStyle, GUILayout.Width(width)) && captureControl == null && enableCapture) {
-				Sounds.instance.PlayButtonClick();
+				Sounds.instance.buttonClick.Play();
 				captureControl = control;
 				captureAltKey = true;
 				lobbyChat.chatInputEnabled = false;
@@ -397,7 +397,7 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 			GUI.backgroundColor = Color.white;
 		
 		if(GUIHelper.Button("Save", GUILayout.Width(96))) {
-			Sounds.instance.PlayButtonClick();
+			Sounds.instance.buttonClick.Play();
 			Lobby.RPC("ClientInputSettings", Lobby.lobby, Jboy.Json.WriteObject(new InputSettings(inputManager)));
 			modified = false;
 		}

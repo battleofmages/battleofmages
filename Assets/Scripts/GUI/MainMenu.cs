@@ -124,7 +124,7 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 						}
 						
 						if(GUIHelper.Button(menuItems[i].content, contentStyle)) {
-							Sounds.instance.PlayButtonClick();
+							Sounds.instance.buttonClick.Play();
 							
 							var newState = menuItems[i].menuState;
 							if(newState == currentState) {

@@ -283,7 +283,7 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 				GUI.enabled = true;
 				GUI.backgroundColor = Color.white;
 				if(GUIHelper.Button(new GUIContent("", logoutIcon, "Log out"))) {
-					MenuSounds.instance.PlayButtonClick();
+					MenubuttonClick.Play();
 					
 					Lobby.RPC("LobbyAccountLogOut", Lobby.lobby);
 				}*/

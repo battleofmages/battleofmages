@@ -31,7 +31,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 					crossHair.enabled = (value == null); //&& ToggleMouseLook.instance.mouseLook.enabled);
 				
 				if(_target != value && value != null && value.audio != null)
-					value.audio.PlayOneShot(Sounds.toggleTargetFocus);
+					value.audio.PlayOneShot(Sounds.instance.toggleTargetFocus);
 			}
 			
 			_target = value;

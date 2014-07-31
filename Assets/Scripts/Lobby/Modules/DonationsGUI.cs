@@ -31,7 +31,7 @@ public sealed class DonationsGUI : LobbyModule<DonationsGUI> {
 	// OnClick
 	public override void OnClick() {
 		if(pendingCrystalBalanceRequests == 0) {
-			Sounds.instance.PlayButtonClick();
+			Sounds.instance.buttonClick.Play();
 			
 			Lobby.RPC("CrystalBalanceRequest", Lobby.lobby);
 			pendingCrystalBalanceRequests += 1;
