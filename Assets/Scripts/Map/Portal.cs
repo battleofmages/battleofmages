@@ -9,7 +9,7 @@ public class Portal : MonoBehaviour, ActionTarget {
 	// Start
 	void Start() {
 		// Set portal label text
-		transform.FindChild("Portal").GetComponent<ObjectLabel>().text = mapName;
+		transform.FindChild("Portal/Label").GetComponent<TextMesh>().text = mapName;
 	}
 
 	// Player comes in range
