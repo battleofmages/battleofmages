@@ -84,7 +84,7 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 					
 					GUI.enabled = false;
 					
-					// Conquest
+					/*// Conquest
 					using(new GUIVertical()) {
 						GUILayout.Label("Conquest", gameTypeStyle);
 						GUILayout.Space(queueButtonHeight * 2 + 8);
@@ -136,7 +136,7 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 								// ...
 							}
 						}
-					}
+					}*/
 					
 					GUI.enabled = true;
 				}
