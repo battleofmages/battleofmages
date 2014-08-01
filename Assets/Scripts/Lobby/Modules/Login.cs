@@ -29,12 +29,16 @@ public class Login : LobbyModule<Login> {
 	public string editorAccountName;
 	public string editorPassword;
 
+	public Texture2D cursorIcon;
+	public Vector2 cursorHotSpot;
+	public CursorMode cursorMode;
+
 	public Vector2 loginGUIDimensions;
 	public Vector2 registerGUIDimensions;
 	
 	public GUIStyle tooltipStyle;
 	public Vector2 tooltipOffset;
-	
+
 	public Texture2D closeIcon;
 	
 	public ProgressBarStyle progressBarStyle;
@@ -93,6 +97,9 @@ public class Login : LobbyModule<Login> {
 			Application.Quit();
 			return;
 		}
+
+		// Cursor
+		Cursor.SetCursor(cursorIcon, cursorHotSpot, cursorMode);
 		
 		SetupApplicationForLobby();
 		gameLobby = GetComponent<InGameLobby>();
@@ -121,10 +128,10 @@ public class Login : LobbyModule<Login> {
 			introEnabled = false;
 		}
 		
-		retrieveLobbyIP = false;
+		//retrieveLobbyIP = false;
 		lobbyHost = editorLobbyHost;
 #endif
-		
+
 		// Retrieve lobby IP
 		if(retrieveLobbyIP) {
 			WWW ipRequest = new WWW(lobbyIpURL);
@@ -381,7 +388,7 @@ public class Login : LobbyModule<Login> {
 	
 	// Also used for reconnecting
 	void ConnectToLobby() {
-		if(Lobby.connectionStatus == LobbyConnectionStatus.Disconnected) {
+		if(Lobby.connectionStatus != LobbyConnectionStatus.Connected) {
 			// Reset pending request count because we were disconnected
 			if(gameLobby.donationsGUI != null)
 				gameLobby.donationsGUI.pendingCrystalBalanceRequests = 0;
@@ -395,6 +402,7 @@ public class Login : LobbyModule<Login> {
 			//gameLobby.ResetQueueInfo();
 			
 			// Connect
+			LogManager.General.Log("Connecting to lobby @ " + lobbyHost + ":" + lobbyPort);
 			Lobby.ConnectAsClient(lobbyHost, lobbyPort);
 		}
 	}

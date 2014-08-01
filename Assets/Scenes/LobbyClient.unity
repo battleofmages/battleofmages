@@ -4993,7 +4993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa09a30cc17df914d874ba62697a03a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicEnabled: 0
+  musicEnabled: 1
   fadeInCurve:
     serializedVersion: 2
     m_Curve:
@@ -6926,8 +6926,8 @@ GameObject:
   - 114: {fileID: 2051072779}
   - 114: {fileID: 2051072791}
   - 114: {fileID: 2051072792}
-  - 114: {fileID: 2051072777}
   - 114: {fileID: 2051072793}
+  - 114: {fileID: 2051072777}
   m_Layer: 0
   m_Name: Login
   m_TagString: Untagged
@@ -6959,7 +6959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2492f4e6e2bdfee4ab03ad4341aacc0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lobbyHost: 127.0.0.1
+  lobbyHost: 37.139.29.70
   editorLobbyHost: 127.0.0.1
   lobbyPort: 1310
   lobbyFrameRate: 60
@@ -6967,18 +6967,21 @@ MonoBehaviour:
   lobbyFrameRateIdle: 10
   enableLobby: 0
   guiDepth: 0
-  changeLogURL: http://battleofmages.com/changelog.php
+  changeLogURL: https://battleofmages.com/changelog.php
   changeLogRect:
     serializedVersion: 2
     x: .699999988
     y: .100000001
     width: .280000001
     height: .800000012
-  retrieveLobbyIP: 0
-  lobbyIpURL: 
-  editorAutoLogin: 1
+  retrieveLobbyIP: 1
+  lobbyIpURL: https://battleofmages.com/scripts/login-server-ip.php
+  editorAutoLogin: 0
   editorAccountName: a
   editorPassword: a
+  cursorIcon: {fileID: 2800000, guid: 6ff591031a2892a479a2a06a3ea57c1b, type: 3}
+  cursorHotSpot: {x: 0, y: 0}
+  cursorMode: 0
   loginGUIDimensions: {x: 440, y: 290}
   registerGUIDimensions: {x: 440, y: 330}
   tooltipStyle:
@@ -8135,7 +8138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be69fa483b4818b40a76c2c0aeff9292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  versionNumber: 43
+  versionNumber: 44
 --- !u!114 &2051072778
 MonoBehaviour:
   m_ObjectHideFlags: 0
