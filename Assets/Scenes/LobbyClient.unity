@@ -2909,7 +2909,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: .5
+        - cooldown: .400000006
           description: Summons a fireball.
           castDuration: .200000003
           posType: 0
@@ -2928,7 +2928,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 1
-        - cooldown: .5
+        - cooldown: .400000006
           description: Summons a strong fireball.
           castDuration: .400000006
           posType: 0
@@ -2947,7 +2947,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 1
-        - cooldown: .5
+        - cooldown: .400000006
           description: Summons a very strong fireball.
           castDuration: .400000006
           posType: 0
@@ -3102,7 +3102,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: .5
+        - cooldown: .400000006
           description: Summons an iceball which slows enemies.
           castDuration: .200000003
           posType: 0
@@ -3121,7 +3121,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 2
-        - cooldown: .5
+        - cooldown: .400000006
           description: Summons a strong iceball which slows enemies.
           castDuration: .400000006
           posType: 0
@@ -3140,7 +3140,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 2
-        - cooldown: .5
+        - cooldown: .400000006
           description: Summons a very strong iceball which slows enemies.
           castDuration: .400000006
           posType: 0
@@ -3414,7 +3414,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: .5
+        - cooldown: .400000006
           description: Summons 3 dark projectiles, each engraving a dark rune.
           castDuration: .300000012
           posType: 0
@@ -3433,7 +3433,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 3
-        - cooldown: .5
+        - cooldown: .400000006
           description: Summons 4 dark projectiles, each engraving a dark rune.
           castDuration: .400000006
           posType: 0
@@ -3452,7 +3452,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 3
-        - cooldown: .5
+        - cooldown: .400000006
           description: Summons 5 dark projectiles, each engraving a dark rune.
           castDuration: .400000006
           posType: 0
@@ -3701,7 +3701,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: .5
+        - cooldown: .400000006
           description: Summons a lightball that searches for enemies close to it and
             flies towards them.
           castDuration: .200000003
@@ -3721,7 +3721,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 4
-        - cooldown: .5
+        - cooldown: .400000006
           description: Summons a strong lightball that searches for enemies close
             to it and flies towards them.
           castDuration: .400000006
@@ -3741,7 +3741,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 4
-        - cooldown: .5
+        - cooldown: .400000006
           description: Summons a very strong lightball that searches for enemies close
             to it and flies towards them.
           castDuration: .400000006
@@ -4090,7 +4090,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: 0
+        - cooldown: .400000006
           description: 
           castDuration: 0
           posType: 2
@@ -4993,7 +4993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa09a30cc17df914d874ba62697a03a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicEnabled: 1
+  musicEnabled: 0
   fadeInCurve:
     serializedVersion: 2
     m_Curve:
