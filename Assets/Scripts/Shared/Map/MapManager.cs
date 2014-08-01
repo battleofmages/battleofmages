@@ -5,20 +5,6 @@ public class MapManager {
 	// Starting town
 	public static string startingMap = "Tutorial";
 	
-	// Towns
-	public static string[] towns = new string[] {
-		"PvP Lobby",
-		"Nubek"
-		//"El Thea",
-		//"Tamburin",
-	};
-
-	// Worlds
-	public static string[] worlds = new string[] {
-		"Tutorial",
-		"Nubek Outskirts"
-	};
-	
 	// Arenas
 	public static string[] arenas = new string[] {
 		//"Alpha Tester Grounds",

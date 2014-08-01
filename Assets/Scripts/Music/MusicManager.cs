@@ -63,6 +63,9 @@ public class MusicManager : LobbyModule<MusicManager> {
 		if(!musicEnabled)
 			return;
 		
+		if(GameManager.isServer)
+			return;
+		
 		currentCategory = category;
 		
 		if(currentAudioSource.isPlaying) {
@@ -211,7 +214,7 @@ public class MusicManager : LobbyModule<MusicManager> {
 
 	// PlayNextClip
 	void PlayNextClip() {
-		if(currentCategory == null) {
+		if(currentCategory == null || currentCategory.tracks.Length == 0) {
 			currentAudioSource.clip = null;
 			currentTrack = null;
 			return;

@@ -4993,7 +4993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa09a30cc17df914d874ba62697a03a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicEnabled: 0
+  musicEnabled: 1
   fadeInCurve:
     serializedVersion: 2
     m_Curve:
@@ -10325,7 +10325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tracks:
-  - audioClip: {fileID: 8300000, guid: b7b4cde4b8f83dc469df719de4fa6e05, type: 3}
+  - audioClip: {fileID: 8300000, guid: 3fa6c6bd881923e4ba384d7562a609d4, type: 3}
     pitchMin: 1
     pitchMax: 1
     isFirstTrack: 1

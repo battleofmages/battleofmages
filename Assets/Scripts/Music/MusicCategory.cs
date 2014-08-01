@@ -6,7 +6,14 @@ public class MusicCategory : MonoBehaviour {
 	public MusicTrack[] tracks;
 	
 	private List<MusicTrack> tracksLeftToPlay;
-	
+
+	// Start
+	void Start() {
+		if(GameManager.isServer)
+			UnloadMusic();
+	}
+
+	// GetNextTrack
 	public MusicTrack GetNextTrack(MusicTrack previousTrack) {
 		int numOfTracksLeft;
 		MusicTrack newTrack = null;
@@ -49,5 +56,15 @@ public class MusicCategory : MonoBehaviour {
 		}
 		
 		return newTrack;
+	}
+
+	// UnloadMusic
+	void UnloadMusic() {
+		foreach(var track in tracks) {
+			track.audioClip = null;
+		}
+
+		tracks = null;
+		Resources.UnloadUnusedAssets();
 	}
 }

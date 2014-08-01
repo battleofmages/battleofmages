@@ -28,6 +28,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 	public static bool gameStarted {get; set;}
 	public static bool gameEnded {get; set;}
 
+	// Client or server
+	public static bool isServer { get { return ServerInit.instance != null; } }
+	public static bool isClient { get { return !isServer; } }
+
 	// Game state
 	private static State _currentState = State.ConnectingToLobby;
 	private static State _nextState = State.ConnectingToLobby;
