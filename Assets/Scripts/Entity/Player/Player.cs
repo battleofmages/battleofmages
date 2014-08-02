@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public abstract class Player : Entity {
@@ -26,10 +27,10 @@ public abstract class Player : Entity {
 	protected Vector3 camPosition;
 	
 	// Movement
-	[HideInInspector]
+	[NonSerialized]
 	public bool movementKeysPressed = false;
 	
-	[HideInInspector]
+	[NonSerialized]
 	public Vector3 moveVector;
 	
 	protected bool jumpButtonPressed;
@@ -44,38 +45,38 @@ public abstract class Player : Entity {
 	protected LobbyChat lobbyChat;
 
 	// Account
-	[HideInInspector]
+	[NonSerialized]
 	public PlayerAccount account;
 	
-	[HideInInspector]
+	[NonSerialized]
 	public ArtifactTree artifactTree = null;
 	
-	[HideInInspector]
+	[NonSerialized]
 	public Artifact artifactReward;
 	
-	[HideInInspector]
+	[NonSerialized]
 	public CharacterCustomization customization;
 	
 	// Server side data
-	[HideInInspector]
+	[NonSerialized]
 	public string accountId;
 	
 	// NPC
-	[HideInInspector]
+	[NonSerialized]
 	public NPC talkingWithNPC;
 	
 	private CastEffect castEffect;
 	
-	[HideInInspector]
+	[NonSerialized]
 	public byte currentAttunementId;
 	
-	[HideInInspector]
+	[NonSerialized]
 	public int newBestRanking = -1;
 	
-	[HideInInspector]
+	[NonSerialized]
 	public double lastDeathTime;
 	
-	[HideInInspector]
+	[NonSerialized]
 	public CharacterMotor motor;
 
 	protected VoIP voIP;
@@ -84,14 +85,18 @@ public abstract class Player : Entity {
 	protected float motorAirAcceleration;
 	
 	// Local references
-	[HideInInspector]
+	[NonSerialized]
 	public GameServerParty winnerParty;
 	
 	protected GameObject attunementVisuals;
 	
 	// LoS
-	[HideInInspector]
+	[NonSerialized]
 	public Dictionary<Entity, bool> playerVisibility;
+
+	// FPS
+	[NonSerialized]
+	public ushort fps;
 	
 	// Awake
 	protected override void Awake() {

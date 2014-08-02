@@ -236,6 +236,11 @@ public abstract class PlayerOnClient : Player {
 		//Debug.Log(info.timestampInMillis - lastPositionReceived + " ms");
 		//lastPositionReceived = info.timestampInMillis;
 	}
+
+	[RPC]
+	protected void FPS(ushort framesPerSecond) {
+		fps = framesPerSecond;
+	}
 	
 	[RPC]
 	protected void UpdatePing(ushort nPing) {

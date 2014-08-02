@@ -33,6 +33,7 @@ public class EntityInfo : HUDElement {
 				GUILayout.Label("<b>Class:</b> " + selectedPlayer.account.characterClassName);
 				GUILayout.Label("<b>Ranking:</b> " + selectedPlayer.stats.bestRanking + " points");
 				GUILayout.Label("<b>Ping:</b> " + selectedPlayer.stats.ping + " ms");
+				GUILayout.Label("<b>FPS:</b> " + selectedPlayer.fps);
 
 				// GM specific info
 				if(PlayerAccount.mine.accessLevel >= AccessLevel.GameMaster) {

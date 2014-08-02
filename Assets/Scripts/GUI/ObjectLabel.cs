@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ObjectLabel : uLink.MonoBehaviour {
 	public static Transform labelRoot;
+	private const float shadowAlpha = 0.5f;
 	
 	public GUIText prefabLabel;
 	public Color initialColor = Color.white;
@@ -33,7 +34,7 @@ public class ObjectLabel : uLink.MonoBehaviour {
 
 		shadowLabel = (GUIText)Instantiate(prefabLabel, Cache.vector3Zero, Cache.quaternionIdentity);
 		shadowLabel.text = initialText;
-		shadowLabel.material.color = new Color(0f, 0f, 0f, 0.5f);
+		shadowLabel.material.color = new Color(0f, 0f, 0f, shadowAlpha);
 		shadowLabel.pixelOffset = new Vector2(shadowLabel.pixelOffset.x + 1, shadowLabel.pixelOffset.y - 1);
 		shadowLabel.enabled = this.enabled;
 
@@ -131,6 +132,10 @@ public class ObjectLabel : uLink.MonoBehaviour {
 			}
 			
 			instantiatedLabel.material.color = value;
+
+			// Apply alpha to the shadow as well
+			var color = shadowLabel.material.color;
+			shadowLabel.material.color = new Color(color.r, color.g, color.b, shadowAlpha * value.a);
 		}
 	}
 	

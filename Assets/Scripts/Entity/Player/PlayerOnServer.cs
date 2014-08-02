@@ -551,6 +551,17 @@ public class PlayerOnServer : Player, CasterOnServer {
 		
 		ReceiveHitPoint(nHitPoint);
 	}
+
+	// Frame rate
+	[RPC]
+	void FPS(ushort framesPerSecond, uLink.NetworkMessageInfo info) {
+		// Make sure we throw away messages from the wrong client
+		if(info.sender != networkView.owner)
+			return;
+
+		// Let the others know
+		networkView.UnreliableRPC("FPS", uLink.RPCMode.OthersExceptOwner, framesPerSecond);
+	}
 	
 	[RPC]
 	public void ClientReady(uLink.NetworkMessageInfo info) {

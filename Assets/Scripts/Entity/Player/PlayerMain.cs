@@ -45,6 +45,7 @@ public class PlayerMain : PlayerOnClient {
 		crossHair.enabled = true;
 
 		InvokeRepeating("SendToServer", 0.001f, 1.0f / (uLink.Network.sendRate * 2.0f));
+		InvokeRepeating("SendFPS", 0.001f, 1.0f);
 	}
 	
 #region Update
@@ -470,6 +471,11 @@ public class PlayerMain : PlayerOnClient {
 		if(currentSkill != null && currentSkill.canHold && lastSkillInstance) {
 			networkView.UnreliableRPC(rpcClientHitPoint, uLink.RPCMode.Server, GetHitPoint());
 		}
+	}
+
+	// Send FPS
+	void SendFPS() {
+		networkView.UnreliableRPC("FPS", uLink.RPCMode.Server, (ushort)FPSView.fps);
 	}
 	
 	// GetHitPoint

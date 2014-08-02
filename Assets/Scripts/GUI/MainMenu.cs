@@ -210,11 +210,11 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 					
 				case InGameMenuState.LeaveGame:
 					if(!leftGame) {
-						LogManager.General.Log("Leaving game...");
-						
-						if(GameManager.serverType == ServerType.Town) {
+						if(GameManager.isPvE) {
+							LogManager.General.Log("Exiting application...");
 							Application.Quit();
 						} else {
+							LogManager.General.Log("Leaving game...");
 							Return();
 						}
 						
@@ -227,7 +227,7 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 	
 	// Return
 	public void Return() {
-		if(GameManager.serverType != ServerType.Town) {
+		if(GameManager.isPvP) {
 			ReturnToTown();
 		} else {
 			ReturnToLobby();
