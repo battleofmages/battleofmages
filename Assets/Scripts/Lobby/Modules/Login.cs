@@ -128,7 +128,7 @@ public class Login : LobbyModule<Login> {
 			introEnabled = false;
 		}
 		
-		//retrieveLobbyIP = false;
+		retrieveLobbyIP = false;
 		lobbyHost = editorLobbyHost;
 #endif
 
@@ -413,7 +413,7 @@ public class Login : LobbyModule<Login> {
 	public void ReturnToLobbyFromGame() {
 		ChangeState(State.Lobby);
 		gameLobby.currentState = GameLobbyState.MainMenu;
-		
+
 		// If it was disabled before by accident...
 		gameLobby.lobbyChat.chatInputEnabled = true;
 		gameLobby.lobbyChat.currentChannel = "Global";

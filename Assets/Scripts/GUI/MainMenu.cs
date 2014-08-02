@@ -250,7 +250,11 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 		LogManager.General.Log("Returning to lobby");
 		
 		// Then we load the lobby up again
-		LoadingScreen.instance.SecureLoadLevel("LobbyClient");
+		LoadingScreen.instance.SecureLoadLevel("LobbyClient", () => {
+			// Re-enable cursor
+			Screen.lockCursor = false;
+			Screen.showCursor = true;
+		});
 		Login.instance.ReturnToLobbyFromGame();
 		
 		if(AccountManager.isLoggedIn)
