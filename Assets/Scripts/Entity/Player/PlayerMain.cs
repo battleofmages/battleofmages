@@ -475,7 +475,8 @@ public class PlayerMain : PlayerOnClient {
 
 	// Send FPS
 	void SendFPS() {
-		networkView.UnreliableRPC("FPS", uLink.RPCMode.Server, (ushort)FPSView.fps);
+		fps = (ushort)FPSView.fps;
+		networkView.UnreliableRPC("FPS", uLink.RPCMode.Server, fps);
 	}
 	
 	// GetHitPoint

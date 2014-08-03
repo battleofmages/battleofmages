@@ -543,7 +543,8 @@ public abstract class Player : Entity {
 		hasControlOverMovement = true;
 		movementKeysPressed = false;
 		jumping = false;
-		hovering = false;
+		EndBlock();
+		EndHover();
 		
 		// Re-enable collider
 		EnableCollider();
