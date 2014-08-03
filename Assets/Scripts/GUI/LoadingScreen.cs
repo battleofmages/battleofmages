@@ -14,6 +14,9 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 	[HideInInspector]
 	public AsyncOperation asyncLoadLevel;
 
+	[HideInInspector]
+	public WWW asyncDownload;
+
 	private CallBack func;
 	private string level;
 	
@@ -57,6 +60,7 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 	void OnLevelWasLoaded(int level) {
 		LogManager.General.Log("Level was loaded, time scale: 100%");
 		Time.timeScale = 1f;
+		asyncDownload = null;
 		asyncLoadLevel = null;
 		statusMessage = loadingText + " 100%";
 		
@@ -85,7 +89,9 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 		while(uLink.Network.peerType != uLink.NetworkPeerType.Disconnected)
 			yield return null;
 		
-		LogManager.General.Log("Disconnected from the server successfully, loading level now");
+		LogManager.General.Log("Disconnected from the server successfully");
+		LogManager.General.Log("Loading level: " + levelName);
+
 		asyncLoadLevel = Application.LoadLevelAsync(levelName);
 		yield return asyncLoadLevel;
 	}
@@ -112,6 +118,7 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 	public void Enable(CallBack fadeEndFunction = null) {
 		statusMessage = null;
 		asyncLoadLevel = null;
+		asyncDownload = null;
 
 		if(fadeEndFunction == null) {
 			fadeEndFunction = () => {
@@ -155,6 +162,7 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 				this.enabled = false;
 				statusMessage = null;
 				asyncLoadLevel = null;
+				asyncDownload = null;
 				LogManager.General.Log("Loading screen disabled");
 			}
 		);
@@ -180,6 +188,9 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 		GUI.color = backgroundColor;
 		if(background != null)
 			GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), background);
+
+		if(asyncDownload != null)
+			statusMessage = loadingText + " " + (int)(asyncDownload.progress * 100) + "%";
 
 		if(asyncLoadLevel != null)
 			statusMessage = loadingText + " " + (int)(asyncLoadLevel.progress * 100) + "%";

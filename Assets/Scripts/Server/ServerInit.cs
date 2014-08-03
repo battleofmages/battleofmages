@@ -640,7 +640,7 @@ public class ServerInit : uLink.MonoBehaviour {
 		}
 		
 		// Start conditions
-		if(GameManager.isTown || GameManager.isFFA || isTestServer) {
+		if(!GameManager.isArena || isTestServer) {
 			this.SendGameStart();
 		}
 		

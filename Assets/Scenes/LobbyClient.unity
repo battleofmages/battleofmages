@@ -1225,7 +1225,7 @@ MonoBehaviour:
   blockSphere: {fileID: 100000, guid: 93841637a8fbd5d43bc7359406b4cfbc, type: 2}
   lootTrail: {fileID: 100000, guid: 86883fe9b8b8d5f45993e32a7b0bda07, type: 2}
   font: {fileID: 12800000, guid: ee5f1f06f0db2d648ada5c8678b29d5c, type: 3}
-  playerMoveSpeed: 8
+  playerMoveSpeed: 7
   playerHP: 8000
   entityEnergy: 50
   blockMinimumEnergyForUsage: 5
@@ -6960,7 +6960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyHost: 127.0.0.1
-  editorLobbyHost: 37.139.29.70
+  editorLobbyHost: 127.0.0.1
   lobbyPort: 1310
   lobbyFrameRate: 60
   lowerFPSWhenIdle: 1
@@ -6974,7 +6974,7 @@ MonoBehaviour:
     y: .100000001
     width: .280000001
     height: .800000012
-  retrieveLobbyIP: 1
+  retrieveLobbyIP: 0
   lobbyIpURL: https://battleofmages.com/scripts/login-server-ip.php
   editorAutoLogin: 0
   editorAccountName: a
