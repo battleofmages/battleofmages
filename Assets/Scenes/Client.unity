@@ -4241,7 +4241,7 @@ MonoBehaviour:
   ownDmgOffset: 24
   healthBarWidth: 48
   ownHealthBarWidth: 64
-  serverPositionPredictionFactor: .5
+  serverPositionPredictionFactor: .25
   maxPositionPredictionTime: .0500000007
   maxProxyDistanceUntilSnapSqr: 1
   proxyInterpolationSpeed: 20

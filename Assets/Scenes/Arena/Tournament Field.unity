@@ -19,7 +19,7 @@ RenderSettings:
   m_LinearFogStart: 0
   m_LinearFogEnd: 1000
   m_AmbientLight: {r: .352941185, g: .352941185, b: .352941185, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 8df7c7e6c891749daa0062874b7f9420, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 16522f49031ff414abdf1f83f1b6a36c, type: 2}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -86,7 +86,7 @@ GameObject:
   m_Layer: 0
   m_Name: Sun
   m_TagString: Sun
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1203168336, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -97,7 +97,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 216302301}
   m_LocalRotation: {x: .219498217, y: .75679785, z: -.529915571, w: .313475937}
-  m_LocalPosition: {x: 0, y: 18.1575089, z: 0}
+  m_LocalPosition: {x: 18.1701717, y: 383.742035, z: 311.220825}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 665038160}
@@ -411,7 +411,7 @@ MonoBehaviour:
   linearFogStart: 0
   linearFogEnd: 1000
   ambientLight: {r: .352941185, g: .352941185, b: .352941185, a: 1}
-  skyboxMaterial: {fileID: 2100000, guid: 8df7c7e6c891749daa0062874b7f9420, type: 2}
+  skyboxMaterial: {fileID: 2100000, guid: 16522f49031ff414abdf1f83f1b6a36c, type: 2}
 --- !u!1 &686797118
 GameObject:
   m_ObjectHideFlags: 0

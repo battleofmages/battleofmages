@@ -263,7 +263,7 @@ public abstract class Player : Entity {
 		enemyHeadPosition.y += enemy.characterController.height - yOffset;
 		
 		// We check all layers except for transparent objects
-		int layerMask = ~(1 << 1 | 1 << Physics.kIgnoreRaycastLayer); // ~((1 << 1) | (1 << this.gameObject.layer));
+		int layerMask = ~(1 << 1 | Physics.kIgnoreRaycastLayer); // ~((1 << 1) | (1 << this.gameObject.layer));
 
 		// TODO: Allowing the own collider is actually a bug,
 		//       it might make enemies in the far visible.

@@ -6960,7 +6960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyHost: 127.0.0.1
-  editorLobbyHost: 127.0.0.1
+  editorLobbyHost: 37.139.29.70
   lobbyPort: 1310
   lobbyFrameRate: 60
   lowerFPSWhenIdle: 1
@@ -6976,7 +6976,7 @@ MonoBehaviour:
     height: .800000012
   retrieveLobbyIP: 1
   lobbyIpURL: https://battleofmages.com/scripts/login-server-ip.php
-  editorAutoLogin: 1
+  editorAutoLogin: 0
   editorAccountName: a
   editorPassword: a
   cursorIcon: {fileID: 2800000, guid: 6ff591031a2892a479a2a06a3ea57c1b, type: 3}
