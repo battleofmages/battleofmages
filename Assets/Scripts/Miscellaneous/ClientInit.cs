@@ -66,11 +66,6 @@ uzf/lC9NYarw==", @"EQ==");
 	void uLink_OnConnectedToServer(System.Net.IPEndPoint nServer) {
 		LogManager.General.Log("Successfully connected to server: " + nServer.ToString());
 		
-		if(Time.timeScale != 1f) {
-			LogManager.General.Log("Time scale: 100%");
-			Time.timeScale = 1f;
-		}
-		
 		disconnected = false;
 		server = nServer;
 

@@ -57,9 +57,8 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 	}
 	
 	// On level load
-	void OnLevelWasLoaded(int level) {
-		LogManager.General.Log("Level was loaded, time scale: 100%");
-		Time.timeScale = 1f;
+	void OnLevelWasLoaded(int levelNumber) {
+		LogManager.General.Log("Level was loaded: " + level);
 		asyncDownload = null;
 		asyncLoadLevel = null;
 		statusMessage = loadingText + " 100%";
@@ -153,6 +152,9 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 	
 	// Disables loading screen
 	public void Disable() {
+		LogManager.General.Log("Loading screen fading out, setting time scale from " + Time.timeScale + " to 1");
+		Time.timeScale = 1f;
+
 		this.Fade(
 			fadeTime,
 			val => {

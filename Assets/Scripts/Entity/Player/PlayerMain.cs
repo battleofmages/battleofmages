@@ -396,6 +396,9 @@ public class PlayerMain : PlayerOnClient {
 		if(isReady)
 			return;
 
+		// Restore server position just to be safe
+		position = serverPosition;
+
 		// Fade out loading screen
 		if(LoadingScreen.instance != null)
 			LoadingScreen.instance.Disable();

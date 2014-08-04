@@ -532,6 +532,10 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		get {
 			return myTransform.position;
 		}
+
+		set {
+			myTransform.position = value;
+		}
 	}
 
 	// Is ready
