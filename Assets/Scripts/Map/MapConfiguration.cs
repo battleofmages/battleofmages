@@ -16,6 +16,9 @@ public class MapConfiguration : MonoBehaviour {
 	
 	// Render settings
 	void Start() {
+		if(GameManager.isServer)
+			return;
+
 		ApplyRenderSettings();
 		
 		if(ChangeSky.instance != null)

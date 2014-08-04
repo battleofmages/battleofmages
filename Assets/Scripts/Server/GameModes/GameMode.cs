@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public abstract class GameMode : MonoBehaviour {
 	public static double secondsPlayed;
@@ -18,19 +17,25 @@ public abstract class GameMode : MonoBehaviour {
 	
 	[HideInInspector]
 	public int scoreNeededToWin = 5000;
-	
+
+	[HideInInspector]
+	public double lastActivity;
+
 	protected bool statsSentToDB = false;
 	protected int highestScore;
-	protected double lastActivity;
 	protected ServerInit server;
-	
-	protected virtual void Start() {
+
+	// OnEnable
+	protected virtual void OnEnable() {
 		lastActivity = uLink.Network.time;
 		server = GameObject.Find("Server").GetComponent<ServerInit>();
 	}
 	
 	// Check if we can shut down the server
 	protected void CheckShutdown() {
+		if(!enabled || !uLink.Network.isServer || !MapManager.mapLoaded)
+			return;
+
 		// Players diconnected?
 		if(uLink.Network.connections.Length == 0) {
 			if(!server.isTestServer && uLink.Network.time - lastActivity > maxWaitTimeUntilShutdown) {

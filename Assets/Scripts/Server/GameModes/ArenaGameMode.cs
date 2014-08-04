@@ -1,5 +1,12 @@
 // This script is only executed on the server
 public class ArenaGameMode : GameMode {
+	// OnEnable
+	protected override void OnEnable() {
+		base.OnEnable();
+		
+		InvokeRepeating("GameModeUpdate", 1f, 1f);
+	}
+
 	// Update
 	void Update () {
 		if(gameEnded) {
@@ -17,9 +24,6 @@ public class ArenaGameMode : GameMode {
 			
 			return;
 		} else {
-			// All players disconnected?
-			CheckShutdown();
-			
 			// Check if the game ended now
 			foreach(var pty in GameServerParty.partyList) {
 				// Win conditions
@@ -30,5 +34,12 @@ public class ArenaGameMode : GameMode {
 				}
 			}
 		}
+	}
+
+	// GameModeUpdate
+	void GameModeUpdate() {
+		// All players disconnected?
+		if(!gameEnded)
+			CheckShutdown();
 	}
 }

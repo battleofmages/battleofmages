@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MapManager {
+public static class MapManager {
 	// Starting town
 	public static string startingMap = "Tutorial";
 	

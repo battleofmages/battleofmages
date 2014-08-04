@@ -1,12 +1,11 @@
 using uLobby;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public sealed class RankingGUI : LobbyModule<RankingGUI> {
 	public const int leaguePoints = 500;
 	public static int divisionPoints;
-	public Dictionary<string, Texture2D> countryCodeToIcon = new Dictionary<string, Texture2D>();
+	public Dictionary<string, WWWResource<Texture2D>> countryCodeToIcon = new Dictionary<string, WWWResource<Texture2D>>();
 	
 	public GUIStyle rankingNumberStyle;
 	public GUIStyle rankingNameStyle;
@@ -39,7 +38,12 @@ public sealed class RankingGUI : LobbyModule<RankingGUI> {
 		ChangePage(RankingPage.Best);
 		
 		// Empty icon
-		countryCodeToIcon[""] = (Texture2D)Resources.Load("Country/empty");
+		countryCodeToIcon[""] = LoadCountryIconAsync("empty");
+	}
+
+	// LoadCountryIconAsync
+	public WWWResource<Texture2D> LoadCountryIconAsync(string countryCode) {
+		return new WWWResource<Texture2D>(countryCode, "https://battleofmages.com/images/country/" + countryCode + ".png");
 	}
 
 	// OnClick
@@ -148,7 +152,7 @@ public sealed class RankingGUI : LobbyModule<RankingGUI> {
 			
 			// Load country icon if not loaded yet
 			if(!countryCodeToIcon.ContainsKey(entry.country)) {
-				countryCodeToIcon[entry.country] = (Texture2D)Resources.Load("Country/" + entry.country);
+				countryCodeToIcon[entry.country] = LoadCountryIconAsync(entry.country);
 			}
 			
 			if(entry.name == InGameLobby.instance.displayedAccount.playerName) {
@@ -158,7 +162,7 @@ public sealed class RankingGUI : LobbyModule<RankingGUI> {
 			}
 			
 			// Player name
-			DrawPlayerName(entry.name, new GUIContent(" " + entry.name, countryCodeToIcon[entry.country]), rankingNameStyle);
+			DrawPlayerName(entry.name, new GUIContent(" " + entry.name, countryCodeToIcon[entry.country].data), rankingNameStyle);
 			
 			GUILayout.FlexibleSpace();
 			GUILayout.Label(entry.bestRanking + " p", rankingScoreStyle);
