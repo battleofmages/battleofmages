@@ -15,6 +15,9 @@ public class SkillBar : HUDElement {
 	public static int miniIconSize = defaultMiniIconSize;
 	
 	public bool drawBorder;
+
+	[Range(0, 1)]
+	public float borderAlpha = 1f;
 	
 	public GUIStyle skillDescriptionStyle;
 	public GUIStyle cooldownNumberStyle;
@@ -179,7 +182,8 @@ public class SkillBar : HUDElement {
 					borderPos.y -= 1;
 					borderPos.width += 2;
 					borderPos.height += 2;
-					GUI.color = new Color(0f, 0f, 0f, iconColor.a);
+
+					GUI.color = new Color(0f, 0f, 0f, iconColor.a * borderAlpha);
 					GUI.DrawTexture(borderPos, skill.icon, ScaleMode.StretchToFill, true);
 				}
 				

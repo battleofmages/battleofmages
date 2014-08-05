@@ -4199,7 +4199,7 @@ MonoBehaviour:
   blockSphere: {fileID: 100000, guid: 93841637a8fbd5d43bc7359406b4cfbc, type: 2}
   lootTrail: {fileID: 100000, guid: 86883fe9b8b8d5f45993e32a7b0bda07, type: 2}
   font: {fileID: 12800000, guid: ee5f1f06f0db2d648ada5c8678b29d5c, type: 3}
-  playerMoveSpeed: 8
+  playerMoveSpeed: 7
   playerHP: 8000
   entityEnergy: 50
   blockMinimumEnergyForUsage: 5
