@@ -3,10 +3,12 @@ using System.Collections;
 
 public class LoadingScreen : LobbyModule<LoadingScreen> {
 	public string loadingText;
-	public Texture2D background;
+	public string backgroundURL;
 	public Color backgroundColor = Color.white;
 	public float fadeTime;
 	public bool chatEnabled;
+
+	protected WWWResource<Texture2D> background;
 	
 	[HideInInspector]
 	public string statusMessage;
@@ -22,6 +24,7 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 	
 	// Start
 	void Start() {
+		background = new WWWResource<Texture2D>("loading screen", backgroundURL);
 		this.Disable();
 	}
 	
@@ -188,8 +191,8 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 		float height = GUI.skin.label.CalcHeight(new GUIContent(loadingText), Screen.width - 10);
 		
 		GUI.color = backgroundColor;
-		if(background != null)
-			GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), background);
+		if(background.data != null)
+			GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), background.data);
 
 		if(asyncDownload != null)
 			statusMessage = loadingText + " " + (int)(asyncDownload.progress * 100) + "%";

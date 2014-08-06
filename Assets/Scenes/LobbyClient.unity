@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingText: Loading...
-  background: {fileID: 2800000, guid: 515c34b063f6b1c4ea4db3eda15697fd, type: 3}
+  backgroundURL: https://battleofmages.com/images/backgrounds/loading-screen.jpg
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}
   fadeTime: 1
   chatEnabled: 0
