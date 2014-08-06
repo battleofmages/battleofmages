@@ -78,7 +78,15 @@ public class GenericSerializer {
 		} else if(fieldType == typeof(KeyCode)) {
 			return (KeyCode)(reader.ReadNumber());
 		} else if(fieldType == typeof(string)) {
-			return reader.ReadString();
+			string stringObject;
+			
+			if(reader.TryReadString(out stringObject)) {
+				LogManager.General.Log("JSON string: " + stringObject);
+				return stringObject;
+			} else {
+				reader.ReadNull();
+				return null;
+			}
 		} else if(fieldType == typeof(int[])) {
 			return Jboy.Json.ReadObject<int[]>(reader);
 		} else if(fieldType == typeof(Color)) {

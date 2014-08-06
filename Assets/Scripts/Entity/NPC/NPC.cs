@@ -60,6 +60,10 @@ public class NPC : Entity,  ActionTarget {
 			return;
 		
 		Player.main.actionTarget = this;
+
+		// Play sound
+		if(audio != null && audio.clip != null)
+			audio.Play();
 		
 		if(InGameLobby.instance != null && module == null) {
 			if(componentName == "InGameLobby") {
