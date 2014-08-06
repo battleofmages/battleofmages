@@ -102,7 +102,7 @@ namespace UnityTest
 
 			foreach (var componentType in GetAllComponents(gameObject))
 			{
-				if (AllowedTypes == null || !AllowedTypes.Any() || AllowedTypes.Contains(componentType))
+				if (AllowedTypes == null || !AllowedTypes.Any() || AllowedTypes.Any(t => t.IsAssignableFrom (componentType)))
 					result.Add(componentType.Name);
 
 				if (depthOfSearch > 1)
@@ -131,8 +131,8 @@ namespace UnityTest
 
 			var result = new List<string>();
 			var fields = new List<MemberInfo>();
-			fields.AddRange(type.GetFields());
-			fields.AddRange(type.GetProperties().Where (info => info.GetIndexParameters ().Length == 0).ToArray());
+			fields.AddRange(type.GetFields().Where (f=>!Attribute.IsDefined (f, typeof (ObsoleteAttribute))).ToArray ());
+			fields.AddRange(type.GetProperties().Where (info => info.GetIndexParameters ().Length == 0 && !Attribute.IsDefined (info, typeof (ObsoleteAttribute))).ToArray());
 
 			foreach (var member in fields)
 			{
@@ -141,8 +141,7 @@ namespace UnityTest
 
 				if (AllowedTypes == null 
 					|| !AllowedTypes.Any()
-					|| (AllowedTypes.Contains(memberType) && !ExcludedFieldNames.Contains(memberTypeName))
-					)
+					|| (AllowedTypes.Any (t => t.IsAssignableFrom (memberType)) && !ExcludedFieldNames.Contains (memberTypeName)))
 				{
 					result.Add(member.Name);
 				}

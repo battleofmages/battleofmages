@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityTest.UnitTestRunner;
@@ -14,11 +15,16 @@ namespace UnityTest
 
 		public static void RunUnitTests ()
 		{
+			
 			var resultFilePath = GetParameterArgument (resultFilePathParam) ?? Directory.GetCurrentDirectory ();
 			if (Directory.Exists (resultFilePath))
 				resultFilePath = Path.Combine (resultFilePath, defaultResultFileName);
 			EditorApplication.NewScene ();
-			UnitTestView.StartTestRun (new string[0], new TestRunnerEventListener (resultFilePath), false );
+			var engine = new NUnitTestEngine ();
+			UnitTestResult[] results;
+			string[] categories;
+			engine.GetTests (out results, out categories);
+			engine.RunTests (new TestRunnerEventListener (resultFilePath,results.ToList()));
 		}
 
 		private static string GetParameterArgument ( string parameterName )
@@ -36,16 +42,17 @@ namespace UnityTest
 		private class TestRunnerEventListener : ITestRunnerCallback
 		{
 			private string resultFilePath;
-			private List<ITestResult> results = new List<ITestResult> ();
+			private List<UnitTestResult> results;
 
-			public TestRunnerEventListener (string resultFilePath)
+			public TestRunnerEventListener ( string resultFilePath, List<UnitTestResult> resultList )
 			{
 				this.resultFilePath = resultFilePath;
+				this.results = resultList;
 			}
 
 			public void TestFinished (ITestResult test)
 			{
-				results.Add (test);
+				results.Single( r=>r.Id == test.Id).Update(test, false);
 			}
 
 			public void RunFinished ()

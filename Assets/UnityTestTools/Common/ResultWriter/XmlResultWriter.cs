@@ -1,7 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Security;
 using System.Text;
 using UnityEngine;
 
@@ -80,7 +80,7 @@ namespace UnityTest
 			resultWriter.Append (elementName);
 			foreach (var attribute in attributes)
 			{
-				resultWriter.AppendFormat (" {0}=\"{1}\"", attribute.Key, attribute.Value);
+				resultWriter.AppendFormat (" {0}=\"{1}\"", attribute.Key, SecurityElement.Escape (attribute.Value));
 			}
 			if (closeImmediatelly)
 			{

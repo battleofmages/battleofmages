@@ -86,13 +86,15 @@ namespace UnityTest
 
 		public virtual void Fail ( AssertionComponent assertion )
 		{
-			Debug.LogException (new AssertionException (assertion), assertion);
+			Debug.LogException (new AssertionException (assertion), assertion.GetFailureReferenceObject());
 		}
 
 		public virtual string GetFailureMessage ()
 		{
 			return GetType ().Name + " assertion failed.\n(" + go + ")." + thisPropertyPath + " failed. Value: " + objVal;
 		}
+
+		
 	}
 
 	public abstract class ActionBaseGeneric<T> : ActionBase

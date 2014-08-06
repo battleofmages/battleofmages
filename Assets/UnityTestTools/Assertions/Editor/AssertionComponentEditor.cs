@@ -38,17 +38,17 @@ namespace UnityTest
 			var script = (AssertionComponent) target;
 			EditorGUILayout.BeginHorizontal ();
 			var obj = DrawComparerSelection (script);
-			script.checkMethods = (AssertionComponent.CheckMethod)EditorGUILayout.EnumMaskField (script.checkMethods, 
+			script.checkMethods = (CheckMethod)EditorGUILayout.EnumMaskField (script.checkMethods, 
 																								EditorStyles.popup,
 																								GUILayout.ExpandWidth (false));
 			EditorGUILayout.EndHorizontal ();
 
-			if(script.IsCheckMethodSelected (AssertionComponent.CheckMethod.AfterPeriodOfTime))
+			if(script.IsCheckMethodSelected (CheckMethod.AfterPeriodOfTime))
 			{
 				DrawOptionsForAfterPeriodOfTime (script);
 			}
 
-			if (script.IsCheckMethodSelected(AssertionComponent.CheckMethod.Update))
+			if (script.IsCheckMethodSelected(CheckMethod.Update))
 			{
 				DrawOptionsForOnUpdate (script);
 			}

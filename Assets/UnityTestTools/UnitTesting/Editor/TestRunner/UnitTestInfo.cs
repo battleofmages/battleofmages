@@ -1,7 +1,8 @@
 using System;
+using System.IO;
+using System.Linq;
 using NUnit.Core;
 using System.Text.RegularExpressions;
-using UnityEngine;
 
 namespace UnityTest
 {
@@ -15,6 +16,9 @@ namespace UnityTest
 		public string FullClassName { get; private set; }
 		public string Namespace { get; private set; }
 		public string FullName { get; private set; }
+		public string[] Categories { get; private set; }
+		public string AssemblyPath { get; private set; }
+		public string Id { get; private set; }
 
 		public UnitTestInfo ( TestMethod testMethod )
 		{
@@ -27,13 +31,33 @@ namespace UnityTest
 			FullClassName = testMethod.ClassName;
 			Namespace = testMethod.Method.ReflectedType.Namespace;
 			FullName = testMethod.TestName.FullName;
-
 			ParamName = ExtractMethodCallParametersString (FullName);
+			Id = testMethod.TestName.TestID.ToString ();
+
+			Categories = testMethod.Categories.Cast<string>().ToArray();
+
+			AssemblyPath = GetAssemblyPath (testMethod);
 		}
 
-		public UnitTestInfo (string testName)
+		private string GetAssemblyPath (TestMethod testMethod)
 		{
-			FullName = testName;
+			var parent = testMethod as Test;
+			var assemblyPath = "";
+			while (parent != null)
+			{
+				parent = parent.Parent;
+				if (!(parent is TestAssembly)) continue;
+				var path = (parent as TestAssembly).TestName.FullName;
+				if (!File.Exists (path)) continue;
+				assemblyPath = path;
+				break;
+			}
+			return assemblyPath;
+		}
+
+		public UnitTestInfo (string id)
+		{
+			Id = id;
 		}
 
 		public override bool Equals ( System.Object obj )
@@ -41,12 +65,23 @@ namespace UnityTest
 			if (!(obj is UnitTestInfo)) return false;
 
 			var testInfo = (UnitTestInfo) obj;
-			return FullName == testInfo.FullName;
+			return Id == testInfo.Id;
+		}
+
+		public static bool operator == ( UnitTestInfo a, UnitTestInfo b )
+		{
+			if (((object)a == null) || ((object)b == null)) return false;
+			return a.Id == b.Id;
+		}
+
+		public static bool operator != (UnitTestInfo a, UnitTestInfo b)
+		{
+			return !(a == b);
 		}
 
 		public override int GetHashCode ()
 		{
-			return FullName.GetHashCode ();
+			return Id.GetHashCode ();
 		}
 
 		static string ExtractMethodCallParametersString (string methodFullName)

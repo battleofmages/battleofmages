@@ -42,7 +42,7 @@ namespace UnityTest
 			}
 			EditorBuildSettings.scenes = sceneList.Select (s => new EditorBuildSettingsScene (s, true)).ToArray ();
 			EditorApplication.OpenScene (sceneList.First ());
-			IntegrationTestsRunnerWindow.SetConsoleErrorPause (false);
+			GuiHelper.SetConsoleErrorPause (false);
 			EditorApplication.isPlaying = true;
 		}
 

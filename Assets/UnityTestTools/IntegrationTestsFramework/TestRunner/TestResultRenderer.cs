@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TestResultRenderer 
 {
-
 	private static class Styles
 	{
 		public static GUIStyle succeedLabelStyle;
@@ -34,6 +33,7 @@ public class TestResultRenderer
 	public void ShowResults ()
 	{
 		showResults = true;
+		Screen.showCursor = true;
 	}
 
 	public void AddResults ( string sceneName, ITestResult result )
@@ -48,11 +48,10 @@ public class TestResultRenderer
 		if (!showResults) return;
 		if (testCollection.Count==0)
 		{
-			GUILayout.Label ("All test succeeded", Styles.succeedLabelStyle);
+			GUILayout.Label ("All test succeeded", Styles.succeedLabelStyle, GUILayout.Width (600));
 		}
 		else
 		{
-
 			int count = 0;
 			foreach (var testGroup in testCollection) count += testGroup.Value.Count;
 			GUILayout.Label (count + " tests failed!", Styles.failedLabelStyle);
@@ -72,6 +71,5 @@ public class TestResultRenderer
 		}
 		if (GUILayout.Button ("Close"))
 			Application.Quit ();
-
 	}
 }

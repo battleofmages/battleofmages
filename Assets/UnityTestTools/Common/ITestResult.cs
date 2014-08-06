@@ -1,4 +1,4 @@
-﻿using UnityTest;
+using UnityTest;
 
 public interface ITestResult
 {
@@ -7,6 +7,7 @@ public interface ITestResult
 	bool Executed { get; }
 	string Name { get; }
 	string FullName { get; }
+	string Id { get; }
 	bool IsSuccess { get; }
 	double Duration { get; }
 	string StackTrace { get; }

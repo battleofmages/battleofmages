@@ -9,35 +9,39 @@ namespace UnityTest
 		private GameObject go;
 		private TestComponent testComponent;
 		private string name;
-		public ResultType resultType;
+		public ResultType resultType = ResultType.NotRun;
 		public double duration;
 		public string messages;
 		public string stacktrace;
-		public bool isRunning;
-		public int id { get; private set; }
+		public string id;
+		public bool dynamicTest;
 		
-		public TestComponent TestComponent
-		{
-			get { return testComponent ?? (testComponent = go.GetComponent<TestComponent> ()); }
-		}
+		public TestComponent TestComponent;
 
 		public GameObject GameObject
 		{
 			get { return go; }
 		}
 
-		public TestResult ( GameObject gameObject )
+		public TestResult ( TestComponent testComponent )
 		{
-			id = gameObject.GetInstanceID ();
-			resultType = ResultType.NotRun;
-			this.go = gameObject;
-			RefreshName ();
+			this.TestComponent = testComponent;
+			this.go = testComponent.gameObject;
+			this.id = testComponent.gameObject.GetInstanceID ().ToString();
+			this.dynamicTest = testComponent.dynamic;
+
+			if (go != null) name = go.name;
+
+			if (dynamicTest)
+				id = testComponent.dynamicTypeName;
 		}
 
-		public void RefreshName ()
+		public void Update ( TestResult oldResult )
 		{
-			if (go != null)
-				name = go.name;
+			resultType = oldResult.resultType;
+			duration = oldResult.duration;
+			messages = oldResult.messages;
+			stacktrace = oldResult.stacktrace;
 		}
 
 		public enum ResultType
@@ -56,7 +60,6 @@ namespace UnityTest
 			duration = 0f;
 			messages = "";
 			stacktrace = "";
-			isRunning = false;
 		}
 
 		#region ITestResult implementation
@@ -76,7 +79,9 @@ namespace UnityTest
 		public string Message { get { return messages; } }
 		public bool Executed { get { return resultType != ResultType.NotRun; } }
 		public string Name { get { if (go != null) name = go.name; return name; } }
+		public string Id { get { return id; } }
 		public bool IsSuccess { get { return resultType == ResultType.Success; } }
+		public bool IsTimeout { get { return resultType == ResultType.Timeout; } }
 		public double Duration { get { return duration; } }
 		public string StackTrace { get { return stacktrace; } }
 		public string FullName { 
@@ -113,7 +118,7 @@ namespace UnityTest
 		#region IComparable, GetHashCode and Equals implementation
 		public override int GetHashCode ()
 		{
-			return id;
+			return id.GetHashCode ();
 		}
 
 		public int CompareTo ( TestResult other )
@@ -131,5 +136,6 @@ namespace UnityTest
 			return base.Equals (obj);
 		}
 		#endregion
+
 	}
 }

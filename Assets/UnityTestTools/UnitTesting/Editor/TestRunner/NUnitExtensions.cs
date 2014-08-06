@@ -4,7 +4,7 @@ namespace UnityTest
 {
 	public static class NUnitExtensions
 	{
-		public static UnitTestResult UnitTestResult ( this NUnit.Core.TestResult result, string currentAssemblyPath )
+		public static UnitTestResult UnitTestResult ( this NUnit.Core.TestResult result )
 		{
 			return new UnitTestResult()
 			{
@@ -13,8 +13,7 @@ namespace UnityTest
 				Message = result.Message,
 				StackTrace = result.StackTrace,
 				Duration = result.Time,
-				Test = new UnitTestInfo (result.Test.TestName.FullName),
-				AssemblyPath = currentAssemblyPath
+				Test = new UnitTestInfo (result.Test.TestName.TestID.ToString ()),
 			};
 		}
 	}

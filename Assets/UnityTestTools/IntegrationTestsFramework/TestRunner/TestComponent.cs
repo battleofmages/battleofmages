@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -30,20 +31,14 @@ namespace UnityTest
 		public string expectedExceptionList = "";
 		public bool succeedWhenExceptionIsThrown = false;
 		public IncludedPlatforms includedPlatforms = (IncludedPlatforms) ~0L;
+		public string[] platformsToIgnore = null;
 
+		public bool dynamic;
+		public string dynamicTypeName;
+		
 		public bool IsExludedOnThisPlatform ()
 		{
-			try
-			{
-				var ipv = (IncludedPlatforms) Enum.Parse (typeof (IncludedPlatforms),
-														Application.platform.ToString ());
-				return (includedPlatforms & ipv) == 0;
-			}
-			catch
-			{
-				Debug.LogWarning ("Current platform is not supported");
-				return true;
-			}
+			return platformsToIgnore != null && platformsToIgnore.Any (platform => platform == Application.platform.ToString ());
 		}
 
 		static bool IsAssignableFrom(Type a, Type b)
@@ -104,36 +99,50 @@ namespace UnityTest
 			if (timeout < 0.01f) timeout = 0.01f;
 		}
 
-		/// <summary>
-		/// List of platform where the integration tests can be run. 
-		/// Feel free to experiment with platforms that are commented out by uncommenting them.
-		/// </summary>
+		//Legacy
 		[Flags]
 		public enum IncludedPlatforms
 		{
-			WindowsEditor = 1 << 0,
-			OSXEditor = 1 << 1,
-			WindowsPlayer = 1 << 2,
-			OSXPlayer = 1 << 3,
-			LinuxPlayer = 1 << 4,
-			//MetroPlayerX86	= 1 << 5,
-			//MetroPlayerX64	= 1 << 6,	
-			//MetroPlayerARM	= 1 << 7,
-			WindowsWebPlayer = 1 << 8,
-			//OSXWebPlayer		= 1 << 9,
-			Android = 1 << 10,
-			//IPhonePlayer		= 1 << 11,
-			//TizenPlayer		= 1 << 12,
-			//WP8Player			= 1 << 13,
-			//BB10Player		= 1 << 14,	
-			//NaCl				= 1 << 15,
+			WindowsEditor		= 1 << 0,
+			OSXEditor			= 1 << 1,
+			WindowsPlayer		= 1 << 2,
+			OSXPlayer			= 1 << 3,
+			LinuxPlayer			= 1 << 4,
+			MetroPlayerX86		= 1 << 5,
+			MetroPlayerX64		= 1 << 6,
+			MetroPlayerARM		= 1 << 7,
+			WindowsWebPlayer	= 1 << 8,
+			OSXWebPlayer		= 1 << 9,
+			Android				= 1 << 10,
+			IPhonePlayer		= 1 << 11,
+			TizenPlayer			= 1 << 12,
+			WP8Player			= 1 << 13,
+			BB10Player			= 1 << 14,
+			NaCl				= 1 << 15,
+			PS3					= 1 << 16,
+			XBOX360				= 1 << 17,
+			WiiPlayer			= 1 << 18,
+			PSP2				= 1 << 19,
+			PS4					= 1 << 20,
+			PSMPlayer			= 1 << 21,
+			XboxOne				= 1 << 22,
 		}
 
 		#region ITestComponent implementation
 
 		public void EnableTest (bool enable)
 		{
-			gameObject.SetActive (enable);
+			if (enable && dynamic)
+			{
+				Type t = Type.GetType (dynamicTypeName);
+				var s = gameObject.GetComponent(t) as MonoBehaviour;
+				if(s!=null)
+					DestroyImmediate (s);
+				
+				gameObject.AddComponent (t);
+			}
+
+			if(gameObject.activeSelf!=enable) gameObject.SetActive (enable);
 		}
 
 		public int CompareTo (ITestComponent obj)
@@ -182,19 +191,101 @@ namespace UnityTest
 		public static bool operator == ( TestComponent a, TestComponent b )
 		{
 			if (ReferenceEquals (a, b))
-			{
 				return true;
-			}
 			if (((object)a == null) || ((object)b == null))
-			{
 				return false;
-			}
+			if(a.dynamic && b.dynamic)
+				return a.dynamicTypeName == b.dynamicTypeName;
+			if(a.dynamic || b.dynamic)
+				return false;
 			return a.gameObject == b.gameObject;
 		}
 
 		public static bool operator != ( TestComponent a, TestComponent b )
 		{
 			return !(a == b);
+		}
+
+		#endregion
+
+		#region Static helpers
+
+		public static TestComponent CreateDynamicTest (Type type)
+		{
+			var go = CreateTest (type.Name);
+			go.hideFlags |= HideFlags.DontSave;
+			go.SetActive (false);
+			
+			var tc = go.GetComponent<TestComponent> ();
+			tc.dynamic = true;
+			tc.dynamicTypeName = type.AssemblyQualifiedName;
+
+			foreach (var typeAttribute in type.GetCustomAttributes (false))
+			{
+				if (typeAttribute is IntegrationTest.TimeoutAttribute)
+					tc.timeout = (typeAttribute as IntegrationTest.TimeoutAttribute).timeout;
+				else if (typeAttribute is IntegrationTest.IgnoreAttribute)
+					tc.ignored = true;
+				else if (typeAttribute is IntegrationTest.SucceedWithAssertions)
+					tc.succeedAfterAllAssertionsAreExecuted = true;
+				else if (typeAttribute is IntegrationTest.ExcludePlatformAttribute)
+					tc.platformsToIgnore = (typeAttribute as IntegrationTest.ExcludePlatformAttribute).platformsToExclude;
+				else if (typeAttribute is IntegrationTest.ExpectExceptions)
+				{
+					var attribute = (typeAttribute as IntegrationTest.ExpectExceptions);
+					tc.expectException = true;
+					tc.expectedExceptionList = string.Join (",", attribute.exceptionTypeNames);
+					tc.succeedWhenExceptionIsThrown = attribute.succeedOnException;
+				}
+			}
+
+			go.AddComponent (type);
+
+			return tc;
+		}
+
+		public static GameObject CreateTest ()
+		{
+			return CreateTest ("New Test");
+		}
+
+		private static GameObject CreateTest (string name)
+		{
+			var go = new GameObject (name);
+			go.AddComponent<TestComponent> ();
+			go.transform.hideFlags |= HideFlags.HideInInspector;
+			return go;
+		}
+
+		public static List<TestComponent> FindAllTestsOnScene ()
+		{
+			return Resources.FindObjectsOfTypeAll (typeof (TestComponent)).Cast<TestComponent> ().ToList ();
+		}
+
+		public static List<TestComponent> FindAllTopTestsOnScene ()
+		{
+			return FindAllTestsOnScene ().Where (component => component.gameObject.transform.parent == null).ToList ();
+		}
+
+		public static List<TestComponent> FindAllDynamicTestsOnScene ()
+		{
+			return FindAllTestsOnScene ().Where (t => t.dynamic).ToList ();
+		}
+
+		public static void DestroyAllDynamicTests ()
+		{
+			foreach (var dynamicTestComponent in FindAllDynamicTestsOnScene ())
+				DestroyImmediate (dynamicTestComponent.gameObject);
+		}
+
+		public static void DisableAllTests ()
+		{
+			foreach (var t in FindAllTestsOnScene ()) t.EnableTest (false);
+		}
+
+		public static bool AnyTestsOnScene ()
+		{
+			return FindAllTestsOnScene().Any();
 		}
 
 		#endregion
@@ -257,6 +348,22 @@ namespace UnityTest
 			public bool IsExludedOnThisPlatform ()
 			{
 				throw new NotImplementedException ();
+			}
+		}
+
+		public static IEnumerable<Type> GetTypesWithHelpAttribute (string sceneName)
+		{
+			foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies ())
+			{
+				foreach (Type type in assembly.GetTypes ())
+				{
+					var attributes = type.GetCustomAttributes (typeof (IntegrationTest.DynamicTestAttribute), true);
+					if (attributes.Length == 1)
+					{
+						var a = attributes.Single () as IntegrationTest.DynamicTestAttribute;
+						if (a.IncludeOnScene (sceneName)) yield return type;
+					}
+				}
 			}
 		}
 	}

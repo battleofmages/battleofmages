@@ -6,7 +6,8 @@ namespace UnityTest
 {
 	public static class Icons
 	{
-		private static string iconsAssetsPath = "Assets/UnityTestTools/Common/Editor/icons/";
+		private const string iconsAssetsPathPattern = "Common/Editor/icons/";
+		private static string iconsAssetsPath = "";
 
 		public static readonly Texture2D failImg;
 		public static readonly Texture2D ignoreImg;
@@ -28,10 +29,11 @@ namespace UnityTest
 		
 		static Icons ()
 		{
-			if (!Directory.Exists (iconsAssetsPath))
-			{
+			var dirs = Directory.GetDirectories ("Assets", "UnityTestTools", SearchOption.AllDirectories);
+			if (dirs.Length>0)
+				iconsAssetsPath = Path.Combine (dirs[0], iconsAssetsPathPattern);
+			else
 				Debug.LogWarning ("The UnityTestTools asset folder path is incorrect. If you relocated the tools please change the path accordingly (Icons.cs).");
-			}
 
 			failImg = LoadTexture ("failed.png");
 			ignoreImg = LoadTexture("ignored.png");

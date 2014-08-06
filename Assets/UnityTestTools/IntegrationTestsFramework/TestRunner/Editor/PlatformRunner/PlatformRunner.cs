@@ -29,25 +29,18 @@ namespace UnityTest.IntegrationTests
 			set { EditorPrefs.SetString ("ITR-platformRunnerBuildTarget", value.ToString ()); }
 		}
 
-		[MenuItem ("Unity Test Tools/Integration Tests/Platform Runner/Run current scene %#&r")]
+		[MenuItem ("Unity Test Tools/Platform Runner/Run current scene %#&r")]
 		public static void BuildAndRunCurrentScene ()
 		{
 			Debug.Log ("Building and running current test for " + defaultBuildTarget);
 			BuildAndRunInPlayer (defaultBuildTarget, new string[0], null, null);
 		}
 
-		[MenuItem ("Unity Test Tools/Integration Tests/Platform Runner/Run on platform %#r")]
+		[MenuItem ("Unity Test Tools/Platform Runner/Run on platform %#r")]
 		public static void RunInPlayer ()
 		{
 			var w = EditorWindow.GetWindow (typeof (PlatformRunnerSettingsWindow));
 			w.Show ();
-		}
-
-		[MenuItem ("Unity Test Tools/Integration Tests/Player Runner/Run current scene", true)]
-		[MenuItem ("Unity Test Tools/Integration Tests/Player Runner/Run on platform", true)]
-		public static bool ValidateIsTestScene ()
-		{
-			return TestRunner.FindAllTestsOnScene ().Any ();
 		}
 
 		public static void BuildAndRunInPlayer (BuildTarget buildTarget, string[] scenes, string name, string resultFilePath)

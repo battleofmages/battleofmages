@@ -1,8 +1,11 @@
+using System;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Mdb;
+using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -26,6 +29,24 @@ namespace UnityTest
 				case TestResultState.Cancelled:
 				case TestResultState.NotRunnable:
 					return Icons.inconclusiveImg;
+				default:
+					return Icons.unknownImg;
+			}
+		}
+
+		public static Texture GetIconForResult ( TestResult.ResultType resultState )
+		{
+			switch (resultState)
+			{
+				case TestResult.ResultType.Success:
+					return Icons.successImg;
+				case TestResult.ResultType.Timeout:
+				case TestResult.ResultType.Failed:
+				case TestResult.ResultType.FailedException:
+					return Icons.failImg;
+				case TestResult.ResultType.Ignored:
+					return Icons.ignoreImg;
+				case TestResult.ResultType.NotRun:
 				default:
 					return Icons.unknownImg;
 			}
@@ -93,7 +114,7 @@ namespace UnityTest
 					ReadingMode = ReadingMode.Immediate
 				};
 
-			var assemblyDefinition = AssemblyDefinition.ReadAssembly (test.AssemblyPath, readerParameters);
+			var assemblyDefinition = AssemblyDefinition.ReadAssembly (test.Test.AssemblyPath, readerParameters);
 			var classModule = assemblyDefinition.MainModule.Types.Single (t => t.FullName == test.Test.FullClassName);
 
 			var methods = classModule.Methods;
@@ -119,6 +140,23 @@ namespace UnityTest
 		private static void OpenInEditorInternal (string filename, int line)
 		{
 			InternalEditorUtility.OpenFileAtLineExternal (filename, line);
+		}
+
+		public static bool GetConsoleErrorPause ()
+		{
+			Assembly assembly = Assembly.GetAssembly (typeof (SceneView));
+			Type type = assembly.GetType ("UnityEditorInternal.LogEntries");
+			PropertyInfo method = type.GetProperty ("consoleFlags");
+			var result = (int)method.GetValue (new object (), new object[] { });
+			return (result & (1 << 2)) != 0;
+		}
+
+		public static void SetConsoleErrorPause ( bool b )
+		{
+			Assembly assembly = Assembly.GetAssembly (typeof (SceneView));
+			Type type = assembly.GetType ("UnityEditorInternal.LogEntries");
+			MethodInfo method = type.GetMethod ("SetConsoleFlag");
+			method.Invoke (new object (), new object[] { 1 << 2, b });
 		}
 	}
 }
