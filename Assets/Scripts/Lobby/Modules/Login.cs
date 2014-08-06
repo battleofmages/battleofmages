@@ -134,20 +134,22 @@ public class Login : LobbyModule<Login> {
 
 		// Retrieve lobby IP
 		if(retrieveLobbyIP) {
-			WWW ipRequest = new WWW(lobbyIpURL);
-			StartCoroutine(WaitForLobbyIP(ipRequest));
+			StartCoroutine(NetworkHelper.DownloadIPAndPort(lobbyIpURL, (host, port) => {
+				lobbyHost = host;
+				lobbyPort = port;
+				
+				ConnectToLobby();
+			}));
 		}
 		
 		// Retrieve changelog
 		WWW changeLogRequest = new WWW(changeLogURL);
 		StartCoroutine(DownloadChangeLog(changeLogRequest));
-		
+
 		// Public key
-		Lobby.publicKey = new uLobby.PublicKey(
-			"td076m4fBadO7bRuEkoOaeaQT+TTqMVEWOEXbUBRXZwf1uR0KE8A/BbOWNripW1eZinvsC+skgVT/G8mrhYTWVl0TrUuyOV6rpmgl5PnoeLneQDEfrGwFUR4k4ijDcSlNpUnfL3bBbUaI5XjPtXD+2Za2dRXT3GDMrePM/QO8xE=",
-			"EQ=="
-		);
-		
+		NetworkHelper.InitPublicLobbyKey();
+
+		// Receive lobby events
 		Lobby.AddListener(this);
 		
 		// Add this class as a listener to different account events.
@@ -435,20 +437,6 @@ public class Login : LobbyModule<Login> {
 		
 		// Fade out loading screen
 		LoadingScreen.instance.Disable();
-	}
-	
-	// Wait for lobby IP
-	IEnumerator WaitForLobbyIP(WWW ipRequest) {
-		yield return ipRequest;
-		
-		if(ipRequest.error == null) {
-			string ipAndPort = ipRequest.text;
-			string[] parts = ipAndPort.Split(':');
-			lobbyHost = parts[0];
-			lobbyPort = int.Parse(parts[1]);
-			
-			ConnectToLobby();
-		}
 	}
 	
 	// Download changelog
@@ -879,7 +867,7 @@ public class Login : LobbyModule<Login> {
 		}
 	}
 	
-	// On connection to lobby
+	// uLobby: Connected
 	void uLobby_OnConnected() {
 		LogManager.General.Log("Connected to lobby");
 		
@@ -915,10 +903,12 @@ public class Login : LobbyModule<Login> {
 		}
 	}
 
+	// uLobby: Disconnected
 	void uLobby_OnDisconnected() {
 		LogManager.General.Log("Disconnected from lobby");
 	}
-	
+
+	// On application focus
 	void OnApplicationFocus(bool focused) {
 		if(!lowerFPSWhenIdle)
 			return;

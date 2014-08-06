@@ -81,7 +81,6 @@ public class GenericSerializer {
 			string stringObject;
 			
 			if(reader.TryReadString(out stringObject)) {
-				LogManager.General.Log("JSON string: " + stringObject);
 				return stringObject;
 			} else {
 				reader.ReadNull();

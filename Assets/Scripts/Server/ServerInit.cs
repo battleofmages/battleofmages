@@ -1,5 +1,6 @@
 using uLink;
 using uGameDB;
+using uLobby;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,6 +42,11 @@ public class ServerInit : uLink.MonoBehaviour {
 	private bool batchMode;
 	private int serverPort;
 	private int partyCount;
+	private bool readyMessageSent;
+	private uZone.InstanceID instanceId = uZone.InstanceID.unassigned;
+
+	private string lobbyIP;
+	private int lobbyPort;
 	
 	public GameMode gameMode { get; protected set; }
 	
@@ -71,28 +77,34 @@ public class ServerInit : uLink.MonoBehaviour {
 			LogManager.General.Log("Command line argument: '" + arg + "'");
 
 			// Overwrite port
-			if(arg.StartsWith("-port") && arg.Length > 5) {
+			if(arg.StartsWith("-port") && arg.Length > "-port".Length) {
 				serverPort = int.Parse(arg.Substring(5));
 			// Batchmode
 			} else if(arg == "-batchmode") {
 				batchMode = true;
 				isTestServer = false;
 			// Party count
-			} else if(arg.StartsWith("-partycount") && arg.Length > 6) {
+			} else if(arg.StartsWith("-partycount") && arg.Length > "-partycount".Length) {
 				partyCount = int.Parse(arg.Substring("-partycount".Length));
 
 				LogManager.General.Log(string.Format("Creating parties: {0}", partyCount));
 				GameServerParty.partyList.Clear();
 				GameServerParty.CreateParties(partyCount);
 			// Teams
-			} else if(arg.StartsWith("-party") && arg.Length > 6) {
+			} else if(arg.StartsWith("-party") && arg.Length > "-party".Length) {
 				partyId = int.Parse(arg.Substring("-party".Length));
 				restrictedAccounts = true;
 			// Map
-			} else if(arg.StartsWith("-map") && arg.Length > 4) {
+			} else if(arg.StartsWith("-map") && arg.Length > "-map".Length) {
 				mapName = arg.Substring("-map".Length);
+			// Lobby IP
+			} else if(arg.StartsWith("-lobbyIP") && arg.Length > "-lobbyIP".Length) {
+				lobbyIP = arg.Substring("-lobbyIP".Length);
+			// Lobby Port
+			} else if(arg.StartsWith("-lobbyPort") && arg.Length > "-lobbyPort".Length) {
+				lobbyPort = int.Parse(arg.Substring("-lobbyPort".Length));
 			// Server type
-			} else if(arg.StartsWith("-type") && arg.Length > 5) {
+			} else if(arg.StartsWith("-type") && arg.Length > "-type".Length) {
 				string serverTypeString = arg.Substring("-type".Length);
 				switch(serverTypeString) {
 					case "Arena":
@@ -212,6 +224,47 @@ public class ServerInit : uLink.MonoBehaviour {
 			GameServerParty.partyList.Clear();
 			GameServerParty.CreateParties(10, 1);
 		}
+
+		// Public key
+		NetworkHelper.InitPublicLobbyKey();
+
+		// Started by uZone?
+		if(uZone.Instance.wasStartedByuZone) {
+			// Listen to lobby events and RPCs
+			Lobby.AddListener(this);
+
+			IPAndPortCallBack connectToServices = (host, port) => {
+				// Connect to lobby
+				LogManager.General.Log(string.Format("Connecting to lobby as server {0}:{1}", host, port));
+				Lobby.ConnectAsServer(host, port);
+
+				// Update members in case we downloaded the info
+				lobbyIP = host;
+				lobbyPort = port;
+				
+				// Set up callback
+				uZone.Instance.GlobalEvents events = new uZone.Instance.GlobalEvents();
+				events.onInitialized = uZone_OnInitialized;
+				
+				// This will tell uZone that the instance is ready
+				// and we can let other players connect to it
+				LogManager.General.Log("Initializing the uZone instance");
+				uZone.Instance.Initialize(events);
+			};
+
+			// uLobby and uZone
+#if UNITY_STANDALONE_WIN
+			lobbyIP = "127.0.0.1";
+			lobbyPort = 1310;
+
+			connectToServices(lobbyIP, lobbyPort);
+#else
+			if(string.IsNullOrEmpty(lobbyIP))
+				StartCoroutine(NetworkHelper.DownloadIPAndPort("https://battleofmages.com/scripts/login-server-ip.php", connectToServices));
+			else
+				connectToServices(lobbyIP, lobbyPort);
+#endif
+		}
 		
 		// Load map
 		StartCoroutine(MapManager.LoadMapAsync(
@@ -222,17 +275,6 @@ public class ServerInit : uLink.MonoBehaviour {
 			() => {
 				// Register codecs for serialization
 				GameDB.InitCodecs();
-				
-				// Init uZone
-				if(uZone.Instance.wasStartedByuZone) {
-					uZone.Instance.GlobalEvents events = new uZone.Instance.GlobalEvents();
-					events.onInitialized = uZone_OnInitialized;
-					
-					// This will tell uZone that the instance is ready
-					// and we can let other players connect to it
-					LogManager.General.Log("Initializing the uZone instance");
-					uZone.Instance.Initialize(events);
-				}
 				
 				// Server port
 				if(!isTestServer) {
@@ -258,8 +300,32 @@ public class ServerInit : uLink.MonoBehaviour {
 				// Clean up
 				DestroyServerAssets();
 #endif
+				// Send ready message if we didn't do it yet
+				SendReadyMessage();
 			}
 		));
+	}
+
+	// Send ready message 
+	void SendReadyMessage() {
+		if(readyMessageSent)
+			return;
+
+		if(isTestServer)
+			return;
+
+		if(!MapManager.mapLoaded)
+			return;
+
+		if(!Lobby.isConnected)
+			return;
+
+		if(instanceId == uZone.InstanceID.unassigned)
+			return;
+
+		LogManager.General.Log("Sending ready message to the lobby with instance ID " + instanceId);
+		Lobby.RPC("GameServerReady", Lobby.lobby, instanceId);
+		readyMessageSent = true;
 	}
 	
 	// InstantiatePlayer
@@ -741,6 +807,23 @@ public class ServerInit : uLink.MonoBehaviour {
 	// uZone initialized
 	void uZone_OnInitialized(uZone.InstanceID assignedId) {
 		LogManager.General.Log("Instance successfully initialized and connected to its parent node, id: " + assignedId);
+		instanceId = assignedId;
+
+		// Send ready message if we didn't do it yet
+		SendReadyMessage();
+	}
+
+	// uLobby: Connected
+	void uLobby_OnConnected() {
+		LogManager.General.Log("Connected to lobby");
+		
+		// Send ready message if we didn't do it yet
+		SendReadyMessage();
+	}
+
+	// uLobby: Disconnected
+	void uLobby_OnDisconnected() {
+		LogManager.General.Log("Disconnected from lobby");
 	}
 	
 	// On application quit we close log files
@@ -783,4 +866,15 @@ k+MKDHNbmBveMKpEiuR6lcxmJ+Y+KwmIErvt1DeVLrfeCjUfxDtMj+1zj+ziYzaOx6
 SeO9CnZUv0GupNYsi3NINk5lx5dufWXPBpN3fb0siTy3kk1Zg91p7EXOL7yLTG9Cf0
 Q==");
 	}
+
+#region RPCs
+	// --------------------------------------------------------------------------------
+	// RPCs
+	// --------------------------------------------------------------------------------
+	
+	[RPC]
+	void VersionNumber(int version) {
+		LogManager.General.Log("Lobby version: " + version);
+	}
+#endregion
 }
