@@ -41,21 +41,15 @@ public static class MapManager {
 		if(Application.CanStreamedLevelBeLoaded(mapName)) {
 			LogManager.General.Log("[" + mapName + "] Map can be loaded");
 		} else {
-			
-			//WWW.LoadFromCacheOrDownload();
-			// Download asset bundle version info
-			var bundlesInfo = new WWW("https://battleofmages.com/download/bundles.ini");
-			yield return bundlesInfo;
-			
-			if(bundlesInfo.error == null) {
-				
-			} else {
-				LogManager.General.LogError("Failed downloading asset bundle versions: " + bundlesInfo.error);
-			}
-			
+			// Wait for version info download to finish
+			while(!AssetBundlesManager.instance.isReady)       
+				yield return new WaitForSeconds(0.02f);
+
 			// Download level
-			LogManager.General.Log("[" + mapName + "] Downloading map");
-			var download = new WWW("https://battleofmages.com/download/windows/bundles/" + mapName + ".unity3d");
+			var mapURL = AssetBundlesManager.instance.GetMapURL(mapName);
+			var mapVersion = AssetBundlesManager.instance.GetMapVersion(mapName);
+			LogManager.General.Log("Downloading map '" + mapName + "' version " + mapVersion + " from " + mapURL);
+			var download = WWW.LoadFromCacheOrDownload(mapURL, mapVersion);
 
 			if(LoadingScreen.instance != null) {
 				LoadingScreen.instance.loadingText = "Downloading map: <color=yellow>" + mapName + "</color>...";
@@ -66,13 +60,13 @@ public static class MapManager {
 			
 			if(download.error == null) {
 				var bundle = download.assetBundle;
-				LogManager.General.Log("[" + mapName + "] Successfully downloaded " + bundle);
+				LogManager.General.Log("Successfully downloaded " + mapName + bundle);
 			} else {
-				LogManager.General.LogError("[" + mapName + "] Failed downloading map: " + download.error);
+				LogManager.General.LogError("Failed downloading map: " + mapName + " (" + download.error + ")");
 			}
 
 			if(!Application.CanStreamedLevelBeLoaded(mapName))
-				LogManager.General.LogError("[" + mapName + "] Map can not be loaded");
+				LogManager.General.LogError("Map can not be loaded: " + mapName);
 		}
 
 		// Load map
@@ -88,7 +82,7 @@ public static class MapManager {
 
 		yield return asyncLoadLevel;
 
-		LogManager.General.Log("Map loaded: " + mapName);
+		LogManager.General.Log("Finished loading map: " + mapName);
 		mapInstance = GameObject.FindGameObjectWithTag("Map");
 
 		mapIntro = mapInstance.GetComponent<Intro>();
