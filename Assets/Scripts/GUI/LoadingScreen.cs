@@ -62,6 +62,10 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 	
 	// On level load
 	void OnLevelWasLoaded(int levelNumber) {
+		// To prevent this callback from being called twice
+		if(this != LoadingScreen.instance)
+			return;
+
 		LogManager.General.Log("Level was loaded: " + level);
 		asyncDownload = null;
 		asyncLoadLevel = null;

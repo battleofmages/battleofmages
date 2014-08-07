@@ -73,8 +73,6 @@ public class Login : LobbyModule<Login> {
 	private int serverVersionNumber;
 	
 	private InGameLobby gameLobby;
-	private GameObject audioGameObject;
-	private MusicManager musicManager;
 	private GUILayoutOption textFieldHeight;
 	
 	public static Account myAccount;
@@ -109,12 +107,6 @@ public class Login : LobbyModule<Login> {
 		textFieldHeight = GUILayout.Height(24);
 		popupMenu = null;
 		accountNotActivated = false;
-		
-		// Music objects
-		audioGameObject = GameObject.Find("Audio");
-		if(audioGameObject != null) {
-			musicManager = audioGameObject.GetComponent<MusicManager>();
-		}
 		
 		// FOR TESTING ONLY
 #if UNITY_EDITOR
@@ -409,36 +401,6 @@ public class Login : LobbyModule<Login> {
 		}
 	}
 	
-	// DO NOT USE THIS FUNCTION DIRECTLY!
-	// Use the scoreboard function instead.
-	// SecureLoadLevel is called before calling this function.
-	public void ReturnToLobbyFromGame() {
-		ChangeState(State.Lobby);
-		gameLobby.currentState = GameLobbyState.MainMenu;
-
-		// If it was disabled before by accident...
-		gameLobby.lobbyChat.chatInputEnabled = true;
-		gameLobby.lobbyChat.currentChannel = "Global";
-		
-		// Make it clear focus on next OnGUI call
-		clearFlag = true;
-		
-		// Disable character
-		//CharacterCustomizationGUI.instance.EndCustomization();
-		
-		if(audioGameObject != null) {
-			audioGameObject.transform.parent = null;
-			audioGameObject.transform.position = Cache.vector3Zero;
-			musicManager.PlayCategory(GetComponent<MusicCategory>());
-		}
-		
-		// Frame rate
-		SetupApplicationForLobby();
-		
-		// Fade out loading screen
-		LoadingScreen.instance.Disable();
-	}
-	
 	// Download changelog
 	IEnumerator DownloadChangeLog(WWW changeLogRequest) {
 		yield return changeLogRequest;
@@ -473,6 +435,54 @@ public class Login : LobbyModule<Login> {
 	void SetupApplicationForLobby() {
 		//Application.runInBackground = false;
 		Application.targetFrameRate = lobbyFrameRate;
+	}
+
+	// LogOut
+	public void LogOut() {
+		// Activate loading screen
+		LoadingScreen.instance.Enable(() => {
+			LoadingScreen.instance.statusMessage = "Logging out...";
+
+			LogManager.General.Log("Logging out...");
+			Lobby.RPC("LobbyAccountLogOut", Lobby.lobby);
+			
+			if(AccountManager.isLoggedIn)
+				Lobby.RPC("LeaveInstance", Lobby.lobby, GameManager.gameEnded);
+		});
+	}
+	
+	// ReturnToWorld
+	public void ReturnToWorld() {
+		LogManager.General.Log("Returning to the world");
+
+		if(AccountManager.isLoggedIn)
+			Lobby.RPC("LeaveInstance", Lobby.lobby, GameManager.gameEnded);
+	}
+	
+	// ReturnToLogin
+	public void ReturnToLogin() {
+		// Play login screen music
+		MusicManager.instance.PlayCategory(GetComponent<MusicCategory>());
+		
+		// Then we load the lobby up again
+		LoadingScreen.instance.SecureLoadLevel("LobbyClient", () => {
+			// If it was disabled before by accident...
+			gameLobby.lobbyChat.chatInputEnabled = true;
+			gameLobby.lobbyChat.currentChannel = "Global";
+			
+			// Make it clear focus on next OnGUI call
+			clearFlag = true;
+			
+			// Frame rate
+			SetupApplicationForLobby();
+			
+			// Re-enable cursor
+			Screen.lockCursor = false;
+			Screen.showCursor = true;
+			
+			// Fade out loading screen
+			LoadingScreen.instance.Disable();
+		});
 	}
 	
 #region GUIs
@@ -817,14 +827,14 @@ public class Login : LobbyModule<Login> {
 		// Ingame logout
 		if(Player.main != null) {
 			uLink.Network.Disconnect();
-			MainMenu.instance.ReturnToLobby();
+			ReturnToLogin();
 			gameLobby.currentState = GameLobbyState.WaitingForAccountInfo;
 		}
 		
 		// Clean up
 		gameLobby.ResetAccountInfo();
 		ArenaGUI.instance.ResetQueueInfo();
-		
+
 		ChangeState(State.LogIn);
 	}
 	

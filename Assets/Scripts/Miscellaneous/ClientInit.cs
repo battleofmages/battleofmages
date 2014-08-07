@@ -82,7 +82,7 @@ uzf/lC9NYarw==", @"EQ==");
 		
 		LogManager.General.Log("Time scale: 0%");
 		
-		Time.timeScale = 0f;
+		//Time.timeScale = 0f;
 		disconnected = true;
 	}
 	

@@ -706,11 +706,7 @@ public class PlayerMain : PlayerOnClient {
 			
 			return true;
 		} else if(msg == "//disconnect") {
-			if(Login.instance != null)
-				MainMenu.instance.Return();
-			else
-				uLink.Network.Disconnect();
-			
+			uLink.Network.Disconnect();
 			return true;
 		} else if(msg == "//ignore serverPosition") {
 			ignoreNewPosition = true;

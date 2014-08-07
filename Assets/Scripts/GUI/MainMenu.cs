@@ -34,8 +34,7 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 	
 	[HideInInspector]
 	public InGameMenuState nextState;
-	
-	private bool gameEnded = false;
+
 	private bool leftGame = false;
 	private bool loggedOut = false;
 	private MainMenuItem[] menuItems;
@@ -202,8 +201,7 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 					
 				case InGameMenuState.Logout:
 					if(!loggedOut) {
-						LogManager.General.Log("Logging out...");
-						Lobby.RPC("LobbyAccountLogOut", Lobby.lobby);
+						Login.instance.LogOut();
 						loggedOut = true;
 					}
 					break;
@@ -215,7 +213,7 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 							Application.Quit();
 						} else {
 							LogManager.General.Log("Leaving game...");
-							Return();
+							Login.instance.ReturnToWorld();
 						}
 						
 						leftGame = true;
@@ -223,42 +221,6 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 					break;
 			}
 		}
-	}
-	
-	// Return
-	public void Return() {
-		if(GameManager.isPvP) {
-			ReturnToTown();
-		} else {
-			ReturnToLobby();
-		}
-	}
-	
-	// ReturnToTown
-	public void ReturnToTown() {
-		LogManager.General.Log("Returning to town");
-		
-		Login.instance.ChangeState(State.Lobby);
-		InGameLobby.instance.currentState = GameLobbyState.Ready;
-		
-		if(AccountManager.isLoggedIn)
-			Lobby.RPC("LeaveInstance", Lobby.lobby, gameEnded);
-	}
-	
-	// ReturnToLobby
-	public void ReturnToLobby() {
-		LogManager.General.Log("Returning to lobby");
-		
-		// Then we load the lobby up again
-		LoadingScreen.instance.SecureLoadLevel("LobbyClient", () => {
-			// Re-enable cursor
-			Screen.lockCursor = false;
-			Screen.showCursor = true;
-		});
-		Login.instance.ReturnToLobbyFromGame();
-		
-		if(AccountManager.isLoggedIn)
-			Lobby.RPC("LeaveInstance", Lobby.lobby, gameEnded);
 	}
 	
 	// uLink_OnConnectedToServer

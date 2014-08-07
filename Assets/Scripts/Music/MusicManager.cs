@@ -3,8 +3,6 @@ using UnityEditor;
 #endif
 
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 public class MusicManager : LobbyModule<MusicManager> {
 	public bool musicEnabled;
