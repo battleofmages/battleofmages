@@ -25,6 +25,19 @@ public class AssetBundlesManager : SingletonMonoBehaviour<AssetBundlesManager> {
 		StartCoroutine(DownloadAssetBundleVersionInfo());
 	}
 
+	// GetOSName
+	public string GetOSName() {
+#if UNITY_STANDALONE_WIN
+		return "windows";
+#elif UNITY_STANDALONE_LINUX
+		return "linux";
+#elif UNITY_STANDALONE_OSX
+		return "mac";
+#else
+		return "unknown";
+#endif
+	}
+
 	// Download asset bundle version info
 	IEnumerator DownloadAssetBundleVersionInfo() {
 		var bundlesInfo = new WWW(assetBundlesVersionURL);
@@ -48,7 +61,7 @@ public class AssetBundlesManager : SingletonMonoBehaviour<AssetBundlesManager> {
 				var value = data[1].TrimStart();
 
 				if(key == "URL") {
-					assetBundlesURL = value.Replace("{os}", "windows");
+					assetBundlesURL = value.Replace("{os}", GetOSName());
 					LogManager.General.Log("Asset bundles URL: " + assetBundlesURL);
 				} else {
 					var mapVersion = System.Convert.ToInt32(value);

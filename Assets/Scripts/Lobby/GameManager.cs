@@ -1,3 +1,6 @@
+using UnityEngine;
+using uLobby;
+
 // State
 public enum State {
 	ConnectingToLobby,
@@ -74,9 +77,45 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 			return _currentState == State.Game;
 		}
 	}
+
+	// Start
+	void Start() {
+		if(isClient)
+			Lobby.AddListener(this);
+	}
 	
 	// Update to next state
 	void Update() {
 		_currentState = _nextState;
 	}
+
+#region RPCs (Lobby)
+	[RPC]
+	public void ReceiveServerType(ServerType type) {
+		LogManager.General.Log("Received server type: " + type);
+		GameManager.serverType = type;
+		MapManager.InitPhysics(type);
+		
+		if(type == ServerType.FFA) {
+			GameServerParty.CreateParties(10, 1);
+		} else if(type == ServerType.Arena) {
+			GameServerParty.CreateParties(2);
+		} else {
+			GameServerParty.CreateParties(1);
+		}
+	}
+	
+	[RPC]
+	public void LoadMap(string mapName) {
+		// Music manager
+		var audioGameObject = GameObject.Find("Audio");
+		if(audioGameObject != null) {
+			// Correct position of audio object
+			audioGameObject.transform.parent = Camera.main.transform;
+			audioGameObject.transform.localPosition = Cache.vector3Zero;
+		}
+		
+		StartCoroutine(MapManager.LoadMapAsync(mapName));
+	}
+#endregion
 }

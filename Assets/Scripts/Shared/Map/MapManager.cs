@@ -52,7 +52,7 @@ public static class MapManager {
 			var download = WWW.LoadFromCacheOrDownload(mapURL, mapVersion);
 
 			if(LoadingScreen.instance != null) {
-				LoadingScreen.instance.loadingText = "Downloading map: <color=yellow>" + mapName + "</color>...";
+				LoadingScreen.instance.downloadingText = "Downloading map: <color=yellow>" + mapName + "</color>...";
 				LoadingScreen.instance.asyncDownload = download;
 			}
 

@@ -324,7 +324,10 @@ public class ServerInit : uLink.MonoBehaviour {
 			return;
 
 		LogManager.General.Log("Sending ready message to the lobby with instance ID " + instanceId);
-		Lobby.RPC("GameServerReady", Lobby.lobby, instanceId);
+
+		// WORKAROUND: Sending uZone.InstanceID is not possible so we send the string
+		Lobby.RPC("GameServerReady", Lobby.lobby, instanceId.ToString().Split(' ')[1]);
+
 		readyMessageSent = true;
 	}
 	
@@ -752,9 +755,14 @@ public class ServerInit : uLink.MonoBehaviour {
 	void uLink_OnPlayerConnected(uLink.NetworkPlayer netPlayer) {
 		LogManager.General.Log("Player successfully connected from " + netPlayer.ipAddress + ":" + netPlayer.port);
 		
-		// Instantly let him know about the server type
-		networkView.RPC("ReceiveServerType", netPlayer, GameManager.serverType);
-		networkView.RPC("LoadMap", netPlayer, mapName);
+		// Normally we send these RPCs via the lobby, but if it's a test server...
+		if(isTestServer) {
+			// Instantly let him know about the server type
+			networkView.RPC("ReceiveServerType", netPlayer, GameManager.serverType);
+
+			// Let him load the map
+			networkView.RPC("LoadMap", netPlayer, mapName);
+		}
 		
 		string accountId;
 		string playerName;

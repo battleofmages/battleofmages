@@ -3,6 +3,7 @@ using System.Collections;
 
 public class LoadingScreen : LobbyModule<LoadingScreen> {
 	public string loadingText;
+	public string downloadingText;
 	public string backgroundURL;
 	public Color backgroundColor = Color.white;
 	public float fadeTime;
@@ -64,7 +65,7 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 		LogManager.General.Log("Level was loaded: " + level);
 		asyncDownload = null;
 		asyncLoadLevel = null;
-		statusMessage = loadingText + " 100%";
+		//statusMessage = loadingText + " 100%";
 		
 		if(!uLink.Network.isServer) {
 			// Allow receiving data again
@@ -184,24 +185,30 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 			// TODO: Finish this!
 		}
 
-		if(Event.current.type != EventType.Repaint)
-			return;
+		//if(Event.current.type != EventType.Repaint)
+		//	return;
 		
 		GUI.color = Color.white;
-		float height = GUI.skin.label.CalcHeight(new GUIContent(loadingText), Screen.width - 10);
+		float height = 100;//GUI.skin.label.CalcHeight(new GUIContent(loadingText), Screen.width - 10);
 		
 		GUI.color = backgroundColor;
 		if(background.data != null)
 			GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), background.data);
 
-		if(asyncDownload != null)
-			statusMessage = loadingText + " " + (int)(asyncDownload.progress * 100) + "%";
+		using(new GUIArea(5, Screen.height - height - 5, Screen.width - 10, height)) {
+			using(new GUIVertical()) {
+				GUILayout.FlexibleSpace();
 
-		if(asyncLoadLevel != null)
-			statusMessage = loadingText + " " + (int)(asyncLoadLevel.progress * 100) + "%";
+				if(statusMessage != null)
+					GUILayout.Label(statusMessage);
 
-		if(statusMessage != null)
-			GUI.Label(new Rect(5, Screen.height - height - 5, Screen.width - 10, height), statusMessage);
+				if(asyncLoadLevel != null)
+					GUILayout.Label(loadingText + " " + (int)(asyncLoadLevel.progress * 100) + "%");
+				
+				if(asyncDownload != null && !asyncDownload.isDone)
+					GUILayout.Label(downloadingText + " " + (int)(asyncDownload.progress * 100) + "%");
+			}
+		}
 	}
 	
 	// OnGUI

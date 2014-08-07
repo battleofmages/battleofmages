@@ -567,6 +567,9 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 			() => {
 				LoadingScreen.instance.statusMessage = "Connecting to game server...";
 				
+				// Request server type and map name
+				Lobby.RPC("RequestGameServerInfo", Lobby.lobby);
+				
 				// TODO: Remove this later, this is a special case for myself, testing the game server
 				if(clientGUI.lobbyHost == "127.0.0.1" && GameDB.IsTestAccount(clientGUI.accountEmail)) {
 					LogManager.General.Log("Special account: Using localhost (127.0.0.1) as game server IP");
@@ -577,7 +580,13 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 				object[] args = {PlayerAccount.mine.accountId, PlayerAccount.mine.accountId};
 				
 				LogManager.General.Log("Connecting to game server: " + ip + ":" + port + " (Account ID: " + PlayerAccount.mine.accountId + ")");
-				uLink.Network.Connect(ip, port, "", args);
+				
+				var error = uLink.Network.Connect(ip, port, "", args);
+				if(error == uLink.NetworkConnectionError.NoError) {
+					LoadingScreen.instance.statusMessage = "Connected to game server.";
+				} else {
+					LoadingScreen.instance.statusMessage = "Connection error: " + error;
+				}
 				
 				lobbyChat.currentChannel = "Map";
 			}

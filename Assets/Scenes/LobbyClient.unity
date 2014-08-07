@@ -440,6 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingText: Loading...
+  downloadingText: Downloading...
   backgroundURL: https://battleofmages.com/images/backgrounds/loading-screen.jpg
   backgroundColor: {r: 1, g: 1, b: 1, a: 1}
   fadeTime: 1
@@ -5037,7 +5038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa09a30cc17df914d874ba62697a03a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicEnabled: 0
+  musicEnabled: 1
   fadeInCurve:
     serializedVersion: 2
     m_Curve:
@@ -8223,7 +8224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be69fa483b4818b40a76c2c0aeff9292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  versionNumber: 44
+  versionNumber: 45
 --- !u!114 &2051072778
 MonoBehaviour:
   m_ObjectHideFlags: 0

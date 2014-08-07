@@ -1,5 +1,5 @@
-using uLink;
 using UnityEngine;
+using uLobby;
 
 public class ClientInit : uLink.MonoBehaviour {
 	private bool disconnected;
@@ -115,33 +115,15 @@ uzf/lC9NYarw==", @"EQ==");
 		}
 	}
 	
-#region RPCs
+#region RPCs (Test server)
 	[RPC]
 	void ReceiveServerType(ServerType type) {
-		LogManager.General.Log("Received server type: " + type);
-		GameManager.serverType = type;
-		MapManager.InitPhysics(type);
-		
-		if(type == ServerType.FFA) {
-			GameServerParty.CreateParties(10, 1);
-		} else if(type == ServerType.Arena) {
-			GameServerParty.CreateParties(2);
-		} else {
-			GameServerParty.CreateParties(1);
-		}
+		GameManager.instance.ReceiveServerType(type);
 	}
 	
 	[RPC]
 	void LoadMap(string mapName) {
-		// Music manager
-		var audioGameObject = GameObject.Find("Audio");
-		if(audioGameObject != null) {
-			// Correct position of audio object
-			audioGameObject.transform.parent = Camera.main.transform;
-			audioGameObject.transform.localPosition = Cache.vector3Zero;
-		}
-		
-		StartCoroutine(MapManager.LoadMapAsync(mapName));
+		GameManager.instance.LoadMap(mapName);
 	}
 #endregion
 }
