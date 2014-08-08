@@ -1235,7 +1235,7 @@ MonoBehaviour:
   blockSlowDown: .5
   energyRegen: 4
   blockEnergyDrain: 40
-  entityVisibilityDistance: 130
+  entityVisibilityDistance: 200
   playerLabelAlphaWithDistance:
     serializedVersion: 2
     m_Curve:

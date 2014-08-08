@@ -87,7 +87,7 @@ GameObject:
   m_Layer: 2
   m_Name: Tutorial
   m_TagString: Portal
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 266726316, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -475,7 +475,7 @@ GameObject:
   m_Layer: 2
   m_Name: PvP Lobby
   m_TagString: Portal
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 266726316, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1323,7 +1323,7 @@ GameObject:
   m_Layer: 2
   m_Name: Nubek Outskirts
   m_TagString: Portal
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 266726316, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
