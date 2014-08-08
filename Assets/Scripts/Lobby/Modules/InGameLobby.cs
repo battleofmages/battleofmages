@@ -680,6 +680,14 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 		var acc = PlayerAccount.Get(accountId);
 		acc.email = playerEmail;
 	}
+
+	[RPC]
+	void ReceiveExperience(string accountId, uint exp) {
+		LogManager.General.Log("Lobby: Received experience. Account ID: " + accountId + ", Exp: " + exp);
+
+		var acc = PlayerAccount.Get(accountId);
+		acc.experience = exp;
+	}
 	
 	[RPC]
 	void ReceiveCharacterCustomization(string accountId, CharacterCustomization custom) {

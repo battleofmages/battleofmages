@@ -12,6 +12,7 @@ public class PlayerAccount {
 
 	// Account data
 	public string accountId;
+	public uint experience;
 	public PlayerStats stats;
 	public PlayerStats ffaStats;
 	public CharacterCustomization custom;
@@ -164,10 +165,7 @@ public class PlayerAccount {
 	// Level
 	public double level {
 		get {
-			if(stats == null || ffaStats == null)
-				return 0d;
-			
-			return (stats.level + ffaStats.level) / 2d;
+			return Mathf.Sqrt(experience) / 7.0f + 1;
 		}
 	}
 	
