@@ -14,5 +14,4 @@ An Indie MMO J-RPG with a heavy focus on PvP, see https://battleofmages.com/ for
 For developers
 ---------------------
 
-In order to work with this Unity project you'll need Unity Pro and the binary assets which are not included in the git repository.
-To get the binary assets you need to contact e.urbach@gmail.com and join the team.
+Please go to https://battleofmages.com/posts/Z6rIZXVH93ZGEYwacfmm9GSaYf9
