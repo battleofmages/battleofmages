@@ -88,6 +88,7 @@ MonoBehaviour:
   ownDmgOffset: 24
   healthBarWidth: 48
   ownHealthBarWidth: 64
+  expColor: {r: .871659279, g: 0, b: 1, a: 1}
   serverPositionPredictionFactor: .25
   maxPositionPredictionTime: .0500000007
   maxProxyDistanceUntilSnapSqr: 1
@@ -98,6 +99,7 @@ MonoBehaviour:
   matchStatsSendDelay: 1
   pingSendDelay: 1
   savePositionDelay: 2
+  saveExperienceDelay: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
