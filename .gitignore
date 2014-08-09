@@ -3,15 +3,16 @@
 /[Tt]emp/
 /[Oo]bj/
 /[Ll]ogs/
-ProjectSettings/EditorBuildSettings.asset
+/Assets/UnityTestTools/Examples/
+/ProjectSettings/EditorBuildSettings.asset
 
 # ============ #
-# Google Drive #
+#   Perforce   #
 # ============ #
-Assets/Content/
-Assets/Packs/
-Assets/Standard Assets/
-Assets/WIP/
+/Assets/Content/
+/Assets/Packs/
+/Assets/Standard Assets/
+/Assets/WIP/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
