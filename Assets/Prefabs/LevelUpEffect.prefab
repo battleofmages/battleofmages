@@ -39,14 +39,14 @@ AudioSource:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 175ec2df2c488be42b9d9803d8143272, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4457e3865ba60964a8ea4da5c8e4814a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 80
   Pan2D: 0
@@ -122,16 +122,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8d7a8aa652dc5b4f94046fbc9479ae4, type: 3}
+  m_Script: {fileID: 11500000, guid: 681d7c7678098af408223fd57e062371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 5
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  lengthInSec: 1.5
+  lengthInSec: 5
   startDelay: 0
   speed: 1
   randomSeed: 0
@@ -142,7 +143,7 @@ ParticleSystem:
   InitialModule:
     enabled: 1
     startLifetime:
-      scalar: 1.5
+      scalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
