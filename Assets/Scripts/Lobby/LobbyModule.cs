@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public abstract class LobbyModule<T> : SingletonMonoBehaviour<T>, NPCModule, DrawableLobbyModule where T : LobbyModule<T> {

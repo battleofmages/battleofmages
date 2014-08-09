@@ -22,9 +22,7 @@ public class EnemyOnServer : Enemy, CasterOnServer {
 
 	private int hpAggroThreshold;
 	private int lastHPSent;
-	
-	// Threat from each player
-	public Dictionary<Entity, int> entityToThreat;
+
 	private List<Entity> entitiesToRemove;
 	
 	// Awake
@@ -35,7 +33,6 @@ public class EnemyOnServer : Enemy, CasterOnServer {
 		controller = new AIController(this);
 
 		hpAggroThreshold = Config.instance.hpAggroThreshold;
-		entityToThreat = new Dictionary<Entity, int>();
 		entitiesToRemove = new List<Entity>();
 
 		// Danger detector
@@ -258,21 +255,10 @@ public class EnemyOnServer : Enemy, CasterOnServer {
 		aiRig.enabled = false;
 
 		// Give EXP to the killers
-		DistributeExperience();
+		DistributeExperience(Config.instance.enemyLevelToExperience);
 
 		// Destroy after some time
 		Invoke("DestroyMyself", Config.instance.enemyRespawnTime);
-	}
-
-	// DistributeExperience
-	void DistributeExperience() {
-		uint exp = (uint)level * 2;
-
-		foreach(var threat in entityToThreat) {
-			var entity = threat.Key;
-
-			entity.GainExperience(exp);
-		}
 	}
 	
 	// DestroyMyself

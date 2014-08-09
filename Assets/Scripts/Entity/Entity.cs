@@ -7,7 +7,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	public static Dictionary<ushort, Entity> idToEntity = new Dictionary<ushort, Entity>();
 
 	// Level
-	public double level;
+	public float level;
 
 	protected float heightMultiplier = 1f;
 	protected bool reliablePosSent;
@@ -143,7 +143,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		}
 		
 		// Depending on whether this is the server or client we do different stuff
-		if(uLink.Network.isServer) {
+		if(GameManager.isServer) {
 			// Apply stagger
 			if(skillStage.staggerDuration > 0f)
 				entity.networkView.RPC("Stagger", uLink.RPCMode.All, skillStage.staggerDuration);
@@ -229,19 +229,6 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		// Update damage stats
 		casterStats.damage += dmg;
 		playerStats.damageTaken += dmg;
-	}
-
-	// AddThreat
-	public void AddThreat(Entity caster, int dmg) {
-		if(this is EnemyOnServer) {
-			var enemy = this as EnemyOnServer;
-			int previousDmg;
-			
-			if(enemy.entityToThreat.TryGetValue(caster, out previousDmg))
-				enemy.entityToThreat[caster] = previousDmg + dmg;
-			else
-				enemy.entityToThreat[caster] = dmg;
-		}
 	}
 	
 	// Movement of proxies

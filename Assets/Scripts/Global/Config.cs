@@ -78,6 +78,14 @@ public class Config : SingletonMonoBehaviour<Config> {
 	public int ownHealthBarWidth;
 	public Color expColor;
 
+	[Header("Experience")]
+
+	[Range(1, 10)]
+	public int playerLevelToExperience;
+
+	[Range(1, 10)]
+	public int enemyLevelToExperience;
+
 	[Header("Lag compensation")]
 
 	[Range(0, 1)]

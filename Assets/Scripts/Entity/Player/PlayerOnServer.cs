@@ -38,7 +38,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 	private double ltsClientChat;
 	private double ltsClientTarget;
 	//private double ltsClientNoTarget;
-	
+
 	// Sets up calling SendToClients constantly
 	protected override void Awake() {
 		base.Awake();
@@ -47,7 +47,24 @@ public class PlayerOnServer : Player, CasterOnServer {
 		gameMode = ServerInit.instance.gameMode;
 
 		// Events
-		onDeath += OnDeath;
+
+		// Send him his death review
+		onDeath += () => SendDeathReview();
+
+		// Credits for assisting
+		onDeath += () => GiveAssistCredits();
+
+		// Distribute experience points
+		onDeath += () => DistributeExperience(Config.instance.playerLevelToExperience);
+
+		// Necessary stuff on dying
+		onDeath += () => {
+			// Disable collider
+			Invoke("DisableCollider", Config.instance.deathColliderDisableTime);
+			
+			// Respawn him after a certain time
+			Invoke("SendRespawn", Config.instance.playerRespawnTime);
+		};
 
 		// Count respawns so we know when we can save position data
 		onRespawn += pos => {
@@ -311,47 +328,23 @@ public class PlayerOnServer : Player, CasterOnServer {
 		Respawn(spawnPos);
 	}
 
-	// Save position in database
-	void SavePosition() {
-		// Did we already save the position?
-		if(position == lastPositionSaved)
-			return;
-
-		// Only save position when we already loaded it and respawned
-		if(respawnCount == 0)
-			return;
-
-		// Account ID not available for some reason?
-		if(string.IsNullOrEmpty(accountId))
-			return;
-
-		// Save in DB
-		PositionsDB.SetPosition(accountId, position, null);
-
-		lastPositionSaved = position;
+	// SendDeathReview
+	void SendDeathReview() {
+		var receiver = networkView.owner;
+		foreach(KeyValuePair<int, int> entry in skillDamageReceived) {
+			//DLog(entry.Key + " did " + entry.Value + " damage.");
+			networkView.RPC("SkillDamage", receiver, (short)entry.Key, entry.Value);
+		}
+		networkView.RPC("SkillDamageSent", receiver);
 	}
 
-	// Save experience in database
-	void SaveExperience() {
-		if(account == null)
-			return;
-
-		// Did we already save the experience?
-		if(account.experience == lastExperienceSaved)
-			return;
-
-		// Saving 0 experience makes no sense
-		if(account.experience == 0)
-			return;
-		
-		// Account ID not available for some reason?
-		if(string.IsNullOrEmpty(accountId))
-			return;
-		
-		// Save in DB
-		ExperienceDB.SetExperience(accountId, account.experience, null);
-		
-		lastExperienceSaved = account.experience;
+	// GiveAssistCredits
+	void GiveAssistCredits() {
+		foreach(KeyValuePair<Entity, int> entry in hitsByPlayer) {
+			if(lastHitBy != entry.Key) {
+				entry.Key.stats.total.assists += 1;
+			}
+		}
 	}
 	
 	// Stay in map boundaries on server side
@@ -503,30 +496,51 @@ public class PlayerOnServer : Player, CasterOnServer {
 		// Set client position
 		clientPosition = myTransform.position;
 	}
-	
-	// When a player dies...
-	void OnDeath() {
-		// Send him his death review
-		var receiver = networkView.owner;
-		foreach(KeyValuePair<int, int> entry in skillDamageReceived) {
-			//DLog(entry.Key + " did " + entry.Value + " damage.");
-			networkView.RPC("SkillDamage", receiver, (short)entry.Key, entry.Value);
-		}
-		networkView.RPC("SkillDamageSent", receiver);
+
+#region Database
+	// Save position in database
+	void SavePosition() {
+		// Did we already save the position?
+		if(position == lastPositionSaved)
+			return;
 		
-		// Credits for assisting
-		foreach(KeyValuePair<Entity, int> entry in hitsByPlayer) {
-			if(lastHitBy != entry.Key) {
-				entry.Key.stats.total.assists += 1;
-			}
-		}
+		// Only save position when we already loaded it and respawned
+		if(respawnCount == 0)
+			return;
 		
-		// Disable collider
-		Invoke("DisableCollider", Config.instance.deathColliderDisableTime);
+		// Account ID not available for some reason?
+		if(string.IsNullOrEmpty(accountId))
+			return;
 		
-		// Respawn him after a certain time
-		Invoke("SendRespawn", Config.instance.playerRespawnTime);
+		// Save in DB
+		PositionsDB.SetPosition(accountId, position, null);
+		
+		lastPositionSaved = position;
 	}
+	
+	// Save experience in database
+	void SaveExperience() {
+		if(account == null)
+			return;
+		
+		// Did we already save the experience?
+		if(account.experience == lastExperienceSaved)
+			return;
+		
+		// Saving 0 experience makes no sense
+		if(account.experience == 0)
+			return;
+		
+		// Account ID not available for some reason?
+		if(string.IsNullOrEmpty(accountId))
+			return;
+		
+		// Save in DB
+		ExperienceDB.SetExperience(accountId, account.experience, null);
+		
+		lastExperienceSaved = account.experience;
+	}
+#endregion
 
 #region Properties
 	// Can act
