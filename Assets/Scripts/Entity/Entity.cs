@@ -6,6 +6,9 @@ using System.Collections.Generic;
 public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> {
 	public static Dictionary<ushort, Entity> idToEntity = new Dictionary<ushort, Entity>();
 
+	// Level
+	public double level;
+
 	protected float heightMultiplier = 1f;
 	protected bool reliablePosSent;
 	protected double lastRespawn;
@@ -517,13 +520,6 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 			
 			// Update name label
 			UpdateNameLabelText();
-		}
-	}
-
-	// Level
-	public virtual double level {
-		get {
-			return 0d;
 		}
 	}
 

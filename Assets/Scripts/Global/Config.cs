@@ -75,6 +75,7 @@ public class Config : SingletonMonoBehaviour<Config> {
 	public int ownDmgOffset;
 	public int healthBarWidth;
 	public int ownHealthBarWidth;
+	public Color expColor;
 
 	[Header("Lag compensation")]
 
@@ -98,7 +99,10 @@ public class Config : SingletonMonoBehaviour<Config> {
 
 	[Range(1, 3)]
 	public float savePositionDelay;
-	
+
+	[Range(1, 3)]
+	public float saveExperienceDelay;
+
 	// Awake
 	protected override void Awake() {
 		// Root objects

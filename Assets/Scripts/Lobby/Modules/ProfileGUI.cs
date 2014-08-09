@@ -80,12 +80,7 @@ public sealed class ProfileGUI : LobbyModule<ProfileGUI> {
 		}
 		
 		// Level
-		float progress = (float)account.level - (int)account.level;
-		GUIHelper.ProgressBar(
-			"Level: <b>" + ((int)(account.level)) + "</b>",
-			progress,
-			(progress * 100).ToString("0") + " %"
-		);
+		GUIHelper.DrawLevel(account);
 		
 		GUILayout.Space(4);
 		

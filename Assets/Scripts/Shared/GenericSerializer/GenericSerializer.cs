@@ -67,6 +67,8 @@ public class GenericSerializer {
 		
 		if(fieldType == typeof(int)) {
 			return (int)(reader.ReadNumber());
+		} else if(fieldType == typeof(uint)) {
+			return (uint)(reader.ReadNumber());
 		} else if(fieldType == typeof(long)) {
 			return (long)(reader.ReadNumber());
 		} else if(fieldType == typeof(byte)) {

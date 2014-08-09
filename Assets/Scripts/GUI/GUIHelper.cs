@@ -52,6 +52,20 @@ public class GUIHelper : MonoBehaviour {
 	public static string PlayerNameField(string text) {
 		return GUILayout.TextField(text, GameDB.maxPlayerNameLength).PrettifyPlayerName();
 	}
+
+	// DrawLevel
+	public static void DrawLevel(PlayerAccount accountToDraw, ProgressBarStyle progressBarStyle = null) {
+		var level = accountToDraw.level;
+		float progress = (float)level - (int)level;
+		string text = "Level: <b>" + ((int)(level)) + "</b>";
+		
+		GUIHelper.ProgressBar(
+			text,
+			progress,
+			accountToDraw.experience + " EXP (" + (progress * 100).ToString("0") + " %)",
+			progressBarStyle
+		);
+	}
 	
 	// Progress bar
 	public static void ProgressBar(

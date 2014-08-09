@@ -76,6 +76,21 @@ public abstract class PlayerOnClient : Player {
 
 		// Loot trail
 		onKill += CreateLootTrail;
+
+		// Gain experience
+		onGainExperience += (exp) => {
+			if(account != null) {
+				account.experience += exp;
+				level = account.level;
+			}
+
+			SpawnExpText(this, exp);
+		};
+	}
+
+	// SpawnExpText
+	void SpawnExpText(Entity entity, uint exp) {
+		Entity.SpawnText(entity, exp + " EXP", Config.instance.expColor, Random.Range(-10, 10), 30);
 	}
 	
 #region Update

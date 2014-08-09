@@ -410,16 +410,6 @@ public abstract class Player : Entity {
 			);
 		}
 	}
-
-	// Level
-	public override double level {
-		get {
-			if(account != null)
-				return account.level;
-
-			return 0d;
-		}
-	}
 #endregion
 	
 #region Skill system
@@ -710,6 +700,17 @@ public abstract class Player : Entity {
 		if(this.party != null) {
 			this.party.RemoveMember(this);
 		}
+	}
+
+	[RPC]
+	protected void SetExperience(uint exp) {
+		if(account == null) {
+			LogManager.General.LogWarning("Account is null, can't update experience to " + exp);
+			return;
+		}
+
+		account.experience = exp;
+		level = account.level;
 	}
 	
 	[RPC]

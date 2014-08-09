@@ -13,6 +13,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 	private int lastHPSent;
 	private Vector3 lastPositionSent;
 	private Vector3 lastPositionSaved;
+	private uint lastExperienceSaved;
 	private bool lastMovementKeysPressedReceived;
 	private double startedSkillCast;
 	
@@ -52,6 +53,19 @@ public class PlayerOnServer : Player, CasterOnServer {
 		onRespawn += pos => {
 			respawnCount += 1;
 		};
+
+		// Gain exp
+		onGainExperience += (exp) => {
+			if(account != null) {
+				// Add exp
+				account.experience += exp;
+
+				// Inform the client
+				networkView.RPC("GainExperience", uLink.RPCMode.Owner, exp);
+			} else {
+				LogManager.General.LogWarning("Account is null, can't receive exp");
+			}
+		};
 	}
 
 	// Start
@@ -62,6 +76,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 			InvokeRepeating("SendInstanceStats", 0.01f, Config.instance.matchStatsSendDelay);
 		} else {
 			InvokeRepeating("SendPing", 0.01f, Config.instance.pingSendDelay);
+			InvokeRepeating("SaveExperience", 0.01f, Config.instance.saveExperienceDelay);
 			InvokeRepeating("SavePosition", 0.01f, Config.instance.savePositionDelay);
 		}
 	}
@@ -306,6 +321,29 @@ public class PlayerOnServer : Player, CasterOnServer {
 		PositionsDB.SetPosition(accountId, position, null);
 
 		lastPositionSaved = position;
+	}
+
+	// Save experience in database
+	void SaveExperience() {
+		if(account == null)
+			return;
+
+		// Did we already save the experience?
+		if(account.experience == lastExperienceSaved)
+			return;
+
+		// Saving 0 experience makes no sense
+		if(account.experience == 0)
+			return;
+		
+		// Account ID not available for some reason?
+		if(string.IsNullOrEmpty(accountId))
+			return;
+		
+		// Save in DB
+		ExperienceDB.SetExperience(accountId, account.experience, null);
+		
+		lastExperienceSaved = account.experience;
 	}
 	
 	// Stay in map boundaries on server side

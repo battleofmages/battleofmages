@@ -257,7 +257,22 @@ public class EnemyOnServer : Enemy, CasterOnServer {
 		// Disable AI
 		aiRig.enabled = false;
 
+		// Give EXP to the killers
+		DistributeExperience();
+
+		// Destroy after some time
 		Invoke("DestroyMyself", Config.instance.enemyRespawnTime);
+	}
+
+	// DistributeExperience
+	void DistributeExperience() {
+		uint exp = (uint)level * 2;
+
+		foreach(var threat in entityToThreat) {
+			var entity = threat.Key;
+
+			entity.GainExperience(exp);
+		}
 	}
 	
 	// DestroyMyself

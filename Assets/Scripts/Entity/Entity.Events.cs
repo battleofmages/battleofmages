@@ -8,6 +8,10 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	public delegate void KillHandler(Entity killer, Entity target, short skillId);
 	public event KillHandler onKill;
 
+	// Gain experience
+	public delegate void ExperienceGainHandler(uint exp);
+	public event ExperienceGainHandler onGainExperience;
+
 	// Destroy
 	public event CallBack onDestroy;
 
@@ -26,7 +30,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 
 		// Kill text
 		onKill += (killer, victim, skillId) => {
-			if(killer == Player.main)
+			if(GameManager.isPvP && killer == Player.main)
 				Entity.SpawnText(killer, "+Kill", new Color(1.0f, 1.0f, 0.5f, 1.0f), Random.Range(-10, 10), 30);
 		};
 
@@ -64,5 +68,12 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	// OnGameEnded
 	void OnGameEnded() {
 		InterruptCast();
+	}
+
+	// GainExperience
+	[RPC]
+	public void GainExperience(uint exp) {
+		if(onGainExperience != null)
+			onGainExperience(exp);
 	}
 }

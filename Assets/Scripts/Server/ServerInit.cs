@@ -370,6 +370,19 @@ public class ServerInit : uLink.MonoBehaviour {
 			player.networkView.RPC("SwitchWeapon", uLink.RPCMode.All, (byte)0);
 			player.networkView.RPC("SwitchAttunement", uLink.RPCMode.All, (byte)0);
 		} else {
+			// Experience / Level
+			ExperienceDB.GetExperience(
+				accountId,
+				data => {
+					uint exp = 0;
+					
+					if(data != null)
+						exp = data.experience;
+					
+					player.networkView.RPC("SetExperience", uLink.RPCMode.All, exp);
+				}
+			);
+
 			// TODO: We need to wait until this is finished in ApplyCharacterStats
 			// Skill build
 			SkillBuildsDB.GetSkillBuild(
@@ -433,7 +446,7 @@ public class ServerInit : uLink.MonoBehaviour {
 				}
 			);
 		}
-		
+
 		// Assign party
 		int partyId;
 		

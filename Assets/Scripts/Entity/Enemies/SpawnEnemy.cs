@@ -7,10 +7,10 @@ public class SpawnEnemy : MonoBehaviour {
 
 	// Start
 	void Start() {
-		if(!uLink.Network.isServer)
+		if(!GameManager.isServer)
 			return;
 		
-		if(GameManager.isTown || GameManager.isWorld)
+		if(GameManager.isPvE)
 			SpawnSingleEnemy();
 	}
 	
