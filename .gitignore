@@ -1,8 +1,8 @@
-[Ll]ibrary/
-[Bb]undles/
-[Tt]emp/
-[Oo]bj/
-[Ll]ogs/
+/[Ll]ibrary/
+/[Bb]undles/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
 ProjectSettings/EditorBuildSettings.asset
 
 # ============ #

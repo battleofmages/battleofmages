@@ -84,13 +84,15 @@ public abstract class PlayerOnClient : Player {
 				level = account.level;
 			}
 
+			Chat("You gained " + exp + " experience.");
+
 			SpawnExpText(this, exp);
 		};
 	}
 
 	// SpawnExpText
 	void SpawnExpText(Entity entity, uint exp) {
-		Entity.SpawnText(entity, exp + " EXP", Config.instance.expColor, Random.Range(-10, 10), 30);
+		Entity.SpawnText(entity, exp + " EXP", Config.instance.expColor, 3.0f, Random.Range(-10, 10), 30);
 	}
 	
 #region Update
@@ -357,6 +359,20 @@ public abstract class PlayerOnClient : Player {
 		
 		// Set server position
 		serverPosition = spawnPosition;
+	}
+
+	[RPC]
+	protected void LevelUp(uint newExperience) {
+		if(account == null)
+			return;
+
+		account.experience = newExperience;
+		level = account.level;
+
+		// Level up effect
+		var effect = (GameObject)Object.Instantiate(Config.instance.levelUpEffect);
+		effect.transform.parent = myTransform;
+		effect.transform.localPosition = Cache.vector3Zero;
 	}
 #endregion
 	

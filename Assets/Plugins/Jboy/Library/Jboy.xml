@@ -1,0 +1,778 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jboy</name>
+    </assembly>
+    <members>
+        <member name="T:Jboy.JsonSerializer">
+            <summary>
+            Represents a serializer method that is called to generate JSON data from a given object instance. This is used to
+            specify callbacks for serializing custom types.
+            </summary>
+            <param name="writer">A writer to which the JSON data should be written.</param>
+            <param name="obj">The object instance which is being serialized.</param>
+        </member>
+        <member name="T:Jboy.JsonDeserializer">
+            <summary>
+            Represents a deserializer method that is called to create an object instance from JSON data. This is used to
+            specify callback for deserializing custom types.
+            </summary>
+            <param name="reader">A reader from which the JSON data should be read.</param>
+            <returns>An object instance which is the result of the deserialization.</returns>
+        </member>
+        <member name="T:Jboy.Json">
+            <summary>
+            Provides a static interface for serializing and deserializing whole runtime objects to and from JSON. Provides an API to
+            read and write whole object from JSON data, and to manage the codecs that define how this mapping is done.
+            </summary>
+        </member>
+        <member name="M:Jboy.Json.AddCodec``1(Jboy.JsonDeserializer,Jboy.JsonSerializer)">
+            <summary>
+            Adds a new codec for serializing and deserializing instances of <typeparamref name="TValue"/>.
+            </summary>
+            <typeparam name="TValue">The type for which the codec should be used.</typeparam>
+            <param name="deserializer">A callback that deserializes an instance of <typeparamref name="TValue"/>.</param>
+            <param name="serializer">A callback that serializes an instance of <typeparamref name="TValue"/>.</param>
+            <remarks>
+            When <see cref="M:Jboy.Json.WriteObject(System.Object)"/>
+            or <see cref="M:Jboy.Json.WriteObject(System.Object,Jboy.JsonWriter)"/> is called, <paramref name="serializer"/> will be called by
+            the system to produce JSON text from the given instance. Similarly, when <see cref="M:Jboy.Json.ReadObject``1(System.String)"/> or
+            <see cref="M:Jboy.Json.ReadObject``1(Jboy.JsonReader)"/> is called, <paramref name="deserializer"/> will be called by the system
+            to read the JSON text and produce an instance of <typeparamref name="TValue"/>.
+            
+            If the type already has a codec, it will be overwritten.
+            
+            Calling this method will register codecs for <typeparamref name="TValue"/>, <typeparamref name="TValue"/>[] and
+            <see cref="T:System.Collections.Generic.List`1"/>.
+            </remarks>
+        </member>
+        <member name="M:Jboy.Json.WriteObject(System.Object)">
+            <summary>
+            Converts <paramref name="obj"/> to a string containing JSON data.
+            </summary>
+            <param name="obj">The object instance to serialize.</param>
+            <returns>A string containing the JSON representation of <paramref name="obj"/>.</returns>
+            <remarks>
+            If no codec has been registered for the type of <paramref name="obj"/>, this method will throw
+            a <see cref="T:Jboy.JsonException"/>.
+            
+            Each call to this method creates a <see cref="T:Jboy.JsonWriter"/> internally and calls
+            <see cref="M:Jboy.Json.WriteObject(System.Object,Jboy.JsonWriter)"/> with this writer. If you make many several calls to this
+            method intended for the same JSON target, it is probably more efficient to create your own <see cref="T:Jboy.JsonWriter"/> 
+            and call <see cref="M:Jboy.Json.WriteObject(System.Object,Jboy.JsonWriter)"/> yourself. You can then extract the JSON text from the
+            <see cref="T:Jboy.JsonWriter"/>.
+            </remarks>
+        </member>
+        <member name="M:Jboy.Json.WriteObject(System.Object,Jboy.JsonWriter)">
+            <summary>
+            Writes <paramref name="obj"/> to <paramref name="writer"/> as JSON data.
+            </summary>
+            <param name="obj">The object instance to serialize.</param>
+            <param name="writer">The writer to which the JSON data will be written.</param>
+            <remarks>
+            If no codec has been registered for the type of <paramref name="obj"/>, this method will throw
+            a <see cref="T:Jboy.JsonException"/>.
+            </remarks>
+        </member>
+        <member name="M:Jboy.Json.TryReadObject``1(System.String,``0@)">
+            <summary>
+            Tries to read an instance of <typeparamref name="TResult"/> from a string of JSON text.
+            </summary>
+            <typeparam name="TResult">The type of the object to read.</typeparam>
+            <param name="json">A string containing the JSON text that will be read.</param>
+            <param name="result">The resulting instance of <typeparamref name="TResult"/> that was read from the JSON data.</param>
+            <returns>True if the read was successful, and false otherwise.</returns>
+            <remarks>
+            If no codec has been registered for <typeparamref name="TResult"/>, this method will return false.
+            
+            Each call to this method creates a <see cref="T:Jboy.JsonReader"/> internally and calls
+            <see cref="M:Jboy.Json.TryReadObject``1(Jboy.JsonReader,``0@)"/> with this reader. If you make many several calls to this
+            method using the same JSON source, it is probably more efficient to create your own <see cref="T:Jboy.JsonReader"/> from the source and
+            call <see cref="M:Jboy.Json.TryReadObject``1(Jboy.JsonReader,``0@)"/> yourself.
+            </remarks>
+        </member>
+        <member name="M:Jboy.Json.TryReadObject``1(Jboy.JsonReader,``0@)">
+            <summary>
+            Tries to read an instance of <typeparamref name="TResult"/> from a <see cref="T:Jboy.JsonReader"/> stream.
+            </summary>
+            <typeparam name="TResult">The type of the object to read.</typeparam>
+            <param name="reader">A reader which contains the JSON data to read from.</param>
+            <param name="result">The resulting instance of <typeparamref name="TResult"/> that was read from the stream.</param>
+            <returns>True if the read was successful, and false otherwise.</returns>
+            <remarks>
+            If no codec has been registered for <typeparamref name="TResult"/>, this method will return false.
+            </remarks>
+        </member>
+        <member name="M:Jboy.Json.ReadObject``1(System.String)">
+            <summary>
+            Reads an instance of <typeparamref name="TResult"/> from a string of JSON text.
+            </summary>
+            <typeparam name="TResult">The type of the object to read.</typeparam>
+            <param name="json">A string containing the JSON text that will be read.</param>
+            <returns>The resulting instance of <typeparamref name="TResult"/> that was read from the JSON data.</returns>
+            <remarks>
+            If no codec has been registered for <typeparamref name="TResult"/>, this method will throw a <see cref="T:Jboy.JsonException"/>.
+            
+            Each call to this method creates a <see cref="T:Jboy.JsonReader"/> internally and calls
+            <see cref="M:Jboy.Json.TryReadObject``1(Jboy.JsonReader,``0@)"/> with this reader. If you make many several calls to this
+            method using the same JSON source, it is probably more efficient to create your own <see cref="T:Jboy.JsonReader"/> from the source and
+            call <see cref="M:Jboy.Json.TryReadObject``1(Jboy.JsonReader,``0@)"/> yourself.
+            </remarks>
+        </member>
+        <member name="M:Jboy.Json.ReadObject``1(Jboy.JsonReader)">
+            <summary>
+            Reads an instance of <typeparamref name="TResult"/> from a <see cref="T:Jboy.JsonReader"/> stream.
+            </summary>
+            <typeparam name="TResult">The type of the object to read.</typeparam>
+            <param name="reader">A reader which contains the JSON data to read from.</param>
+            <returns>The resulting instance of <typeparamref name="TResult"/> that was read from the JSON data.</returns>
+            <remarks>
+            If no codec has been registered for <typeparamref name="TResult"/>, this method will throw a
+            <see cref="T:Jboy.JsonException"/>.
+            </remarks>
+        </member>
+        <member name="M:Jboy.Json.Reset">
+            <summary>
+            Resets the <see cref="T:Jboy.Json"/> class to its initial state. This will reset all codecs to the default set of codecs.
+            </summary>
+            <remarks>
+            You normally don't have to call this function, but it can be convenient during testing, and for use in Unity where
+            static state can remain between different runs within the Unity Editor.
+            </remarks>
+        </member>
+        <member name="T:Jboy.JsonArray">
+            <summary>
+            Represents a JSON array node in a JSON data tree.
+            </summary>
+            <remarks>
+            <see cref="T:Jboy.JsonArray"/> implements the <see cref="T:System.Collections.Generic.IList`1"/> interface, which makes it possible to interact
+            with it in any way that possible for a <see cref="T:System.Collections.Generic.IList`1"/>.
+            </remarks>
+        </member>
+        <member name="T:Jboy.JsonTree">
+            <summary>
+            Abstract base class for all node types in a JSON data tree. Provides a static API for constructing a runtime
+            tree from JSON text. Also provides basic API for manipulating any JSON data tree or subtree.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonTree.Equals(System.Object)">
+            <summary>
+            Determines if this <see cref="T:Jboy.JsonTree"/> instance is equal to another object.
+            </summary>
+            <param name="obj">The other object instance to compare to.</param>
+            <returns>True if the instances are equal, and false otherwise.</returns>
+            <remarks>
+            For two <see cref="T:Jboy.JsonTree"/> instances to be equal, both need to be of the same type and have the same
+            value (if the type has a value).
+            Two <see cref="T:Jboy.JsonArray"/> instances are equal if they have equal elements in the same order.
+            Two <see cref="T:Jboy.JsonObject"/> instances are equal if all keys and values are equal, and appear in the same order.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonTree.Equals(Jboy.JsonTree)">
+            <summary>
+            Determines if two instances of <see cref="T:Jboy.JsonTree"/> are equal.
+            </summary>
+            <param name="other">The other instance to compare to.</param>
+            <returns>True if the instances are equal, and false otherwise.</returns>
+            <remarks>
+            For two <see cref="T:Jboy.JsonTree"/> instances to be equal, both need to be of the same type and have the same
+            value (if the type has a value).
+            Two <see cref="T:Jboy.JsonArray"/> instances are equal if they have equal elements in the same order.
+            Two <see cref="T:Jboy.JsonObject"/> instances are equal if all keys and values are equal, and appear in the same order.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonTree.ReadTree(System.String)">
+            <summary>
+            Reads JSON data from a string and creates a <see cref="T:Jboy.JsonTree"/> from the data. The tree can then be traversed and
+            manipulated through the methods of the <see cref="T:Jboy.JsonTree"/> class.
+            </summary>
+            <param name="json">A string containing the JSON text that will be read.</param>
+            <returns>A <see cref="T:Jboy.JsonTree"/> corresponding to the JSON data.</returns>
+            <remarks>
+            If the read fails, due to invalid JSON in the input, a <see cref="T:Jboy.JsonException"/> will be thrown.
+            
+            Each call to this method creates a <see cref="T:Jboy.JsonReader"/> internally and calls
+            <see cref="M:Jboy.JsonTree.ReadTree(Jboy.JsonReader)"/> with this reader. If you make many several calls to this
+            method using the same JSON source, it is probably more efficient to create your own <see cref="T:Jboy.JsonReader"/> from the source and
+            call <see cref="M:Jboy.JsonTree.ReadTree(Jboy.JsonReader)"/> yourself.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonTree.ReadTree(Jboy.JsonReader)">
+            <summary>
+            Reads JSON data from a <see cref="T:Jboy.JsonReader"/> stream and creates a <see cref="T:Jboy.JsonTree"/> from the data. The tree can
+            then be traversed and manipulated through the methods of the <see cref="T:Jboy.JsonTree"/> class.
+            </summary>
+            <param name="reader">A reader that contains the JSON data to read from.</param>
+            <returns>A <see cref="T:Jboy.JsonTree"/> corresponding to the JSON data.</returns>
+            <remarks>
+            If the read fails, due to invalid JSON in the input, a <see cref="T:Jboy.JsonException"/> will be thrown.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonTree.IsObject">
+            <summary>
+            Indicates whether this <see cref="T:Jboy.JsonTree"/> node is a JSON object.
+            </summary>
+            <remarks>
+            This is equivalent to <code>(jsonTree is JsonObject)</code>.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonTree.IsArray">
+            <summary>
+            Indicates whether this <see cref="T:Jboy.JsonTree"/> node is a JSON array.
+            </summary>
+            <remarks>
+            This is equivalent to <code>(jsonTree is JsonArray)</code>.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonTree.IsString">
+            <summary>
+            Indicates whether this <see cref="T:Jboy.JsonTree"/> node is a JSON string value.
+            </summary>
+            <remarks>
+            This is equivalent to <code>(jsonTree is JsonString)</code>.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonTree.IsNumber">
+            <summary>
+            Indicates whether this <see cref="T:Jboy.JsonTree"/> node is a JSON number value.
+            </summary>
+            <remarks>
+            This is equivalent to <code>(jsonTree is JsonNumber)</code>.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonTree.IsBoolean">
+            <summary>
+            Indicates whether this <see cref="T:Jboy.JsonTree"/> node is a JSON boolean value.
+            </summary>
+            <remarks>
+            This is equivalent to <code>(jsonTree is JsonBoolean)</code>.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonTree.IsNull">
+            <summary>
+            Indicates whether this <see cref="T:Jboy.JsonTree"/> node is a JSON null value.
+            </summary>
+            <remarks>
+            This is equivalent to <code>(jsonTree is JsonNull)</code>.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonTree.AsObject">
+            <summary>
+            Returns this <see cref="T:Jboy.JsonTree"/> node cast to a JSON object node.
+            </summary>
+            <remarks>
+            This is roughly equivalent to <code>((JsonObject) jsonTree)</code>.
+            
+            If the node is not a JSON object, an <see cref="T:System.InvalidCastException"/> will be thrown.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonTree.AsArray">
+            <summary>
+            Returns this <see cref="T:Jboy.JsonTree"/> node cast to a JSON array node.
+            </summary>
+            <remarks>
+            This is roughly equivalent to <code>((JsonArray) jsonTree)</code>.
+            
+            If the node is not a JSON array, an <see cref="T:System.InvalidCastException"/> will be thrown.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonTree.AsString">
+            <summary>
+            Returns this <see cref="T:Jboy.JsonTree"/> node cast to a JSON string node.
+            </summary>
+            <remarks>
+            This is roughly equivalent to <code>((JsonString) jsonTree)</code>.
+            
+            If the node is not a JSON string, an <see cref="T:System.InvalidCastException"/> will be thrown.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonTree.AsNumber">
+            <summary>
+            Returns this <see cref="T:Jboy.JsonTree"/> node cast to a JSON number node.
+            </summary>
+            <remarks>
+            This is roughly equivalent to <code>((JsonNumber) jsonTree)</code>.
+            
+            If the node is not a JSON number, an <see cref="T:System.InvalidCastException"/> will be thrown.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonTree.AsBoolean">
+            <summary>
+            Returns this <see cref="T:Jboy.JsonTree"/> node cast to a JSON boolean node.
+            </summary>
+            <remarks>
+            This is roughly equivalent to <code>((JsonBoolean) jsonTree)</code>.
+            
+            If the node is not a JSON boolean, an <see cref="T:System.InvalidCastException"/> will be thrown.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonTree.AsNull">
+            <summary>
+            Returns this <see cref="T:Jboy.JsonTree"/> node cast to a JSON null node.
+            </summary>
+            <remarks>
+            This is roughly equivalent to <code>((JsonNull) jsonTree)</code>.
+            
+            If the node is not a JSON null node, an <see cref="T:System.InvalidCastException"/> will be thrown.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonArray.#ctor">
+            <summary>
+            Creates a new <see cref="T:Jboy.JsonArray"/> instance. The new array will be empty.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonArray.WriteTree">
+            <summary>
+            Writes the <see cref="T:Jboy.JsonArray"/> instance, and all of its children, to a JSON text string.
+            </summary>
+            <returns>A string containing the JSON text representation of the <see cref="T:Jboy.JsonArray"/>.</returns>
+            <remarks>
+            Each call to this method creates a <see cref="T:Jboy.JsonWriter"/> internally and calls
+            <see cref="M:Jboy.JsonArray.WriteTree(Jboy.JsonWriter)"/> with this writer. If you make many several calls to this
+            method intended for the same JSON target, it is probably more efficient to create your own <see cref="T:Jboy.JsonWriter"/> 
+            and call <see cref="M:Jboy.JsonArray.WriteTree(Jboy.JsonWriter)"/> yourself. You can then extract the JSON text from the
+            <see cref="T:Jboy.JsonWriter"/>.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonArray.WriteTree(Jboy.JsonWriter)">
+            <summary>
+            Writes the <see cref="T:Jboy.JsonArray"/> instance, and all of its children, to a <see cref="T:Jboy.JsonWriter"/> stream.
+            </summary>
+            <param name="writer">The <see cref="T:Jboy.JsonWriter"/> stream that the JSON data should be written to.</param>
+            <remarks>
+            If <paramref name="writer"/> is in a state where a new JSON array can't be started, a <see cref="T:Jboy.JsonException"/>
+            will be thrown.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonArray.ToString">
+            <summary>
+            Produces a string representation of the <see cref="T:Jboy.JsonArray"/> instance.
+            </summary>
+            <returns>A string containing the JSON text of the instance.</returns>
+            <remarks>
+            For convenience, this method simply returns the result of <see cref="M:Jboy.JsonArray.WriteTree"/>.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonArray.IndexOf(Jboy.JsonTree)">
+            <summary>
+            Gets the index of a given <see cref="T:Jboy.JsonTree"/> element in the array.
+            </summary>
+            <param name="value">The <see cref="T:Jboy.JsonTree"/> to look for.</param>
+            <returns>The zero-based index of the element in the array.</returns>
+            <remarks>
+            This method is part of the <see cref="T:System.Collections.Generic.IList`1"/> interface.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonArray.Insert(System.Int32,Jboy.JsonTree)">
+            <summary>
+            Inserts a new <see cref="T:Jboy.JsonTree"/> element into the array at a given index.
+            </summary>
+            <param name="index">The zero-based index of the inserted element.</param>
+            <param name="value">The element to insert.</param>
+            <remarks>
+            This method is part of the <see cref="T:System.Collections.Generic.IList`1"/> interface.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonArray.RemoveAt(System.Int32)">
+            <summary>
+            Removes the <see cref="T:Jboy.JsonTree"/> element at the given index from the array.
+            </summary>
+            <param name="index">The zero-based index of the element to remove.</param>
+            <remarks>
+            This method is part of the <see cref="T:System.Collections.Generic.IList`1"/> interface.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonArray.Add(Jboy.JsonTree)">
+            <summary>
+            Adds the given <see cref="T:Jboy.JsonTree"/> element to the end of the <see cref="T:Jboy.JsonArray"/>.
+            </summary>
+            <param name="value">The <see cref="T:Jboy.JsonTree"/> element that should be added.</param>
+            <remarks>
+            This method is part of the <see cref="T:System.Collections.Generic.IList`1"/> interface.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonArray.Clear">
+            <summary>
+            Removes all elements from the array.
+            </summary>
+            <remarks>
+            This method is part of the <see cref="T:System.Collections.Generic.IList`1"/> interface.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonArray.Contains(Jboy.JsonTree)">
+            <summary>
+            Indicates whether the given <see cref="T:Jboy.JsonTree"/> element exists in the array.
+            </summary>
+            <param name="value">The <see cref="T:Jboy.JsonTree"/> element to search for.</param>
+            <returns>True if the element exists in the array, and false otherwise.</returns>
+            <remarks>
+            This method is part of the <see cref="T:System.Collections.Generic.IList`1"/> interface.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonArray.Remove(Jboy.JsonTree)">
+            <summary>
+            Removes the given <see cref="T:Jboy.JsonTree"/> element from the array.
+            </summary>
+            <param name="value">The element to remove.</param>
+            <returns>True if the given element was found and removed, and false otherwise.</returns>
+            <remarks>
+            This method is part of the <see cref="T:System.Collections.Generic.IList`1"/> interface.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonArray.CopyTo(Jboy.JsonTree[],System.Int32)">
+            <summary>
+            Copies all of the elements of the <see cref="T:Jboy.JsonArray"/> to the destination given by <paramref name="array"/>. The write
+            in <paramref name="array"/> will begin at <paramref name="arrayIndex"/>.
+            </summary>
+            <param name="array">The destination array of <see cref="T:Jboy.JsonTree"/> elements.</param>
+            <param name="arrayIndex">The index in <paramref name="array"/> where writing will begin.</param>
+            <remarks>
+            This method is part of the <see cref="T:System.Collections.Generic.IList`1"/> interface.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonArray.Equals(Jboy.JsonArray)">
+            <summary>
+            Determines if two instances of <see cref="T:Jboy.JsonArray"/> are equal.
+            </summary>
+            <param name="other">The other instance to compare to.</param>
+            <returns>True if the instances are equal, and false otherwise.</returns>
+            <remarks>
+            For two <see cref="T:Jboy.JsonArray"/> instances to be equal, both need to have equal elements in the same order.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonArray.Item(System.Int32)">
+            <summary>
+            Gets or sets the <see cref="T:Jboy.JsonTree"/> element in the <see cref="T:Jboy.JsonArray"/> at <paramref name="index"/>.
+            </summary>
+            <param name="index">The zero-based index of the element.</param>
+            <returns>The <see cref="T:Jboy.JsonTree"/> element at <paramref name="index"/>.</returns>
+            <remarks>
+            You can't set an element to null.
+            
+            This method is part of the <see cref="T:System.Collections.Generic.IList`1"/> interface.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonArray.Count">
+            <summary>
+            Gets the number of elements of the array.
+            </summary>
+            <remarks>
+            This method is part of the <see cref="T:System.Collections.Generic.IList`1"/> interface.
+            </remarks>
+        </member>
+        <member name="T:Jboy.JsonBoolean">
+            <summary>
+            Represents a JSON boolean node in a JSON data tree.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonBoolean.Value">
+            <summary>
+            The value of the <see cref="T:Jboy.JsonBoolean"/> instance.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonBoolean.#ctor(System.Boolean)">
+            <summary>
+            Creates a new <see cref="T:Jboy.JsonBoolean"/> instance with the given value.
+            </summary>
+            <param name="value">The value of the node.</param>
+        </member>
+        <member name="M:Jboy.JsonBoolean.op_Implicit(System.Boolean)~Jboy.JsonBoolean">
+            <summary>
+            Converts a <see cref="T:System.Boolean"/> value to a <see cref="T:Jboy.JsonBoolean"/> instance.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>A new <see cref="T:Jboy.JsonBoolean"/> instance with the given value.</returns>
+        </member>
+        <member name="M:Jboy.JsonBoolean.op_Explicit(Jboy.JsonBoolean)~System.Boolean">
+            <summary>
+            Converts a <see cref="T:Jboy.JsonBoolean"/> instance to a <see cref="T:System.Boolean"/> value.
+            </summary>
+            <param name="jsonBoolean">The instance to convert.</param>
+            <returns>The <see cref="T:System.Boolean"/> value of the instance.</returns>
+        </member>
+        <member name="M:Jboy.JsonBoolean.Equals(Jboy.JsonBoolean)">
+            <summary>
+            Determines if two instances of <see cref="T:Jboy.JsonBoolean"/> are equal.
+            </summary>
+            <param name="other">The other instance to compare to.</param>
+            <returns>True if the instances are equal, and false otherwise.</returns>
+            <remarks>
+            For two <see cref="T:Jboy.JsonBoolean"/> instances to be equal, they must have the same value.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonBoolean.ToString">
+            <summary>
+            Produces a string representation of the <see cref="T:Jboy.JsonBoolean"/> instance.
+            </summary>
+            <returns>A string containing true or false.</returns>
+        </member>
+        <member name="T:Jboy.JsonNull">
+            <summary>
+            Represents a JSON null node in a JSON data tree.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonNull.Equals(Jboy.JsonNull)">
+            <summary>
+            Determines if two instances of <see cref="T:Jboy.JsonNull"/> are equal.
+            </summary>
+            <param name="other">The other instance to compare to.</param>
+            <returns>True if the instances are equal, and false otherwise.</returns>
+            <remarks>
+            Two existing <see cref="T:Jboy.JsonNull"/> instances are always equal.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonNull.ToString">
+            <summary>
+            Produces a string representation of the <see cref="T:Jboy.JsonBoolean"/> instance.
+            </summary>
+            <returns>A string containing true or false.</returns>
+        </member>
+        <member name="T:Jboy.JsonNumber">
+            <summary>
+            Represents a JSON number node in a JSON data tree.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonNumber.Value">
+            <summary>
+            The value of the <see cref="T:Jboy.JsonNumber"/> instance.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonNumber.#ctor(System.Double)">
+            <summary>
+            Creates a new <see cref="T:Jboy.JsonNumber"/> instance with the given value.
+            </summary>
+            <param name="value">The value of the node.</param>
+        </member>
+        <member name="M:Jboy.JsonNumber.op_Implicit(System.Double)~Jboy.JsonNumber">
+            <summary>
+            Converts a <see cref="T:System.Double"/> value to a <see cref="T:Jboy.JsonNumber"/> instance.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>A new <see cref="T:Jboy.JsonNumber"/> instance with the given value.</returns>
+        </member>
+        <member name="M:Jboy.JsonNumber.op_Explicit(Jboy.JsonNumber)~System.Double">
+            <summary>
+            Converts a <see cref="T:Jboy.JsonNumber"/> instance to a <see cref="T:System.Double"/> value.
+            </summary>
+            <param name="jsonNumber">The instance to convert.</param>
+            <returns>The <see cref="T:System.Double"/> value of the instance.</returns>
+        </member>
+        <member name="M:Jboy.JsonNumber.Equals(Jboy.JsonNumber)">
+            <summary>
+            Determines if two instances of <see cref="T:Jboy.JsonNumber"/> are equal.
+            </summary>
+            <param name="other">The other instance to compare to.</param>
+            <returns>True if the instances are equal, and false otherwise.</returns>
+            <remarks>
+            For two <see cref="T:Jboy.JsonNumber"/> instances to be equal, they must have the same value.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonNumber.ToString">
+            <summary>
+            Produces a string representation of the <see cref="T:Jboy.JsonNumber"/> instance.
+            </summary>
+            <returns>A string containing the number.</returns>
+        </member>
+        <member name="T:Jboy.JsonObject">
+            <summary>
+            Represents a JSON object node in a JSON data tree.
+            </summary>
+            <remarks>
+            <see cref="T:Jboy.JsonObject"/> behaves much like an ordered dictionary, which means that you can access JSON properties both by their
+            name and by their index.
+            
+            <see cref="T:Jboy.JsonObject"/> implements the <see cref="T:System.Collections.Generic.IEnumerable`1"/> interface, which makes it possible to interact
+            with it in any way that possible for a <see cref="T:System.Collections.Generic.IEnumerable`1"/>. A <see cref="T:Jboy.JsonObject.JsonProperty"/> contains a property
+            name and property value.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonObject.Add(System.String,Jboy.JsonTree)">
+            <summary>
+            Adds the given property to the end of the <see cref="T:Jboy.JsonObject"/>.
+            </summary>
+            <param name="name">The name of the new property.</param>
+            <param name="value">The value of the new property.</param>
+        </member>
+        <member name="M:Jboy.JsonObject.Insert(System.Int32,System.String,Jboy.JsonTree)">
+            <summary>
+            Inserts the given property at the given index in the <see cref="T:Jboy.JsonObject"/>.
+            </summary>
+            <param name="index">The zero-based index of the new property.</param>
+            <param name="name">The name of the new property.</param>
+            <param name="value">The value of the new property.</param>
+        </member>
+        <member name="M:Jboy.JsonObject.Remove(System.String)">
+            <summary>
+            Removes the property with the given name from the <see cref="T:Jboy.JsonObject"/>.
+            </summary>
+            <param name="name">The name of the property to remove.</param>
+        </member>
+        <member name="M:Jboy.JsonObject.RemoveAt(System.Int32)">
+            <summary>
+            Removes the property at the given index from the <see cref="T:Jboy.JsonObject"/>.
+            </summary>
+            <param name="index">The zero-based index of the property to remove.</param>
+        </member>
+        <member name="M:Jboy.JsonObject.Clear">
+            <summary>
+            Removes all properties from the <see cref="T:Jboy.JsonObject"/>.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonObject.Contains(System.String)">
+            <summary>
+            Indicates whether a property with the given name exists in the <see cref="T:Jboy.JsonObject"/>.
+            </summary>
+            <param name="name">The name of the property to look for.</param>
+            <returns>True if the property exists, and false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonObject.WriteTree">
+            <summary>
+            Writes the <see cref="T:Jboy.JsonObject"/> instance, and all of its children, to a JSON text string.
+            </summary>
+            <returns>A string containing the JSON text representation of the <see cref="T:Jboy.JsonObject"/>.</returns>
+            <remarks>
+            Each call to this method creates a <see cref="T:Jboy.JsonWriter"/> internally and calls
+            <see cref="M:Jboy.JsonObject.WriteTree(Jboy.JsonWriter)"/> with this writer. If you make many several calls to this
+            method intended for the same JSON target, it is probably more efficient to create your own <see cref="T:Jboy.JsonWriter"/> 
+            and call <see cref="M:Jboy.JsonObject.WriteTree(Jboy.JsonWriter)"/> yourself. You can then extract the JSON text from the
+            <see cref="T:Jboy.JsonWriter"/>.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonObject.WriteTree(Jboy.JsonWriter)">
+            <summary>
+            Writes the <see cref="T:Jboy.JsonObject"/> instance, and all of its children, to a <see cref="T:Jboy.JsonWriter"/> stream.
+            </summary>
+            <param name="writer">The <see cref="T:Jboy.JsonWriter"/> stream that the JSON data should be written to.</param>
+            <remarks>
+            If <paramref name="writer"/> is in a state where a new JSON object can't be started, a <see cref="T:Jboy.JsonException"/>
+            will be thrown.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonObject.GetEnumerator">
+            <summary>
+            Gets an enumerator that can be used to enumerate all the properties of the <see cref="T:Jboy.JsonObject"/>.
+            </summary>
+            <returns>An enumerator over all the properties of the object.</returns>
+        </member>
+        <member name="M:Jboy.JsonObject.Equals(Jboy.JsonObject)">
+            <summary>
+            Determines if two instances of <see cref="T:Jboy.JsonObject"/> are equal.
+            </summary>
+            <param name="other">The other instance to compare to.</param>
+            <returns>True if the instances are equal, and false otherwise.</returns>
+            <remarks>
+            For two <see cref="T:Jboy.JsonObject"/> instances to be equal, all keys and values must be equal and appear in the same order.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonObject.ToString">
+            <summary>
+            Produces a string representation of the <see cref="T:Jboy.JsonObject"/> instance.
+            </summary>
+            <returns>A string containing the JSON text of the instance.</returns>
+            <remarks>
+            For convenience, this method simply returns the result of <see cref="M:Jboy.JsonObject.WriteTree"/>.
+            </remarks>		
+        </member>
+        <member name="P:Jboy.JsonObject.Item(System.Int32)">
+            <summary>
+            Gets or sets the <see cref="T:Jboy.JsonTree"/> property value at the given index.
+            </summary>
+            <param name="index">The zero-based index of the property.</param>
+            <returns>The <see cref="T:Jboy.JsonTree"/> value of the property at <paramref name="index"/>.</returns>
+            <remarks>
+            <see cref="T:Jboy.JsonObject"/> is essentially an ordered dictionary, so property values can be accessed both by property name
+            or by their zero-based index.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonObject.Item(System.String)">
+            <summary>
+            Gets or sets the <see cref="T:Jboy.JsonTree"/> property value with the given property name.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <returns>The value of the property.</returns>
+            <remarks>
+            <see cref="T:Jboy.JsonObject"/> is essentially an ordered dictionary, so property values can be accessed both by property name
+            or by their zero-based index.
+            </remarks>
+        </member>
+        <member name="P:Jboy.JsonObject.Count">
+            <summary>
+            Gets the number of properties of the <see cref="T:Jboy.JsonObject"/>.
+            </summary>
+        </member>
+        <member name="T:Jboy.JsonObject.JsonProperty">
+            <summary>
+            Represents a JSON property in a JSON object. A property is a combindation of a string name and a value which can be
+            any JSON value.
+            </summary>
+            <remarks>
+            This class is only used when enumerating the contents of a <see cref="T:Jboy.JsonObject"/>. It is not used for internal storage
+            and is not used in when adding or removing properties from an object. For this you use the dictionary-like interface of
+            <see cref="T:Jboy.JsonObject"/> where the name of the proprty is the key.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonObject.JsonProperty.#ctor(System.String,Jboy.JsonTree)">
+            <summary>
+            Creates a new <see cref="!:Jboy.JsonProperty"/> instance with the given name and value.
+            </summary>
+            <param name="name">The name of the new property.</param>
+            <param name="value">The value of the new property.</param>
+        </member>
+        <member name="P:Jboy.JsonObject.JsonProperty.Name">
+            <summary>
+            The name of the JSON property.
+            </summary>
+        </member>
+        <member name="P:Jboy.JsonObject.JsonProperty.Value">
+            <summary>
+            The value of the JSON property.
+            </summary>
+        </member>
+        <member name="T:Jboy.JsonString">
+            <summary>
+            Represents a JSON string node in a JSON data tree.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonString.#ctor(System.String)">
+            <summary>
+            Creates a new <see cref="T:Jboy.JsonString"/> instance with the given value.
+            </summary>
+            <param name="value">The value of the node.</param>
+        </member>
+        <member name="M:Jboy.JsonString.op_Implicit(System.String)~Jboy.JsonString">
+            <summary>
+            Converts a <see cref="T:System.String"/> value to a <see cref="T:Jboy.JsonString"/> instance.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>A new <see cref="T:Jboy.JsonString"/> instance with the given value.</returns>
+        </member>
+        <member name="M:Jboy.JsonString.op_Explicit(Jboy.JsonString)~System.String">
+            <summary>
+            Converts a <see cref="T:Jboy.JsonString"/> instance to a <see cref="T:System.String"/> value.
+            </summary>
+            <param name="jsonString">The instance to convert.</param>
+            <returns>The <see cref="T:System.String"/> value of the instance.</returns>
+        </member>
+        <member name="M:Jboy.JsonString.Equals(Jboy.JsonString)">
+            <summary>
+            Determines if two instances of <see cref="T:Jboy.JsonString"/> are equal.
+            </summary>
+            <param name="other">The other instance to compare to.</param>
+            <returns>True if the instances are equal, and false otherwise.</returns>
+            <remarks>
+            For two <see cref="T:Jboy.JsonString"/> instances to be equal, they must have the same value.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonString.ToString">
+            <summary>
+            Produces a string representation of the <see cref="T:Jboy.JsonString"/> instance.
+            </summary>
+            <returns>A string containing the value, wrapped in quotes.</returns>
+        </member>
+        <member name="P:Jboy.JsonString.Value">
+            <summary>
+            The value of the <see cref="T:Jboy.JsonString"/> instance.
+            </summary>
+        </member>
+    </members>
+</doc>

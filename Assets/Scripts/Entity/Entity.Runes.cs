@@ -49,16 +49,16 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		if(detonated) {
 			// Main player gets attacked
 			if(this == Player.main) {
-				Entity.SpawnText(this, "Detonation", new Color(1f, 0.5f, 0f, 1f), Random.Range(-10, 10), 35 + Config.instance.ownDmgOffset);
+				Entity.SpawnText(this, "Detonation", new Color(1f, 0.5f, 0f, 1f), -1f, Random.Range(-10, 10), 35 + Config.instance.ownDmgOffset);
 				
 				if(caster.hasRunes)
-					Entity.SpawnText(caster, "Cleanse", new Color(0f, 1f, 0.5f, 1f), Random.Range(-10, 10), 35);
+					Entity.SpawnText(caster, "Cleanse", new Color(0f, 1f, 0.5f, 1f), -1f, Random.Range(-10, 10), 35);
 				// Main player attacks someone else
 			} else if (caster == Player.main) {
-				Entity.SpawnText(this, "Detonation", new Color(1f, 0.5f, 0f, 1f), Random.Range(-10, 10), 35);
+				Entity.SpawnText(this, "Detonation", new Color(1f, 0.5f, 0f, 1f), -1f, Random.Range(-10, 10), 35);
 				
 				if(caster.hasRunes)
-					Entity.SpawnText(caster, "Cleanse", new Color(0f, 1f, 0.5f, 1f), Random.Range(-10, 10), 35 + Config.instance.ownDmgOffset);
+					Entity.SpawnText(caster, "Cleanse", new Color(0f, 1f, 0.5f, 1f), -1f, Random.Range(-10, 10), 35 + Config.instance.ownDmgOffset);
 			}
 			
 			caster.CleanseRuneLevels();

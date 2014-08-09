@@ -31,7 +31,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		// Kill text
 		onKill += (killer, victim, skillId) => {
 			if(GameManager.isPvP && killer == Player.main)
-				Entity.SpawnText(killer, "+Kill", new Color(1.0f, 1.0f, 0.5f, 1.0f), Random.Range(-10, 10), 30);
+				Entity.SpawnText(killer, "+Kill", new Color(1.0f, 1.0f, 0.5f, 1.0f), -1f, Random.Range(-10, 10), 30);
 		};
 
 		// Last kills window

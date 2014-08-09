@@ -724,6 +724,10 @@ public class PlayerMain : PlayerOnClient {
 			Debugger.instance.skillTestMode = !Debugger.instance.skillTestMode;
 			
 			return true;
+		} else if(msg == "//lvlup") {
+			LevelUp(account.experience);
+
+			return true;
 		}
 		
 		// Client simulation commands

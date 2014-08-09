@@ -16,6 +16,7 @@ public class Config : SingletonMonoBehaviour<Config> {
 	public GameObject dangerDetector;
 	public GameObject blockSphere;
 	public GameObject lootTrail;
+	public GameObject levelUpEffect;
 
 	public Font font;
 

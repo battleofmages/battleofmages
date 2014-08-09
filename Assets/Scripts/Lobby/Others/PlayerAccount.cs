@@ -163,9 +163,9 @@ public class PlayerAccount {
 	}
 	
 	// Level
-	public double level {
+	public float level {
 		get {
-			return Mathf.Sqrt(experience) / 30.0f + 1;
+			return Mathf.Sqrt(experience) / 10.0f + 1;
 		}
 	}
 	

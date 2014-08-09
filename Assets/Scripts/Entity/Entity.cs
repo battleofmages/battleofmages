@@ -106,7 +106,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 				if(caster == Player.main)
 					Entity.SpawnText(entity, "Blocked", new Color(1.0f, 0.5f, 0.0f, 1.0f));
 				else if(entity == Player.main)
-					Entity.SpawnText(entity, "Blocked", new Color(1.0f, 0.5f, 0.0f, 1.0f), 0, Config.instance.ownDmgOffset);
+					Entity.SpawnText(entity, "Blocked", new Color(1.0f, 0.5f, 0.0f, 1.0f), -1f, 0, Config.instance.ownDmgOffset);
 			}
 			
 			// Player blocked a hit, count them
@@ -201,12 +201,12 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 			if(caster == Player.main)
 				Entity.SpawnText(entity, dmg.ToString(), new Color(1.0f, 1.0f, 0.4f, 1.0f));
 			else if(entity == Player.main)
-				Entity.SpawnText(entity, dmg.ToString(), new Color(1.0f, 0.0f, 0.0f, 1.0f), 0, Config.instance.ownDmgOffset);
+				Entity.SpawnText(entity, dmg.ToString(), new Color(1.0f, 0.0f, 0.0f, 1.0f), -1f, 0, Config.instance.ownDmgOffset);
 			
 			// Client shows life drain heal
 			if(skillStage.lifeDrainRel > 0 && (caster == Player.main || entity == Player.main)) {
 				if(caster == Player.main)
-					Entity.SpawnText(caster, "+" + ((int)(dmg * skillStage.lifeDrainRel)), new Color(0.0f, 1.0f, 0.0f, 1.0f), 0, Config.instance.ownDmgOffset);
+					Entity.SpawnText(caster, "+" + ((int)(dmg * skillStage.lifeDrainRel)), new Color(0.0f, 1.0f, 0.0f, 1.0f), -1f, 0, Config.instance.ownDmgOffset);
 				else if(entity == Player.main)
 					Entity.SpawnText(caster, "+" + ((int)(dmg * skillStage.lifeDrainRel)), new Color(0.2f, 1.0f, 0.2f, 1.0f));
 			}
@@ -353,7 +353,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	}
 	
 	// SpawnText
-	public static void SpawnText(Entity target, string text, Color col, int customOffsetX = 0, int customOffsetY = 0) {
+	public static void SpawnText(Entity target, string text, Color col, float duration = -1f, int customOffsetX = 0, int customOffsetY = 0) {
 		var prefab = Config.instance.damageNumber;
 		
 		int offsetX = UnityEngine.Random.Range(-20, 20) + customOffsetX;
@@ -365,6 +365,9 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		damageNumberObj.guiText.material.color = col;
 		var damageNumber = damageNumberObj.GetComponent<DamageNumber>();
 		damageNumber.target = target;
+
+		if(duration > 0f)
+			damageNumber.duration = duration;
 		
 		GameObject dmgNumShadow = (GameObject)UnityEngine.Object.Instantiate(prefab, Cache.vector3Zero, Cache.quaternionIdentity);
 		dmgNumShadow.guiText.text = text;
@@ -372,6 +375,9 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		DamageNumber shadowFD = dmgNumShadow.GetComponent<DamageNumber>();
 		shadowFD.target = target;
 		shadowFD.guiText.material.color = Color.black;
+
+		if(duration > 0f)
+			shadowFD.duration = duration;
 	}
 
 	// InstantiateChild

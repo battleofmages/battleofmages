@@ -64,13 +64,13 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 			
 			// CC I received from someone else
 			if(this == Player.main) {
-				Entity.SpawnText(this, effect.type, new Color(0.95f, 0.0f, 0.0f, 1.0f), Random.Range(-10, 10), ccOffset + Config.instance.ownDmgOffset);
+				Entity.SpawnText(this, effect.type, new Color(0.95f, 0.0f, 0.0f, 1.0f), -1f, Random.Range(-10, 10), ccOffset + Config.instance.ownDmgOffset);
 				// CC the main player casted on myself (the proxy)
 			} else if(caster == Player.main) {
-				Entity.SpawnText(this, effect.type, new Color(0.95f, 0.95f, 0.0f, 1.0f), Random.Range(-10, 10), ccOffset);
+				Entity.SpawnText(this, effect.type, new Color(0.95f, 0.95f, 0.0f, 1.0f), -1f, Random.Range(-10, 10), ccOffset);
 				// CC texts that are always shown
 			} else if(alwaysShow) {
-				Entity.SpawnText(this, effect.type, new Color(0.5f, 0.5f, 0.5f, 1.0f), Random.Range(-10, 10), ccOffset);
+				Entity.SpawnText(this, effect.type, new Color(0.5f, 0.5f, 0.5f, 1.0f), -1f, Random.Range(-10, 10), ccOffset);
 			}
 		}
 		

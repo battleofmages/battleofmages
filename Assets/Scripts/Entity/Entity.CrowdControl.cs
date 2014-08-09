@@ -83,7 +83,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	// SpawnSleepText
 	public void SpawnSleepText() {
 		if(slept > 0) {
-			Entity.SpawnText(this, "z", new Color(0.75f, 0.75f, 0.75f, 1.0f), UnityEngine.Random.Range(-5, 5), -20);
+			Entity.SpawnText(this, "z", new Color(0.75f, 0.75f, 0.75f, 1.0f), -1f, UnityEngine.Random.Range(-5, 5), -20);
 			Invoke("SpawnSleepText", 0.333f);
 		}
 	}

@@ -57,11 +57,19 @@ public class PlayerOnServer : Player, CasterOnServer {
 		// Gain exp
 		onGainExperience += (exp) => {
 			if(account != null) {
+				var oldLevelAsInteger = (int)account.level;
+
 				// Add exp
 				account.experience += exp;
 
 				// Inform the client
 				networkView.RPC("GainExperience", uLink.RPCMode.Owner, exp);
+
+				// Level up?
+				var newLevelAsInteger = (int)account.level;
+
+				if(newLevelAsInteger > oldLevelAsInteger)
+					networkView.RPC("LevelUp", uLink.RPCMode.Others, account.experience);
 			} else {
 				LogManager.General.LogWarning("Account is null, can't receive exp");
 			}

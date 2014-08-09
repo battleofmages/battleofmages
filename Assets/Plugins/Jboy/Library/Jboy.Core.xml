@@ -1,0 +1,445 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Jboy.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Jboy.JsonException">
+            <summary>
+            Signals that something went wrong while reading or writing JSON data.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonException.#ctor">
+            <summary>
+            Creates a new JsonException instance.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonException.#ctor(System.String)">
+            <summary>
+            Creates a new JsonException instance.
+            </summary>
+            <param name="message">The message to present to the user.</param>
+        </member>
+        <member name="M:Jboy.JsonException.#ctor(System.String,System.Exception)">
+            <summary>
+            Creates a new JsonException instance.
+            </summary>
+            <param name="message">The message to present to the user.</param>
+            <param name="innerException">An inner exception that is contained in this JsonException instance.</param>
+        </member>
+        <member name="T:Jboy.JsonReader">
+            <summary>
+            Represents a stream of JSON text that the user can read from. Reading is performed using the class methods.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonReader.#ctor(System.String)">
+            <summary>
+            Creates a new JsonReader instance, containing the given text input. This can be used to read and parse the contents of the
+            input.
+            </summary>
+            <param name="jsonText">A string containing the JSON text to parse.</param>
+            <remarks>This is equivalent to calling <code>new JsonReader(jsonText, true, true)</code>.</remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Creates a new JsonReader instance, containing the given text input. This can be used to read and parse the contents of the
+            input. This also allows setting whether the input should allow comments and single-quoted strings.
+            </summary>
+            <param name="jsonText">A string containing the JSON text to parse.</param>
+            <param name="allowComments">Sets whether the parser should allow the input to contain comments.</param>
+            <param name="allowSingleQuotedStrings">Sets whether the parser should allow the input to contain single-quoted strings.</param>
+        </member>
+        <member name="M:Jboy.JsonReader.Close">
+            <summary>
+            Closes the JsonReader and releases underlying system resources.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonReader.ReadString">
+            <summary>
+            Reads a JSON string value from the stream.
+            </summary>
+            <returns>The string value that was read.</returns>
+            <remarks>Throws a JsonException if no string value could be read at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.ReadNumber">
+            <summary>
+            Reads a JSON number value from the stream.
+            </summary>
+            <returns>The number value that was read.</returns>
+            <remarks>Throws a JsonException if no number value could be read at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.ReadBoolean">
+            <summary>
+            Reads a JSON boolean value from the stream.
+            </summary>
+            <returns>The boolean value that was read.</returns>
+            <remarks>Throws a JsonException if no boolean value could be read at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.ReadPropertyName">
+            <summary>
+            Reads a property name of a JSON object from the stream.
+            </summary>
+            <returns>The property name that was read.</returns>
+            <remarks></remarks>
+            <remarks>
+            Throws a JsonException if no property name could be read at the current position.
+            
+            Note the difference between <see cref="M:Jboy.JsonReader.ReadPropertyName"/> and <see cref="M:Jboy.JsonReader.ReadPropertyName(System.String)"/>.
+            The first one reads any property name and returns it through the out parameter. The second one tries to read a secific
+            property name and will fail if it does not find it. Use the latter of the two as an assertion that the next property
+            of the stream matches what you expect.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.ReadPropertyName(System.String)">
+            <summary>
+            Reads a given property name of a JSON object from the stream.
+            </summary>
+            <param name="expectedName">The expected property name to read.</param>
+            <remarks>
+            Throws a JsonException if no property name that matches the expected name could be read at the current position.
+            
+            Note the difference between <see cref="M:Jboy.JsonReader.ReadPropertyName"/> and <see cref="M:Jboy.JsonReader.ReadPropertyName(System.String)"/>.
+            The first one reads any property name and returns it through the out parameter. The second one tries to read a secific
+            property name and will fail if it does not find it. Use the latter of the two as an assertion that the next property
+            of the stream matches what you expect.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.ReadArrayStart">
+            <summary>
+            Reads the start of a JSON array from the stream. Use this as an assertion that an array begins at the current position.
+            </summary>
+            <remarks>Throws a JsonException if no array start could be read at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.ReadArrayEnd">
+            <summary>
+            Reads the end of a JSON array from the stream. Use this as an assertion that an array ends at the current position.
+            </summary>
+            <remarks>Throws a JsonException if no array end could be read at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.ReadObjectStart">
+            <summary>
+            Reads the start of a JSON object from the stream. Use this as an assertion that an object begins at the current position.
+            </summary>
+            <remarks>Throws a JsonException if no object start could be read at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.ReadObjectEnd">
+            <summary>
+            Reads the end of a JSON object from the stream. Use this as an assertion that an object ends at the current position.
+            </summary>
+            <remarks>Throws a JsonException if no object end could be read at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.ReadNull">
+            <summary>
+            Reads a JSON null value from the stream. Use this as an assertion that there is a null value at the current position.
+            </summary>
+            <remarks>Throws a JsonException if no null value could be read at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.TryReadString(System.String@)">
+            <summary>
+            Tries to read a JSON string value from the stream.
+            </summary>
+            <param name="value">The string value that was read.</param>
+            <returns>True if the read succeded, or false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonReader.TryReadNumber(System.Double@)">
+            <summary>
+            Tries to read a JSON number value from the stream.
+            </summary>
+            <param name="value">The number value that was read.</param>
+            <returns>True if the read succeded, or false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonReader.TryReadBoolean(System.Boolean@)">
+            <summary>
+            Tries to read a JSON boolean value from the stream.
+            </summary>
+            <param name="value">The boolean value that was read.</param>
+            <returns>True if the read succeded, or false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonReader.TryReadPropertyName(System.String@)">
+            <summary>
+            Tries to read a property name of a JSON object from the stream.
+            </summary>
+            <param name="value">The property name that was read.</param>
+            <returns>True if the read succeded, or false otherwise.</returns>
+            <remarks>
+            Note the difference between <see cref="M:Jboy.JsonReader.TryReadPropertyName(System.String@)"/> and <see cref="M:Jboy.JsonReader.TryReadPropertyName(System.String)"/>.
+            The first one reads any property name and returns it through the out parameter. The second one tries to read a secific
+            property name and will fail if it does not find it. Use the latter of the two as an assertion that the next property
+            of the stream matches what you expect.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.TryReadPropertyName(System.String)">
+            <summary>
+            Tries to read a given property name of a JSON object from the stream.
+            </summary>
+            <param name="expectedName">The expected property name to read.</param>
+            <returns>True if the read succeded, or false otherwise.</returns>
+            <remarks>
+            Note the difference between <see cref="M:Jboy.JsonReader.TryReadPropertyName(System.String@)"/> and <see cref="M:Jboy.JsonReader.TryReadPropertyName(System.String)"/>.
+            The first one reads any property name and returns it through the out parameter. The second one tries to read a secific
+            property name and will fail if it does not find it. Use the latter of the two as an assertion that the next property
+            of the stream matches what you expect.
+            </remarks>
+        </member>
+        <member name="M:Jboy.JsonReader.TryReadObjectStart">
+            <summary>
+            Tries to read the start of a JSON object from the stream.
+            </summary>
+            <returns>True if the read succeded, or false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonReader.TryReadObjectEnd">
+            <summary>
+            Tries to read the end of a JSON object from the stream.
+            </summary>
+            <returns>True if the read succeded, or false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonReader.TryReadArrayStart">
+            <summary>
+            Tries to read the start of a JSON array from the stream.
+            </summary>
+            <returns>True if the read succeded, or false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonReader.TryReadArrayEnd">
+            <summary>
+            Tries to read the end of a JSON array from the stream.
+            </summary>
+            <returns>True if the read succeded, or false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonReader.TryReadNull">
+            <summary>
+            Tries to read a JSON null value from the stream.
+            </summary>
+            <returns>True if the read succeded, or false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonReader.Read(System.Object@)">
+            <summary>
+            Reads the next token from the stream. Also returns the associated value if one can be produced.
+            </summary>
+            <param name="value">The associated parsed value of the next token.</param>
+            <returns>The next token in the stream.</returns>
+            <remarks>This method will succeed regardless of the state of the stream. If there is a valid token at the current
+            position in the stream, that token will be returned and the <paramref name="value"/> parameter will contain its parsed value if
+            applicable. If at the end of the stream, the return value will be <see cref="F:Jboy.JsonToken.End"/>.</remarks>
+        </member>
+        <member name="P:Jboy.JsonReader.EndOfInput">
+            <summary>
+            Signals whether the reader has reached the end of the input stream.
+            </summary>
+        </member>
+        <member name="T:Jboy.JsonToken">
+            <summary>
+            Represents a token in the JSON text stream.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonToken.None">
+            <summary>
+            Represents no token at all.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonToken.ObjectStart">
+            <summary>
+            Represents the start of a JSON object.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonToken.PropertyName">
+            <summary>
+            Represents a property name within a JSON object.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonToken.ObjectEnd">
+            <summary>
+            Represents the end of a JSON object.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonToken.ArrayStart">
+            <summary>
+            Represents the start of a JSON array.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonToken.ArrayEnd">
+            <summary>
+            Represents the end of a JSON array.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonToken.String">
+            <summary>
+            Represents a JSON string value.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonToken.Number">
+            <summary>
+            Represents a JSON number value.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonToken.Boolean">
+            <summary>
+            Represents a JSON boolean value.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonToken.Null">
+            <summary>
+            Represents a JSON null value.
+            </summary>
+        </member>
+        <member name="F:Jboy.JsonToken.End">
+            <summary>
+            Represents the end of the input JSON stream.
+            </summary>
+        </member>
+        <member name="T:Jboy.JsonWriter">
+            <summary>
+            Represents a stream of JSON text that the user can write to. Writing is performed using the class methods.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonWriter.#ctor">
+            <summary>
+            Creates a new empty JsonWriter instance that can be used to write JSON data to text.
+            </summary>
+            <remarks>This is equivalent to calling <code>new JsonWriter(true, false, 4)</code>.</remarks>
+        </member>
+        <member name="M:Jboy.JsonWriter.#ctor(System.Boolean,System.Boolean,System.UInt32)">
+            <summary>
+            Creates a new empty JsonWriter instance that can be used to write JSON data to text. Also allows you to specify options
+            for validation, pretty-printing and indentation.
+            </summary>
+            <param name="validate">Sets whether the JsonWriter should validate that the output produced is correct JSON.</param>
+            <param name="prettyPrint">Sets whether the JsonWriter should insert whitespace (indentation and linebreaks) to
+            make the output more readable.</param>
+            <param name="indentSize">Sets the number of spaces one indentation level should be. If <paramref name="prettyPrint"/>
+            is false, this value has no effect.</param>
+        </member>
+        <member name="M:Jboy.JsonWriter.ToString">
+            <summary>
+            Converts the JsonWriter contents to a string. This lets you extract the produced JSON text and use it in string from.
+            </summary>
+            <returns>A string containing the produced JSON text.</returns>
+        </member>
+        <member name="M:Jboy.JsonWriter.Reset">
+            <summary>
+            Clears the contents of the JsonWriter and resets it to its initial state.
+            </summary>
+        </member>
+        <member name="M:Jboy.JsonWriter.WriteString(System.String)">
+            <summary>
+            Writes a JSON string value to the stream.
+            </summary>
+            <param name="value">The string value to write.</param>
+            <remarks>Throws a JsonException if the value could not be written at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonWriter.WriteNumber(System.Double)">
+            <summary>
+            Writes a JSON number value to the stream.
+            </summary>
+            <param name="value">The number value to write.</param>
+            <remarks>Throws a JsonException if the value could not be written at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonWriter.WriteBoolean(System.Boolean)">
+            <summary>
+            Writes a JSON boolean value to the stream.
+            </summary>
+            <param name="value">The boolean value to write.</param>
+            <remarks>Throws a JsonException if the value could not be written at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonWriter.WritePropertyName(System.String)">
+            <summary>
+            Writes a JSON object property name to the stream.
+            </summary>
+            <param name="propertyName">The property name to write.</param>
+            <remarks>Throws a JsonException if the property name could not be written at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonWriter.WriteObjectStart">
+            <summary>
+            Writes the start of a JSON object to the stream.
+            </summary>
+            <remarks>Throws a JsonException if the object start could not be written at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonWriter.WriteObjectEnd">
+            <summary>
+            Writes the end of a JSON object to the stream.
+            </summary>
+            <remarks>Throws a JsonException if the object end could not be written at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonWriter.WriteArrayStart">
+            <summary>
+            Writes the start of a JSON array to the stream.
+            </summary>
+            <remarks>Throws a JsonException if the array start could not be written at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonWriter.WriteArrayEnd">
+            <summary>
+            Writes the end of a JSON array to the stream.
+            </summary>
+            <remarks>Throws a JsonException if the array end could not be written at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonWriter.WriteNull">
+            <summary>
+            Writes a JSON null value to the stream.
+            </summary>
+            <remarks>Throws a JsonException if the value could not be written at the current position.</remarks>
+        </member>
+        <member name="M:Jboy.JsonWriter.TryWriteString(System.String)">
+            <summary>
+            Tries to write a JSON string value to the stream.
+            </summary>
+            <param name="value">The string value to write.</param>
+            <returns>True if the write was successful, and false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonWriter.TryWriteNumber(System.Double)">
+            <summary>
+            Tries to write a JSON number value to the stream.
+            </summary>
+            <param name="value">The number value to write.</param>
+            <returns>True if the write was successful, and false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonWriter.TryWriteBoolean(System.Boolean)">
+            <summary>
+            Tries to write a JSON boolean value to the stream.
+            </summary>
+            <param name="value">The boolean value to write.</param>
+            <returns>True if the write was successful, and false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonWriter.TryWritePropertyName(System.String)">
+            <summary>
+            Tries to write a JSON object property name to the stream.
+            </summary>
+            <param name="propertyName">The property name to write.</param>
+            <returns>True if the write was successful, and false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonWriter.TryWriteObjectStart">
+            <summary>
+            Tries to write the start of a JSON object to the stream.
+            </summary>
+            <returns>True if the write was successful, and false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonWriter.TryWriteObjectEnd">
+            <summary>
+            Tries to write the end of a JSON object to the stream.
+            </summary>
+            <returns>True if the write was successful, and false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonWriter.TryWriteArrayStart">
+            <summary>
+            Tries to write the start of a JSON array to the stream.
+            </summary>
+            <returns>True if the write was successful, and false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonWriter.TryWriteArrayEnd">
+            <summary>
+            Tries to write the end of a JSON array to the stream.
+            </summary>
+            <returns>True if the write was successful, and false otherwise.</returns>
+        </member>
+        <member name="M:Jboy.JsonWriter.TryWriteNull">
+            <summary>
+            Tries to write a JSON null value to the stream.
+            </summary>
+            <returns>True if the write was successful, and false otherwise.</returns>
+        </member>
+        <member name="P:Jboy.JsonWriter.CurrentDepth">
+            <summary>
+            Returns the depth level of the current write position in the JSON tree. Depth 0 represents the root level and each level above
+            represents one more nested JSON array or JSON object.
+            </summary>
+        </member>
+    </members>
+</doc>
