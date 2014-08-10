@@ -101,7 +101,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 		var oldLevelAsInteger = (int)account.level;
 		
 		// Add exp
-		account.experience -= exp;
+		account.experience = (uint)Mathf.Max(0, account.experience - exp);
 		
 		// Inform the client
 		networkView.RPC("LoseExperience", uLink.RPCMode.Owner, exp);
@@ -333,10 +333,10 @@ public class PlayerOnServer : Player, CasterOnServer {
 	}
 	
 	// After death state
-	void SendRespawn() {
+	public void SendRespawn() {
 		Spawn spawn;
 		
-		if(GameManager.isTown) {
+		if(GameManager.isPvE) {
 			spawn = GameServerParty.partyList[0].spawnComp;
 		} else {
 			spawn = party.spawnComp;
@@ -417,6 +417,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 			networkView.RPC("ReceiveMainGuildInfo", player, this.guildName, this.guildTag);
 			networkView.RPC("ReceiveSkillBuild", player, this.skillBuild);
 			networkView.RPC("ReceiveCharacterCustomization", player, this.customization);
+			networkView.RPC("SetExperience", player, account.experience);
 			networkView.RPC("ReceiveArtifactTree", player, Jboy.Json.WriteObject(this.artifactTree));
 			networkView.RPC("ReceiveCharacterStats", player, this.charStats);
 			
@@ -566,7 +567,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 	// Can act
 	public bool canAct {
 		get {
-			return isAlive && !gameMode.gameEnded && GameManager.gameStarted;
+			return isAlive && !gameMode.gameEnded;
 		}
 	}
 #endregion
@@ -932,6 +933,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 	// Respawning
 	[RPC]
 	public void Respawn(Vector3 spawnPosition) {
+		LogManager.General.Log("[RPC] Respawn");
 		this.BasicRespawn(spawnPosition);
 		
 		// Set client position

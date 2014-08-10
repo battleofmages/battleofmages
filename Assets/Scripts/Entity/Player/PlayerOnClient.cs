@@ -368,6 +368,7 @@ public abstract class PlayerOnClient : Player {
 
 		account.experience = newExperience;
 		level = account.level;
+		UpdateNameLabelText();
 
 		LogManager.General.Log("Level up: " + level);
 
@@ -384,6 +385,7 @@ public abstract class PlayerOnClient : Player {
 		
 		account.experience = newExperience;
 		level = account.level;
+		UpdateNameLabelText();
 
 		LogManager.General.Log("Level down: " + level);
 	}

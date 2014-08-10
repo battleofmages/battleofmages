@@ -38,7 +38,7 @@ public class SkillInstance : uLink.MonoBehaviour {
 		inst.skill = skill;
 		inst.skillStage = skillStage;
 
-		if(clone.collider && caster.collider)
+		if(clone.collider && caster.collider && clone.collider.enabled && caster.collider.enabled)
 			Physics.IgnoreCollision(clone.collider, caster.collider);
 	}
 	

@@ -670,11 +670,9 @@ public class Login : LobbyModule<Login> {
 
 1. Understand that most graphics are simply dummy graphics used in the development process and do not represent the quality of the final product.
 
-2. Music is not integrated in the test versions anymore for faster publishing.
+2. Your character will be reset at the start of the Closed Beta.
 
-3. Your character will be reset at the start of the Closed Beta.
-
-4. You will receive an Alpha Tester title in the future.
+3. You will receive an Alpha Tester title in the future.
 ");
 		GUILayout.FlexibleSpace();
 		using(new GUIHorizontalCenter()) {

@@ -87,10 +87,6 @@ public class PlayerMain : PlayerOnClient {
 			}
 		}
 		
-		// Did the game start yet?
-		if(!GameManager.gameStarted)
-			return;
-		
 		// Move speed
 		ApplyMotorMoveSpeed(this.moveSpeed);
 		
@@ -133,7 +129,7 @@ public class PlayerMain : PlayerOnClient {
 	
 	// Update input
 	void UpdateInput() {
-		if(!isAlive || GameManager.gameEnded || !GameManager.gameStarted) {
+		if(!isAlive || GameManager.gameEnded) {
 			// Cancel old skill
 			if(currentSkill != null) {
 				InterruptCast(); //false
@@ -613,6 +609,18 @@ public class PlayerMain : PlayerOnClient {
 			case "//dc":
 				msgUntilWhitespace = "//disconnect";
 				break;
+
+			case "//gs":
+				msgUntilWhitespace = "//gameStarted";
+				break;
+
+			case "//ge":
+				msgUntilWhitespace = "//gameEnded";
+				break;
+
+			case "//sca":
+				msgUntilWhitespace = "//setCameraAngle";
+				break;
 		}
 		
 		msg = msgUntilWhitespace + msgFromWhitespace;
@@ -646,6 +654,17 @@ public class PlayerMain : PlayerOnClient {
 				
 				return true;
 			}
+		} else if(msg == "//gameStarted") {
+			Chat(GameManager.gameStarted.ToString());
+			return true;
+		} else if(msg == "//gameEnded") {
+			Chat(GameManager.gameEnded.ToString());
+			return true;
+		} else if(msg.StartsWith("//setCameraAngle ")) {
+			float yAngle = float.Parse(msg.Substring("//setCameraAngle ".Length));
+			SetCameraYRotation(yAngle);
+
+			return true;
 		} else if(msg.StartsWith("//debug ")) {
 			string subject = msg.Substring(8);
 			
@@ -743,7 +762,7 @@ public class PlayerMain : PlayerOnClient {
 	[RPC]
 	public void SetCameraYRotation(float yAngle) {
 		LogManager.General.Log("Setting camera Y rotation angle: " + (int)yAngle);
-		camPivot.GetComponent<MouseLook>().rotationY = yAngle;
+		camPivot.GetComponent<MouseLook>().rotationX = yAngle;
 
 		/*charGraphics.eulerAngles = new Vector3(
 			charGraphics.eulerAngles.x,

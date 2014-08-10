@@ -100,6 +100,10 @@ public class Config : SingletonMonoBehaviour<Config> {
 	public float maxProxyDistanceUntilSnapSqr;
 	public float proxyInterpolationSpeed;
 	public float ownerInterpolationSpeed;
+
+	[Header("VoIP")]
+
+	public bool hearMyself;
 	
 	[Header("Server")]
 	public bool disableAnimationsOnServer;

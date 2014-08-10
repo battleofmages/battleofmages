@@ -1280,6 +1280,7 @@ MonoBehaviour:
   maxProxyDistanceUntilSnapSqr: 1
   proxyInterpolationSpeed: 20
   ownerInterpolationSpeed: 2.20000005
+  hearMyself: 0
   disableAnimationsOnServer: 1
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
@@ -8232,7 +8233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be69fa483b4818b40a76c2c0aeff9292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  versionNumber: 45
+  versionNumber: 46
 --- !u!114 &2051072778
 MonoBehaviour:
   m_ObjectHideFlags: 0

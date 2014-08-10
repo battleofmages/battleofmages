@@ -486,7 +486,7 @@ public abstract class Player : Entity {
 		if(motor != null)
 			motor.enabled = false;
 	}
-	
+
 	// DO NOT CALL THIS DIRECTLY
 	protected void BasicRespawn(Vector3 spawnPosition) {
 		Log("Respawn at " + spawnPosition);
@@ -513,12 +513,14 @@ public abstract class Player : Entity {
 			partyRespawn = this.party;
 		
 		// Set position and rotation
+		myTransform.position = spawnPosition;
+
 		if(partyRespawn == null) {
-			LogWarning("I don't have a party assigned to me!");
+			if(GameManager.isPvP)
+				LogWarning("I don't have a party assigned to me!");
 		} else if(myTransform == null) {
 			LogWarning("I don't have a valid transform!");
 		} else if(partyRespawn.spawn != null) {
-			myTransform.position = spawnPosition;
 			charGraphics.eulerAngles = new Vector3(0, partyRespawn.spawn.eulerAngles.y, 0);
 		}
 		
@@ -711,6 +713,8 @@ public abstract class Player : Entity {
 
 		account.experience = exp;
 		level = account.level;
+
+		UpdateNameLabelText();
 	}
 	
 	[RPC]
@@ -1013,8 +1017,13 @@ public abstract class Player : Entity {
 	
 	[RPC]
 	protected void StartGame() {
+		// Reset stats
+		stats.total = new PlayerQueueStats();
+
+		// Start game
 		GameManager.gameStarted = true;
-		
+
+		// Chat message
 		if(this == Player.main && lobbyChat != null && GameManager.isArena) {
 			lobbyChat.AddEntry("Game started.");
 		}

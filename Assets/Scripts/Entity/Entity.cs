@@ -89,7 +89,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	// Applies damage to the player
 	public static void ApplyDamage(Entity entity, SkillInstance skillInstance, int power) {
 		// Dead entity or protected by spawn protection
-		if(!entity.isAlive || entity.hasSpawnProtection)
+		if(!entity.isAlive || entity.hasSpawnProtection || !GameManager.gameStarted)
 			return;
 		
 		// Caster of the skill
@@ -420,14 +420,19 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	}
 	
 	// UpdateNameLabelText
-	void UpdateNameLabelText() {
+	protected void UpdateNameLabelText() {
 		if(nameLabel == null)
 			return;
-		
+
+		string levelPrefix = "";
+
+		if(GameManager.isPvE && this != Player.main)
+			levelPrefix = "{" + (int)level + "} ";
+
 		if(guildTag != "") {
-			nameLabel.text = "[" + guildTag + "] " + name;
+			nameLabel.text = "[" + guildTag + "] " + levelPrefix + name;
 		} else {
-			nameLabel.text = name;
+			nameLabel.text = levelPrefix + name;
 		}
 	}
 	

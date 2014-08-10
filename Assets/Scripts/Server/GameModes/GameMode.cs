@@ -51,6 +51,7 @@ public abstract class GameMode : MonoBehaviour {
 	public void SendGameStart() {
 		foreach(var pty in GameServerParty.partyList) {
 			foreach(Entity player in pty.members) {
+				(player as PlayerOnServer).SendRespawn();
 				player.networkView.RPC("StartGame", uLink.RPCMode.All);
 			}
 		}

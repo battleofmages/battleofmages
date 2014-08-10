@@ -94,6 +94,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 	public void ReceiveServerType(ServerType type) {
 		LogManager.General.Log("Received server type: " + type);
 		GameManager.serverType = type;
+		GameManager.gameEnded = false;
 		MapManager.InitPhysics(type);
 		
 		if(type == ServerType.FFA) {

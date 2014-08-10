@@ -809,24 +809,11 @@ public class ServerInit : uLink.MonoBehaviour {
 				gameMode.SendPlayerFFAStats(player);
 			else
 				LogManager.DB.LogError("Couldn't find player by ID " + netPlayer.id + ". FFA stats won't be saved.");
-			
-			/*string accountId = "";
-			if(netPlayer.loginData.TryRead<string>(out accountId)) {
-				LogManager.General.Log("Disconnected player " + netPlayer.id + " had account ID '" + accountId + "'!");
-				
-				var player = Player.FindPlayerByAccountId(accountId);
-				
-				if(player != null)
-					gameMode.SendPlayerFFAStats(player);
-				else
-					LogManager.DB.LogError("Couldn't find player by account ID " + accountId + ". FFA stats won't be saved.");
-			} else {
-				LogManager.DB.LogError("Couldn't get account ID of player " + netPlayer.id + ". FFA stats won't be saved.");
-			}*/
 		}
 		
 		uLink.Network.DestroyPlayerObjects(netPlayer);
 		uLink.Network.RemoveRPCs(netPlayer);
+		uLink.Network.RemoveInstantiates(netPlayer);
 	}
 
 	// uZone initialized

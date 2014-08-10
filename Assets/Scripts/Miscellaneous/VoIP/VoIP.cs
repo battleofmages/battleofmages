@@ -2,7 +2,6 @@
 
 public class VoIP : uLink.MonoBehaviour {
 	public static float volumeMultiplier = 1f;
-	public static bool hearMyself = false;
 	
 	private float noiseLimit = 0.017f;
 	
@@ -227,7 +226,9 @@ public class VoIP : uLink.MonoBehaviour {
 		samples = codec.Decode(bytes, len);
 		
 		// Play
-		if(!networkViewIsMine || hearMyself) {
+		if(!networkViewIsMine || Config.instance.hearMyself) {
+			LogManager.General.Log("playing " + samples.Length);
+
 			if(!audioSources[0].isPlaying)
 				audioSources[0].Play();
 			

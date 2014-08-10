@@ -49,8 +49,9 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		foreach(var entry in entityToThreat) {
 			var entity = entry.Key;
 			var participation = (float)entry.Value / maxThreat;
-			
-			entity.GainExperience((uint)(participation * (float)exp));
+
+			if(entity != null)
+				entity.GainExperience((uint)(participation * (float)exp));
 		}
 		
 		ResetThreat();

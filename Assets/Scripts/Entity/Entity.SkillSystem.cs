@@ -208,18 +208,20 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		SkillInstance.layerCounter = (SkillInstance.layerCounter + 1) % Config.instance.skillLayersCount;
 
 		// Ignore collision with the caster
-		if(party != null) {
-			foreach(var member in party.members) {
-				Physics.IgnoreCollision(lastSkillInstance.collider, member.collider);
+		if(lastSkillInstance.collider != null) {
+			if(party != null) {
+				foreach(var member in party.members) {
+					Physics.IgnoreCollision(lastSkillInstance.collider, member.collider);
 
-				if(member.weaponModelCollider != null)
-					Physics.IgnoreCollision(lastSkillInstance.collider, member.weaponModelCollider);
+					if(member.weaponModelCollider != null)
+						Physics.IgnoreCollision(lastSkillInstance.collider, member.weaponModelCollider);
+				}
+			} else if(lastSkillInstance.collider) {
+				Physics.IgnoreCollision(lastSkillInstance.collider, collider);
+
+				if(weaponModelCollider != null)
+					Physics.IgnoreCollision(lastSkillInstance.collider, weaponModelCollider);
 			}
-		} else if(lastSkillInstance.collider) {
-			Physics.IgnoreCollision(lastSkillInstance.collider, collider);
-
-			if(weaponModelCollider != null)
-				Physics.IgnoreCollision(lastSkillInstance.collider, weaponModelCollider);
 		}
 		
 		// Destroy after a few seconds
