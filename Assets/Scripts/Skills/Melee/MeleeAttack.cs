@@ -32,7 +32,7 @@ public class MeleeAttack : SkillInstance {
 	// SetTrail
 	void SetTrail(bool trailEnabled) {
 		// Server doesn't draw trails
-		if(uLink.Network.isServer)
+		if(GameManager.isServer)
 			return;
 
 		trail.emit = trailEnabled;

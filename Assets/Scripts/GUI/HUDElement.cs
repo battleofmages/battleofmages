@@ -18,7 +18,7 @@ public class HUDElement : MonoBehaviour {
 	
 	// OnGUI
 	public void OnGUI() {
-		if(!uLink.Network.isClient)
+		if(GameManager.isServer)
 			return;
 		
 		GUI.depth = guiDepth;

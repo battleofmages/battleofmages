@@ -36,7 +36,7 @@ public class LightningAutoAttack : SkillInstance {
 	
 	// Update
 	void Update () {
-		if(!uLink.Network.isServer)
+		if(GameManager.isClient)
 			UpdateDistance();
 		
 		explosionTime -= Time.deltaTime;

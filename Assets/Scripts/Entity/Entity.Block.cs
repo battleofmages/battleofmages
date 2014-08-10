@@ -37,7 +37,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		if(blocking)
 			return;
 		
-		if(!uLink.Network.isServer) {
+		if(!GameManager.isServer) {
 			animator.SetBool("Block", true);
 			animator.SetBool("Moving", false);
 		}
@@ -57,7 +57,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		if(!blocking)
 			return;
 		
-		if(!uLink.Network.isServer) {
+		if(!GameManager.isServer) {
 			animator.SetBool("Block", false);
 		}
 		

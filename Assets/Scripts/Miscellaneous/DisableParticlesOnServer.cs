@@ -3,7 +3,7 @@
 public class DisableParticlesOnServer : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
-		if(!uLink.Network.isServer)
+		if(GameManager.isClient)
 			return;
 		
 		if(particleEmitter != null) {

@@ -7,7 +7,7 @@ public class MailFeedback : HUDElement {
 	
 	// Start
 	void Start() {
-		if(!uLink.Network.isClient)
+		if(GameManager.isServer)
 			this.enabled = false;
 	}
 	

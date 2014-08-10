@@ -30,7 +30,7 @@ public class HomingProjectile : Projectile {
 			Vector3 relativePos = hitPoint - myTransform.position;
 			currentSqrMagnitude = relativePos.sqrMagnitude;
 			
-			// If our current distance is higher than the previous one we already passed the target
+			// We did not pass the target position yet
 			if(currentSqrMagnitude <= lastSqrMagnitude)	{
 				targetRotation = Quaternion.LookRotation(relativePos);
 				
@@ -40,6 +40,7 @@ public class HomingProjectile : Projectile {
 				//LogManager.General.Log("[ ] RelPos: " + relativePos + " ---> " + currentSqrMagnitude + "  //  " + lastSqrMagnitude);
 				
 				lastSqrMagnitude = currentSqrMagnitude;
+			// If our current distance is higher than the previous one we already passed the target position
 			} else {
 				myRigidbody.velocity = Vector3.down * projectileSpeed;
 				

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class BindingFieldExplosion : Explosion {
 	public GameObject lightningRayPrefab;
@@ -24,12 +23,21 @@ public class BindingFieldExplosion : Explosion {
 			}
 			
 			// Lose health
-			Entity player = hit.GetComponent<Entity>();
-			if(player != null) {
-				Entity.ApplyDamage(player, this, power);
+			Entity entity = hit.GetComponent<Entity>();
+			if(entity != null) {
+				// Ignore caster
+				if(entity == caster)
+					return;
+				
+				// Ignore own party
+				if(caster.party != null && entity.party == caster.party)
+					return;
+
+				// Lose health
+				Entity.ApplyDamage(entity, this, power);
 				
 				// Spawn prefab
-				var distanceVector = player.myTransform.position - myTransform.position;
+				var distanceVector = entity.myTransform.position - myTransform.position;
 				var distance = distanceVector.magnitude;
 				Quaternion rotation = Quaternion.identity;
 				

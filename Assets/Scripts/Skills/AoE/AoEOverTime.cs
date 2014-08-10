@@ -41,6 +41,14 @@ public class AoEOverTime : SkillInstance {
 			var entity = coll.GetComponent<Entity>();
 			
 			if(entity) {
+				// Ignore caster
+				if(entity == caster)
+					return;
+
+				// Ignore own party
+				if(caster.party != null && entity.party == caster.party)
+					return;
+
 				AoEHit(entity);
 				
 				affectedEntities[entity] = true;
@@ -66,7 +74,7 @@ public class AoEOverTime : SkillInstance {
 		}
 		
 		// Server doesn't have auto destruct
-		if(uLink.Network.isServer) {
+		if(GameManager.isServer) {
 			Destroy(gameObject);
 		}
 	}

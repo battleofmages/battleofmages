@@ -25,7 +25,7 @@ public class MapConfiguration : MonoBehaviour {
 			ChangeSky.instance.dayMaterial = skyboxMaterial;
 
 #if UNITY_EDITOR
-		if(uLink.Network.isClient && GameObject.Find("Client") == null) {
+		if(GameManager.isClient && GameObject.Find("Client") == null) {
 			Application.LoadLevel("Client");
 		}
 #endif

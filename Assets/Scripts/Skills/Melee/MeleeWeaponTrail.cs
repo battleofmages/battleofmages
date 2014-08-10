@@ -73,7 +73,7 @@ public class MeleeWeaponTrail : MonoBehaviour
 	// Start
 	void Start() {
 		// Server doesn't draw trails
-		if(uLink.Network.isServer) {
+		if(GameManager.isServer) {
 			enabled = false;
 			return;
 		}

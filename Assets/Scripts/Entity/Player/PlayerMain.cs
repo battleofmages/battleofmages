@@ -299,7 +299,7 @@ public class PlayerMain : PlayerOnClient {
 			
 			if(targetEntity != this) {
 				if(targetEntity != null) {
-					if(targetEntity.layer != this.layer) {
+					if(party == null || targetEntity.party != party) {
 						crossHair.color = Color.red;
 					} else {
 						crossHair.color = Color.green;

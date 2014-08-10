@@ -5,10 +5,11 @@ public class Explosion : SkillInstance {
 	public float radius;
 	public float upwardsModifier = 3.0f;
 	public bool instantSelfDestruction = false;
-	
+
+	// Awake
 	void Awake() {
 		// Disable sound on server
-		if(uLink.Network.isServer && audio != null) {
+		if(GameManager.isServer && audio != null) {
 			audio.enabled = false;
 		}
 	}
@@ -25,20 +26,27 @@ public class Explosion : SkillInstance {
 		
 		Collider[] colliders = Physics.OverlapSphere(transform.position, radius, this.caster.enemiesLayerMask);
 		
-		foreach(Collider hit in colliders) {
-			//if(!hit)
-			//	continue;
+		foreach(Collider coll in colliders) {
+			var entity = coll.GetComponent<Entity>();
+
+			// Is it an entity?
+			if(entity != null) {
+				// Ignore caster
+				if(entity == caster)
+					return;
+
+				// Ignore own party
+				if(caster.party != null && entity.party == caster.party)
+					return;
+
+				// Lose health
+				Entity.ApplyDamage(entity, this, power);
+			}
 			
 			// TODO: We can remove this if we don't need physics objects on the map
 			// Real explosion in the physics engine
-			if(hit.tag != "Player" && hit.rigidbody != null) { // uLink.Network.isServer && 
-				hit.rigidbody.AddExplosionForce(power * 3, transform.position, radius * 1.5f, upwardsModifier);
-			}
-			
-			// Lose health
-			Entity entity = hit.GetComponent<Entity>();
-			if(entity != null) {
-				Entity.ApplyDamage(entity, this, power);
+			if(coll.tag != "Player" && coll.rigidbody != null) { // uLink.Network.isServer && 
+				coll.rigidbody.AddExplosionForce(power * 3, transform.position, radius * 1.5f, upwardsModifier);
 			}
 		}
 		

@@ -70,7 +70,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		slept += 1;
 		InterruptCast();
 		
-		if(uLink.Network.isClient) {
+		if(GameManager.isClient) {
 			if(animator != null)
 				animator.SetInteger("Stunned", slept + stunned);
 			

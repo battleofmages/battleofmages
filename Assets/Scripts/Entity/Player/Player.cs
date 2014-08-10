@@ -198,7 +198,7 @@ public abstract class Player : Entity {
 				
 				if(invisibleToEachOther) {
 					// Enemy becomes visible for me
-					if(uLink.Network.isServer) {
+					if(GameManager.isServer) {
 						enemy.networkView.RPC("Visible", netPlayer,
 							enemy.myTransform.position
 						);
@@ -221,7 +221,7 @@ public abstract class Player : Entity {
 				
 				if(visibleToEachOther) {
 					// Enemy becomes invisible for me
-					if(uLink.Network.isServer) {
+					if(GameManager.isServer) {
 						enemy.networkView.RPC("Invisible", netPlayer);
 					} else {
 						enemy.Invisible();
@@ -247,7 +247,7 @@ public abstract class Player : Entity {
 			return true;
 		
 		// Player not even in my viewing frustum?
-		if(!uLink.Network.isServer && !enemy.charGraphicsBody.renderer.isVisible)
+		if(GameManager.isClient && !enemy.charGraphicsBody.renderer.isVisible)
 			return false;
 		
 		RaycastHit hit;
@@ -558,7 +558,7 @@ public abstract class Player : Entity {
 		}
 		
 		// Client side
-		if(uLink.Network.isClient) {
+		if(GameManager.isClient) {
 			// Show name label again because we disabled it on death
 			if(nameLabel != null)
 				nameLabel.enabled = true;
@@ -631,7 +631,7 @@ public abstract class Player : Entity {
 	protected void ChangeParty(int partyId) {
 		ObjectLabel nameLabel;
 		
-		if(uLink.Network.isClient) {
+		if(GameManager.isClient) {
 			if(this.party != null) {
 				// Old group red
 				foreach(Player member in this.party.members) {
@@ -667,7 +667,7 @@ public abstract class Player : Entity {
 		}
 		
 		// New group white
-		if(uLink.Network.isClient && Player.main && Player.main.party == this.party) {
+		if(GameManager.isClient && Player.main && Player.main.party == this.party) {
 			foreach(Player member in Player.main.party.members) {
 				// Object label
 				nameLabel = member.GetComponent<ObjectLabel>();
@@ -727,7 +727,7 @@ public abstract class Player : Entity {
 		SetAttunement(attunementId);
 		
 		// Use attunement skill
-		if(uLink.Network.isClient) {
+		if(GameManager.isClient) {
 			// TODO: Store prefab in attunement class
 			var prefab = Resources.Load("Attunements/" + currentAttunement.name + "Attunement");
 			if(prefab != null) {
@@ -818,7 +818,7 @@ public abstract class Player : Entity {
 		ApplyCharacterStats();
 		
 		// Enable skill bar
-		if(uLink.Network.isClient) {
+		if(GameManager.isClient) {
 			var skillBar = this.GetComponent<SkillBar>();
 			if(skillBar != null)
 				skillBar.enabled = true;
@@ -865,7 +865,7 @@ public abstract class Player : Entity {
 		blockSphere.localScale = customization.scaleVector;
 		blockSphere.localPosition = centerOffset;
 		
-		if(!uLink.Network.isServer) {
+		if(GameManager.isClient) {
 			audio.pitch = customization.finalVoicePitch;
 			customization.UpdateMaterials(charGraphicsModel);
 		}
@@ -892,7 +892,7 @@ public abstract class Player : Entity {
 		hovering = true;
 		moveSpeedModifier += Config.instance.hoverSpeedBonus;
 		
-		if(!uLink.Network.isServer)
+		if(GameManager.isClient)
 			myTransform.FindChild("HoverWindZone").gameObject.SetActive(true);
 		
 		if(motor != null) {
@@ -928,7 +928,7 @@ public abstract class Player : Entity {
 		hovering = false;
 		moveSpeedModifier -= Config.instance.hoverSpeedBonus;
 		
-		if(!uLink.Network.isServer)
+		if(GameManager.isClient)
 			myTransform.FindChild("HoverWindZone").gameObject.SetActive(false);
 		
 		if(motor != null) {

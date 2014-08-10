@@ -1,10 +1,9 @@
 using UnityEngine;
-using System.Collections;
 
 public class MultiProjectiles : SkillInstance {
 	private Transform myTransform;
 	
-	// Use this for initialization
+	// Start
 	void Start() {
 		int childCount = this.gameObject.transform.childCount;
 		myTransform = this.transform;
@@ -18,6 +17,10 @@ public class MultiProjectiles : SkillInstance {
 			inst.skill = this.skill;
 			inst.skillStage = this.skillStage;
 			inst.hitPoint = this.hitPoint;
+
+			// Ignore collision with caster
+			if(child.collider && caster.collider && child.collider.enabled && caster.collider.enabled)
+				Physics.IgnoreCollision(caster.collider, child.collider);
 		}
 	}
 }

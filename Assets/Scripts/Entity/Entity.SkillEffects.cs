@@ -50,7 +50,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		AddSkillEffect(effect);
 		
 		// Show the CC effect
-		if(uLink.Network.isClient) {
+		if(GameManager.isClient) {
 			int ccOffset = 40;
 			bool alwaysShow = false;
 			

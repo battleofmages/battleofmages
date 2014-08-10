@@ -115,7 +115,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		set {
 			_health = value;
 			
-			if(uLink.Network.isServer) {
+			if(GameManager.isServer) {
 				if(_health > _maxHealth)
 					_health = _maxHealth;
 				

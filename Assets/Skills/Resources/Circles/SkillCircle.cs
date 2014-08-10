@@ -10,7 +10,7 @@ public class SkillCircle : MonoBehaviour {
 	void Start () {
 		var castCircleProjector = this.GetComponent<Projector>();
 		
-		if(uLink.Network.isServer) {
+		if(GameManager.isServer) {
 			this.enabled = false;
 			castCircleProjector.enabled = false;
 			return;

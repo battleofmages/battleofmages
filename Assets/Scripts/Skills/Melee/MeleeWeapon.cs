@@ -46,7 +46,7 @@ public class MeleeWeapon : SkillInstance {
 			if(collidingObject.tag == "Projectile") {
 				MeleeWeapon.DeflectProjectile(collidingObject, caster);
 			} else if(collidingObject.GetComponent<MeleeWeaponCollider>() != null) {
-				if(!uLink.Network.isServer) {
+				if(GameManager.isClient) {
 					audio.PlayOneShot(swordHitSwordSound);
 					Instantiate(sparksPrefab, collision.contacts[0].point, Cache.quaternionIdentity);
 				}
@@ -62,7 +62,7 @@ public class MeleeWeapon : SkillInstance {
 				casterAsPlayer.EndSkill();
 				casterAsPlayer.StopMeleeAttack();*/
 			} else {
-				if(!uLink.Network.isServer) {
+				if(GameManager.isClient) {
 					if(collision.gameObject.GetComponent<Entity>() != null) {
 						audio.PlayOneShot(swordHitHumanSound);
 					} else {

@@ -33,7 +33,7 @@ public abstract class GameMode : MonoBehaviour {
 	
 	// Check if we can shut down the server
 	protected void CheckShutdown() {
-		if(!enabled || !uLink.Network.isServer || !MapManager.mapLoaded)
+		if(!enabled || GameManager.isClient || !MapManager.mapLoaded)
 			return;
 
 		// Players diconnected?

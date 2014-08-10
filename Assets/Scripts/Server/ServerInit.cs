@@ -450,7 +450,7 @@ public class ServerInit : uLink.MonoBehaviour {
 		// Assign party
 		int partyId;
 		
-		if(GameManager.isTown) {
+		if(GameManager.isPvE) {
 			partyId = 0;
 		} else if(GameManager.isFFA) {
 			partyId = FindFFAPartyWithLeastMembers();
@@ -467,13 +467,17 @@ public class ServerInit : uLink.MonoBehaviour {
 
 		// Data all players need to know about the new player
 		player.networkView.RPC("ReceivePlayerInfo", uLink.RPCMode.All, playerName, stats.bestRanking);
-		
-		if(!GameManager.isTown) {
-			player.networkView.RPC("ChangeParty", uLink.RPCMode.All, partyId);
-		}
-		
+
 		var party = GameServerParty.partyList[partyId];
-		player.networkView.RPC("ChangeLayer", uLink.RPCMode.All, party.layer);
+
+		// Layer
+		if(GameManager.isPvP) {
+			player.networkView.RPC("ChangeParty", uLink.RPCMode.All, partyId);
+			player.networkView.RPC("ChangeLayer", uLink.RPCMode.All, party.layer);
+		} else {
+			player.networkView.RPC("ChangeLayer", uLink.RPCMode.All, Config.instance.openWorldPvPLayer);
+		}
+
 
 		// Respawn position
 		if(GameManager.isPvE) {
@@ -540,8 +544,8 @@ public class ServerInit : uLink.MonoBehaviour {
 		}
 		
 		// Disable encryption in non-ranked games
-		if(!GameManager.isRankedGame)
-			uLink.Network.UninitializeSecurity(networkPlayer);
+		//if(!GameManager.isRankedGame)
+		//	uLink.Network.UninitializeSecurity(networkPlayer);
 	}
 	
 	// Retrieves the player information

@@ -10,7 +10,7 @@ public class AutoDestruct : MonoBehaviour {
 		myParticleSystem = particleSystem;
 		
 		// Server side doesn't compute particles
-		if(uLink.Network.isServer) {
+		if(GameManager.isServer) {
 			// Disable emission
 			myParticleSystem.enableEmission = false;
 

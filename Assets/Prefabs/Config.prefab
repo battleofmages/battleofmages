@@ -83,6 +83,9 @@ MonoBehaviour:
   deathColliderDisableTime: 1
   skillInstanceDestructionTime: 9
   matchAcceptTime: 15
+  openWorldPvPLayer: 29
+  skillLayersStart: 18
+  skillLayersCount: 10
   enemyReactionTime: .25
   hpAggroThreshold: 5000
   patrolSpeedModifier: .5

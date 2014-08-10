@@ -55,7 +55,10 @@ public class PlayerOnServer : Player, CasterOnServer {
 		onDeath += () => GiveAssistCredits();
 
 		// Distribute experience points
-		onDeath += () => DistributeExperience(Config.instance.playerLevelToExperience);
+		onDeath += () => DistributeSharedExperience(Config.instance.playerLevelToExperience);
+
+		// Lose experience points
+		onDeath += () => LoseExperience((uint)(level * Config.instance.playerLevelToExperience));
 
 		// Necessary stuff on dying
 		onDeath += () => {
@@ -91,6 +94,23 @@ public class PlayerOnServer : Player, CasterOnServer {
 				LogManager.General.LogWarning("Account is null, can't receive exp");
 			}
 		};
+	}
+
+	// LoseExperience
+	void LoseExperience(uint exp) {
+		var oldLevelAsInteger = (int)account.level;
+		
+		// Add exp
+		account.experience -= exp;
+		
+		// Inform the client
+		networkView.RPC("LoseExperience", uLink.RPCMode.Owner, exp);
+		
+		// Level down?
+		var newLevelAsInteger = (int)account.level;
+		
+		if(newLevelAsInteger < oldLevelAsInteger)
+			networkView.RPC("LevelDown", uLink.RPCMode.Others, account.experience);
 	}
 
 	// Start

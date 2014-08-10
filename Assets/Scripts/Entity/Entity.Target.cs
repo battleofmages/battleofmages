@@ -26,7 +26,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 			if(object.Equals(_target, value))
 				return;
 			
-			if(!uLink.Network.isServer && networkViewIsMine) {
+			if(GameManager.isClient && networkViewIsMine) {
 				if(crossHair != null)
 					crossHair.enabled = (value == null); //&& ToggleMouseLook.instance.mouseLook.enabled);
 				

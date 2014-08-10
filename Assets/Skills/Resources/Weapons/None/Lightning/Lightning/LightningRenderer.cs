@@ -42,7 +42,7 @@ public class LightningRenderer : MonoBehaviour {
 	
 	// Update
 	void Update() {
-		if(!uLink.Network.isServer) {
+		if(GameManager.isClient) {
 			if(delay == 0f)
 				delay = 0.001f;
 			

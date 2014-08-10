@@ -25,7 +25,7 @@ public class Teleport : SkillInstance {
 		caster.disableSnappingToNewPosition += 1;
 		
 		// Prevent snapping to client position
-		if(uLink.Network.isServer) {
+		if(GameManager.isServer) {
 			var pms = ((PlayerOnServer)(this.caster));
 			pms.clientGrounded = false;
 		}

@@ -1263,6 +1263,9 @@ MonoBehaviour:
   deathColliderDisableTime: 1
   skillInstanceDestructionTime: 9
   matchAcceptTime: 15
+  openWorldPvPLayer: 29
+  skillLayersStart: 18
+  skillLayersCount: 10
   enemyReactionTime: .25
   hpAggroThreshold: 5000
   patrolSpeedModifier: .5
@@ -7065,7 +7068,7 @@ MonoBehaviour:
     y: .100000001
     width: .280000001
     height: .800000012
-  retrieveLobbyIP: 1
+  retrieveLobbyIP: 0
   lobbyIpURL: https://battleofmages.com/scripts/login-server-ip.php
   editorAutoLogin: 1
   editorAccountName: a

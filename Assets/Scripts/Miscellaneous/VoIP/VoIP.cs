@@ -84,7 +84,7 @@ public class VoIP : uLink.MonoBehaviour {
 	
 	// FixedUpdate
 	void FixedUpdate() {
-		if(uLink.Network.isServer)
+		if(GameManager.isServer)
 			return;
 		
 		if(networkViewIsMine) {
@@ -152,7 +152,7 @@ public class VoIP : uLink.MonoBehaviour {
 	
 	// OnGUI
 	public void OnGUI() {
-		if(uLink.Network.isServer)
+		if(GameManager.isServer)
 			return;
 		
 		//noiseLimit = GUI.HorizontalSlider(new Rect(5, 5, Screen.width - 10, 24), noiseLimit, 0f, 0.017f);
@@ -209,7 +209,7 @@ public class VoIP : uLink.MonoBehaviour {
 	
 	// OnVoIPData
 	public void OnVoIPData(byte[] bytes, int len, uLink.NetworkMessageInfo info) {
-		if(uLink.Network.isServer) {
+		if(GameManager.isServer) {
 			if(info.sender != networkView.owner)
 				return;
 			

@@ -369,10 +369,34 @@ public abstract class PlayerOnClient : Player {
 		account.experience = newExperience;
 		level = account.level;
 
+		LogManager.General.Log("Level up: " + level);
+
 		// Level up effect
 		var effect = (GameObject)Object.Instantiate(Config.instance.levelUpEffect);
 		effect.transform.parent = myTransform;
 		effect.transform.localPosition = Cache.vector3Zero;
+	}
+
+	[RPC]
+	protected void LevelDown(uint newExperience) {
+		if(account == null)
+			return;
+		
+		account.experience = newExperience;
+		level = account.level;
+
+		LogManager.General.Log("Level down: " + level);
+	}
+
+	[RPC]
+	protected void LoseExperience(uint experience) {
+		if(account == null)
+			return;
+		
+		account.experience -= experience;
+		level = account.level;
+
+		Chat("You lost " + experience + " EXP.");
 	}
 #endregion
 	

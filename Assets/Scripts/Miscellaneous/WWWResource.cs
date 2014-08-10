@@ -22,7 +22,7 @@ public class WWWResource<T> {
 	// Data
 	public T data {
 		get {
-			if(!uLink.Network.isServer && cached == null) {
+			if(GameManager.isClient && cached == null) {
 				if(request == null) {
 					StartRequest();
 				} else if(request.isDone) {

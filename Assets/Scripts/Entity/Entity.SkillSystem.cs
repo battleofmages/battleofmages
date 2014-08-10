@@ -176,7 +176,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		clone.transform.parent = skillInstancesRoot;
 		
 		// Disable some stuff on server
-		if(uLink.Network.isServer) {
+		if(GameManager.isServer) {
 			// Audio on server
 			if(clone.audio != null) {
 				Destroy(clone.audio);
@@ -200,12 +200,27 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		lastSkillInstance.skill = skill;
 		lastSkillInstance.skillStage = skillStage;
 		lastSkillInstance.hitPoint = hitPoint;
-		
-		//LogManager.General.Log("Skill stage: " + skillStage + " | Index: " + stageIndex + ", " + skillStage.powerMultiplier);
-		
-		// Ignore collision with caster's team
+
 		// HINT: Change this to Entity.MoveToLayer() if you have collider children
-		clone.layer = skillLayer;
+
+		// We iterate the skill layers
+		Entity.MoveToLayer(clone, Config.instance.skillLayersStart + SkillInstance.layerCounter);
+		SkillInstance.layerCounter = (SkillInstance.layerCounter + 1) % Config.instance.skillLayersCount;
+
+		// Ignore collision with the caster
+		if(party != null) {
+			foreach(var member in party.members) {
+				Physics.IgnoreCollision(lastSkillInstance.collider, member.collider);
+
+				if(member.weaponModelCollider != null)
+					Physics.IgnoreCollision(lastSkillInstance.collider, member.weaponModelCollider);
+			}
+		} else if(lastSkillInstance.collider) {
+			Physics.IgnoreCollision(lastSkillInstance.collider, collider);
+
+			if(weaponModelCollider != null)
+				Physics.IgnoreCollision(lastSkillInstance.collider, weaponModelCollider);
+		}
 		
 		// Destroy after a few seconds
 		if(!skill.canHold)
@@ -447,13 +462,13 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		if(animator)
 			animator.SetBool(skillEndedHash, true);
 		
-		if(uLink.Network.isClient)
+		if(GameManager.isClient)
 			StopCastEffect();
 		
 		// Server sets it instantly to null
 		// Client has to wait for the animation to end
 		// Proxy unclear yet (?)
-		if(uLink.Network.isServer) //|| networkViewIsProxy) {
+		if(GameManager.isServer) //|| networkViewIsProxy) {
 			currentSkill = null;
 	}
 #endregion

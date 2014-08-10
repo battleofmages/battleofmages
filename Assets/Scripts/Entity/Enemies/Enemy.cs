@@ -31,9 +31,7 @@ public class Enemy : Entity {
 
 		// Layer
 		layer = gameObject.layer;
-
-		// We use 1 layer below the game object layer for the enemy skills
-		skillLayer = layer - 1;
+		skillLayer = layer;
 
 		// Death
 		onDeath += () => {

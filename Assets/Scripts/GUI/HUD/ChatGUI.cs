@@ -10,7 +10,7 @@ public class ChatGUI : HUDElement {
 		else
 			this.enabled = false;
 		
-		if(!uLink.Network.isClient)
+		if(GameManager.isServer)
 			this.enabled = false;
 	}
 	

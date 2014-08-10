@@ -16,7 +16,7 @@ public class Eclipse : SkillInstance {
 	
 	// Start
 	void Start () {
-		if(changeSky && !uLink.Network.isServer) {
+		if(changeSky && GameManager.isClient) {
 			GameObject skyChangerObject = GameObject.Find("SkyChanger");
 			skyChanger = skyChangerObject.GetComponent<ChangeSky>();
 			skyChanger.IncreaseNight();
@@ -34,7 +34,7 @@ public class Eclipse : SkillInstance {
 	
 	// ResetSky
 	private void ResetSky() {
-		if(!uLink.Network.isServer) {
+		if(GameManager.isClient) {
 			skyChanger.DecreaseNight();
 		}
 	}

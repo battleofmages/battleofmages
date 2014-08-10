@@ -108,7 +108,7 @@ public class NPC : Entity,  ActionTarget {
 
 	// Draw
 	public void Draw() {
-		if(uLink.Network.isServer)
+		if(GameManager.isServer)
 			return;
 		
 		if(Player.main == null)

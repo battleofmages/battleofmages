@@ -492,6 +492,7 @@ MonoBehaviour:
   attackDmgMultiplier: 1
   defenseDmgMultiplier: 1
   attackSpeedMultiplier: 1
+  level: 0
   componentName: ClassChangeGUI
 --- !u!135 &121876174
 SphereCollider:
@@ -2351,6 +2352,7 @@ MonoBehaviour:
   attackDmgMultiplier: 1
   defenseDmgMultiplier: 1
   attackSpeedMultiplier: 1
+  level: 0
   componentName: ArenaGUI
 --- !u!135 &587981334
 SphereCollider:
@@ -18495,7 +18497,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 991168795}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1418300531}
@@ -39625,6 +39627,7 @@ MonoBehaviour:
   attackDmgMultiplier: 1
   defenseDmgMultiplier: 1
   attackSpeedMultiplier: 1
+  level: 0
   componentName: BuildsGUI
 --- !u!135 &1639335488
 SphereCollider:
@@ -40643,6 +40646,7 @@ MonoBehaviour:
   attackDmgMultiplier: 1
   defenseDmgMultiplier: 1
   attackSpeedMultiplier: 1
+  level: 0
   componentName: RankingGUI
 --- !u!135 &1817693275
 SphereCollider:

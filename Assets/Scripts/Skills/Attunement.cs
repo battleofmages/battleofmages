@@ -33,7 +33,7 @@ public class Attunement : Cooldown {
 
 	// PostSerialize
 	public void PostSerialize(Weapon weapon) {
-		if(!uLink.Network.isServer)
+		if(GameManager.isClient)
 			icon = (Texture2D)Resources.Load("Attunements/Icons/" + name);
 		
 		if(!Attunement.idToAttunement.ContainsKey(id))

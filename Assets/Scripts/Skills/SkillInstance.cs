@@ -1,6 +1,8 @@
 using UnityEngine;
 
 public class SkillInstance : uLink.MonoBehaviour {
+	public static int layerCounter;
+
 	private Entity _caster;
 	private Skill _skill;
 	private Skill.Stage _skillStage;
@@ -24,13 +26,20 @@ public class SkillInstance : uLink.MonoBehaviour {
 		out SkillInstance inst
 	) {
 		clone = (GameObject)Object.Instantiate(prefabSpawned, position, rotation);
+
+		// Move it to its root object
 		clone.transform.parent = Entity.skillInstancesRoot;
+
+		// We copy the physics layer of the skill instance
 		clone.layer = gameObject.layer;
 		
 		inst = clone.GetComponent<SkillInstance>();
 		inst.caster = caster;
 		inst.skill = skill;
 		inst.skillStage = skillStage;
+
+		if(clone.collider && caster.collider)
+			Physics.IgnoreCollision(clone.collider, caster.collider);
 	}
 	
 #region Particles

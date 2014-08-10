@@ -102,7 +102,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		// Blocked hits
 		if(entity.blocking) {
 			// Show blocked text
-			if(uLink.Network.isClient) {
+			if(GameManager.isClient) {
 				if(caster == Player.main)
 					Entity.SpawnText(entity, "Blocked", new Color(1.0f, 0.5f, 0.0f, 1.0f));
 				else if(entity == Player.main)
@@ -237,19 +237,18 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 
 		// Interpolate position
 		if(myTransform.position != serverPosition) {
-			/*Log("proxy movement " + proxyInterpolationTime);
-			Log("server " + serverPosition);
-			Log("myself " + myTransform.position);*/
+			if(collider.enabled && proxyInterpolationTime < 1f) {
+				var targetPosition = Vector3.Lerp(interpolationStartPosition, serverPosition, proxyInterpolationTime * Config.instance.proxyInterpolationSpeed);
+				var offset = targetPosition - myTransform.position;
 
-			// TODO: Use Slerp?
-			var targetPosition = Vector3.Lerp(interpolationStartPosition, serverPosition, proxyInterpolationTime * Config.instance.proxyInterpolationSpeed);
-			var offset = targetPosition - myTransform.position;
-			
-			if(offset.sqrMagnitude < Config.instance.maxProxyDistanceUntilSnapSqr && collider.enabled && proxyInterpolationTime < 1f) {
-				characterController.Move(offset);
+				if(offset.sqrMagnitude < Config.instance.maxProxyDistanceUntilSnapSqr) {
+					characterController.Move(offset);
+				} else {
+					Log("Snapped to server position, squared distance: " + offset.sqrMagnitude);
+					myTransform.position = targetPosition;
+				}
 			} else {
-				Log("Snapped to server position, squared distance: " + offset.sqrMagnitude);
-				myTransform.position = targetPosition;
+				myTransform.position = serverPosition;
 			}
 		}
 		
@@ -297,7 +296,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		Transform expl = (Transform)Instantiate(explosionPrefab, pos, rot);
 		expl.parent = Entity.skillInstancesRoot;
 		
-		if(uLink.Network.isServer && expl.audio != null) {
+		if(GameManager.isServer && expl.audio != null) {
 			Destroy(expl.audio);
 		}
 		
@@ -335,7 +334,16 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	// MoveToLayer
 	public static void MoveToLayer(Transform root, int layer) {
 		root.gameObject.layer = layer;
+
 		foreach(Transform child in root)
+			MoveToLayer(child, layer);
+	}
+
+	// MoveToLayer
+	public static void MoveToLayer(GameObject root, int layer) {
+		root.layer = layer;
+
+		foreach(Transform child in root.transform)
 			MoveToLayer(child, layer);
 	}
 	
@@ -583,7 +591,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 			weaponBone = characterDefinition.weaponBone;
 
 			// Animator
-			if(Config.instance.disableAnimationsOnServer && uLink.Network.isServer) {
+			if(Config.instance.disableAnimationsOnServer && GameManager.isServer) {
 				// Disable animations on server
 				var tmpAnimator = charGraphicsModel.GetComponent<Animator>();
 				if(tmpAnimator != null)
@@ -642,8 +650,13 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	// Layer mask for enemies
 	public int enemiesLayerMask {
 		get {
-			// Enemies are in all layers except for own layer and "ignore raycast" layer
-			return ~(1 << gameObject.layer | Physics.kIgnoreRaycastLayer);
+			if(GameManager.isPvP) {
+				// Enemies are in all layers except for own layer and "ignore raycast" layer
+				return ~(1 << gameObject.layer | Physics.kIgnoreRaycastLayer);
+			} else {
+				// Enemies are in all layers except for "ignore raycast" layer
+				return ~(Physics.kIgnoreRaycastLayer);
+			}
 		}
 	}
 	

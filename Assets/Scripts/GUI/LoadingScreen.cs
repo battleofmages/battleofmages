@@ -71,7 +71,7 @@ public class LoadingScreen : LobbyModule<LoadingScreen> {
 		asyncLoadLevel = null;
 		//statusMessage = loadingText + " 100%";
 		
-		if(!uLink.Network.isServer) {
+		if(GameManager.isClient) {
 			// Allow receiving data again
 			uLink.Network.isMessageQueueRunning = true;
 			

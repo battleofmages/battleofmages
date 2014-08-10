@@ -7,7 +7,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	// InitID
 	void InitID() {
 		// Pick an ID on the server
-		if(uLink.Network.isServer)
+		if(GameManager.isServer)
 			id = IDCreator.GetNextID();
 	}
 	

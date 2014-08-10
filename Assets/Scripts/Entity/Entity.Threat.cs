@@ -6,13 +6,12 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	
 	// AddThreat
 	public void AddThreat(Entity caster, int dmg) {
-		var enemy = this as EnemyOnServer;
 		int previousDmg;
 		
-		if(enemy.entityToThreat.TryGetValue(caster, out previousDmg))
-			enemy.entityToThreat[caster] = previousDmg + dmg;
+		if(entityToThreat.TryGetValue(caster, out previousDmg))
+			entityToThreat[caster] = previousDmg + dmg;
 		else
-			enemy.entityToThreat[caster] = dmg;
+			entityToThreat[caster] = dmg;
 	}
 	
 	// ResetThreat
@@ -28,6 +27,30 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 			var entity = threat.Key;
 			
 			entity.GainExperience(exp);
+		}
+		
+		ResetThreat();
+	}
+
+	// DistributeSharedExperience
+	protected void DistributeSharedExperience(int levelFactor) {
+		uint exp = (uint)level * (uint)levelFactor;
+
+		// Find max threat
+		int maxThreat = 1;
+		foreach(var entry in entityToThreat) {
+			var threatNumber = entry.Value;
+
+			if(threatNumber > maxThreat)
+				maxThreat = threatNumber;
+		}
+
+		// Distribute EXP based on threat participation
+		foreach(var entry in entityToThreat) {
+			var entity = entry.Key;
+			var participation = (float)entry.Value / maxThreat;
+			
+			entity.GainExperience((uint)(participation * (float)exp));
 		}
 		
 		ResetThreat();

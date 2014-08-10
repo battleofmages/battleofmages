@@ -61,6 +61,11 @@ public class Config : SingletonMonoBehaviour<Config> {
 	public float skillInstanceDestructionTime;
 	public float matchAcceptTime;
 
+	[Header("Physics")]
+	public int openWorldPvPLayer;
+	public int skillLayersStart;
+	public int skillLayersCount;
+
 	[Header("Enemies")]
 
 	[Range(0, 1)]
