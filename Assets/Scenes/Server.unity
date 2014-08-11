@@ -240,6 +240,7 @@ MonoBehaviour:
   dangerDetector: {fileID: 100000, guid: 29152084510c9674aa30ebf25860c1a3, type: 2}
   blockSphere: {fileID: 100000, guid: 93841637a8fbd5d43bc7359406b4cfbc, type: 2}
   lootTrail: {fileID: 100000, guid: 86883fe9b8b8d5f45993e32a7b0bda07, type: 2}
+  levelUpEffect: {fileID: 100000, guid: 712e3e8cc9636534c9742bdc02a5850c, type: 2}
   font: {fileID: 12800000, guid: ee5f1f06f0db2d648ada5c8678b29d5c, type: 3}
   playerMoveSpeed: 7.5
   playerHP: 8000
@@ -250,7 +251,7 @@ MonoBehaviour:
   blockSlowDown: .5
   energyRegen: 4
   blockEnergyDrain: 40
-  entityVisibilityDistance: 130
+  entityVisibilityDistance: 200
   playerLabelAlphaWithDistance:
     serializedVersion: 2
     m_Curve:
@@ -277,22 +278,30 @@ MonoBehaviour:
   deathColliderDisableTime: 1
   skillInstanceDestructionTime: 9
   matchAcceptTime: 15
+  openWorldPvPLayer: 29
+  skillLayersStart: 18
+  skillLayersCount: 10
   enemyReactionTime: .25
   hpAggroThreshold: 5000
   patrolSpeedModifier: .5
   ownDmgOffset: 24
   healthBarWidth: 48
   ownHealthBarWidth: 64
+  expColor: {r: .871659279, g: 0, b: 1, a: 1}
+  playerLevelToExperience: 5
+  enemyLevelToExperience: 2
   serverPositionPredictionFactor: .25
   maxPositionPredictionTime: .0500000007
   maxProxyDistanceUntilSnapSqr: 1
   proxyInterpolationSpeed: 20
   ownerInterpolationSpeed: 2.20000005
+  hearMyself: 0
   disableAnimationsOnServer: 1
   enemyRespawnTime: 20
   matchStatsSendDelay: 1
   pingSendDelay: 1
   savePositionDelay: 2
+  saveExperienceDelay: 1
 --- !u!4 &509383658
 Transform:
   m_ObjectHideFlags: 0
