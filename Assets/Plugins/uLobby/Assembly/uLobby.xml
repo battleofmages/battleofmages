@@ -1453,7 +1453,7 @@
             A peer gets its type immediately after initializing a lobby or calling one of the connect methods of <see cref="F:uLobby.LobbyPeerType.Lobby" /> successfully, and retains this type until disconnecting from the network.
             </para>
         <para>
-            The peer type does not indicate the status of the connection to the network. Use the <see cref="!:Lobby.connectionStatus" /> property to get this information.
+            The peer type does not indicate the status of the connection to the network. Use the <see cref="P:uLobby.Lobby.connectionStatus" /> property to get this information.
             </para>
       </remarks>
     </member>

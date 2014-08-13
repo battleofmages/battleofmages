@@ -3,7 +3,7 @@
 using UnityEngine;
 using uLink;
 
-[AddComponentMenu("uLink Utilities/uLink Object Label")]
+[AddComponentMenu("uLink Utilities/Object Label")]
 public class uLinkObjectLabel : uLink.MonoBehaviour
 {
 	public GUIText prefabLabel;

@@ -4,6 +4,258 @@
     <name>uLink</name>
   </assembly>
   <members>
+    <member name="T:UnityPark.VersionFormat.IStringBuildable">
+      <summary>
+            An interface for making types easier to build to string format.
+            </summary>
+    </member>
+    <member name="M:UnityPark.VersionFormat.IStringBuildable.BuildString(System.Text.StringBuilder)">
+      <summary>
+            Gets a StringBuilder from the caller and uses it to append string information about the instance.
+            </summary>
+      <param name="builder">A StringBuilder instance to append data to.</param>
+    </member>
+    <member name="T:UnityPark.VersionFormat.StringBuildableUtility">
+      <summary>
+             Utility class for building strings.
+            </summary>
+    </member>
+    <member name="M:UnityPark.VersionFormat.StringBuildableUtility.BuildFromMember(System.Text.StringBuilder,System.Object,System.String)">
+      <summary>
+            Helps append a string containing information about a member to a StringBuilder.
+            </summary>
+      <param name="builder">A StringBuilder to receive the data.</param>
+      <param name="value">The value of the member.</param>
+      <param name="name">The name of the member.</param>
+    </member>
+    <member name="T:UnityPark.VersionFormat.VersionAttributes">
+      <summary>
+            Contains a representation of version information, encoded in the format specific to assembly attributes.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionAttributes.ProductName">
+      <summary>
+            The content of an AssemblyProductAttribute.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionAttributes.Description">
+      <summary>
+            The content of an AssemblyDescriptionAttribute.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionAttributes.Company">
+      <summary>
+            The content of an AssemblyCompanyAttribute.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionAttributes.Copyright">
+      <summary>
+            The content of an AssemblyCopyrightAttribute.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionAttributes.Config">
+      <summary>
+            The content of an AssemblyConfigAttribute.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionAttributes.InformationalVersion">
+      <summary>
+            The content of an AssemblyInformationalVersionAttribute.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionAttributes.FileVersion">
+      <summary>
+            The content of an AssemblyFileVersionAttribute.
+            </summary>
+    </member>
+    <member name="M:UnityPark.VersionFormat.VersionAttributes.ToParameters">
+      <summary>
+            Converts the assembly attribute representation into a general VersionParameters representation.
+            </summary>
+      <returns>A VersionParameters instance containing the encoded information.</returns>
+    </member>
+    <member name="M:UnityPark.VersionFormat.VersionAttributes.ToString">
+      <summary>
+            Returns the fully qualified type name of this instance.
+            </summary>
+      <returns>
+            A <see cref="T:System.String" /> containing a fully qualified type name.
+            </returns>
+    </member>
+    <member name="M:UnityPark.VersionFormat.VersionAttributes.BuildString(System.Text.StringBuilder)">
+      <summary>
+            Gets a StringBuilder from the caller and uses it to append string information about the instance.
+            </summary>
+      <param name="builder">A StringBuilder instance to append data to.</param>
+    </member>
+    <member name="T:UnityPark.VersionFormat.VersionBuildType">
+      <summary>
+             Signifies a type of build.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionBuildType.Stable">
+      <summary>
+            Stable build, which has been released to the public.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionBuildType.Beta">
+      <summary>
+            Beta build, which is a preview of the next stable.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionBuildType.Custom">
+      <summary>
+            Custom build, which might have changes that will not enter into mainline releases.
+            </summary>
+    </member>
+    <member name="T:UnityPark.VersionFormat.VersionFileName">
+      <summary>
+            Contains a representation of version information, encoded in the format specific for file names.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionFileName.FileName">
+      <summary>
+            The version information encoded into a string on file name form.
+            </summary>
+    </member>
+    <member name="M:UnityPark.VersionFormat.VersionFileName.ToParameters">
+      <summary>
+            Converts the file name representation into a general VersionParameters representation.
+            </summary>
+      <returns>A VersionParameters instance containing the encoded information.</returns>
+    </member>
+    <member name="M:UnityPark.VersionFormat.VersionFileName.ToString">
+      <summary>
+            Returns the fully qualified type name of this instance.
+            </summary>
+      <returns>
+            A <see cref="T:System.String" /> containing a fully qualified type name.
+            </returns>
+    </member>
+    <member name="M:UnityPark.VersionFormat.VersionFileName.BuildString(System.Text.StringBuilder)">
+      <summary>
+            Gets a StringBuilder from the caller and uses it to append string information about the instance.
+            </summary>
+      <param name="builder">A StringBuilder instance to append data to.</param>
+    </member>
+    <member name="T:UnityPark.VersionFormat.VersionParameters">
+      <summary>
+             The most basic representation of version information.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.ProductName">
+      <summary>
+            The name of the product.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.Description">
+      <summary>
+            The product description.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.Company">
+      <summary>
+            The product company.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.Copyright">
+      <summary>
+            The product copyright.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.Config">
+      <summary>
+            The compilation configuration.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.Major">
+      <summary>
+            The product release major verison.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.Minor">
+      <summary>
+            The product release minor version.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.Update">
+      <summary>
+            The product release update version.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.Hotfix">
+      <summary>
+            The product release hotfix version.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.BuildType">
+      <summary>
+            The product release build type.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.BuildNumber">
+      <summary>
+            The product release build number.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.FancyName">
+      <summary>
+            The product release fancy name.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.IsSource">
+      <summary>
+            The product release source flag.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.Revision">
+      <summary>
+            The product release version control revision.
+            </summary>
+    </member>
+    <member name="F:UnityPark.VersionFormat.VersionParameters.Date">
+      <summary>
+            The product release build date.
+            </summary>
+    </member>
+    <member name="M:UnityPark.VersionFormat.VersionParameters.ToAttributes">
+      <summary>
+            Encodes the version data in assembly attribute form.
+            </summary>
+      <returns>The version data in assembly attribute form.</returns>
+    </member>
+    <member name="M:UnityPark.VersionFormat.VersionParameters.ToFileName">
+      <summary>
+            Encodes the version data in file name form.
+            </summary>
+      <returns>The version data in file name form.</returns>
+    </member>
+    <member name="M:UnityPark.VersionFormat.VersionParameters.ToString">
+      <summary>
+            Returns the fully qualified type name of this instance.
+            </summary>
+      <returns>
+            A <see cref="T:System.String" /> containing a fully qualified type name.
+            </returns>
+    </member>
+    <member name="M:UnityPark.VersionFormat.VersionParameters.BuildString(System.Text.StringBuilder)">
+      <summary>
+            Gets a StringBuilder from the caller and uses it to append string information about the instance.
+            </summary>
+      <param name="builder">A StringBuilder instance to append data to.</param>
+    </member>
+    <member name="T:UnityPark.VersionFormat.Exceptions.VersionFormatException">
+      <summary>
+            Identifies problems specific to the parsing and generation of version information.
+            </summary>
+    </member>
+    <member name="M:UnityPark.VersionFormat.Exceptions.VersionFormatException.#ctor(System.String,System.Exception)">
+      <summary>
+            Creates a new instance of VersionFormatException.
+            </summary>
+      <param name="message">A message describing the error.</param>
+      <param name="innerException">An optional inner exception.</param>
+    </member>
     <!-- Badly formed XML comment ignored for member "T:uLink.HashSet`2" -->
     <!-- Badly formed XML comment ignored for member "M:uLink.HashSet`2.System#Collections#Generic#ICollection{T}#Add(`0)" -->
     <member name="T:uLink.PeerData">
@@ -907,6 +1159,31 @@
             But one benefit of disabling it, is that you then know the message has been sent after <see cref="M:uLink.NetworkView.RPC(System.String,uLink.RPCMode,System.Object[])" />
             has returned and CPU profiling of RPCs is more accurate, in Unity's Profiler. 
             </remarks>
+    </member>
+    <member name="T:uLink.NetworkVersionBuild">
+      <summary>
+            This enum shows what version of uLink build you have.
+            </summary>
+    </member>
+    <member name="F:uLink.NetworkVersionBuild.Alpha">
+      <summary>
+            It's an Alpha build. It's not stable.
+            </summary>
+    </member>
+    <member name="F:uLink.NetworkVersionBuild.Beta">
+      <summary>
+            This is a Beta and more stable than Alpha. This is waht we use before stable release.
+            </summary>
+    </member>
+    <member name="F:uLink.NetworkVersionBuild.Stable">
+      <summary>
+            This is an stable released version. Good for production.
+            </summary>
+    </member>
+    <member name="F:uLink.NetworkVersionBuild.Custom">
+      <summary>
+            This is a custom build prepared for you. This might have a quick hot fix, a specific feature or ...
+            </summary>
     </member>
     <member name="T:uLink.NetworkVersion">
       <summary>
