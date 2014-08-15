@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -13,6 +14,8 @@ public class MapConfiguration : MonoBehaviour {
 	public float linearFogEnd = 1000f;
 	public Color ambientLight = new Color(0.2f, 0.2f, 0.2f, 1f);
 	public Material skyboxMaterial;
+
+	private bool offlineMode;
 	
 	// Render settings
 	void Start() {
@@ -25,10 +28,26 @@ public class MapConfiguration : MonoBehaviour {
 			ChangeSky.instance.dayMaterial = skyboxMaterial;
 
 #if UNITY_EDITOR
-		if(GameManager.isClient && GameObject.Find("Client") == null) {
-			Application.LoadLevel("Client");
+		if(GameManager.isClient && GameObject.Find("Client") == null && Application.CanStreamedLevelBeLoaded("OfflineClient")) {
+			offlineMode = true;
+
+			LogManager.General.Log("Offline mode activated");
+			StartCoroutine(LoadOfflineClient());
 		}
 #endif
+	}
+
+	// LoadOfflineClient
+	IEnumerator LoadOfflineClient() {
+		if(!offlineMode)
+			yield break;
+
+		var asyncLoad = Application.LoadLevelAdditiveAsync("OfflineClient");
+		yield return asyncLoad;
+
+		LogManager.General.Log("Offline mode: Repositioning camera");
+		var spawnPos = GameObject.Find("Spawn 1").transform.position;
+		GameObject.Find("Offline Player").transform.position = spawnPos + new Vector3(0f, 2f, 0f);
 	}
 
 	// Apply render settings
