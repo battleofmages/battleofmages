@@ -47,6 +47,9 @@ public class ServerInit : uLink.MonoBehaviour {
 
 	private string lobbyIP;
 	private int lobbyPort;
+
+	private string databaseIP;
+	private int databasePort;
 	
 	public GameMode gameMode { get; protected set; }
 	
@@ -123,8 +126,14 @@ public class ServerInit : uLink.MonoBehaviour {
 						GameManager.serverType = ServerType.World;
 						break;
 				}
-			// Account ID
-			} else {
+			// Database IP
+			} else if (arg.StartsWith("-databaseIP") && arg.Length > "-databaseIP".Length) {
+				databaseIP = arg.Substring("-databaseIP".Length);
+			// Database Port
+			}else if(arg.StartsWith("-databasePort") && arg.Length > "-databasePort".Length) {
+				databasePort = int.Parse(arg.Substring("-databasePort".Length));
+				// Account ID
+			}else {
 				if(partyId >= 0 && partyId < GameServerParty.partyList.Count) {
 					var currentParty = GameServerParty.partyList[partyId];
 					accountToParty[arg] = currentParty;
@@ -134,8 +143,16 @@ public class ServerInit : uLink.MonoBehaviour {
 		}
 
 		// For testing
-		if(isTestServer)
-			GameManager.serverType = testServerType;
+		if(isTestServer) {
+			GameManager.serverType = testServerType; 
+		} else {
+			if(!string.IsNullOrEmpty(databaseIP)) {
+				Database.AddNode("riak", databaseIP, databasePort, 10, Defaults.WriteTimeout, Defaults.ReadTimeout);
+				Database.Connect();
+			} else {
+				LogManager.DB.LogError("No database address specified, can't connect to the database");
+			}
+		}
 
 		// Create at least 1 party if no party count has been specified
 		if(GameServerParty.partyList.Count != partyCount) {
