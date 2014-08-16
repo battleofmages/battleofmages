@@ -113,7 +113,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11400002, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
+      propertyPath: RiakNodes.Array.data[0].HostName
+      value: 12312
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 11400002, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3465796d6c92f7044a73d23d13213a51, type: 2}
   m_RootGameObject: {fileID: 670021520}
   m_IsPrefabParent: 0
@@ -350,7 +355,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 670021522}
   - 114: {fileID: 670021521}
-  - 114: {fileID: 670021523}
   m_Layer: 0
   m_Name: GameDB
   m_TagString: Untagged
@@ -382,23 +386,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
---- !u!114 &670021523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: 3465796d6c92f7044a73d23d13213a51,
-    type: 2}
-  m_PrefabInternal: {fileID: 331426332}
-  m_GameObject: {fileID: 670021520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ffc4e4a81e3fa2459b4c1cb6a16dbb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RiakNodes:
-  - HostName: 37.139.29.70
-    RiakPbcPort: 8087
-    UniqueId: erza
-    SocketPoolSize: 10
 --- !u!1 &674874704
 GameObject:
   m_ObjectHideFlags: 0
