@@ -72,9 +72,6 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 		// Register codecs for serialization
 		GameDB.InitCodecs();
 		
-		// Listen to lobby events
-		Lobby.AddListener(this);
-		
 		displayedAccount = null;
 		accountSetupPageStatus = new RequestStatus[2];
 		currentState = GameLobbyState.WaitingForAccountInfo;
@@ -87,6 +84,9 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 		if(audioGameObject != null) {
 			musicManager = audioGameObject.GetComponent<MusicManager>();
 		}
+
+		// Listen to lobby events
+		Lobby.AddListener(this);
 		
 		ArenaGUI.instance.ResetQueueInfo();
 	}
@@ -587,8 +587,6 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 				} else {
 					LoadingScreen.instance.statusMessage = "Connection error: " + error;
 				}
-				
-				lobbyChat.currentChannel = "Map";
 			}
 		);
 	}
