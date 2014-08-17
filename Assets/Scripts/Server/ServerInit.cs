@@ -347,33 +347,39 @@ public class ServerInit : uLink.MonoBehaviour {
 
 		readyMessageSent = true;
 	}
-	
+
 	// InstantiatePlayer
-	void InstantiatePlayer(uLink.NetworkPlayer networkPlayer, string accountId, string playerName, PlayerStats stats) {
-		LogManager.General.Log(string.Format("Instantiating player prefabs for '{0}' with account ID '{1}'", accountId, playerName));
+	void InstantiatePlayer(uLink.NetworkPlayer networkPlayer, string accountId, string playerName, Vector3 respawnPosition, float cameraYRotation, int partyId) {
+		LogManager.General.Log(string.Format("Instantiating player prefabs for '{0}' with account ID '{1}'", playerName, accountId));
+		
+		var party = GameServerParty.partyList[partyId];
 		
 		// Instantiates an avatar for the player connecting to the server
 		// The player will be the "owner" of this object. Read the manual chapter 7 for more
 		// info about object roles: Creator, Owner and Proxy.
 		GameObject obj = uLink.Network.Instantiate(
-			networkPlayer,		// Owner
+			networkPlayer,				// Owner
 			proxyPrefab,
 			ownerPrefab,
 			creatorPrefab,
-			transform.position,
-			transform.rotation,
-			0,					// Network group
-			accountId			// Initial data
+			respawnPosition,
+			Cache.quaternionIdentity,
+			0,							// Network group
+			accountId					// Initial data
 		);
 		
 		// Player component
 		Player player = obj.GetComponent<Player>();
 		player.accountId = accountId;
 		networkPlayer.localData = player;
+
+		// Send name
+		player.networkView.RPC("ReceivePlayerName", uLink.RPCMode.All, playerName);
 		
 		// Async: DB requests
 		if(isTestServer) {
-			// This is for quick client tests
+			// This section is for quick client tests on the test server
+			
 			// Send other players and myself information about stats
 			player.skillBuild = SkillBuild.GetStarterBuild();
 			player.customization = new CharacterCustomization();
@@ -399,7 +405,7 @@ public class ServerInit : uLink.MonoBehaviour {
 					player.networkView.RPC("SetExperience", uLink.RPCMode.All, exp);
 				}
 			);
-
+			
 			// TODO: We need to wait until this is finished in ApplyCharacterStats
 			// Skill build
 			SkillBuildsDB.GetSkillBuild(
@@ -419,7 +425,7 @@ public class ServerInit : uLink.MonoBehaviour {
 					player.networkView.RPC("SwitchAttunement", uLink.RPCMode.All, (byte)0);
 				}
 			);
-
+			
 			// Character customization
 			CharacterCustomizationDB.GetCharacterCustomization(
 				accountId,
@@ -462,31 +468,33 @@ public class ServerInit : uLink.MonoBehaviour {
 					player.networkView.RPC("ReceiveArtifactTree", uLink.RPCMode.All, Jboy.Json.WriteObject(player.artifactTree));
 				}
 			);
-		}
+			
+			// Retrieve arena stats
+			var statsBucket = new Bucket("AccountToStats");
+			statsBucket.Get(
+				accountId,
+				Constants.Replication.Default,
+				(request) => {
+					var statsInDB = request.GetValue<PlayerStats>();
+					
+					LogManager.General.Log("Queried stats of account '" + accountId + "' successfully (Ranking: " + statsInDB.bestRanking + ")");
 
-		// Assign party
-		int partyId;
-		
-		if(GameManager.isPvE) {
-			partyId = 0;
-		} else if(GameManager.isFFA) {
-			partyId = FindFFAPartyWithLeastMembers();
-		} else {
-			if(restrictedAccounts) {
-				partyId = accountToParty[accountId].id;
-			} else {
-				partyId = FindPartyWithLeastMembers();
-			}
+					// Send ranking
+					player.networkView.RPC("ReceiveBestRanking", uLink.RPCMode.All, statsInDB.bestRanking);
+				}, (request) => {
+					var statsInDB = new PlayerStats();
+					
+					LogManager.General.Log("Account '" + accountId + "' aka player '" + playerName + "' doesn't have any player stats yet");
+
+					// Send ranking
+					player.networkView.RPC("ReceiveBestRanking", uLink.RPCMode.All, statsInDB.bestRanking);
+				}
+			);
 		}
 		
 		if(GameManager.isArena)
 			player.networkView.RPC("GameMaxScore", uLink.RPCMode.Owner, gameMode.scoreNeededToWin);
-
-		// Data all players need to know about the new player
-		player.networkView.RPC("ReceivePlayerInfo", uLink.RPCMode.All, playerName, stats.bestRanking);
-
-		var party = GameServerParty.partyList[partyId];
-
+		
 		// Layer
 		if(GameManager.isPvP) {
 			player.networkView.RPC("ChangeParty", uLink.RPCMode.All, partyId);
@@ -494,65 +502,10 @@ public class ServerInit : uLink.MonoBehaviour {
 		} else {
 			player.networkView.RPC("ChangeLayer", uLink.RPCMode.All, Config.instance.openWorldPvPLayer);
 		}
-
-
-		// Respawn position
-		if(GameManager.isPvE) {
-			PortalDB.GetPortal(accountId, portalInfo => {
-				// Player did not come via a portal
-				if(portalInfo == null) {
-					PositionsDB.GetPosition(accountId, data => {
-						Vector3 respawnPosition;
-
-						if(data != null) {
-							respawnPosition = data.ToVector3();
-							LogManager.General.Log("Found player position: Respawning at " + respawnPosition);
-						} else {
-							respawnPosition = party.spawnComp.GetNextSpawnPosition();
-							LogManager.General.Log("Couldn't find player position: Respawning at " + respawnPosition);
-
-							// Adjust camera rotation
-							player.networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, party.spawnComp.transform.eulerAngles.y);
-						}
-						
-						player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
-					});
-				// Player did come via a portal
-				} else {
-					Vector3 respawnPosition;
-					var portals = GameObject.FindGameObjectsWithTag("Portal");
-
-					foreach(var portalObject in portals) {
-						var portal = portalObject.GetComponent<Portal>();
-
-						if(portal.mapName == portalInfo.mapName) {
-							var spawn = portal.spawns[Random.Range(0, portal.spawns.Length - 1)];
-							respawnPosition = spawn.position;
-
-							// Respawn
-							LogManager.General.Log("Player came via a portal: Respawning at " + respawnPosition);
-							player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
-
-							// Adjust camera rotation
-							player.networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, portal.transform.eulerAngles.y);
-
-							// Update position to be 100% sure our position data is correct now
-							PositionsDB.SetPosition(accountId, respawnPosition);
-							
-							// Delete portal info so we won't use it again
-							PortalDB.RemovePortal(accountId);
-
-							break;
-						}
-					}
-				}
-			});
-		} else {
-			var respawnPosition = party.spawnComp.GetNextSpawnPosition();
-
-			LogManager.General.Log("PvP game: Respawning at " + respawnPosition);
-			player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
-		}
+		
+		// Respawn
+		player.networkView.RPC("Respawn", uLink.RPCMode.All, respawnPosition);
+		player.networkView.RPC("SetCameraYRotation", uLink.RPCMode.Owner, cameraYRotation);
 		
 		// On non account restricted servers we start the game instantly
 		if(!GameManager.isArena || isTestServer) {
@@ -563,6 +516,26 @@ public class ServerInit : uLink.MonoBehaviour {
 		// Disable encryption in non-ranked games
 		//if(!GameManager.isRankedGame)
 		//	uLink.Network.UninitializeSecurity(networkPlayer);
+	}
+
+	// GetNewPartyId
+	int GetPartyId(string accountId) {
+		if(GameManager.isPvE) {
+			return 0;
+		} else if(GameManager.isFFA) {
+			return FindFFAPartyWithLeastMembers();
+		} else {
+			if(restrictedAccounts) {
+				return accountToParty[accountId].id;
+			} else {
+				return FindPartyWithLeastMembers();
+			}
+		}
+	}
+
+	// GetNewParty
+	GameServerParty GetParty(string accountId) {
+		return GameServerParty.partyList[GetPartyId(accountId)];
 	}
 	
 	// Retrieves the player information
@@ -577,28 +550,75 @@ public class ServerInit : uLink.MonoBehaviour {
 			string playerName = request.GetValue<string>();
 			
 			LogManager.General.Log("Queried player name of '" + accountId + "' successfully: " + playerName);
+
+			// Assign party
+			int partyId = GetPartyId(accountId);
+			var party = GameServerParty.partyList[partyId];
 			
-			// Retrieve stats
-			var statsBucket = new Bucket("AccountToStats");
-			var statsRequest = statsBucket.Get(accountId);
-			yield return statsRequest.WaitUntilDone();
+			// Respawn position
+			Vector3 respawnPosition;
+			float cameraYRotation = 0f;
 			
-			PlayerStats statsInDB;
-			
-			if(statsRequest.isSuccessful) {
-				statsInDB = statsRequest.GetValue<PlayerStats>();
-				
-				LogManager.General.Log("Queried stats of account '" + accountId + "' successfully (Ranking: " + statsInDB.bestRanking + ")");
+			if(GameManager.isPvE) {
+				PortalDB.GetPortal(accountId, portalInfo => {
+					// Player did not come via a portal
+					if(portalInfo == null) {
+						PositionsDB.GetPosition(accountId, data => {
+							if(data != null) {
+								respawnPosition = data.ToVector3();
+								LogManager.General.Log("Found player position: Respawning at " + respawnPosition);
+							} else {
+								respawnPosition = party.spawn.GetNextSpawnPosition();
+								LogManager.General.Log("Couldn't find player position: Respawning at " + respawnPosition);
+								
+								// Adjust camera rotation
+								cameraYRotation = party.spawn.cameraYRotation;
+							}
+
+							// Instantiate the player
+							InstantiatePlayer(networkPlayer, accountId, playerName, respawnPosition, cameraYRotation, partyId);
+						});
+					// Player did come via a portal
+					} else {
+						var portals = GameObject.FindGameObjectsWithTag("Portal");
+						
+						foreach(var portalObject in portals) {
+							var portal = portalObject.GetComponent<Portal>();
+							
+							if(portal.mapName == portalInfo.mapName) {
+								var spawn = portal.spawns[Random.Range(0, portal.spawns.Length - 1)];
+								respawnPosition = spawn.position;
+								
+								// Respawn
+								LogManager.General.Log("Player came via a portal: Respawning at " + respawnPosition);
+								
+								// Adjust camera rotation
+								cameraYRotation = portal.cameraYRotation;
+								
+								// Update position to be 100% sure our position data is correct now
+								PositionsDB.SetPosition(accountId, respawnPosition);
+								
+								// Delete portal info so we won't use it again
+								PortalDB.RemovePortal(accountId);
+
+								// Instantiate the player
+								InstantiatePlayer(networkPlayer, accountId, playerName, respawnPosition, cameraYRotation, partyId);
+								
+								break;
+							}
+						}
+					}
+				});
 			} else {
-				statsInDB = new PlayerStats();
+				respawnPosition = party.spawn.GetNextSpawnPosition();
 				
-				LogManager.General.Log("Account '" + accountId + "' aka player '" + playerName + "' doesn't have any player stats yet");
+				LogManager.General.Log("PvP game: Respawning at " + respawnPosition);
+
+				// Instantiate the player
+				InstantiatePlayer(networkPlayer, accountId, playerName, respawnPosition, cameraYRotation, partyId);
 			}
-			
-			// After we got the name, instantiate it
-			InstantiatePlayer(networkPlayer, accountId, playerName, statsInDB);
 		} else {
-			LogManager.General.LogWarning("Account " + accountId + " doesn't have a player name.");
+			LogManager.General.LogError("Account " + accountId + " doesn't have a player name.");
 		}
 	}
 	
@@ -808,8 +828,19 @@ public class ServerInit : uLink.MonoBehaviour {
 		
 		// Retrieve player info
 		if(isTestServer) {
-			InstantiatePlayer(netPlayer, "", playerName, new PlayerStats());
+			var party = GetParty(accountId);
+
+			// Instantiate player on test server
+			InstantiatePlayer(
+				netPlayer,
+				"",
+				playerName,
+				party.spawn.GetNextSpawnPosition(),
+				party.spawn.cameraYRotation,
+				party.id
+			);
 		} else {
+			// On the real server we first query some database information about the player
 			StartCoroutine(RetrievePlayerInformation(netPlayer, accountId));
 		}
 	}

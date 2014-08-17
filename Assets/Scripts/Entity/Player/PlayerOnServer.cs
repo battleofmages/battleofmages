@@ -337,9 +337,9 @@ public class PlayerOnServer : Player, CasterOnServer {
 		Spawn spawn;
 		
 		if(GameManager.isPvE) {
-			spawn = GameServerParty.partyList[0].spawnComp;
+			spawn = GameServerParty.partyList[0].spawn;
 		} else {
-			spawn = party.spawnComp;
+			spawn = party.spawn;
 		}
 
 		var spawnPos = spawn.GetNextSpawnPosition();

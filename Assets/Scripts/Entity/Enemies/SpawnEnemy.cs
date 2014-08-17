@@ -1,17 +1,17 @@
 using UnityEngine;
 using System.Collections;
 
-public class SpawnEnemy : MonoBehaviour {
+public class SpawnEnemy : uLink.MonoBehaviour {
 	public GameObject creatorPrefab;
 	public GameObject proxyPrefab;
 
-	// Start
-	void Start() {
-		if(!GameManager.isServer)
+	// uLink_OnServerInitialized
+	void uLink_OnServerInitialized() {
+		if(!GameManager.isPvE)
 			return;
-		
-		if(GameManager.isPvE)
-			SpawnSingleEnemy();
+
+		// PvE: Spawn enemies
+		SpawnSingleEnemy();
 	}
 	
 	// SpawnSingleEnemy

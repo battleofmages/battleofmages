@@ -42,7 +42,7 @@ public static class MapManager {
 			LogManager.General.Log("[" + mapName + "] Map can be loaded");
 		} else {
 			// Wait for version info download to finish
-			while(!AssetBundlesManager.instance.isReady)       
+			while(!AssetBundlesManager.instance.isReady)
 				yield return new WaitForSeconds(0.02f);
 
 			// Download level
@@ -83,7 +83,21 @@ public static class MapManager {
 		yield return asyncLoadLevel;
 
 		LogManager.General.Log("Finished loading map: " + mapName);
-		mapInstance = GameObject.FindGameObjectWithTag("Map");
+
+		// Try getting mapInstance 5 times (maximum)
+		for(int i = 1; i <= 5; i++) {
+			mapInstance = GameObject.FindGameObjectWithTag("Map");
+
+			if(mapInstance == null) {
+				LogManager.General.LogWarning("Couldn't find the map, mapInstance is null: Retrying.");
+				yield return new WaitForSeconds(0.01f);
+			} else {
+				break;
+			}
+		}
+
+		if(mapInstance == null)
+			LogManager.General.LogError("Couldn't find the map, mapInstance is null");
 
 		mapIntro = mapInstance.GetComponent<Intro>();
 		LogManager.General.Log("Map intro: " + mapIntro);

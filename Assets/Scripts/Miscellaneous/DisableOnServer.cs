@@ -1,7 +1,7 @@
 using UnityEngine;
-using System.Collections;
 
-public class DisableOnServer : MonoBehaviour {
+public class DisableOnServer : uLink.MonoBehaviour {
+	// uLink_OnServerInitialized
 	void uLink_OnServerInitialized() {
 		MonoBehaviour[] comps = GetComponents<MonoBehaviour>();
 		

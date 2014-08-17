@@ -369,11 +369,11 @@ public class PlayerMain : PlayerOnClient {
 		if(party == null)
 			return;
 		
-		if(party.spawn == null)
+		if(party.spawnTransform == null)
 			return;
 		
 		// Set camera Y rotation
-		UpdateCameraYRotation(party.spawn);
+		UpdateCameraYRotation(party.spawnTransform);
 	}
 
 	// UpdateCameraYRotation

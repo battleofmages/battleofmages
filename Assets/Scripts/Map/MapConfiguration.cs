@@ -15,7 +15,9 @@ public class MapConfiguration : MonoBehaviour {
 	public Color ambientLight = new Color(0.2f, 0.2f, 0.2f, 1f);
 	public Material skyboxMaterial;
 
+#if UNITY_EDITOR
 	private bool offlineMode;
+#endif
 	
 	// Render settings
 	void Start() {
@@ -37,6 +39,7 @@ public class MapConfiguration : MonoBehaviour {
 #endif
 	}
 
+#if UNITY_EDITOR
 	// LoadOfflineClient
 	IEnumerator LoadOfflineClient() {
 		if(!offlineMode)
@@ -49,6 +52,7 @@ public class MapConfiguration : MonoBehaviour {
 		var spawnPos = GameObject.Find("Spawn 1").transform.position;
 		GameObject.Find("Offline Player").transform.position = spawnPos + new Vector3(0f, 2f, 0f);
 	}
+#endif
 
 	// Apply render settings
 	public void ApplyRenderSettings() {

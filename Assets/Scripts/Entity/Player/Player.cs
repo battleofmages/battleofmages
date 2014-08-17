@@ -520,8 +520,8 @@ public abstract class Player : Entity {
 				LogWarning("I don't have a party assigned to me!");
 		} else if(myTransform == null) {
 			LogWarning("I don't have a valid transform!");
-		} else if(partyRespawn.spawn != null) {
-			charGraphics.eulerAngles = new Vector3(0, partyRespawn.spawn.eulerAngles.y, 0);
+		} else if(partyRespawn.spawnTransform != null) {
+			charGraphics.eulerAngles = new Vector3(0, partyRespawn.spawnTransform.eulerAngles.y, 0);
 		}
 		
 		if(motor != null) {
@@ -794,15 +794,21 @@ public abstract class Player : Entity {
 	}
 	
 	[RPC]
-	protected void ReceivePlayerInfo(string playerName, int bestRanking) {
-		Log("Received player name '" + playerName + "' and ranking " + bestRanking);
+	protected void ReceivePlayerName(string playerName) {
+		Log("Received player name '" + playerName);
 		
 		name = playerName;
-		stats.bestRanking = bestRanking;
 		
 		// As long as we aren't in client test mode
 		if(account != null)
 			account.playerName = playerName;
+	}
+
+	[RPC]
+	protected void ReceiveBestRanking(int bestRanking) {
+		Log("Received best ranking: " + bestRanking);
+
+		stats.bestRanking = bestRanking;
 	}
 	
 	[RPC]

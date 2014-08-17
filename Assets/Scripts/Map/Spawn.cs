@@ -25,6 +25,13 @@ public class Spawn : MonoBehaviour {
 		return GetSpawnPosition(currentAngle, radius, myTransform);
 	}
 
+	// Camera Y rotation
+	public float cameraYRotation {
+		get {
+			return myTransform.eulerAngles.y;
+		}
+	}
+
 	// GetSpawnPosition
 	public static Vector3 GetSpawnPosition(float angle, float nRadius, Transform nTransform) {
 		// TODO: Raycast to the terrain to see how much height we need

@@ -68,6 +68,13 @@ public class Portal : MonoBehaviour, ActionTarget {
 			return gameObject.name;
 		}
 	}
+
+	// Camera Y rotation
+	public float cameraYRotation {
+		get {
+			return transform.eulerAngles.y;
+		}
+	}
 	
 	// CanAction
 	public bool CanAction(Entity entity) {

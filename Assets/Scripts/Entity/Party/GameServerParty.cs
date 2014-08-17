@@ -10,8 +10,8 @@ public class GameServerParty : Party<Entity> {
 	private int _layer;
 	private Color _color;
 	
-	public Transform spawn;
-	public Spawn spawnComp;
+	public Transform spawnTransform;
+	public Spawn spawn;
 	public Material skillCircleMaterial;
 	
 	// Constructor
@@ -21,8 +21,8 @@ public class GameServerParty : Party<Entity> {
 		_id = _index;
 		_layer = 8 + _index;
 		_color = partyColor;
+		spawnTransform = null;
 		spawn = null;
-		spawnComp = null;
 		skillCircleMaterial = (Material)Resources.Load("Circles/Circle " + (_index + 1));
 		partyList.Add(this);
 	}
@@ -36,8 +36,8 @@ public class GameServerParty : Party<Entity> {
 			return;
 		}
 		
-		spawn = gameObject.transform;
-		spawnComp = spawn.GetComponent<Spawn>();
+		spawnTransform = gameObject.transform;
+		spawn = spawnTransform.GetComponent<Spawn>();
 	}
 	
 	// TODO: Make use of partyCount
