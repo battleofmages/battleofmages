@@ -57,6 +57,9 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 
 		if(Player.main != null)
 			Player.main.crossHair.enabled = false;
+
+		// Try to free up some RAM
+		PerformanceMonitor.FreeRAM();
 	}
 	
 	// OnDisable

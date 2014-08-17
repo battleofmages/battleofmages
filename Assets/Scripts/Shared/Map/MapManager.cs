@@ -140,6 +140,9 @@ public static class MapManager {
 			}
 		}*/
 
+		// Try to free up some RAM
+		PerformanceMonitor.FreeRAM();
+
 		// Custom callback function
 		if(func != null)
 			func();
