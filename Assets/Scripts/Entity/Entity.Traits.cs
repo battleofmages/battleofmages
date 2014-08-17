@@ -140,6 +140,13 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 			return energy / maxEnergy;
 		}
 	}
+
+	// Health ratio
+	public float healthRatio {
+		get {
+			return (float)health / maxHealth;
+		}
+	}
 	
 	// Is alive
 	public bool isAlive {
