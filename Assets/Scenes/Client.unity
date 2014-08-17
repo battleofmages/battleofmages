@@ -4274,12 +4274,13 @@ MonoBehaviour:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-  raycastMaxDistance: 500
+  raycastMaxDistance: 250
   playerRespawnTime: 6
   spawnProtectionDuration: 2
   deathColliderDisableTime: 1
   skillInstanceDestructionTime: 9
   matchAcceptTime: 15
+  gcCollectDelay: .100000001
   openWorldPvPLayer: 29
   skillLayersStart: 18
   skillLayersCount: 10

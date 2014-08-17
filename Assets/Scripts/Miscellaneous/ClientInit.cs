@@ -1,5 +1,4 @@
 using UnityEngine;
-using uLobby;
 
 public class ClientInit : uLink.MonoBehaviour {
 	private bool disconnected;
