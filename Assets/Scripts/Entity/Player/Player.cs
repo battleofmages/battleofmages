@@ -585,6 +585,9 @@ public abstract class Player : Entity {
 		// Fill HP
 		health = maxHealth;
 
+		// Reset last hit target
+		entityLastHit = null;
+
 		// Event handler
 		if(onRespawn != null)
 			onRespawn(spawnPosition);
