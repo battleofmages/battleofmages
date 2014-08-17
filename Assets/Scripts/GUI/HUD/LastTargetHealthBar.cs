@@ -1,9 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 
 public class LastTargetHealthBar : HUDElement {
 	public ProgressBarStyle healthBar;
+
+	[NonSerialized]
 	public Entity entityLastHit;
+
 	// Draw
 	public override void Draw() {
 		entityLastHit = Player.main.entityLastHit;
