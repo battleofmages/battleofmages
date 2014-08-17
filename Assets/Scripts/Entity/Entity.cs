@@ -62,6 +62,9 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	[NonSerialized]
 	public Transform charGraphicsBody;
 
+	[NonSerialized]
+	public Entity entityLastHit;
+
 #region Methods
 	// Awake
 	protected virtual void Awake() {
@@ -229,6 +232,9 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		// Update damage stats
 		casterStats.damage += dmg;
 		playerStats.damageTaken += dmg;
+
+		// Assing entityLastHit to the entity we hit
+		caster.entityLastHit = entity;
 	}
 	
 	// Movement of proxies
