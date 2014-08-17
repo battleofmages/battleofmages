@@ -1056,7 +1056,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: .300000012
-  far clip plane: 1000
+  far clip plane: 250
   field of view: 60
   orthographic: 0
   orthographic size: 100
@@ -1257,7 +1257,7 @@ MonoBehaviour:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-  raycastMaxDistance: 500
+  raycastMaxDistance: 250
   playerRespawnTime: 6
   spawnProtectionDuration: 2
   deathColliderDisableTime: 1

@@ -77,7 +77,7 @@ MonoBehaviour:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-  raycastMaxDistance: 500
+  raycastMaxDistance: 250
   playerRespawnTime: 6
   spawnProtectionDuration: 2
   deathColliderDisableTime: 1
@@ -100,6 +100,7 @@ MonoBehaviour:
   maxProxyDistanceUntilSnapSqr: 1
   proxyInterpolationSpeed: 20
   ownerInterpolationSpeed: 2.20000005
+  hearMyself: 0
   disableAnimationsOnServer: 1
   enemyRespawnTime: 20
   matchStatsSendDelay: 1

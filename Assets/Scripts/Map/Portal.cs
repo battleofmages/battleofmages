@@ -50,6 +50,9 @@ public class Portal : MonoBehaviour, ActionTarget {
 		// We save it here because the game object might be destroyed in the lambda
 		string targetMapName = mapName;
 
+		// Stop saving position data
+		entity.networkView.RPC("ActivatePortal", uLink.RPCMode.Server, targetMapName);
+
 		// Send a request to the lobby to change the map
 		Lobby.RPC("ActivatePortal", Lobby.lobby, MapManager.currentMapName, targetMapName, serverType);
 
