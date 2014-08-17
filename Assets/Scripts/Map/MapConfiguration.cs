@@ -64,6 +64,10 @@ public class MapConfiguration : MonoBehaviour {
 		RenderSettings.fogEndDistance = linearFogEnd;
 		RenderSettings.ambientLight = ambientLight;
 		RenderSettings.skybox = skyboxMaterial;
+
+		// Fully load all shaders to prevent future performance hiccups
+		LogManager.General.Log("Fully load all shaders to prevent future performance hiccups");
+		Shader.WarmupAllShaders();
 	}
 
 #if UNITY_EDITOR
