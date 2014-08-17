@@ -222,6 +222,7 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		// Last hit
 		entity.lastHitBy = caster;
 		entity.lastHitBySkill = skill;
+		caster.entityLastHit = entity;
 		
 		// Update CC stats
 		if(skillStage.effect != null) {
@@ -232,9 +233,6 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 		// Update damage stats
 		casterStats.damage += dmg;
 		playerStats.damageTaken += dmg;
-
-		// Assing entityLastHit to the entity we hit
-		caster.entityLastHit = entity;
 	}
 	
 	// Movement of proxies
