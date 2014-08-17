@@ -60,7 +60,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: .400000006
+        - cooldown: .5
           description: Summons a fireball.
           castDuration: .200000003
           posType: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 1
-        - cooldown: .400000006
+        - cooldown: .5
           description: Summons a strong fireball.
           castDuration: .400000006
           posType: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 1
-        - cooldown: .400000006
+        - cooldown: .5
           description: Summons a very strong fireball.
           castDuration: .400000006
           posType: 0
@@ -253,7 +253,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: .400000006
+        - cooldown: .5
           description: Summons an iceball which slows enemies.
           castDuration: .200000003
           posType: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 2
-        - cooldown: .400000006
+        - cooldown: .5
           description: Summons a strong iceball which slows enemies.
           castDuration: .400000006
           posType: 0
@@ -291,7 +291,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 2
-        - cooldown: .400000006
+        - cooldown: .5
           description: Summons a very strong iceball which slows enemies.
           castDuration: .400000006
           posType: 0
@@ -315,7 +315,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 4
+        - cooldown: 5
           description: Summons 9 ice swords which can cut through everything, each
             engraving an ice rune.
           castDuration: .200000003
@@ -336,7 +336,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 2
-        - cooldown: 4
+        - cooldown: 5
           description: Summons 18 ice swords which can cut through everything, each
             engraving an ice rune.
           castDuration: .5
@@ -356,7 +356,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 2
-        - cooldown: 4
+        - cooldown: 5
           description: Summons 27 ice swords which can cut through everything, each
             engraving an ice rune.
           castDuration: .600000024
@@ -381,7 +381,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 14
+        - cooldown: 15
           description: Summons an ice wall which prevents movement and absorbs attacks
             for enemies and allies. Can be used both offensively and defensively.
           castDuration: .200000003
@@ -402,7 +402,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 0
-        - cooldown: 14
+        - cooldown: 15
           description: Summons a big ice wall which prevents movement and absorbs
             attacks for enemies and allies. Can be used both offensively and defensively.
           castDuration: .400000006
@@ -422,7 +422,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 0
-        - cooldown: 14
+        - cooldown: 15
           description: Summons a huge ice wall which prevents movement and absorbs
             attacks for enemies and allies. Can be used both offensively and defensively.
           castDuration: .400000006
@@ -447,7 +447,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 20
+        - cooldown: 22
           description: Summons a blizzard that slows players hit by it.
           castDuration: .400000006
           posType: 3
@@ -467,7 +467,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 0
-        - cooldown: 20
+        - cooldown: 22
           description: Summons a blizzard that slows players hit by it.
           castDuration: .400000006
           posType: 3
@@ -486,7 +486,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 0
-        - cooldown: 20
+        - cooldown: 22
           description: Summons a blizzard that slows players hit by it.
           castDuration: .400000006
           posType: 3
@@ -510,7 +510,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 24
+        - cooldown: 25
           description: After some time it detonates and the resulting explosion leads
             to a 50% slow effect.
           castDuration: .200000003
@@ -536,7 +536,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 24
+        - cooldown: 25
           description: Immobilizes all enemies caught in the field.
           castDuration: .300000012
           posType: 2
@@ -565,7 +565,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: .400000006
+        - cooldown: .5
           description: Summons 3 dark projectiles, each engraving a dark rune.
           castDuration: .300000012
           posType: 0
@@ -584,7 +584,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 3
-        - cooldown: .400000006
+        - cooldown: .5
           description: Summons 4 dark projectiles, each engraving a dark rune.
           castDuration: .400000006
           posType: 0
@@ -603,7 +603,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 3
-        - cooldown: .400000006
+        - cooldown: .5
           description: Summons 5 dark projectiles, each engraving a dark rune.
           castDuration: .400000006
           posType: 0
@@ -627,7 +627,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 14
+        - cooldown: 15
           description: Wings of the Dark Phoenix drain life from every hit player.
           castDuration: .200000003
           posType: 0
@@ -647,7 +647,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 1
           runeType: 0
-        - cooldown: 0
+        - cooldown: 15
           description: Wings of the Dark Phoenix drain life from every hit player.
           castDuration: .400000006
           posType: 0
@@ -666,7 +666,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 1
           runeType: 0
-        - cooldown: 0
+        - cooldown: 15
           description: Wings of the Dark Phoenix drain life from every hit player.
           castDuration: .400000006
           posType: 0
@@ -852,7 +852,7 @@ MonoBehaviour:
         type: 2
         canHold: 0
         stages:
-        - cooldown: .400000006
+        - cooldown: .5
           description: Summons a lightball that searches for enemies close to it and
             flies towards them.
           castDuration: .200000003
@@ -872,7 +872,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 4
-        - cooldown: .400000006
+        - cooldown: .5
           description: Summons a strong lightball that searches for enemies close
             to it and flies towards them.
           castDuration: .400000006
@@ -892,7 +892,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 0
           runeType: 4
-        - cooldown: .400000006
+        - cooldown: .5
           description: Summons a very strong lightball that searches for enemies close
             to it and flies towards them.
           castDuration: .400000006
@@ -943,7 +943,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 12
+        - cooldown: 13
           description: Instantly teleports to target location.
           castDuration: .200000003
           posType: 0
@@ -956,7 +956,7 @@ MonoBehaviour:
           castVoices: []
           powerMultiplier: 1
           staggerDuration: 0
-          energyCostAbs: 50
+          energyCostAbs: 40
           lifeDrainRel: 0
           canMoveWhileCasting: 1
           canMoveWhileAttacking: 1
@@ -967,7 +967,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 16
+        - cooldown: 18
           description: Makes enemies fall to sleep for some time. Attacking them will
             cancel the sleep effect.
           castDuration: .200000003
@@ -993,7 +993,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 20
+        - cooldown: 30
           description: Gathers all the energy from the surrounding area and leads
             to a large implosion in a 16m radius which detonates all runes.
           castDuration: .400000006
@@ -1014,7 +1014,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 1
           runeType: 0
-        - cooldown: 20
+        - cooldown: 30
           description: Gathers all the energy from the surrounding area and leads
             to a large implosion in a 20m radius which detonates all runes.
           castDuration: .600000024
@@ -1034,7 +1034,7 @@ MonoBehaviour:
           canMoveWhileAttacking: 1
           isRuneDetonator: 1
           runeType: 0
-        - cooldown: 20
+        - cooldown: 30
           description: Gathers all the energy from the surrounding area and leads
             to a large implosion in a 24m radius which detonates all runes.
           castDuration: .600000024
@@ -1087,7 +1087,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 4
+        - cooldown: 6
           description: Summons a thunderbolt from the sky.
           castDuration: .200000003
           posType: 3
@@ -1111,7 +1111,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 14
+        - cooldown: 15
           description: Throw a ball of concentrated lightning energy, the shock causes
             enemies to be stunned.
           castDuration: .400000006
@@ -1136,7 +1136,7 @@ MonoBehaviour:
         type: 0
         canHold: 0
         stages:
-        - cooldown: 24
+        - cooldown: 25
           description: Summons a lightning sphere and immobilizes enemies close to
             it.
           castDuration: .200000003
