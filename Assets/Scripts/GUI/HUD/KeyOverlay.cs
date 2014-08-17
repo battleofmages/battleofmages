@@ -1,9 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class KeyOverlay : HUDElement {
-	// Start
-	void Start() {
-		
+	public GUIStyle keyStyle;
+
+	// Draw
+	public override void Draw() {
+		if(Player.main == null)
+			return;
+
+		// Show action target
+		if(Player.main.actionTarget != null) {
+			var actionIndex = InputManager.instance.GetButtonIndex("action");
+			var actionInputControl = InputManager.instance.controls[actionIndex];
+
+			// Draw key label
+			GUILayout.Label(actionInputControl.keyCodeString, keyStyle);
+		}
 	}
 }

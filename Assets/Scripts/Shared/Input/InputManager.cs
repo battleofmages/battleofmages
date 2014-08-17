@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class InputManager : SingletonMonoBehaviour<InputManager> {
 	public static bool ignoreInput = false;
