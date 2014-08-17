@@ -66,6 +66,7 @@ public class MapConfiguration : MonoBehaviour {
 		RenderSettings.skybox = skyboxMaterial;
 
 		// Fully load all shaders to prevent future performance hiccups
+		// THIS NEEDS TO BE CALLED AFTER THE FOG HAS BEEN SET
 		LogManager.General.Log("Fully load all shaders to prevent future performance hiccups");
 		Shader.WarmupAllShaders();
 	}

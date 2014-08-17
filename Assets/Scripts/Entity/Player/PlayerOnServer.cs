@@ -16,6 +16,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 	private uint lastExperienceSaved;
 	private bool lastMovementKeysPressedReceived;
 	private double startedSkillCast;
+	private bool positionSavingDisabled;
 	
 	// Reliable / unreliable switches
 	private int lastReliableBitMaskSent;
@@ -531,6 +532,10 @@ public class PlayerOnServer : Player, CasterOnServer {
 		
 		// Account ID not available for some reason?
 		if(string.IsNullOrEmpty(accountId))
+			return;
+
+		// Entered a portal?
+		if(positionSavingDisabled)
 			return;
 		
 		// Save in DB
@@ -1114,6 +1119,27 @@ public class PlayerOnServer : Player, CasterOnServer {
 		}
 		
 		ltsClientChat = info.timestamp;
+	}
+
+	[RPC]
+	void ActivatePortal(string mapName, uLink.NetworkMessageInfo info) {
+		if(info.sender != networkView.owner)
+			return;
+
+		// Account available?
+		if(string.IsNullOrEmpty(accountId)) {
+			LogError("ActivatePortal: Account ID not available");
+			return;
+		}
+
+		// Log
+		Log("Activated portal to: " + mapName);
+
+		// Stop saving position
+		positionSavingDisabled = true;
+
+		// Delete position
+		PositionsDB.RemovePosition(accountId);
 	}
 #endregion
 

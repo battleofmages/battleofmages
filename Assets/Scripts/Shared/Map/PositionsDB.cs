@@ -33,4 +33,13 @@ public static class PositionsDB {
 			func
 		));
 	}
+
+	// Remove position
+	public static Coroutine RemovePosition(string accountId, GameDB.ActionOnResult<bool> func = null) {
+		return GameDB.instance.StartCoroutine(GameDB.Remove(
+			"AccountToPosition",
+			accountId,
+			func
+		));
+	}
 }
