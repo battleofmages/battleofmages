@@ -61,6 +61,12 @@ public class Config : SingletonMonoBehaviour<Config> {
 	public float skillInstanceDestructionTime;
 	public float matchAcceptTime;
 
+	[Header("QuickPort")]
+	public float quickPortDistance;
+	public double quickPortCooldown;
+	public float quickPortEnergyDrain;
+	public double maxQuickPortDoublePressDelay;
+
 	[Header("Physics")]
 	public int openWorldPvPLayer;
 	public int skillLayersStart;

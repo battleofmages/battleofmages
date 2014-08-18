@@ -82,7 +82,7 @@ public class PlayerMain : PlayerOnClient {
 			} else if(!hasControlOverMovement) {
 				// For example on Shockwave and Black Hole we interpolate faster
 				characterController.Move((serverPosition - myTransform.position) * Time.deltaTime * Config.instance.ownerInterpolationSpeed * 16.0f);
-			} else if(serverDistanceSqr >= maxDistanceToServerSqr) {
+			} else if(serverDistanceSqr >= maxDistanceToServerSqr && (uLink.Network.time - lastQuickPort) > Config.instance.quickPortCooldown) {
 				characterController.Move((serverPosition - myTransform.position) * Time.deltaTime * Config.instance.ownerInterpolationSpeed);
 			}
 		}
@@ -169,7 +169,7 @@ public class PlayerMain : PlayerOnClient {
 		}
 		
 		// Hovering
-		bool hoverKeyPressed = inputManager.GetButton(buttons.Hover);
+		bool hoverKeyPressed = controller.wantsToHover;
 		bool canHoverNow = movementKeysPressed && hoverKeyPressed && this.canHover;
 		
 		if(!hovering && canHoverNow && energy >= Config.instance.blockMinimumEnergyForUsage) {
@@ -178,6 +178,17 @@ public class PlayerMain : PlayerOnClient {
 		} else if(hovering && (!canHoverNow || energy <= 0)) {
 			if(EndHover())
 				networkView.RPC("ClientEndHover", uLink.RPCMode.Server);
+		}
+
+		// Double hover key = Quickport
+		if(controller.wantsToQuickPort && canQuickPort) {
+			float angle = camTransform.eulerAngles.y;
+
+			// Inform server
+			networkView.RPC("ClientQuickPort", uLink.RPCMode.Server, angle);
+
+			// Do it
+			QuickPort(angle);
 		}
 		
 		// Jumping
