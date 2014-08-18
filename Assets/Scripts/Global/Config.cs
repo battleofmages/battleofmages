@@ -66,6 +66,8 @@ public class Config : SingletonMonoBehaviour<Config> {
 	public double quickPortCooldown;
 	public float quickPortEnergyDrain;
 	public double maxQuickPortDoublePressDelay;
+	public GameObject quickPortFromEffect;
+	public GameObject quickPortToEffect;
 
 	[Header("Physics")]
 	public int openWorldPvPLayer;
