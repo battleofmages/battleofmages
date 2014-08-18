@@ -1050,6 +1050,13 @@ public abstract class Player : Entity {
 		
 		isReady = true;
 	}
+
+	[RPC]
+	protected void SetVoIPFrequency(int frequency) {
+		Log("[VoIP] Set frequency: " + frequency);
+
+		voIP.frequency = frequency;
+	}
 	
 	[RPC]
 	protected void VoIPData(byte[] bytes, int len, uLink.NetworkMessageInfo info) {

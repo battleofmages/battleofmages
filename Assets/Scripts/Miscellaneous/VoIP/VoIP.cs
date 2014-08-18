@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using System;
 
 public class VoIP : uLink.MonoBehaviour {
 	public static float volumeMultiplier = 1f;
-	
+
+	private int _frequency = 48000;
 	private float noiseLimit = 0.017f;
 	
 	public GameObject audioSourcesObject;
@@ -11,7 +13,6 @@ public class VoIP : uLink.MonoBehaviour {
 	private AudioSource[] audioSources;
 	private int lastPos;
 	private AudioClip microphoneClip;
-	private int frequency = 48000;
 	private int sendPacketFrequency = 10;
 	private int pushToTalkButton;
 	private bool idleDetectionEnabled = false;
@@ -31,6 +32,20 @@ public class VoIP : uLink.MonoBehaviour {
 	private VoIPSpeaker speaker;
 	
 	protected bool networkViewIsMine = false;
+
+	// Frequency
+	public int frequency {
+		get {
+			return _frequency;
+		}
+		
+		set {
+			_frequency = value;
+
+			if(GameManager.isClient)
+				speaker.CreateAudioClip(_frequency);
+		}
+	}
 	
 	// Start
 	void Start() {
@@ -53,31 +68,20 @@ public class VoIP : uLink.MonoBehaviour {
 			Microphone.GetDeviceCaps(null, out minFrequency, out maxFrequency);
 			LogManager.General.Log(string.Format("[VoIP] Microphone frequencies: Min: {0}, Max: {1}", minFrequency, maxFrequency));
 			
-			if(frequency < minFrequency)
-				frequency = minFrequency;
+			if(_frequency < minFrequency)
+				_frequency = minFrequency;
 			
-			if(frequency > maxFrequency && maxFrequency != 0)
-				frequency = maxFrequency;
-			
+			if(_frequency > maxFrequency && maxFrequency != 0)
+				_frequency = maxFrequency;
+
 			LogManager.General.Log("[VoIP] Microphone sample buffer size: " + sampleBufferSize);
 			LogManager.General.Log("[VoIP] Microphone frequency: " + frequency);
 			
-			// Create audio clips
-			for(int i = 0; i < audioSources.Length; i++) {
-				var clipSamples = new float[2048 * 16];
-				
-				for(int j = 0; j < clipSamples.Length; j++) {
-					clipSamples[j] = 1.0f;
-				}
-				
-				var newClip = AudioClip.Create("VoIPAudioClip_" + i, clipSamples.Length, 1, frequency, true, false);
-				newClip.SetData(clipSamples, 0);
-				
-				audioSources[i].clip = newClip;
-			}
-			
 			microphoneClip = Microphone.Start(null, true, 10, frequency);
 			while(Microphone.GetPosition(null) < 0) {} // HACK from Riro
+
+			// Let the server know about my frequency
+			networkView.RPC("ClientVoIPFrequency", uLink.RPCMode.Server, frequency);
 		}
 	}
 	
@@ -222,13 +226,12 @@ public class VoIP : uLink.MonoBehaviour {
 			samples = new float[0];
 			return;
 		}
-		
+
+		// Decode samples
 		samples = codec.Decode(bytes, len);
 		
 		// Play
 		if(!networkViewIsMine || Config.instance.hearMyself) {
-			LogManager.General.Log("playing " + samples.Length);
-
 			if(!audioSources[0].isPlaying)
 				audioSources[0].Play();
 			

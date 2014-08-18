@@ -420,6 +420,7 @@ public class PlayerOnServer : Player, CasterOnServer {
 			networkView.RPC("ReceiveSkillBuild", player, this.skillBuild);
 			networkView.RPC("ReceiveCharacterCustomization", player, this.customization);
 			networkView.RPC("SetExperience", player, account.experience);
+			networkView.RPC("SetVoIPFrequency", player, voIP.frequency);
 			networkView.RPC("ReceiveArtifactTree", player, Jboy.Json.WriteObject(this.artifactTree));
 			networkView.RPC("ReceiveCharacterStats", player, this.charStats);
 			
@@ -1149,6 +1150,19 @@ public class PlayerOnServer : Player, CasterOnServer {
 
 		// Inform others
 		networkView.RPC("ChatFocused", uLink.RPCMode.Others, focused);
+	}
+
+	[RPC]
+	void ClientVoIPFrequency(int frequency, uLink.NetworkMessageInfo info) {
+		// Make sure we throw away messages from the wrong client
+		if(info.sender != networkView.owner)
+			return;
+		
+		// Inform others
+		networkView.RPC("SetVoIPFrequency", uLink.RPCMode.Others, frequency);
+
+		// Do it on the server
+		SetVoIPFrequency(frequency);
 	}
 
 	[RPC]
