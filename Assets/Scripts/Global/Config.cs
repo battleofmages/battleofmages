@@ -129,6 +129,9 @@ public class Config : SingletonMonoBehaviour<Config> {
 	[Range(1, 3)]
 	public float saveExperienceDelay;
 
+	[Header("Icons")]
+	public Texture2D chatTypingIcon;
+
 	// Awake
 	protected override void Awake() {
 		// Root objects

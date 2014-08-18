@@ -40,6 +40,8 @@ public abstract class PlayerOnClient : Player {
 	protected float maxDistanceToServerSqr;
 	
 	protected bool blockKeyDown;
+
+	protected bool chatFocused;
 	
 	// Removes Y from hit point when player is hit
 	protected Vector3 raycastHitPointOnGround;
@@ -134,12 +136,13 @@ public abstract class PlayerOnClient : Player {
 		if(isVisible && isAlive && charGraphicsBody.renderer.isVisible) {
 			// Health and energy bars
 			entityGUI.Draw();
-			
-			// League medal
+
 			if(InGameLobby.instance != null) {
+				// League medal
 				var margin = 2;
 				var leagueIcon = InGameLobby.instance.leagues[RankingGUI.GetLeagueIndex(stats.bestRanking)].image;
-				Rect leagueRect = nameLabel.rect;
+				Rect nameLabelRect = nameLabel.rect;
+				Rect leagueRect = nameLabelRect;
 				
 				// Invert y
 				leagueRect.y = Screen.height - (leagueRect.y + 1);
@@ -150,6 +153,13 @@ public abstract class PlayerOnClient : Player {
 				leagueRect.x -= leagueRect.width + margin;
 				
 				GUI.DrawTexture(leagueRect, leagueIcon, ScaleMode.StretchToFill, true);
+
+				// Chat "typing" icon
+				if(chatFocused) {
+					leagueRect.x = nameLabelRect.x + nameLabelRect.width + margin;
+					leagueRect.y -= 5;
+					GUI.DrawTexture(leagueRect, Config.instance.chatTypingIcon, ScaleMode.StretchToFill, true);
+				}
 			}
 			
 			// Auto target
@@ -399,6 +409,12 @@ public abstract class PlayerOnClient : Player {
 		level = account.level;
 
 		Chat("You lost " + experience + " EXP.");
+	}
+
+	[RPC]
+	protected void ChatFocused(bool nChatFocused) {
+		Log("Chat focus: " + nChatFocused);
+		chatFocused = nChatFocused;
 	}
 #endregion
 	

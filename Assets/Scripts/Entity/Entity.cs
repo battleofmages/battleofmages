@@ -296,6 +296,10 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 	
 	// Spawns an explosion using position and rotation
 	public void SpawnExplosion(Transform explosionPrefab, Vector3 pos, Quaternion rot, SkillInstance copyInst) {
+		// Sometimes we get NaN values as input
+		if(!rot.IsValid())
+			rot = Cache.quaternionIdentity;
+
 		// Spawn it
 		Transform expl = (Transform)Instantiate(explosionPrefab, pos, rot);
 		expl.parent = Entity.skillInstancesRoot;
@@ -430,8 +434,8 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 
 		string levelPrefix = "";
 
-		if(GameManager.isPvE && this != Player.main)
-			levelPrefix = "{" + (int)level + "} ";
+		//if(GameManager.isPvE && this != Player.main)
+		//	levelPrefix = "{" + (int)level + "} ";
 
 		if(guildTag != "") {
 			nameLabel.text = "[" + guildTag + "] " + levelPrefix + name;

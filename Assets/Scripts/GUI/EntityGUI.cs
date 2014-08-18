@@ -43,20 +43,21 @@ public class EntityGUI : MonoBehaviour {
 		
 		// Container
 		healthRect = new Rect(screenPosition.x - healthBarWidth / 2 - 1, screenPosition.y - 14, healthBarWidth + 2, 6);
-		blockRect = new Rect(screenPosition.x - healthBarWidth / 2 - 1, screenPosition.y - 14 + 7, healthBarWidth + 2, 6);
-		
 		GUI.DrawTexture(healthRect, healthContainerTex, ScaleMode.StretchToFill, true);
-
-		if(entity.blockingEnabled)
-			GUI.DrawTexture(blockRect, healthContainerTex, ScaleMode.StretchToFill, true);
 		
-		// Fill the bars
+		// Fill the bar
 		healthFillRect = new Rect(healthRect.x + 1, healthRect.y + 1, entity.curHealthBarWidth, healthRect.height - 2);
-		blockFillRect = new Rect(blockRect.x + 1, blockRect.y + 1, (blockRect.width - 2) * entity.energyRatio, blockRect.height - 2);
-		
 		GUI.DrawTexture(healthFillRect, healthTex, ScaleMode.StretchToFill, true);
 
-		if(entity.blockingEnabled)
+		// Energy
+		if(entity.blockingEnabled) {
+			// Container
+			blockRect = new Rect(screenPosition.x - healthBarWidth / 2 - 1, screenPosition.y - 14 + 7, healthBarWidth + 2, 6);
+			GUI.DrawTexture(blockRect, healthContainerTex, ScaleMode.StretchToFill, true);
+
+			// Fill the bar
+			blockFillRect = new Rect(blockRect.x + 1, blockRect.y + 1, (blockRect.width - 2) * entity.energyRatio, blockRect.height - 2);
 			GUI.DrawTexture(blockFillRect, energyTex, ScaleMode.StretchToFill, true);
+		}
 	}
 }

@@ -1,6 +1,5 @@
 using uLobby;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,8 +17,6 @@ public class LobbyChat : LobbyModule<LobbyChat> {
 	
 	[HideInInspector]
 	public bool chatInputEnabled = true;
-	
-	public bool chatInputFocused { get; protected set; }
 	
 	private Color chatInputColor;
 	
@@ -210,6 +207,7 @@ public class LobbyChat : LobbyModule<LobbyChat> {
 					}
 				}
 			} else {
+				// Focus with enter key
 				if(Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return && Login.instance.popupWindow == null) {
 					GUIHelper.Focus("LobbyChatInput");
 					Event.current.Use();
@@ -304,7 +302,36 @@ public class LobbyChat : LobbyModule<LobbyChat> {
 		
 		return channel;
 	}
-	
+
+#region Properties
+	private bool _chatInputFocused;
+
+	// Chat input focused
+	public bool chatInputFocused {
+		get {
+			return _chatInputFocused;
+		}
+
+		protected set {
+			if(_chatInputFocused != value) {
+				_chatInputFocused = value;
+
+				// Inform server
+				if(Player.main != null && currentChannelVisibleOnMap)
+					Player.main.networkView.RPC("ClientChatFocused", uLink.RPCMode.Server, _chatInputFocused);
+			}
+		}
+	}
+
+	// Current channel visible on map
+	bool currentChannelVisibleOnMap {
+		get {
+			return currentChannel == "Map" || currentChannel == "Global" || currentChannel == "Announcement";
+		}
+	}
+#endregion
+
+#region RPCs
 	// --------------------------------------------------------------------------------
 	// RPCs
 	// --------------------------------------------------------------------------------
@@ -361,12 +388,5 @@ public class LobbyChat : LobbyModule<LobbyChat> {
 			}
 		}
 	}
-	
-	/*[RPC]
-	void ChatStatus(string channel, ChatMember nMember) {
-		var chatMember = members.Find(o => o.accountId == nMember.accountId);
-		
-		if(chatMember != null)
-			chatMember.status = nMember.status;
-	}*/
+#endregion
 }

@@ -414,7 +414,8 @@ public class PlayerOnServer : Player, CasterOnServer {
 			}
 			
 			networkView.RPC("ChangeLayer", player, this.layer);
-			networkView.RPC("ReceivePlayerInfo", player, name, stats.ranking);
+			networkView.RPC("ReceivePlayerName", player, name);
+			networkView.RPC("ReceiveBestRanking", player, stats.bestRanking);
 			networkView.RPC("ReceiveMainGuildInfo", player, this.guildName, this.guildTag);
 			networkView.RPC("ReceiveSkillBuild", player, this.skillBuild);
 			networkView.RPC("ReceiveCharacterCustomization", player, this.customization);
@@ -1138,6 +1139,16 @@ public class PlayerOnServer : Player, CasterOnServer {
 		}
 		
 		ltsClientChat = info.timestamp;
+	}
+
+	[RPC]
+	void ClientChatFocused(bool focused, uLink.NetworkMessageInfo info) {
+		// Make sure we throw away messages from the wrong client
+		if(info.sender != networkView.owner)
+			return;
+
+		// Inform others
+		networkView.RPC("ChatFocused", uLink.RPCMode.Others, focused);
 	}
 
 	[RPC]
