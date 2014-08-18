@@ -5054,7 +5054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa09a30cc17df914d874ba62697a03a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicEnabled: 0
+  musicEnabled: 1
   fadeInCurve:
     serializedVersion: 2
     m_Curve:

@@ -49550,9 +49550,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tracks:
-  - audioClip: {fileID: 8300000, guid: 763b16ca3b4ef7f40b5369ed87c439fa, type: 3}
-    pitchMin: 1
-    pitchMax: 1
+  - audioClip: {fileID: 8300000, guid: 63f0aa61c5bd0bd46bfd63371ea98bd1, type: 3}
+    pitchMin: .949999988
+    pitchMax: 1.04999995
     isFirstTrack: 0
 --- !u!1001 &1755850544
 Prefab:

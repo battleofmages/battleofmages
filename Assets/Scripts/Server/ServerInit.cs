@@ -130,10 +130,10 @@ public class ServerInit : uLink.MonoBehaviour {
 			} else if (arg.StartsWith("-databaseIP") && arg.Length > "-databaseIP".Length) {
 				databaseIP = arg.Substring("-databaseIP".Length);
 			// Database Port
-			}else if(arg.StartsWith("-databasePort") && arg.Length > "-databasePort".Length) {
+			} else if(arg.StartsWith("-databasePort") && arg.Length > "-databasePort".Length) {
 				databasePort = int.Parse(arg.Substring("-databasePort".Length));
 				// Account ID
-			}else {
+			} else {
 				if(partyId >= 0 && partyId < GameServerParty.partyList.Count) {
 					var currentParty = GameServerParty.partyList[partyId];
 					accountToParty[arg] = currentParty;
