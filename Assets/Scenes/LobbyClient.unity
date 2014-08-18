@@ -1077,7 +1077,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 9216bc668659c734784a99fbb50b55b2, type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 573145782}
-  m_LocalRotation: {x: .134075418, y: -.826218367, z: -.221384838, w: -.500375628}
+  m_LocalRotation: {x: .134075657, y: -.826218247, z: -.221385226, w: -.500375569}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1265,8 +1265,10 @@ MonoBehaviour:
   matchAcceptTime: 15
   quickPortDistance: 10
   quickPortCooldown: .25
-  quickPortEnergyDrain: 10
-  maxQuickPortDoublePressDelay: .5
+  quickPortEnergyDrain: 20
+  maxQuickPortDoublePressDelay: .25
+  quickPortFromEffect: {fileID: 100000, guid: 3cb7a268bf43507458f490d26701746b, type: 2}
+  quickPortToEffect: {fileID: 100000, guid: c068c0ce65a18324ca0188b70fcabc87, type: 2}
   openWorldPvPLayer: 29
   skillLayersStart: 18
   skillLayersCount: 10
@@ -8237,7 +8239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be69fa483b4818b40a76c2c0aeff9292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  versionNumber: 46
+  versionNumber: 47
 --- !u!114 &2051072778
 MonoBehaviour:
   m_ObjectHideFlags: 0
