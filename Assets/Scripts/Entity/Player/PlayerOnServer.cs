@@ -985,6 +985,25 @@ public class PlayerOnServer : Player, CasterOnServer {
 			}
 		}
 	}
+
+	[RPC]
+	public void ClientQuickPort(float angle, uLink.NetworkMessageInfo info) {
+		// Make sure we throw away late and duplicate RPC messages, or from the wrong client
+		if(info.sender != networkView.owner)
+			return;
+		
+		// Are we able to do it?
+		if(!canQuickPort) {
+			LogWarning("QuickPortRejected: Can't quickport now");
+			return;
+		}
+
+		// Let others know about it
+		networkView.RPC("QuickPort", uLink.RPCMode.OthersExceptOwner, angle);
+
+		// Do it on the server
+		QuickPort(angle);
+	}
 	
 	[RPC]
 	void ClientStartBlock(uLink.NetworkMessageInfo info) {

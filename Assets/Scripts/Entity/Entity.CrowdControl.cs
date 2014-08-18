@@ -119,6 +119,21 @@ public abstract partial class Entity : uLink.MonoBehaviour, PartyMember<Entity> 
 			return isAlive && stunned == 0 && immobilized == 0 && slept == 0 && stagger == 0;
 		}
 	}
+
+	// Can quickport
+	public bool canQuickPort {
+		get {
+			return (
+				isAlive &&
+				(uLink.Network.time - lastQuickPort > Config.instance.quickPortCooldown) &&
+				energy >= Config.instance.quickPortEnergyDrain &&
+				stunned == 0 &&
+				immobilized == 0 &&
+				slept == 0 &&
+				stagger == 0
+			);
+		}
+	}
 	
 	// Can't move
 	public bool cantMove {

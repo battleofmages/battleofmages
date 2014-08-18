@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class AIController : Controller {
+﻿public sealed class AIController : Controller {
 	private Entity entity;
 	private byte slotId;
 	private float maxSkillValue;
@@ -74,6 +72,20 @@ public class AIController : Controller {
 				return false;
 			
 			return true;
+		}
+	}
+
+	// Wants to hover
+	public bool wantsToHover {
+		get {
+			return false;
+		}
+	}
+
+	// Wants to quickport
+	public bool wantsToQuickPort {
+		get {
+			return false;
 		}
 	}
 }

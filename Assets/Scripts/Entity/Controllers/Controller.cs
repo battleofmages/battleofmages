@@ -8,4 +8,6 @@
 
 	bool holdsSkill {get;}
 	bool canStartCast {get;}
+	bool wantsToHover {get;}
+	bool wantsToQuickPort {get;}
 }

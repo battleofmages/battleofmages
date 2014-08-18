@@ -1,12 +1,16 @@
 using UnityEngine;
 
-public class HumanController : Controller {
+public sealed class HumanController : Controller {
 	private InputManager inputManager;
 	private InputButtons buttons;
 	private Vector3 inputVector;
 	private int currentAdvanceButton;
-	protected LobbyChat lobbyChat;
+	private LobbyChat lobbyChat;
 	private byte slotId;
+
+	// QuickPort
+	private double lastQuickPortKeyUp;
+	private bool quickPortKeyPressed;
 
 	// Input buttons
 	public class InputButtons {
@@ -188,6 +192,28 @@ public class HumanController : Controller {
 	public bool holdsSkill {
 		get {
 			return inputManager.GetButton(currentAdvanceButton);
+		}
+	}
+
+	// Wants to hover
+	public bool wantsToHover {
+		get {
+			return inputManager.GetButton(buttons.Hover);
+		}
+	}
+	
+	// Wants to quickport
+	public bool wantsToQuickPort {
+		get {
+			bool newQuickPortKeyPressed = inputManager.GetButton(buttons.Hover);
+
+			// KeyUp event
+			if(quickPortKeyPressed && !newQuickPortKeyPressed)
+				lastQuickPortKeyUp = uLink.Network.time;
+
+			quickPortKeyPressed = newQuickPortKeyPressed;
+
+			return quickPortKeyPressed && (uLink.Network.time - lastQuickPortKeyUp <= Config.instance.maxQuickPortDoublePressDelay);
 		}
 	}
 }

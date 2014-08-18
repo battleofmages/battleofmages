@@ -4280,7 +4280,10 @@ MonoBehaviour:
   deathColliderDisableTime: 1
   skillInstanceDestructionTime: 9
   matchAcceptTime: 15
-  gcCollectDelay: .100000001
+  quickPortDistance: 10
+  quickPortCooldown: .25
+  quickPortEnergyDrain: 20
+  maxQuickPortDoublePressDelay: .25
   openWorldPvPLayer: 29
   skillLayersStart: 18
   skillLayersCount: 10
