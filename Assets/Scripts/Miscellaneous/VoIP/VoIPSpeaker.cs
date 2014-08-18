@@ -17,7 +17,7 @@ public class VoIPSpeaker : MonoBehaviour {
 		int dspBufferSize;
 		int dspBufferCount;
 		AudioSettings.GetDSPBufferSize(out dspBufferSize, out dspBufferCount);
-		LogManager.General.Log("[VoIP] DSP buffer size: " + dspBufferSize + ", " + dspBufferCount);
+		LogManager.General.Log("[VoIP] DSP buffer size: " + dspBufferSize + " x " + dspBufferCount);
 		
 		samplesBuffer = new float[dspBufferSize * dspBufferCount * 16];
 		realPlayOffset = 0;
@@ -75,6 +75,22 @@ public class VoIPSpeaker : MonoBehaviour {
 			if(dataOffset >= samplesBuffer.Length)
 				dataOffset = 0;
 		}
+	}
+
+	// Create audio clip
+	public void CreateAudioClip(int frequency) {
+		LogManager.General.Log("[VoIPSpeaker] Creating audio clip with frequency " + frequency);
+
+		var clipSamples = new float[2048 * 16];
+		
+		for(int j = 0; j < clipSamples.Length; j++) {
+			clipSamples[j] = 1.0f;
+		}
+		
+		var newClip = AudioClip.Create("VoIPAudioClip", clipSamples.Length, 1, frequency, true, false);
+		newClip.SetData(clipSamples, 0);
+
+		audio.clip = newClip;
 	}
 
 	// Is playing
