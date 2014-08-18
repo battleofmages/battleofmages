@@ -4284,6 +4284,8 @@ MonoBehaviour:
   quickPortCooldown: .25
   quickPortEnergyDrain: 20
   maxQuickPortDoublePressDelay: .25
+  quickPortFromEffect: {fileID: 100000, guid: 3cb7a268bf43507458f490d26701746b, type: 2}
+  quickPortToEffect: {fileID: 100000, guid: c068c0ce65a18324ca0188b70fcabc87, type: 2}
   openWorldPvPLayer: 29
   skillLayersStart: 18
   skillLayersCount: 10
