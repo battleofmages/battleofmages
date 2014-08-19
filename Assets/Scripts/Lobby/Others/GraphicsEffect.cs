@@ -4,7 +4,8 @@ public class GraphicsEffect {
 	public string name;
 	public string componentName;
 	public string prefsId;
-	
+
+	// Activated
 	public bool activated {
 		get {
 			return _activated;

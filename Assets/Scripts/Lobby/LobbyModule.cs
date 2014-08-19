@@ -47,7 +47,8 @@ public abstract class LobbyModule<T> : SingletonMonoBehaviour<T>, NPCModule, Dra
 			guiDelayedExecution.Clear();
 		}
 	}
-	
+
+	// Virtual
 	public virtual void Draw() {}
 	public virtual void OnClick() {}
 	public virtual void OnNPCEnter() {}

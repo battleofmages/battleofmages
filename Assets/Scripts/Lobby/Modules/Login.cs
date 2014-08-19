@@ -3,7 +3,7 @@ using uLobby;
 using System.Collections;
 
 public class Login : LobbyModule<Login> {
-	public static string changeLog = null;
+	public static string changeLog;
 	
 	public string lobbyHost;
 	public string editorLobbyHost;
