@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 [CustomEditor(typeof(StartUp))]
 public class StartUpEditor : Editor {
-	private static readonly GUIContent header = new GUIContent("StartUp Components", "Sorted array of components to initialize.");
+	private static readonly GUIContent header = new GUIContent("Initialization Order", "Sorted list of game objects that are initialized in a certain order.");
 
 	private StartUp startUp;
 	private ReorderableList itemList;
@@ -17,7 +17,9 @@ public class StartUpEditor : Editor {
 		items = serializedObject.FindProperty("initList");
 
 		itemList = new ReorderableList(serializedObject, items, true, true, true, true);
+
 		itemList.drawHeaderCallback += rect => GUI.Label(rect, header);
+
 		itemList.drawElementCallback += (rect, index, active, focused) => {
 			rect.height = 16;
 			rect.y += 2;

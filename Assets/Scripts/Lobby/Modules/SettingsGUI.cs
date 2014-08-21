@@ -2,6 +2,9 @@ using UnityEngine;
 using uLobby;
 
 public sealed class SettingsGUI : LobbyModule<SettingsGUI>, Initializable {
+	public UnityEngine.UI.Slider masterVolumeSlider;
+	private bool loadedPlayerPrefs;
+
 	public GUIContent[] contents;
 	
 	public bool vSync;
@@ -78,13 +81,16 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI>, Initializable {
 		AudioSettings.speakerMode = audioSpeakerModes[PlayerPrefs.GetInt("Audio_SpeakerMode", 0)];
 		
 		// Audio - Master volume
-		AudioListener.volume = PlayerPrefs.GetFloat("Audio_MasterVolume", AudioListener.volume);
+		masterVolume = PlayerPrefs.GetFloat("Audio_MasterVolume", AudioListener.volume);
 		
 		// Audio - Music volume
 		MusicManager.instance.PlayCategory(GameObject.FindGameObjectWithTag("Map").GetComponent<MusicCategory>());
 		
 		// Input - Mouse sensitivity
 		inputManager.mouseSensitivity = PlayerPrefs.GetFloat("Input_MouseSensitivity", inputManager.mouseSensitivity);
+
+		// We can start saving values in the registry now
+		loadedPlayerPrefs = true;
 	}
 	
 	// Draw
@@ -542,7 +548,11 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI>, Initializable {
 
 		set {
 			AudioListener.volume = value;
-			PlayerPrefs.SetFloat("Audio_MasterVolume", value);
+
+			if(loadedPlayerPrefs)
+				PlayerPrefs.SetFloat("Audio_MasterVolume", value);
+
+			masterVolumeSlider.value = value;
 		}
 	}
 #endregion

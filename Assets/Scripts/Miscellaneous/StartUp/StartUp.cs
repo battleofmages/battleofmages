@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public interface Initializable {
-	void Init();
-}
-
 public class StartUp : MonoBehaviour {
 	public List<GameObject> initList = new List<GameObject>();
 
