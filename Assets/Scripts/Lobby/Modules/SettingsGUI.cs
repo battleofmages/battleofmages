@@ -1,8 +1,7 @@
 using UnityEngine;
-using System.Collections;
 using uLobby;
 
-public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
+public sealed class SettingsGUI : LobbyModule<SettingsGUI>, Initializable {
 	public GUIContent[] contents;
 	
 	public bool vSync;
@@ -25,7 +24,6 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 	private bool enableCapture = true;
 	private bool modified = false;
 	private LobbyChat lobbyChat;
-	private MusicManager music;
 	
 	// Audio speaker modes
 	private AudioSpeakerMode[] audioSpeakerModes = {
@@ -47,18 +45,12 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 		"Surround 7.1",
 	};
 	
-	// Start
-	void Start() {
+	// Init
+	public void Init() {
 		// Receive RPCs from lobby
 		Lobby.AddListener(this);
 		
 		lobbyChat = this.GetComponent<LobbyChat>();
-		
-		var audioGameObject = GameObject.Find("Audio");
-		if(audioGameObject != null) {
-			music = audioGameObject.GetComponent<MusicManager>();
-		}
-		
 		inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
 		
 		// Load settings
@@ -89,11 +81,7 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 		AudioListener.volume = PlayerPrefs.GetFloat("Audio_MasterVolume", AudioListener.volume);
 		
 		// Audio - Music volume
-		if(music != null) {
-			// NOTE: Music manager sets the volume itself
-			//music.volume = PlayerPrefs.GetFloat("Audio_MusicVolume", music.volume);
-			music.PlayCategory(GetComponent<MusicCategory>());
-		}
+		MusicManager.instance.PlayCategory(GameObject.FindGameObjectWithTag("Map").GetComponent<MusicCategory>());
 		
 		// Input - Mouse sensitivity
 		inputManager.mouseSensitivity = PlayerPrefs.GetFloat("Input_MouseSensitivity", inputManager.mouseSensitivity);
@@ -226,10 +214,7 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 		// Keys
 		using(new GUIVertical()) {
 			GUILayout.Label("Master volume", settingNameStyle);
-			
-			if(music != null)
-				GUILayout.Label("Music volume", settingNameStyle);
-			
+			GUILayout.Label("Music volume", settingNameStyle);
 			GUILayout.Label("Speaker mode", settingNameStyle);
 			GUILayout.Label("Microphone volume", settingNameStyle);
 			GUILayout.Label("Sample rate", settingNameStyle);
@@ -240,17 +225,14 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 			// Master volume
 			float newMasterVolume = GUIHelper.HorizontalSliderVCenter(AudioListener.volume, 0, 1, GUILayout.Height(24));
 			if(newMasterVolume != AudioListener.volume) {
-				AudioListener.volume = newMasterVolume;
-				PlayerPrefs.SetFloat("Audio_MasterVolume", newMasterVolume);
+				masterVolume = newMasterVolume;
 			}
 			
 			// Music volume
-			if(music != null) {
-				float newMusicVolume = GUIHelper.HorizontalSliderVCenter(music.volume, 0, 1, GUILayout.Height(24));
-				if(newMusicVolume != music.volume) {
-					music.volume = newMusicVolume;
-					PlayerPrefs.SetFloat("Audio_MusicVolume", newMusicVolume);
-				}
+			float newMusicVolume = GUIHelper.HorizontalSliderVCenter(MusicManager.instance.volume, 0, 1, GUILayout.Height(24));
+			if(newMusicVolume != MusicManager.instance.volume) {
+				MusicManager.instance.volume = newMusicVolume;
+				PlayerPrefs.SetFloat("Audio_MusicVolume", newMusicVolume);
 			}
 			
 			// Speaker mode
@@ -550,7 +532,21 @@ public sealed class SettingsGUI : LobbyModule<SettingsGUI> {
 			GUILayout.Label(SystemInfo.systemMemorySize.ToString() + " MB", settingValueStyle);*/
 		}
 	}
-	
+
+#region Properties
+	// Master volume
+	public float masterVolume {
+		get {
+			return AudioListener.volume;
+		}
+
+		set {
+			AudioListener.volume = value;
+			PlayerPrefs.SetFloat("Audio_MasterVolume", value);
+		}
+	}
+#endregion
+
 #region RPCs
 	// --------------------------------------------------------------------------------
 	// RPCs

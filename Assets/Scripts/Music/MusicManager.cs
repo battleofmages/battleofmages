@@ -4,13 +4,13 @@ using UnityEditor;
 
 using UnityEngine;
 
-public class MusicManager : LobbyModule<MusicManager> {
+public class MusicManager : LobbyModule<MusicManager>, Initializable {
 	public bool musicEnabled;
 
 	public AnimationCurve fadeInCurve;
 	public AnimationCurve fadeOutCurve;
 	public float fadeDuration;
-	
+
 	public Texture2D playIcon;
 	public Texture2D pauseIcon;
 	public Texture2D stopIcon;
@@ -36,8 +36,8 @@ public class MusicManager : LobbyModule<MusicManager> {
 	private float[] bandLevels;
 	private float[] meter;
 
-	// Start
-	void Start() {
+	// Init
+	public void Init() {
 		audioSources = new AudioSource[2];
 		audioSources[0] = transform.GetChild(0).GetComponent<AudioSource>();
 		audioSources[1] = transform.GetChild(1).GetComponent<AudioSource>();

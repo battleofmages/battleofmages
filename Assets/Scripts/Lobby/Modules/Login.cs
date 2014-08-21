@@ -101,7 +101,7 @@ public class Login : LobbyModule<Login> {
 		
 		SetupApplicationForLobby();
 		gameLobby = GetComponent<InGameLobby>();
-		clientVersionNumber = GetComponent<Version>().versionNumber;
+		clientVersionNumber = Version.instance.versionNumber;
 		intro = GetComponent<Intro>();
 		introEnabled = intro.enabled;
 		textFieldHeight = GUILayout.Height(24);
@@ -158,7 +158,7 @@ public class Login : LobbyModule<Login> {
 	
 	// OnGUI
 	void OnGUI() {
-		Draw();
+		//Draw();
 	}
 	
 	// Draw

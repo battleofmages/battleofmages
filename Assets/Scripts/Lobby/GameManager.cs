@@ -89,6 +89,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 		_currentState = _nextState;
 	}
 
+	// Quit
+	public void Quit() {
+		LogManager.General.Log("Quitting game...");
+		Application.Quit();
+	}
+
 #region RPCs (Lobby)
 	[RPC]
 	public void ReceiveServerType(ServerType type) {
