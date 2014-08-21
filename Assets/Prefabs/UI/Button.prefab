@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Mat: {fileID: 0}
   m_Color: {r: .195999995, g: .195999995, b: .195999995, a: 1}
   m_FontData:
-    m_Font: {fileID: 12800000, guid: ff358d2c7abee5843bc9ae6252275bf1, type: 3}
+    m_Font: {fileID: 12800000, guid: 69922d1f034ce224da995d980e5f2862, type: 3}
     m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
