@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using uLobby;
 using System.Collections;
 
@@ -66,9 +67,17 @@ public class Login : LobbyModule<Login> {
 	private bool accountNameLoaded = false;
 	private bool accountPasswordFocused = false;
 	private const string encryptedPasswordString = "--------------------";
-	
-	private int loginRequests;
-	private int loginRequestResponses;
+
+	public int loginRequestCount {
+		get;
+		protected set;
+	}
+
+	public int loginRequestResponseCount {
+		get;
+		protected set;
+	}
+
 	private int clientVersionNumber;
 	private int serverVersionNumber;
 	
@@ -287,45 +296,6 @@ public class Login : LobbyModule<Login> {
 		GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
 	}
 	
-	// Draw tooltip
-	void DrawTooltip() {
-		string tooltip = GUI.tooltip;
-		
-		if(string.IsNullOrEmpty(tooltip))
-			return;
-		
-		GUI.color = Color.white;
-		GUI.backgroundColor = Color.white;
-		GUI.contentColor = Color.white;
-		
-		Vector2 tooltipSize = GUI.skin.label.CalcSize(new GUIContent(tooltip));
-		tooltipSize.x += 5;
-		tooltipSize.y += 4;
-		
-		Vector2 mousePos = InputManager.GetMousePosition();
-		Rect tooltipRect = new Rect(mousePos.x + tooltipOffset.x, mousePos.y + tooltipOffset.y, tooltipSize.x + 3, tooltipSize.y + 3);
-		
-		float offset;
-		
-		if(tooltipRect.x + tooltipRect.width > GUIArea.width) {
-			offset = (tooltipRect.x + tooltipRect.width) - GUIArea.width;
-			tooltipRect.x -= offset;
-		}
-		
-		if(tooltipRect.y + tooltipRect.height > GUIArea.height) {
-			offset = (tooltipRect.y + tooltipRect.height) - GUIArea.height;
-			tooltipRect.y -= offset;
-		}
-		
-		// 3 times because GUI.Box sucks >.>
-		GUI.Box(tooltipRect, "");
-		GUI.Box(tooltipRect, "");
-		GUI.Box(tooltipRect, "");
-		
-		GUI.color = Color.white;
-		GUI.Label(tooltipRect, tooltip, tooltipStyle);
-	}
-	
 	// Update
 	public new void Update() {
 		base.Update();
@@ -494,7 +464,7 @@ public class Login : LobbyModule<Login> {
 		GUILayout.FlexibleSpace();
 		
 		// Disable GUI while trying to log in
-		GUI.enabled = (loginRequests == loginRequestResponses);
+		GUI.enabled = (loginRequestCount == loginRequestResponseCount);
 		
 		GUILayout.Label("<b>E-Mail</b>");
 		GUI.SetNextControlName("AccountEmail");
@@ -531,7 +501,7 @@ public class Login : LobbyModule<Login> {
 			GUI.enabled = (
 				GameDB.IsTestAccount(accountEmail) || 
 				(
-					loginRequests == loginRequestResponses &&
+					loginRequestCount == loginRequestResponseCount &&
 					Validator.email.IsMatch(accountEmail) //&&
 					//Validator.password.IsMatch(accountPassword)
 				)
@@ -722,6 +692,29 @@ public class Login : LobbyModule<Login> {
 			}
 		}
 	}
+
+	public InputField emailField;
+	public InputField passwordField;
+
+	// LogIn
+	public void LogIn() {
+		SendLoginRequest(emailField.text.text, passwordField.text.text);
+	}
+
+	// Update login data
+	public bool canLogIn {
+		get {
+			accountEmail = emailField.text.text;
+			
+			return (
+				GameDB.IsTestAccount(accountEmail) || 
+				(
+					Login.instance.loginRequestCount == Login.instance.loginRequestResponseCount &&
+					Validator.email.IsMatch(accountEmail)
+				)
+			);
+		}
+	}
 	
 	// Send login request
 	void SendLoginRequest(string email, string password) {
@@ -743,7 +736,7 @@ public class Login : LobbyModule<Login> {
 		accountPasswordEncrypted = encryptedPassword;
 		Lobby.RPC("LobbyAccountLogIn", Lobby.lobby, email, accountPasswordEncrypted, SystemInfo.deviceUniqueIdentifier);
 		
-		loginRequests += 1;
+		loginRequestCount += 1;
 		statusMessage = "Logging in to account " + email + "...";
 	}
 	
@@ -790,6 +783,45 @@ public class Login : LobbyModule<Login> {
 		
 		GUIHelper.EndBox();
 	}
+
+	// Draw tooltip
+	void DrawTooltip() {
+		string tooltip = GUI.tooltip;
+		
+		if(string.IsNullOrEmpty(tooltip))
+			return;
+		
+		GUI.color = Color.white;
+		GUI.backgroundColor = Color.white;
+		GUI.contentColor = Color.white;
+		
+		Vector2 tooltipSize = GUI.skin.label.CalcSize(new GUIContent(tooltip));
+		tooltipSize.x += 5;
+		tooltipSize.y += 4;
+		
+		Vector2 mousePos = InputManager.GetMousePosition();
+		Rect tooltipRect = new Rect(mousePos.x + tooltipOffset.x, mousePos.y + tooltipOffset.y, tooltipSize.x + 3, tooltipSize.y + 3);
+		
+		float offset;
+		
+		if(tooltipRect.x + tooltipRect.width > GUIArea.width) {
+			offset = (tooltipRect.x + tooltipRect.width) - GUIArea.width;
+			tooltipRect.x -= offset;
+		}
+		
+		if(tooltipRect.y + tooltipRect.height > GUIArea.height) {
+			offset = (tooltipRect.y + tooltipRect.height) - GUIArea.height;
+			tooltipRect.y -= offset;
+		}
+		
+		// 3 times because GUI.Box sucks >.>
+		GUI.Box(tooltipRect, "");
+		GUI.Box(tooltipRect, "");
+		GUI.Box(tooltipRect, "");
+		
+		GUI.color = Color.white;
+		GUI.Label(tooltipRect, tooltip, tooltipStyle);
+	}
 #endregion
 	
 #region Callbacks
@@ -817,7 +849,7 @@ public class Login : LobbyModule<Login> {
 		
 		ArenaGUI.instance.ResetQueueInfo();
 		
-		loginRequestResponses += 1;
+		loginRequestResponseCount += 1;
 	}
 	
 	// OnAccountLoggedOut
@@ -855,7 +887,7 @@ public class Login : LobbyModule<Login> {
 				break;
 		}
 		
-		loginRequestResponses += 1;
+		loginRequestResponseCount += 1;
 	}
 	
 	// OnAccountRegistered
@@ -884,8 +916,8 @@ public class Login : LobbyModule<Login> {
 		
 		// Reset these counters to prevent the user from not being
 		// able to log in after a reconnect:
-		loginRequests = 0;
-		loginRequestResponses = 0;
+		loginRequestCount = 0;
+		loginRequestResponseCount = 0;
 		
 		// Decode
 		if(!string.IsNullOrEmpty(accountPasswordEncrypted)) {
@@ -943,7 +975,7 @@ public class Login : LobbyModule<Login> {
 		accountNotActivated = true;
 		statusMessage = "Failed to login: Account has not been activated yet. Please check your mail.";
 		
-		loginRequestResponses += 1;
+		loginRequestResponseCount += 1;
 	}
 	
 	[RPC]
