@@ -6,7 +6,7 @@ public class ReturnButton : HUDElement {
 		// Return to lobby
 		GUI.backgroundColor = Color.white;
 		if(GUI.Button(new Rect(0, 0, 128, 32), "Return")) {
-			Login.instance.ReturnToWorld();
+			OldLogin.instance.ReturnToWorld();
 		}
 	}
 }

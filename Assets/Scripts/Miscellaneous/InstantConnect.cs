@@ -8,7 +8,7 @@ public class InstantConnect : MonoBehaviour {
 	// Start
 	void Start() {
 #if !UNITY_WEBPLAYER
-		if(Login.instance == null) {
+		if(OldLogin.instance == null) {
 			uLink.Network.Connect(serverIP, serverPort);
 		}
 #endif

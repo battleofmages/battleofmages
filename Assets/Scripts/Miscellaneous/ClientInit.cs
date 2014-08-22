@@ -24,7 +24,7 @@ uzf/lC9NYarw==", @"EQ==");
 		uLink.Network.InitializeSecurity(true);
 		
 		// Init codecs for quick client test mode
-		if(Login.instance == null) {
+		if(OldLogin.instance == null) {
 			GameDB.InitCodecs();
 		}
 		

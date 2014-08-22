@@ -208,7 +208,7 @@ public class LobbyChat : LobbyModule<LobbyChat> {
 				}
 			} else {
 				// Focus with enter key
-				if(Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return && Login.instance.popupWindow == null) {
+				if(Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return && OldLogin.instance.popupWindow == null) {
 					GUIHelper.Focus("LobbyChatInput");
 					Event.current.Use();
 				}

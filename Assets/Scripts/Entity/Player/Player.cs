@@ -566,8 +566,8 @@ public abstract class Player : Entity {
 				nameLabel.enabled = true;
 			
 			// Necessary to unfocus the scroll view from DeathReview
-			if(Login.instance != null)
-				Login.instance.clearFlag = true;
+			if(OldLogin.instance != null)
+				OldLogin.instance.clearFlag = true;
 			else
 				GUIUtility.hotControl = 0;
 		}

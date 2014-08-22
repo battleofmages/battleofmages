@@ -53,7 +53,7 @@ public class PasswordChangeWindow : PopupWindow {
 			}
 			
 			// New password
-			GUI.enabled = oldPassword != newPassword && (oldPassword == Login.instance.accountPassword || oldPasswordEncrypted == Login.instance.accountPasswordEncrypted);
+			GUI.enabled = oldPassword != newPassword && (oldPassword == OldLogin.instance.accountPassword || oldPasswordEncrypted == OldLogin.instance.accountPasswordEncrypted);
 			using(new GUIHorizontal()) {
 				GUILayout.Label("New password:");
 				GUI.SetNextControlName("NewPassword");
@@ -63,7 +63,7 @@ public class PasswordChangeWindow : PopupWindow {
 			// Accept / Cancel
 			using(new GUIHorizontalCenter()) {
 				GUI.enabled = GUI.enabled && (
-					GameDB.IsTestAccount(Login.instance.accountEmail) ||
+					GameDB.IsTestAccount(OldLogin.instance.accountEmail) ||
 					Validator.password.IsMatch(newPassword)
 				);
 				if(GUIHelper.Button("Change", controlID, GUILayout.Width(80))) {
@@ -72,8 +72,8 @@ public class PasswordChangeWindow : PopupWindow {
 					if(accept != null)
 						accept(oldPassword, newPassword);
 					
-					Login.instance.accountPassword = newPassword;
-					Login.instance.accountPasswordEncrypted = null;
+					OldLogin.instance.accountPassword = newPassword;
+					OldLogin.instance.accountPasswordEncrypted = null;
 					this.Close();
 				}
 				

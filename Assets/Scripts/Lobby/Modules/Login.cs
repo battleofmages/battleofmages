@@ -1,155 +1,67 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using uLobby;
-using System.Collections;
 
 public class Login : LobbyModule<Login> {
-	public static string changeLog;
-	
+	private const string encryptedPasswordString = "--------------------";
+
+	[Header("Lobby Server")]
 	public string lobbyHost;
 	public string editorLobbyHost;
 	public int lobbyPort;
-	public int lobbyFrameRate;
-	
-	public bool lowerFPSWhenIdle;
-	public int lobbyFrameRateIdle;
-	
-	public bool enableLobby;
-	
-	public int guiDepth = 0;
-	
-	public string changeLogURL;
-	public Rect changeLogRect;
-	
-	private Vector2 changeLogScroll = Vector2.zero;
-	
+
+	[Header("Retrieve Lobby Server IP")]
 	public bool retrieveLobbyIP = false;
 	public string lobbyIpURL;
-	
+
+	[Header("Lobby FPS")]
+	public int lobbyFrameRate;
+	public bool lowerFPSWhenIdle;
+	public int lobbyFrameRateIdle;
+
+	[Header("Auto Login")]
 	public bool editorAutoLogin;
 	public string editorAccountName;
 	public string editorPassword;
 
-	public Texture2D cursorIcon;
-	public Vector2 cursorHotSpot;
-	public CursorMode cursorMode;
+	[Header("UI")]
+	public InputField emailField;
+	public InputField passwordField;
+	public Button loginButton;
+	public GameObject connectingPanel;
+	public GameObject loginPanel;
+	public Text statusMessageLabel;
+	public Button resendActivationMailButton;
 
-	public Vector2 loginGUIDimensions;
-	public Vector2 registerGUIDimensions;
-	
-	public GUIStyle tooltipStyle;
-	public Vector2 tooltipOffset;
-
-	public Texture2D closeIcon;
-	
-	public ProgressBarStyle progressBarStyle;
-	
-	[HideInInspector]
-	public PopupMenu popupMenu;
-	
-	[HideInInspector]
-	public PopupWindow popupWindow;
-	
-	[HideInInspector]
-	public PopupWindow nextPopupWindow;
-	
-	[HideInInspector]
-	public string accountEmail = "";
-	
-	[HideInInspector]
-	public string accountPassword = "";
-	
-	[HideInInspector]
-	public string accountPasswordEncrypted = null;
-	
-	private string statusMessage = "";
-	private bool accountNameFocused = false;
-	private bool accountNameLoaded = false;
-	private bool accountPasswordFocused = false;
-	private const string encryptedPasswordString = "--------------------";
-
-	public int loginRequestCount {
-		get;
-		protected set;
-	}
-
-	public int loginRequestResponseCount {
-		get;
-		protected set;
-	}
-
-	private int clientVersionNumber;
-	private int serverVersionNumber;
-	
-	private InGameLobby gameLobby;
-	private GUILayoutOption textFieldHeight;
-	
-	public static Account myAccount;
-	
+	// Inactivate account
 	private string inactiveEmail;
-	private bool accountNotActivated;
-	
-	[HideInInspector]
-	public bool clearFlag;
-	
-	private Intro intro;
-	private bool introEnabled;
-	
-	// Setup
+
+#region Functions
+	// Start
 	void Start() {
+		// System report
 		LogManager.System.GenerateReport();
-		
+
+		// Genuine check
 		if(Application.genuineCheckAvailable && !Application.genuine) {
 			LogManager.General.LogError("Client files have been modified, quitting.");
 			Application.Quit();
 			return;
 		}
 
-		// Cursor
-		Cursor.SetCursor(cursorIcon, cursorHotSpot, cursorMode);
-		
-		SetupApplicationForLobby();
-		gameLobby = GetComponent<InGameLobby>();
-		clientVersionNumber = Version.instance.versionNumber;
-		intro = GetComponent<Intro>();
-		introEnabled = intro.enabled;
-		textFieldHeight = GUILayout.Height(24);
-		popupMenu = null;
-		accountNotActivated = false;
-		
-		// FOR TESTING ONLY
+		// Set frame rate
+		Application.targetFrameRate = lobbyFrameRate;
+
+		// Reset status message
+		statusMessage = "";
+
+		// Editor only
 #if UNITY_EDITOR
-		if(!Application.CanStreamedLevelBeLoaded("Client")) {
-			editorAutoLogin = false;
-			LogManager.General.LogError("<color=red>YOU FORGOT TO ADD THE CLIENT SCENE IN THE BUILD SETTINGS</color>");
-		}
-		
-		if(editorAutoLogin) {
-			intro.enabled = false;
-			introEnabled = false;
-		}
-		
-		retrieveLobbyIP = false;
-		lobbyHost = editorLobbyHost;
+		InitEditorData();
 #endif
-
-		// Retrieve lobby IP
-		if(retrieveLobbyIP) {
-			StartCoroutine(NetworkHelper.DownloadIPAndPort(lobbyIpURL, (host, port) => {
-				lobbyHost = host;
-				lobbyPort = port;
-				
-				ConnectToLobby();
-			}));
-		}
-		
-		// Retrieve changelog
-		WWW changeLogRequest = new WWW(changeLogURL);
-		StartCoroutine(DownloadChangeLog(changeLogRequest));
-
 		// Public key
 		NetworkHelper.InitPublicLobbyKey();
-
+		
 		// Receive lobby events
 		Lobby.AddListener(this);
 		
@@ -159,260 +71,54 @@ public class Login : LobbyModule<Login> {
 		AccountManager.OnAccountRegistered += OnAccountRegistered;
 		AccountManager.OnLogInFailed += OnLogInFailed;
 		AccountManager.OnRegisterFailed += OnRegisterFailed;
-		
-		// Connect to lobby
-		if(!retrieveLobbyIP)
-			ConnectToLobby();
-	}
-	
-	// OnGUI
-	void OnGUI() {
-		//Draw();
-	}
-	
-	// Draw
-	public override void Draw() {
-		// Top layer
-		GUI.depth = 0;
 
-		// Set GUI font
-		if(GUI.skin.font != Config.instance.font)
-			GUI.skin.font = Config.instance.font;
-		
-		GUIArea.width = Screen.width;
-		GUIArea.height = Screen.height;
-		
-		if(introEnabled)
-			return;
-		
-		// Always draw the invisible focus control
-		GUIHelper.UnityFocusFix();
-		
-		// Clear focus
-		ClearFocus();
-		
-		// Exit button and version number
-		DrawExitButtonAndVersion();
-		
-		// Clearing popup menu
-		bool popupClear = false;
-		if(
-			popupMenu != null && 
-			(
-				(Event.current.isMouse && Event.current.type == EventType.MouseUp && Event.current.button == 0) || 
-				(Event.current.isKey && Event.current.keyCode == KeyCode.Escape)
-			)
-		) {
-			popupClear = true;
-		}
-		
-		// General keys
-		UpdateGeneralKeys();
-		
-		// State
-		switch(GameManager.currentState) {
-			case State.ConnectingToLobby:	ConnectingToLobbyGUI(); break;
-			case State.Disconnected:		DisconnectedGUI(); 		break;
-			case State.Update:				PleaseUpdateGUI();		break;
-			case State.LogIn:				LoginGUI(); 			break;
-			case State.Register:			RegisterGUI(); 			break;
-			case State.License:				LicenseGUI();			break;
-			case State.Lobby:				LobbyGUI(); 			break;
-			case State.Game:
-				/*if(Event.current.isKey && Event.current.keyCode == KeyCode.Tab || Event.current.character == '\t' && !gameLobby.lobbyChat.chatInputFocused) {
-					if(GameManager.serverType != ServerType.Town || Player.main == null || !Player.main.talkingWithNPC) {
-						GUIHelper.Focus(GUI.GetNameOfFocusedControl());
-						Event.current.Use();
-					}
-				}*/
+		// Connect
+		if(retrieveLobbyIP) {
+			// Download IP and port from text file
+			StartCoroutine(NetworkHelper.DownloadIPAndPort(lobbyIpURL, (host, port) => {
+				lobbyHost = host;
+				lobbyPort = port;
 				
-				if(MainMenu.instance != null && (MainMenu.instance.currentState == InGameMenuState.Lobby)) {
-					using(new GUIArea(Screen.width * 0.95f, Screen.height * 0.95f)) {
-						LobbyGUI();
-					}
-				}
-				
-				// On 1366 x 768 laptop screen you should use
-				// 0.85f width for profile at least, 0.91f for artifacts
-				// 0.75f height max
-				if(Player.main != null && Player.main.talkingWithNPC) {
-					using(new GUIArea(Screen.width * 0.91f, Screen.height * 0.75f)) {
-						Player.main.talkingWithNPC.Draw();
-					}
-				}
-				break;
-		}
-		
-		// Changelog
-		DrawChangeLog();
-		
-		// Popup menu
-		if(popupMenu != null) {
-			popupMenu.Draw();
-			
-			if(popupClear && popupMenu != null)
-				popupMenu.Close();
-		}
-		
-		// Tooltip
-		DrawTooltip();
-		
-		// Popup window
-		if(popupWindow != null) {
-			// Dim background
-			DimBackground();
-			
-			using(new GUIArea(new Rect(GUIArea.width * 0.25f, GUIArea.height * 0.25f, GUIArea.width * 0.5f, GUIArea.height * 0.5f))) {
-				using(new GUIVerticalCenter()) {
-					using(new GUIHorizontalCenter()) {
-						popupWindow.DrawAll();
-					}
-				}
-			}
-		}
-		
-		// Disable game input when GUI is active
-		if(GUIUtility.hotControl != 0 || GUIUtility.keyboardControl != 0) {
-			InputManager.ignoreInput = true;
-			InputManager.instance.Clear();
+				Connect();
+			}));
 		} else {
-			InputManager.ignoreInput = false;
+			// Connect with the provided host data
+			Connect();
 		}
-		
-		// Debug
-		if(Debugger.instance.debugGUI && Event.current.type == EventType.Layout) {
-			Debugger.Label("FocusedControl: " + GUI.GetNameOfFocusedControl());
-			Debugger.Label("HotControl: " + GUIUtility.hotControl.ToString());
-			Debugger.Label("KeyboardControl: " + GUIUtility.keyboardControl.ToString());
-		}
-		
-		// Debugger
-		Debugger.instance.Draw();
-	}
-	
-	// Dim background
-	void DimBackground() {
-		// TODO: Make a filled texture out of it
-		GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
-	}
-	
-	// Update
-	public new void Update() {
-		base.Update();
-		
-		popupWindow = nextPopupWindow;
-		
-		if(popupWindow != null)
-			popupWindow.Update();
-		
-		if(introEnabled == true && intro.enabled == false) {
-			accountNameFocused = false;
-			accountPasswordFocused = false;
-			introEnabled = intro.enabled;
-		}
-		
-		switch(Lobby.connectionStatus) {
-			case LobbyConnectionStatus.Connecting: 		GameManager.currentState = State.ConnectingToLobby;	break;
-			case LobbyConnectionStatus.Disconnected:	GameManager.currentState = State.Disconnected; 		break;
-		}
-	}
-	
-	// Update general keys
-	void UpdateGeneralKeys() {
-		if(Event.current.type != EventType.KeyUp)
-			return;
-		
-		switch(Event.current.keyCode) {
-			case KeyCode.Escape:
-				//popupMenu = null;
-				if(popupWindow != null)
-					popupWindow.Close();
-				
-				if(!introEnabled && (accountNameFocused || accountPasswordFocused)) {
-					GUIHelper.ClearAllFocus();
-				}
-				break;
-				
-			// TODO: This doesn't work with KeyDown...but why?
-			case KeyCode.A:
-				if(Event.current.modifiers == EventModifiers.Control && GUIUtility.keyboardControl != 0) {
-					TextEditor t = (TextEditor)GUIUtility.GetStateObject(typeof(TextEditor), GUIUtility.keyboardControl);
-					t.SelectAll();
-				}
-				break;
-		}
-	}
-	
-	// Change state
-	public void ChangeState(State newState) {
-		clearFlag = true;
-		GameManager.currentState = newState;
-		statusMessage = "";
-	}
-	
-	// Also used for reconnecting
-	void ConnectToLobby() {
-		if(Lobby.connectionStatus != LobbyConnectionStatus.Connected) {
-			// Reset pending request count because we were disconnected
-			if(gameLobby.donationsGUI != null)
-				gameLobby.donationsGUI.pendingCrystalBalanceRequests = 0;
-			
-			if(gameLobby.guildsGUI != null)
-				gameLobby.guildsGUI.pendingGuildListRequests = 0;
-			
-			if(gameLobby.rankingGUI != null)
-				gameLobby.rankingGUI.pendingRankingListRequests = 0;
-			
-			//gameLobby.ResetQueueInfo();
-			
-			// Connect
-			LogManager.General.Log("Connecting to lobby @ " + lobbyHost + ":" + lobbyPort);
-			Lobby.ConnectAsClient(lobbyHost, lobbyPort);
-		}
-	}
-	
-	// Download changelog
-	IEnumerator DownloadChangeLog(WWW changeLogRequest) {
-		yield return changeLogRequest;
-		
-		if(changeLogRequest.error == null) {
-			changeLog = changeLogRequest.text;
-		}
-	}
-	
-	// Clear focus
-	void ClearFocus() {
-		if(!clearFlag)
-			return;
-		
-		GUIHelper.ClearAllFocus();
-		
-		// Clear pressed keys
-		if(Event.current != null && Event.current.isKey) {
-			Event.current.keyCode = KeyCode.None;
-			Event.current.Use();
-			Event.current = null;
-		}
-		
-		// Show mouse cursor
-		Screen.lockCursor = false;
-		Screen.showCursor = true;
-		
-		clearFlag = false;
-	}
-	
-	// Sets application settings for lobby
-	void SetupApplicationForLobby() {
-		//Application.runInBackground = false;
-		Application.targetFrameRate = lobbyFrameRate;
 	}
 
+	// Connect: Also used for reconnecting
+	void Connect() {
+		if(Lobby.connectionStatus == LobbyConnectionStatus.Connected)
+			return;
+
+		// Reset pending request count because we were disconnected
+		DonationsGUI.instance.pendingCrystalBalanceRequests = 0;
+		GuildsGUI.instance.pendingGuildListRequests = 0;
+		RankingGUI.instance.pendingRankingListRequests = 0;
+
+		// UI
+		state = State.ConnectingToLobby;
+
+		// Connect
+		LogManager.General.Log("Connecting to lobby @ " + lobbyHost + ":" + lobbyPort);
+		Lobby.ConnectAsClient(lobbyHost, lobbyPort);
+	}
+
+	// LogIn
+	public void LogIn() {
+		if(string.IsNullOrEmpty(accountPasswordEncrypted))
+			SendLoginRequest(accountEmail, accountPassword);
+		else
+			SendEncryptedLoginRequest(accountEmail, accountPasswordEncrypted);
+	}
+	
 	// LogOut
 	public void LogOut() {
 		// Activate loading screen
 		LoadingScreen.instance.Enable(() => {
 			LoadingScreen.instance.statusMessage = "Logging out...";
-
+			
 			LogManager.General.Log("Logging out...");
 			Lobby.RPC("LobbyAccountLogOut", Lobby.lobby);
 			
@@ -424,27 +130,24 @@ public class Login : LobbyModule<Login> {
 	// ReturnToWorld
 	public void ReturnToWorld() {
 		LogManager.General.Log("Returning to the world");
-
+		
 		if(AccountManager.isLoggedIn)
 			Lobby.RPC("LeaveInstance", Lobby.lobby, GameManager.gameEnded);
 	}
 	
 	// ReturnToLogin
 	public void ReturnToLogin() {
-		// Play login screen music
-		MusicManager.instance.PlayCategory(GetComponent<MusicCategory>());
-		
 		// Then we load the lobby up again
 		LoadingScreen.instance.SecureLoadLevel("LobbyClient", () => {
 			// If it was disabled before by accident...
-			gameLobby.lobbyChat.chatInputEnabled = true;
-			gameLobby.lobbyChat.currentChannel = "Global";
-			
-			// Make it clear focus on next OnGUI call
-			clearFlag = true;
+			InGameLobby.instance.lobbyChat.chatInputEnabled = true;
+			LobbyChat.instance.currentChannel = "Global";
+
+			// Play login screen music
+			MusicManager.instance.PlayCategory(GameObject.FindGameObjectWithTag("Map").GetComponent<MusicCategory>());
 			
 			// Frame rate
-			SetupApplicationForLobby();
+			Application.targetFrameRate = lobbyFrameRate;
 			
 			// Re-enable cursor
 			Screen.lockCursor = false;
@@ -454,268 +157,7 @@ public class Login : LobbyModule<Login> {
 			LoadingScreen.instance.Disable();
 		});
 	}
-	
-#region GUIs
-	public void LoginGUI() {
-		GUIHelper.BeginBox(loginGUIDimensions.x, loginGUIDimensions.y);
 
-		GUILayout.Label("Enter your account name and password to log in.");
-		GUILayout.Space(10);
-		GUILayout.FlexibleSpace();
-		
-		// Disable GUI while trying to log in
-		GUI.enabled = (loginRequestCount == loginRequestResponseCount);
-		
-		GUILayout.Label("<b>E-Mail</b>");
-		GUI.SetNextControlName("AccountEmail");
-		accountEmail = GUILayout.TextField(accountEmail, GameDB.maxEmailLength, textFieldHeight).Trim();
-		
-		// Focus
-		if(!accountNameFocused && !accountNameLoaded) {
-			GUIHelper.Focus("AccountEmail");
-			accountNameFocused = true;
-		}
-
-		GUILayout.Label("<b>Password</b>");
-		GUI.SetNextControlName("AccountPassword");
-		var newAccountPassword = GUILayout.PasswordField(accountPassword, '*', textFieldHeight);
-		
-		// User modified password
-		if(accountPassword != newAccountPassword) {
-			accountPasswordEncrypted = null;
-			accountPassword = newAccountPassword;
-		}
-		
-		// Focus
-		if(!accountPasswordFocused && accountNameLoaded) {
-			if(string.IsNullOrEmpty(accountPasswordEncrypted))
-				GUIHelper.Focus("AccountPassword");
-			accountPasswordFocused = true;
-		}
-		
-		GUILayout.Space(5);
-		GUILayout.FlexibleSpace();
-		
-		// Login button
-		using(new GUIHorizontal()) {
-			GUI.enabled = (
-				GameDB.IsTestAccount(accountEmail) || 
-				(
-					loginRequestCount == loginRequestResponseCount &&
-					Validator.email.IsMatch(accountEmail) //&&
-					//Validator.password.IsMatch(accountPassword)
-				)
-			);
-			
-			if(GUIHelper.Button("Log in", GUILayout.Width(80)) || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return)) {
-				Sounds.instance.buttonClick.Play();
-				
-				// Log in to an account. We will get a response in the form of either the OnAccountRegistered callback, or
-				// OnLogInFailed if something went wrong.
-				if(string.IsNullOrEmpty(accountPasswordEncrypted)) {
-					SendLoginRequest(accountEmail, accountPassword);
-				} else {
-					SendEncryptedLoginRequest(accountEmail, accountPasswordEncrypted);
-				}
-			}
-			GUI.enabled = true;
-			
-			GUI.contentColor = GUIColor.StatusMessage;
-			
-			GUILayout.Space(5);
-			GUILayout.FlexibleSpace();
-			
-			// Status message
-			GUILayout.Label(statusMessage);
-			GUI.contentColor = Color.white;
-		}
-		
-		GUILayout.Space(10);
-		GUILayout.FlexibleSpace();
-		
-		// Footer
-		GUILayout.Label("Not registered?");
-		
-		using(new GUIHorizontal()) {
-			// Register
-			if(GUIHelper.Button("Register account", GUILayout.Width(140))) {
-				Sounds.instance.buttonClick.Play();
-				ChangeState(State.Register);
-			}
-			
-			// Account activation mail
-			if(accountNotActivated && accountEmail == inactiveEmail) {
-				GUILayout.FlexibleSpace();
-				if(GUIHelper.Button("Resend activation mail", GUILayout.Width(180))) {
-					Sounds.instance.buttonClick.Play();
-					Lobby.RPC("ResendActivationMail", Lobby.lobby, inactiveEmail);
-				}
-			}
-		}
-
-		GUIHelper.EndBox();
-	}
-	
-	// Registration
-	public void RegisterGUI() {
-		GUIHelper.BeginBox(registerGUIDimensions.x, registerGUIDimensions.y);
-		
-		GUILayout.Label("Register a new account.");
-		GUILayout.Space(10);
-		
-		int validationErrors = 0;
-		
-		// E-Mail
-		GUILayout.Label("<b>E-Mail</b>");
-		accountEmail = GUILayout.TextField(accountEmail, textFieldHeight);
-		
-		// Validate
-		if(Validator.email.IsMatch(accountEmail)) {
-			GUI.contentColor = GUIColor.Validated;
-		} else {
-			GUI.contentColor = GUIColor.NotValidated;
-			validationErrors += 1;
-		}
-		GUILayout.Label("Please enter your email address, we will send you an account activation link and notify you when the Open Beta starts.");
-		GUI.contentColor = Color.white;
-		GUILayout.Space(5);
-		
-		// Password
-		GUILayout.Label("<b>Password</b>");
-		var newAccountPassword = GUILayout.PasswordField(accountPassword, '*', textFieldHeight);
-		
-		// User modified password
-		if(accountPassword != newAccountPassword) {
-			accountPasswordEncrypted = null;
-			accountPassword = newAccountPassword;
-		}
-		
-		// Validate
-		if(Validator.password.IsMatch(accountPassword)) {
-			GUI.contentColor = GUIColor.Validated;
-		} else {
-			GUI.contentColor = GUIColor.NotValidated;
-			validationErrors += 1;
-		}
-		GUILayout.Label("Your password should contain a minimum of 6 characters.");
-		GUI.contentColor = Color.white;
-		GUILayout.Space(5);
-		
-		// Register + status message
-		using(new GUIHorizontal()) {
-			GUI.enabled = (validationErrors == 0 || GameDB.IsTestAccount(accountEmail));
-			if(GUIHelper.Button("Register", GUILayout.Width(80))) {
-				Sounds.instance.buttonClick.Play();
-				
-				// Registers a new account. The OnAccountRegistered callback will be called if the account was registered -
-				// otherwise, the OnRegisterFailed callback is called.
-				//AccountManager.RegisterAccount(accountName, accountPassword, accountEmail);
-				SendRegisterRequest(accountEmail, accountPassword);
-			}
-			GUI.enabled = true;
-			
-			GUI.contentColor = GUIColor.StatusMessage;
-			
-			GUILayout.Space(5);
-			GUILayout.FlexibleSpace();
-			
-			// Status message
-			GUILayout.Label(statusMessage);
-			GUI.contentColor = Color.white;
-		}
-		
-		GUILayout.FlexibleSpace();
-
-		if (GUIHelper.Button("Back", GUILayout.Width(50))) {
-			Sounds.instance.buttonClick.Play();
-			ChangeState(State.LogIn);
-		}
-
-		GUIHelper.EndBox();
-	}
-	
-	void LicenseGUI() {
-		GUIHelper.BeginBox(460, 300);
-		GUILayout.Label(@"You hereby agree to the following conditions:
-
-1. Understand that most graphics are simply dummy graphics used in the development process and do not represent the quality of the final product.
-
-2. Your character will be reset at the start of the Closed Beta.
-
-3. You will receive an Alpha Tester title in the future.
-");
-		GUILayout.FlexibleSpace();
-		using(new GUIHorizontalCenter()) {
-			if(GUIHelper.Button("I agree.") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return)) {
-				Sounds.instance.buttonClick.Play();
-				ChangeState(State.Lobby);
-				gameLobby.UpdateAccountInfo();
-			}
-		}
-		GUIHelper.EndBox();
-	}
-	
-	// Draw exit button and version
-	void DrawExitButtonAndVersion() {
-		if(!GameManager.inLobby && !GameManager.inGame) {
-			GUI.color = Color.white;
-			int margin = 2;
-			
-#if !UNITY_WEBPLAYER
-			// Exit button
-			int cWidth = closeIcon.width + 10;
-			int cHeight = closeIcon.height + 5;
-			
-			if(GUI.Button(new Rect(GUIArea.width - cWidth - margin, margin, cWidth, cHeight), new GUIContent("", closeIcon, "Quit"))) {
-				Sounds.instance.buttonClick.Play();
-				Application.Quit();
-			}
-#endif
-			// Version number
-			if(gameLobby.currentState != GameLobbyState.Game) {
-				string version = "Development Version " + GUIHelper.MakePrettyVersion(clientVersionNumber);
-				Vector2 vSize = GUI.skin.label.CalcSize(new GUIContent(version));
-				GUI.Label(new Rect(GUIArea.width - vSize.x - margin - 2, GUIArea.height - vSize.y - margin, vSize.x, vSize.y), version);
-			}
-		}
-	}
-	
-	// Draw change log
-	void DrawChangeLog() {
-		if(GameManager.inLogIn && !AccountManager.isLoggedIn && !string.IsNullOrEmpty(Login.changeLog)) {
-			using(new GUIArea(changeLogRect)) {
-				using(new GUIVertical("box")) {
-					using(new GUIScrollView(ref changeLogScroll)) {
-						GUILayout.Label(Login.changeLog);
-					}
-				}
-			}
-		}
-	}
-
-	public InputField emailField;
-	public InputField passwordField;
-
-	// LogIn
-	public void LogIn() {
-		SendLoginRequest(emailField.text.text, passwordField.text.text);
-	}
-
-	// Update login data
-	public bool canLogIn {
-		get {
-			accountEmail = emailField.text.text;
-			
-			return (
-				GameDB.IsTestAccount(accountEmail) || 
-				(
-					Login.instance.loginRequestCount == Login.instance.loginRequestResponseCount &&
-					Validator.email.IsMatch(accountEmail)
-				)
-			);
-		}
-	}
-	
 	// Send login request
 	void SendLoginRequest(string email, string password) {
 		LogManager.General.Log("Login request...");
@@ -730,7 +172,7 @@ public class Login : LobbyModule<Login> {
 		
 		// This needs to be done in case we still got a delayed RPC in the login screen
 		// We need to make sure PlayerAccount.mine is null
-		gameLobby.ResetAccountInfo();
+		InGameLobby.instance.ResetAccountInfo();
 		
 		// Login RPC
 		accountPasswordEncrypted = encryptedPassword;
@@ -739,116 +181,135 @@ public class Login : LobbyModule<Login> {
 		loginRequestCount += 1;
 		statusMessage = "Logging in to account " + email + "...";
 	}
-	
-	// Send register request
-	void SendRegisterRequest(string email, string password) {
-		accountPasswordEncrypted = GameDB.EncryptPasswordString(password);
-		Lobby.RPC("LobbyRegisterAccount", Lobby.lobby, email, accountPasswordEncrypted);
-		
-		statusMessage = "Registering new account " + email + "...";
-	}
-	
-	void LobbyGUI() {
-		gameLobby.Draw();
-	}
-	
-	void PleaseUpdateGUI() {
-		GUIHelper.BeginBox(600, 140);
-		GUILayout.Label("Your client version is out of date, you need to update your client.\n\nClient version: " + clientVersionNumber + "\nServer version: " + serverVersionNumber);
-#if UNITY_WEBPLAYER
-		GUILayout.Label("\nPlease refresh the website.");
-#else
-		GUILayout.Label("Alternatively you can go to http://battle-of-mages.com and play with the latest client.");
-#endif
-		GUIHelper.EndBox();
-	}
-	
-	public void ConnectingToLobbyGUI() {
-		GUIHelper.BeginBox(400, 50);
-		GUILayout.Label("Connecting to lobby...");
-		GUIHelper.EndBox();
-	}
-	
-	public void DisconnectedGUI() {
-		GUIHelper.BeginBox(400, 80);
 
-		GUILayout.Label("Disconnected from lobby.");
-		
-		GUILayout.FlexibleSpace();
-		
-		if(GUIHelper.Button("Reconnect", GUILayout.Width(100))) {
-			Sounds.instance.buttonClick.Play();
-			ConnectToLobby();
-		}
-		
-		GUIHelper.EndBox();
+	// ResendActivationMail
+	public void ResendActivationMail() {
+		Lobby.RPC("ResendActivationMail", Lobby.lobby, inactiveEmail);
 	}
 
-	// Draw tooltip
-	void DrawTooltip() {
-		string tooltip = GUI.tooltip;
-		
-		if(string.IsNullOrEmpty(tooltip))
+	// Validate
+	public void Validate() {
+		if(emailField == null || passwordField == null || loginButton == null)
 			return;
-		
-		GUI.color = Color.white;
-		GUI.backgroundColor = Color.white;
-		GUI.contentColor = Color.white;
-		
-		Vector2 tooltipSize = GUI.skin.label.CalcSize(new GUIContent(tooltip));
-		tooltipSize.x += 5;
-		tooltipSize.y += 4;
-		
-		Vector2 mousePos = InputManager.GetMousePosition();
-		Rect tooltipRect = new Rect(mousePos.x + tooltipOffset.x, mousePos.y + tooltipOffset.y, tooltipSize.x + 3, tooltipSize.y + 3);
-		
-		float offset;
-		
-		if(tooltipRect.x + tooltipRect.width > GUIArea.width) {
-			offset = (tooltipRect.x + tooltipRect.width) - GUIArea.width;
-			tooltipRect.x -= offset;
+
+		loginButton.interactable = (
+			GameDB.IsTestAccount(accountEmail) || 
+			(
+				loginRequestCount == loginRequestResponseCount &&
+				Validator.email.IsMatch(accountEmail)
+			)
+		);
+	}
+
+	// InitEditorData
+	void InitEditorData() {
+		if(!Application.CanStreamedLevelBeLoaded("Client")) {
+			editorAutoLogin = false;
+			LogManager.General.LogError("<color=red>YOU FORGOT TO ADD THE CLIENT SCENE IN THE BUILD SETTINGS</color>");
 		}
 		
-		if(tooltipRect.y + tooltipRect.height > GUIArea.height) {
-			offset = (tooltipRect.y + tooltipRect.height) - GUIArea.height;
-			tooltipRect.y -= offset;
-		}
+		// Disable intro
+		if(editorAutoLogin)
+			GetComponent<Intro>().enabled = false;
 		
-		// 3 times because GUI.Box sucks >.>
-		GUI.Box(tooltipRect, "");
-		GUI.Box(tooltipRect, "");
-		GUI.Box(tooltipRect, "");
+		// Don't retrieve IP in the editor
+		retrieveLobbyIP = false;
 		
-		GUI.color = Color.white;
-		GUI.Label(tooltipRect, tooltip, tooltipStyle);
+		// Set lobby host to the editor lobby host setting
+		lobbyHost = editorLobbyHost;
 	}
 #endregion
-	
+
+#region Properties
+	// E-Mail
+	public string accountEmail {
+		get {
+			return emailField.value;
+		}
+
+		set {
+			emailField.value = value;
+		}
+	}
+
+	// Password
+	public string accountPassword {
+		get {
+			return passwordField.value;
+		}
+		
+		set {
+			passwordField.value = value;
+		}
+	}
+
+	// Account password encrypted
+	public string accountPasswordEncrypted {
+		get;
+		protected set;
+	}
+
+	// Login request count
+	public int loginRequestCount {
+		get;
+		protected set;
+	}
+
+	// Login request response count
+	public int loginRequestResponseCount {
+		get;
+		protected set;
+	}
+
+	// Status message
+	public string statusMessage {
+		get {
+			return statusMessageLabel.text;
+		}
+
+		protected set {
+			statusMessageLabel.text = value;
+		}
+	}
+
+	// State
+	public State state {
+		set {
+			GameManager.currentState = value;
+			statusMessage = "";
+
+			connectingPanel.SetActive(false);
+			loginPanel.SetActive(false);
+
+			switch(GameManager.currentState) {
+				case State.ConnectingToLobby:
+					connectingPanel.SetActive(true);
+					break;
+
+				case State.LogIn:
+					loginPanel.SetActive(true);
+					break;
+			}
+		}
+	}
+#endregion
+
 #region Callbacks
 	// OnAccountLoggedIn
 	void OnAccountLoggedIn(Account account) {
 		PlayerPrefs.SetString("AccountEmail", accountEmail);
 		PlayerPrefs.SetString("AccountSaltedAndHashedPassword", accountPasswordEncrypted);
 		
-		Login.myAccount = account;
-
 		// Play sound
 		Sounds.instance.loginSuccess.Play();
-		
-		// Reconnect from game?
-		if(gameLobby.currentState == GameLobbyState.Game) {
-			ChangeState(State.Game);
-		} else {
-			ChangeState(State.License);
-#if UNITY_EDITOR
-			if(editorAutoLogin) {
-				ChangeState(State.Lobby);
-			}
-#endif
-		}
-		
+
+		// Reset arena info
 		ArenaGUI.instance.ResetQueueInfo();
-		
+
+		// Set state
+		state = State.License;
+
+		// Increase login response count
 		loginRequestResponseCount += 1;
 	}
 	
@@ -858,14 +319,14 @@ public class Login : LobbyModule<Login> {
 		if(Player.main != null) {
 			uLink.Network.Disconnect();
 			ReturnToLogin();
-			gameLobby.currentState = GameLobbyState.WaitingForAccountInfo;
+			InGameLobby.instance.currentState = GameLobbyState.WaitingForAccountInfo;
 		}
 		
 		// Clean up
-		gameLobby.ResetAccountInfo();
+		InGameLobby.instance.ResetAccountInfo();
 		ArenaGUI.instance.ResetQueueInfo();
-
-		ChangeState(State.LogIn);
+		
+		state = State.LogIn;
 	}
 	
 	// OnLogInFailed
@@ -892,25 +353,29 @@ public class Login : LobbyModule<Login> {
 	
 	// OnAccountRegistered
 	private void OnAccountRegistered(Account account) {
-		ChangeState(State.LogIn);
+		state = State.LogIn;
 		statusMessage = "New account has been registered. Please check your mail to activate your account.";
-		//SendLoginRequest(accountEmail, accountPassword);
 	}
 	
 	// OnRegisterFailed
 	private void OnRegisterFailed(string accountName, AccountError error) {
 		statusMessage = "Failed to register account '" + accountName + "': ";
-
+		
 		switch(error) {
-			case AccountError.NameAlreadyRegistered : statusMessage += "Name already registered."; break;
-			default : statusMessage += "Unknown error occurred."; break;
+			case AccountError.NameAlreadyRegistered:
+				statusMessage += "Name already registered.";
+				break;
+
+			default:
+				statusMessage += "Unknown error occurred.";
+				break;
 		}
 	}
 	
 	// uLobby: Connected
 	void uLobby_OnConnected() {
 		LogManager.General.Log("Connected to lobby");
-		
+
 		accountEmail = PlayerPrefs.GetString("AccountEmail", "");
 		accountPasswordEncrypted = PlayerPrefs.GetString("AccountSaltedAndHashedPassword", "");
 		
@@ -923,12 +388,11 @@ public class Login : LobbyModule<Login> {
 		if(!string.IsNullOrEmpty(accountPasswordEncrypted)) {
 			accountPassword = encryptedPasswordString;
 		}
+
+		// Set state
+		state = State.LogIn;
 		
-		if(accountEmail != "") {
-			accountNameLoaded = true;
-		}
-		
-// FOR TESTING ONLY
+		// FOR TESTING ONLY
 #if UNITY_EDITOR
 		if(editorAutoLogin) {
 			accountEmail = editorAccountName;
@@ -936,18 +400,18 @@ public class Login : LobbyModule<Login> {
 			SendLoginRequest(accountEmail, accountPassword);
 		}
 #endif
-		
+
 		// Auto login for reconnect
-		if(gameLobby.currentState == GameLobbyState.Game && accountEmail != "" && accountPassword != "") {
+		if(GameManager.currentState == State.Game && accountEmail != "" && accountPassword != "") {
 			SendLoginRequest(accountEmail, accountPassword);
 		}
 	}
-
+	
 	// uLobby: Disconnected
 	void uLobby_OnDisconnected() {
 		LogManager.General.Log("Disconnected from lobby");
 	}
-
+	
 	// On application focus
 	void OnApplicationFocus(bool focused) {
 		if(!lowerFPSWhenIdle)
@@ -962,7 +426,7 @@ public class Login : LobbyModule<Login> {
 		}
 	}
 #endregion
-	
+
 #region RPCs
 	[RPC]
 	void EmailAlreadyExists() {
@@ -972,27 +436,14 @@ public class Login : LobbyModule<Login> {
 	[RPC]
 	void AccountNotActivated(string nInactiveEmail) {
 		inactiveEmail = nInactiveEmail;
-		accountNotActivated = true;
+		resendActivationMailButton.enabled = true;
 		statusMessage = "Failed to login: Account has not been activated yet. Please check your mail.";
-		
 		loginRequestResponseCount += 1;
 	}
 	
 	[RPC]
 	void ActivationMailSent() {
 		statusMessage = "Account activation mail has been sent again. Please check your mail.";
-	}
-	
-	[RPC]
-	void VersionNumber(int nServerVersionNumber) {
-		serverVersionNumber = nServerVersionNumber;
-		LogManager.General.Log("Client version: " + clientVersionNumber + ", server version: " + serverVersionNumber);
-		
-		if(clientVersionNumber >= serverVersionNumber) {
-			ChangeState(State.LogIn);
-		} else {
-			ChangeState(State.Update);
-		}
 	}
 #endregion
 }

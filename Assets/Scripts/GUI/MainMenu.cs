@@ -204,7 +204,7 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 					
 				case InGameMenuState.Logout:
 					if(!loggedOut) {
-						Login.instance.LogOut();
+						OldLogin.instance.LogOut();
 						loggedOut = true;
 					}
 					break;
@@ -216,7 +216,7 @@ public class MainMenu : DestroyableSingletonMonoBehaviour<MainMenu> {
 							Application.Quit();
 						} else {
 							LogManager.General.Log("Leaving game...");
-							Login.instance.ReturnToWorld();
+							OldLogin.instance.ReturnToWorld();
 						}
 						
 						leftGame = true;

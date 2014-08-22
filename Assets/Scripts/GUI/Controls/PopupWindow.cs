@@ -13,7 +13,7 @@ public class PopupWindow {
 	protected void Init() {
 		controlID = GUIUtility.GetControlID(popupWindowHash, FocusType.Passive);
 		GUIUtility.hotControl = controlID;
-		Login.instance.nextPopupWindow = this;
+		OldLogin.instance.nextPopupWindow = this;
 	}
 	
 	public virtual void Update() {}
@@ -30,8 +30,8 @@ public class PopupWindow {
 	// Close
 	public void Close() {
 		GUIUtility.hotControl = 0;
-		Login.instance.nextPopupWindow = null;
-		Login.instance.clearFlag = true;
+		OldLogin.instance.nextPopupWindow = null;
+		OldLogin.instance.clearFlag = true;
 		Event.current.Use();
 	}
 }

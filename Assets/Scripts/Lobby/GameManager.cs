@@ -3,13 +3,14 @@ using uLobby;
 
 // State
 public enum State {
+	StartUp,
 	ConnectingToLobby,
+	PleaseUpdateClient,
 	Disconnected,
-	Update,
 	LogIn,
 	Register,
 	License,
-	Lobby,
+	WaitingForAccountInfo,
 	Game,
 }
 
@@ -34,47 +35,24 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 	// Client or server
 	public static bool isServer { get { return ServerInit.instance != null; } }
 	public static bool isClient { get { return !isServer; } }
-
-	// Game state
-	private static State _currentState = State.ConnectingToLobby;
-	private static State _nextState = State.ConnectingToLobby;
 	
 	// Current state
 	public static State currentState {
-		get {
-			return _currentState;
-		}
-		
-		set {
-			_nextState = value;
-		}
-	}
-	
-	// Next state
-	public static State nextState {
-		get {
-			return _nextState;
-		}
-	}
-	
-	// In lobby
-	public static bool inLobby {
-		get {
-			return _currentState == State.Lobby;
-		}
+		get;
+		set;
 	}
 	
 	// In login
 	public static bool inLogIn {
 		get {
-			return _currentState == State.LogIn;
+			return currentState == State.LogIn;
 		}
 	}
 	
 	// In game
 	public static bool inGame {
 		get {
-			return _currentState == State.Game;
+			return currentState == State.Game;
 		}
 	}
 
@@ -82,11 +60,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 	void Start() {
 		if(isClient)
 			Lobby.AddListener(this);
-	}
-	
-	// Update to next state
-	void Update() {
-		_currentState = _nextState;
 	}
 
 	// Quit

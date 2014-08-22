@@ -14,12 +14,12 @@ public sealed class DonationsGUI : LobbyModule<DonationsGUI> {
 	[HideInInspector]
 	public int pendingCrystalBalanceRequests = 0;
 	
-	private Login loginClientGUI;
+	private OldLogin loginClientGUI;
 	private Vector2 scrollPosition;
 	
 	// Start
 	void Start() {
-		loginClientGUI = this.GetComponent<Login>();
+		loginClientGUI = this.GetComponent<OldLogin>();
 		
 		// Receive lobby RPCs
 		Lobby.AddListener(this);

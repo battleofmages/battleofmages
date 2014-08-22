@@ -34,7 +34,7 @@ public class PopupMenu {
 		controlID = GUIUtility.GetControlID(popupMenuHash, FocusType.Passive);
 		GUIUtility.hotControl = controlID;
 		
-		Login.instance.popupMenu = this;
+		OldLogin.instance.popupMenu = this;
 	}
 	
 	/*public void Update() {
@@ -77,7 +77,7 @@ public class PopupMenu {
 		
 		GUI.skin.button.alignment = oldAlignment;
 		
-		if(Login.instance.popupMenu != null) {
+		if(OldLogin.instance.popupMenu != null) {
 			if(GUIUtility.hotControl != 0)
 				GUIUtility.hotControl = oldControl;
 			else
@@ -89,6 +89,6 @@ public class PopupMenu {
 	public void Close() {
 		Event.current.Use();
 		GUIUtility.hotControl = 0;
-		Login.instance.popupMenu = null;
+		OldLogin.instance.popupMenu = null;
 	}
 }

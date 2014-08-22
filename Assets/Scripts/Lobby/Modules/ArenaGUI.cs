@@ -279,8 +279,8 @@ public class ArenaGUI : LobbyModule<ArenaGUI> {
 		currentQueue = 0;
 		
 		// Close popup window
-		if(Login.instance.popupWindow != null && Login.instance.popupWindow is TimedConfirm)
-			Login.instance.popupWindow.Close();
+		if(OldLogin.instance.popupWindow != null && OldLogin.instance.popupWindow is TimedConfirm)
+			OldLogin.instance.popupWindow.Close();
 		
 		if(matchFoundQueue != 0) {
 			LobbyChat.instance.AddEntry("A player did not enter the match, re-entering the matchmaking queue.");

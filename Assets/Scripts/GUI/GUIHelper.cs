@@ -75,7 +75,7 @@ public class GUIHelper : MonoBehaviour {
 		ProgressBarStyle style = null
 	) {
 		if(style == null)
-			style = Login.instance.progressBarStyle;
+			style = OldLogin.instance.progressBarStyle;
 		
 		if(progress < 0f)
 			progress = 0f;

@@ -1,12 +1,31 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using uLobby;
 
 public class Version : SingletonMonoBehaviour<Version> {
 	// Version number
-	public int versionNumber;
+	public int clientVersionNumber;
+	public Text versionLabel;
+
+	// Server version number
+	public int serverVersionNumber {
+		get;
+		protected set;
+	}
 
 	// Start
 	void Start() {
-		var versionText = GetComponent<Text>();
-		versionText.text = versionText.text.Replace("{version}", GUIHelper.MakePrettyVersion(versionNumber));
+		// Receive lobby RPCs
+		Lobby.AddListener(this);
+	
+		// Update version text
+		versionLabel.text = versionLabel.text.Replace("{version}", GUIHelper.MakePrettyVersion(clientVersionNumber));
+	}
+
+	[RPC]
+	void VersionNumber(int nServerVersionNumber) {
+		serverVersionNumber = nServerVersionNumber;
+
+		LogManager.General.Log("Client version: " + clientVersionNumber + ", server version: " + serverVersionNumber);
 	}
 }

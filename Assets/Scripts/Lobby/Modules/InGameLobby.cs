@@ -107,7 +107,7 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 			case GameLobbyState.Ready:					DrawReady();						break;
 			case GameLobbyState.Game:
 			case GameLobbyState.MainMenu:
-				if(GameManager.inGame || Login.instance.enableLobby)
+				if(GameManager.inGame || OldLogin.instance.enableLobby)
 					DrawMainMenu();
 				break;
 		}
@@ -432,7 +432,7 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 	
 	// Checks if the initial data is available after login
 	public void UpdateAccountInfo() {
-		if(GameManager.inGame || (GameManager.nextState != State.Lobby && GameManager.currentState != State.Disconnected))
+		if(GameManager.inGame || (GameManager.currentState != State.Disconnected))
 			return;
 		
 		// Check if we have all request responses
@@ -448,7 +448,7 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 		
 		// Show the first page where the user still needs to enter information
 		if(pageNeeded == -1) {
-			if(!Login.instance.enableLobby) {
+			if(!OldLogin.instance.enableLobby) {
 				Lobby.RPC("Ready", Lobby.lobby);
 				this.currentState = GameLobbyState.Ready;
 			} else {
@@ -540,8 +540,6 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 				if(_currentLobbyModule != null)
 					currentLobbyModule.OnClick();
 			});
-
-			Login.instance.clearFlag = true;
 		}
 	}
 #endregion
@@ -552,7 +550,7 @@ public class InGameLobby : LobbyModule<InGameLobby> {
 		// Reset state
 		ArenaGUI.instance.ResetQueueInfo();
 		
-		Login clientGUI = Login.instance;
+		OldLogin clientGUI = OldLogin.instance;
 		clientGUI.ChangeState(State.Game);
 		this.currentState = GameLobbyState.Game;
 		clientGUI.clearFlag = true;
