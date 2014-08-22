@@ -391,6 +391,9 @@ public class Login : LobbyModule<Login> {
 
 		// Set state
 		state = State.LogIn;
+
+		// Validate
+		Validate();
 		
 		// FOR TESTING ONLY
 #if UNITY_EDITOR
