@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public static class ColorSerializer {
 	// Writer
-	public static void JsonSerializer(Jboy.JsonWriter writer, object instance) {
+	public static void WriteJSON(Jboy.JsonWriter writer, object instance) {
 		Color col = (Color)instance;
 		
 		writer.WriteObjectStart();
@@ -19,7 +18,7 @@ public static class ColorSerializer {
 	}
 	
 	// Reader
-	public static object JsonDeserializer(Jboy.JsonReader reader) {
+	public static object ReadJSON(Jboy.JsonReader reader) {
 		reader.ReadObjectStart();
 		reader.ReadPropertyName("r");
 		var r = (float)reader.ReadNumber();

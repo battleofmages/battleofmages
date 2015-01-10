@@ -3,6 +3,7 @@ guid: c0cfaad0909e8ea489e8e97249d60531
 MonoImporter:
   serializedVersion: 2
   defaultReferences: []
-  executionOrder: 0
-  icon: {instanceID: 0}
+  executionOrder: 10000
+  icon: {fileID: 2800000, guid: 3e69dca290c77d24ebc2d003067026fe, type: 3}
   userData: 
+  assetBundleName: 

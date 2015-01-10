@@ -1,5 +1,5 @@
 ﻿[System.Serializable]
-public class Friend : JsonSerializable<Friend> {
+public class Friend : JSONSerializable<Friend> {
 	public string accountId;
 	public string note;
 

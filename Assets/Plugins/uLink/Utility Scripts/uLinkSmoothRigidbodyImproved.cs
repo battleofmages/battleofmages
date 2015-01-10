@@ -115,7 +115,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 			// Send information to all proxies and the owner (clients)
 			// This code is executed on the creator (server) 
 			stream.Write(transform.position);
-			stream.Write(rigidbody.rotation); 
+			stream.Write(GetComponent<Rigidbody>().rotation); 
 
 		}
 		else
@@ -154,7 +154,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 		else 
 		{
 			//This is extrapolation, algorithm = let's fake a new position using current velocity
-			target = mostCurrentReceivedState.pos + rigidbody.velocity * Time.fixedDeltaTime;
+			target = mostCurrentReceivedState.pos + GetComponent<Rigidbody>().velocity * Time.fixedDeltaTime;
 			//Update mostCurrentReceivedState to a locally constructed (faked) timestamp and position 
 			mostCurrentReceivedState.timestamp += Time.fixedDeltaTime;
 			mostCurrentReceivedState.pos = target;
@@ -184,7 +184,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 		{
 			// Detected a too big distance error! Snap to correct position!
 			targetDistance = 0;
-			rigidbody.velocity = new Vector3(0, 0, 0);
+			GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 			transform.position = target;
 		}
 	}
@@ -220,7 +220,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 			return;
 		}
 
-		rigidbody.velocity = optimalSmoothVelocity;
+		GetComponent<Rigidbody>().velocity = optimalSmoothVelocity;
 	}
 
 }

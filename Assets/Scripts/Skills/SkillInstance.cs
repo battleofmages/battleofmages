@@ -1,165 +1,29 @@
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class SkillInstance : uLink.MonoBehaviour {
-	public static int layerCounter;
+	[System.NonSerialized]
+	public Entity caster;
 
-	private Entity _caster;
-	private Skill _skill;
-	private Skill.Stage _skillStage;
-	private Vector3 _hitPoint;
-
-	// Constructor
-	public SkillInstance(Skill skill = null, Entity castedBy = null) {
-		_caster = castedBy;
-		_skill = skill;
+	// DetachParticles
+	public static void DetachParticles(GameObject obj) {
+		var particleTransforms = new List<Transform>(4);
 		
-		if(_skill != null)
-			_skillStage = _skill.currentStage;
-	}
-
-	// SpawnSkillPrefab
-	public void SpawnSkillPrefab(
-		GameObject prefabSpawned,
-		Vector3 position,
-		Quaternion rotation,
-		out GameObject clone,
-		out SkillInstance inst
-	) {
-		clone = (GameObject)Object.Instantiate(prefabSpawned, position, rotation);
-
-		// Move it to its root object
-		clone.transform.parent = Entity.skillInstancesRoot;
-
-		// We copy the physics layer of the skill instance
-		clone.layer = gameObject.layer;
-		
-		inst = clone.GetComponent<SkillInstance>();
-		inst.caster = caster;
-		inst.skill = skill;
-		inst.skillStage = skillStage;
-
-		if(clone.collider && caster.collider && clone.collider.enabled && caster.collider.enabled)
-			Physics.IgnoreCollision(clone.collider, caster.collider);
-	}
-	
-#region Particles
-	public static void DestroyButKeepParticles(GameObject go) {
-		// Stop emission
-		StopEmitters(go);
-		
-		Destroy(go);
-		
-		// Destroy it
-		/*if(go.particleSystem) {
-			if(go.collider) {
-				go.collider.enabled = false;
-			}
+		// Check all children
+		foreach(Transform child in obj.transform) {
+			if(child.tag != "Particles")
+				continue;
 			
-			if(go.rigidbody) {
-				go.rigidbody.velocity = Cache.vector3Zero;
-				go.rigidbody.angularVelocity = Cache.vector3Zero;
-				go.rigidbody.Sleep();
-			}
-		} else {
-			// Audio source
-			//if(go.audio) {
-			//	go.audio.transform.parent = null;
-			//} else {
-				// Legacy particle system
-				Destroy(go);
-			//}
-		}*/
-	}
-	
-	// StopEmitters
-	public static void StopEmitters(GameObject go) {
-		LightningRenderer lightningRenderer;
-		
-		// Stop emitting
-		foreach(Transform child in go.transform){
-			if(child.particleEmitter != null)
-				DetachParticleEmitter(child.particleEmitter);
-			
-			if(child.particleSystem != null)
-				DetachParticleSystem(child.particleSystem);
-			
-			lightningRenderer = child.GetComponent<LightningRenderer>();
-			if(lightningRenderer)
-				lightningRenderer.FadeOut(1.0f);
+			// Add to list for editing later.
+			// We can't edit the transform here because
+			// that would result in incorrect loop behaviour.
+			particleTransforms.Add(child);
 		}
 		
-		// Own particle emitter
-		if(go.particleEmitter)
-			DetachParticleEmitter(go.particleEmitter);
-		
-		if(go.particleSystem)
-			DetachParticleSystem(go.particleSystem);
-		
-		lightningRenderer = go.GetComponent<LightningRenderer>();
-		if(lightningRenderer)
-			lightningRenderer.FadeOut(1.0f);
-		
-		/*if(trailRenderer) {
-			trailRenderer.enabled = false;
-		}*/
-	}
-	
-	// DetachParticleEmitter
-	public static void DetachParticleEmitter(ParticleEmitter emitter) {
-		// This stops the emitter from creating more particles
-		emitter.emit = false;
-		
-		// This splits the particle off so it doesn't get deleted with the parent
-		emitter.transform.parent = Config.particlesRoot;
-		
-		// This finds the particleAnimator associated with the emitter and then
-		// sets it to automatically delete itself when it runs out of particles
-		//emitter.GetComponent<ParticleAnimator>().autoDestruct = true;
-	}
-	
-	// DetachParticleSystem
-	public static void DetachParticleSystem(ParticleSystem pSys) {
-		// This stops the emitter from creating more particles
-		pSys.enableEmission = false;
-		
-		// This splits the particle off so it doesn't get deleted with the parent
-		pSys.transform.parent = Config.particlesRoot;
-	}
-	
-	// DetachTrail
-	public static void DetachTrail(TrailRenderer tr) {
-		if(tr)
-			tr.transform.parent = Config.particlesRoot;
-	}
-#endregion
-	
-#region Properties
-	// Caster
-	public Entity caster {
-		get { return _caster; }
-		set { _caster = value; }
-	}
-
-	// Skill
-	public Skill skill {
-		get { return _skill; }
-		set {
-			_skill = value;
-			//if(_skill != null)
-			//	_skillStage = _skill.currentStage;
+		// Move to new root
+		foreach(Transform child in particleTransforms) {
+			child.GetComponent<ParticleSystem>().enableEmission = false;
+			child.parent = Root.instance.particles;
 		}
 	}
-
-	// Skill stage
-	public Skill.Stage skillStage {
-		get { return _skillStage; }
-		set { _skillStage = value; }
-	}
-
-	// Hit point
-	public Vector3 hitPoint {
-		get { return _hitPoint; }
-		set { _hitPoint = value; }
-	}
-#endregion
 }

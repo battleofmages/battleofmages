@@ -15,7 +15,7 @@ public static class NetworkHelper {
 		uLink.Network.emulation.chanceOfDuplicates = 0;
 		uLink.Network.emulation.chanceOfLoss = 0;
 	}
-
+	
 	// Init public lobby key
 	public static void InitPublicLobbyKey() {
 		// Public key
@@ -24,19 +24,19 @@ public static class NetworkHelper {
 			"EQ=="
 		);
 	}
-
+	
 	// Download IP and port
 	public static IEnumerator DownloadIPAndPort(string url, IPAndPortCallBack func) {
 		if(func == null)
 			yield break;
-
+		
 		var ipRequest = new WWW(url);
 		yield return ipRequest;
 		
 		if(ipRequest.error == null) {
 			string ipAndPort = ipRequest.text;
 			string[] parts = ipAndPort.Split(':');
-
+			
 			var host = parts[0];
 			var port = int.Parse(parts[1]);
 			

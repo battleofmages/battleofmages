@@ -3,7 +3,7 @@ using System.Collections;
 
 public static class Texture2DSerializer {
 	// Writer
-	public static void JsonSerializer(Jboy.JsonWriter writer, object instance) {
+	public static void WriteJSON(Jboy.JsonWriter writer, object instance) {
 		writer.WriteNull();
 		/*var tex = (Texture2D)instance;
 		writer.WriteObjectStart();
@@ -21,7 +21,7 @@ public static class Texture2DSerializer {
 	}
 	
 	// Reader
-	public static object JsonDeserializer(Jboy.JsonReader reader) {
+	public static object ReadJSON(Jboy.JsonReader reader) {
 		reader.ReadNull();
 		return null; //new Texture2D(64, 64);
 	}

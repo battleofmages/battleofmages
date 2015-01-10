@@ -1,3 +1,31 @@
+Version 1.4.1
+
+- Fixed platform compilation issues
+- Fixed typos in labels
+- Removed docs and left a link to online docs
+- Added Unity version and target platform to result files
+- Other bugfixes
+
+Version 1.4
+
+(integration tests)
+- Platform runner will send the results back to the editor via TCP now
+- Added naming convention for running tests in batch mode
+- It's possible to cancel the run in the editor in between the tests now
+- Added message filtering for integration tests results
+- Added check for RegisterLogCallback in case something else overrides it
+- Error messages will now fail integration tests
+- Fixed dynamic integration tests not being properly reset
+- Fixed platform runner for BlackBerry platform
+
+(assertion component)
+- fixed the component editor
+
+(common)
+- Made settings to be saved per project
+- Fixed resolving icons when there are more UnityTestTools folders in the project
+- Fixed process return code when running in batch mode
+
 Version 1.3.2
 
 - Fixed integration tests performance issues

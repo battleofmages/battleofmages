@@ -9,7 +9,7 @@ public class AudioVolumeIcon : MonoBehaviour {
 	// UpdateSprite
 	public void UpdateSprite(float value) {
 		var img = GetComponent<Image>();
-
+		
 		if(value >= 0.5f)
 			img.sprite = full;
 		else if(value > 0f)

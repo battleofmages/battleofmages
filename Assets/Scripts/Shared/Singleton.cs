@@ -1,17 +1,4 @@
-﻿/*
- * ==============================================
- * http://en.wikipedia.org/wiki/Singleton_pattern
- * ==============================================
- * "There is criticism of the use of the singleton pattern,
- * as some consider it an anti-pattern, judging that it is overused,
- * introduces unnecessary restrictions in situations where a sole instance
- * of a class is not actually required, and introduces global state
- * into an application."
- * 
- * HOWEVER in Unity we need an actual instance because of MonoBehaviour methods and coroutines.
- */
-
-// Singleton
+﻿// Singleton
 public abstract class Singleton<T> where T : Singleton<T> {
 	public static T instance = default(T);
 }

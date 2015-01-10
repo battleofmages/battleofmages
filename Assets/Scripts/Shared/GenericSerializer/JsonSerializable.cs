@@ -1,22 +1,33 @@
-﻿public class JsonSerializable<T> where T : JsonSerializable<T>, new() {
+﻿public class JSONSerializable<T> where T : JSONSerializable<T>, new() {
 	// Writer
-	public static void JsonSerializer(Jboy.JsonWriter writer, object instance) {
-		GenericSerializer.WriteJSONClassInstance<T>(writer, (T)instance);
+	public static void WriteJSON(Jboy.JsonWriter writer, object instance) {
+		GenericSerializer.WriteJSON<T>(writer, (T)instance);
 	}
 	
 	// Reader
-	public static object JsonDeserializer(Jboy.JsonReader reader) {
-		return GenericSerializer.ReadJSONClassInstance<T>(reader);
+	public static object ReadJSON(Jboy.JsonReader reader) {
+		return GenericSerializer.ReadJSON<T>(reader);
 	}
 	
 	// Static constructor, called explicitly in GameDB.InitCodecs()
-	static JsonSerializable() {
+	static JSONSerializable() {
 		InitCodec();
+	}
+
+	// TestJSONCodec
+	public static void TestJSONCodec() {
+		var obj = new T();
+		
+		var json = Jboy.Json.WriteObject(obj);
+		LogManager.General.Log(json);
+		
+		var newObject = Jboy.Json.ReadObject<T>(json);
+		LogManager.General.Log(Jboy.Json.WriteObject(newObject));
 	}
 	
 	// InitCodec
 	public static void InitCodec() {
-		LogManager.Spam.Log("Registering JSON Codec: " + typeof(T).ToString());
-		Jboy.Json.AddCodec<T>(JsonDeserializer, JsonSerializer);
+		LogManager.Spam.Log("Registering JSON Codec: " + typeof(T));
+		Jboy.Json.AddCodec<T>(ReadJSON, WriteJSON);
 	}
 }

@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class SetCursor : MonoBehaviour {
+public class SetCursor : MonoBehaviour, Initializable {
 	public Texture2D cursorIcon;
 	public Vector2 cursorHotSpot;
 	public CursorMode cursorMode;
-
-	// Start
-	void Start() {
+	
+	// Init
+	public void Init() {
 		// Cursor
 		Cursor.SetCursor(cursorIcon, cursorHotSpot, cursorMode);
 	}

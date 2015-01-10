@@ -1,4 +1,4 @@
-﻿public enum OnlineStatus {
+﻿﻿public enum OnlineStatus {
 	Offline,
 	Online,
 	InQueue,

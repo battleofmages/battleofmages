@@ -2,54 +2,45 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
+  serializedVersion: 2
   tags:
-  - CamPivot
-  - Map
-  - Weapon
+  - Particles
   - Projectile
-  - SkillCircle
-  - Sun
-  - Enemy
-  - NPC
-  - Boundary
-  - Portal
+  - Map
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Team 1
+  - Team 2
+  - Team 1 DMG Skills
+  - Team 2 DMG Skills
   - 
   - 
   - 
-  Builtin Layer 0: Default
-  Builtin Layer 1: TransparentFX
-  Builtin Layer 2: Ignore Raycast
-  Builtin Layer 3: 
-  Builtin Layer 4: Water
-  Builtin Layer 5: UI
-  Builtin Layer 6: 
-  Builtin Layer 7: 
-  User Layer 8: Team 1
-  User Layer 9: Team 2
-  User Layer 10: Team 3
-  User Layer 11: Team 4
-  User Layer 12: Team 5
-  User Layer 13: Team 6
-  User Layer 14: Team 7
-  User Layer 15: Team 8
-  User Layer 16: Team 9
-  User Layer 17: Team 10
-  User Layer 18: Skill Layer 1
-  User Layer 19: Skill Layer 2
-  User Layer 20: Skill Layer 3
-  User Layer 21: Skill Layer 4
-  User Layer 22: Skill Layer 5
-  User Layer 23: Skill Layer 6
-  User Layer 24: Skill Layer 7
-  User Layer 25: Skill Layer 8
-  User Layer 26: Skill Layer 9
-  User Layer 27: Skill Layer 10
-  User Layer 28: RESERVED
-  User Layer 29: Open World PvP
-  User Layer 30: Enemy skills
-  User Layer 31: Enemies
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   m_SortingLayers:
   - name: Default
-    userID: 0
     uniqueID: 0
     locked: 0

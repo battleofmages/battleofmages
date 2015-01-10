@@ -1,16 +1,17 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-[IntegrationTest.DynamicTest ("IntegrationTestsExample")]
-//[IntegrationTest.Ignore]
-[IntegrationTest.ExpectExceptions (false, typeof (ArgumentException))]
+[IntegrationTest.DynamicTestAttribute("ExampleIntegrationTests")]
+// [IntegrationTest.Ignore]
+[IntegrationTest.ExpectExceptions(false, typeof(ArgumentException))]
 [IntegrationTest.SucceedWithAssertions]
-[IntegrationTest.Timeout(1)]
-[IntegrationTest.ExcludePlatform(RuntimePlatform.Android, RuntimePlatform.LinuxPlayer)]
-public class DynamicIntegrationTest : MonoBehaviour 
+[IntegrationTest.TimeoutAttribute(1)]
+[IntegrationTest.ExcludePlatformAttribute(RuntimePlatform.Android, RuntimePlatform.LinuxPlayer)]
+public class DynamicIntegrationTest : MonoBehaviour
 {
-	void Start()
-	{
-		IntegrationTest.Pass(gameObject);
-	}
+    public void Start()
+    {
+        IntegrationTest.Pass(gameObject);
+    }
 }

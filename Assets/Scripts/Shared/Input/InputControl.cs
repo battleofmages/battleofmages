@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 [System.Serializable]
@@ -35,7 +35,7 @@ public class InputControl {
 	// Capture a key
 	public KeyCode Capture(bool altKey = false) {
 		KeyCode kc = Event.current.keyCode;
-
+		
 		// Mouse buttons
 		for(int i = 0; i < 6; i++) {
 			if(Input.GetMouseButtonDown(i)) {
@@ -62,7 +62,7 @@ public class InputControl {
 				}
 			}
 		}
-
+		
 		if(kc == KeyCode.None)
 			return KeyCode.None;
 		
@@ -82,7 +82,7 @@ public class InputControl {
 			keyCode = KeyCode.None;
 	}
 	
-	// Writer
+	/*// Writer
 	public static void JsonSerializer(Jboy.JsonWriter writer, object instance) {
 		var control = (InputControl)instance;
 		if(!control.active)
@@ -100,7 +100,7 @@ public class InputControl {
 	// Reader
 	public static object JsonDeserializer(Jboy.JsonReader reader) {
 		return GenericSerializer.ReadJSONClassInstance<InputControl>(reader);
-	}
+	}*/
 	
 	// Key code to string
 	public static string KeyCodeToString(KeyCode keyCode) {
@@ -109,14 +109,14 @@ public class InputControl {
 		
 		if(keyCode >= KeyCode.Mouse0 && keyCode <= KeyCode.Mouse6) {
 			switch(keyCode) {
-				case KeyCode.Mouse0:
-					return "Left mouse button";
-				case KeyCode.Mouse1:
-					return "Right mouse button";
-				case KeyCode.Mouse2:
-					return "Middle mouse button";
-				default:
-					return "Mouse extra button " + (keyCode - KeyCode.Mouse2).ToString();
+			case KeyCode.Mouse0:
+				return "Left mouse button";
+			case KeyCode.Mouse1:
+				return "Right mouse button";
+			case KeyCode.Mouse2:
+				return "Middle mouse button";
+			default:
+				return "Mouse extra button " + (keyCode - KeyCode.Mouse2).ToString();
 			}
 		}
 		

@@ -69,7 +69,7 @@ public class uLinkSmoothRigidbody : uLink.MonoBehaviour
 		
 		curRot = transform.rotation;
 
-		rigidbody = base.rigidbody;
+		rigidbody = base.GetComponent<Rigidbody>();
 	}
 
 	void Start()

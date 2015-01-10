@@ -1,11 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-
-[System.Serializable]
-public class KeyValue<T> : JsonSerializable<KeyValue<T>> {
+﻿[System.Serializable]
+public class KeyValue<T> : JSONSerializable<KeyValue<T>> {
 	public string key;
 	public T val;
-	
+
+	// Constructor
 	public KeyValue() {
 		key = default(string);
 		val = default(T);

@@ -1,6 +1,5 @@
-using System;
+﻿using System;
 using System.Reflection;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +18,7 @@ public class GenericSerializer {
 	}
 	
 	// Writes all fields of a class instance
-	public static void WriteJSONClassInstance<T>(Jboy.JsonWriter writer, T instance, HashSet<string> fieldFilter = null, HashSet<string> fieldExclude = null) {
+	public static void WriteJSON<T>(Jboy.JsonWriter writer, T instance, HashSet<string> fieldFilter = null, HashSet<string> fieldExclude = null) {
 		if(instance == null) {
 			writer.WriteNull();
 			return;
@@ -49,10 +48,6 @@ public class GenericSerializer {
 			
 			object val = field.GetValue(instance);
 			
-			//LogManager.General.Log("Writing '" + name + "'"); // with value '" + ((double)val).ToString() + "'");
-			//LogManager.General.Log("ValueType " + val.GetType().ToString());
-			//LogManager.General.Log("Value " + val.ToString());
-			
 			// Write them to the JSON stream
 			writer.WritePropertyName(name);
 			GenericSerializer.WriteJSONValue(writer, val);
@@ -60,11 +55,12 @@ public class GenericSerializer {
 		
 		writer.WriteObjectEnd();
 	}
-	
+
 	// Read a single value from JSON
 	public static object ReadJSONValue(Jboy.JsonReader reader, FieldInfo field) {
 		var fieldType = field.FieldType;
-		
+
+		// Most common cases
 		if(fieldType == typeof(int)) {
 			return (int)(reader.ReadNumber());
 		} else if(fieldType == typeof(uint)) {
@@ -88,90 +84,45 @@ public class GenericSerializer {
 				reader.ReadNull();
 				return null;
 			}
-		} else if(fieldType == typeof(int[])) {
-			return Jboy.Json.ReadObject<int[]>(reader);
-		} else if(fieldType == typeof(Color)) {
-			return ColorSerializer.JsonDeserializer(reader);
-		} else if(fieldType == typeof(ServerType)) {
-			return ServerTypeSerializer.JsonDeserializer(reader);
-		} else if(fieldType == typeof(PlayerQueueStats)) {
-			return GenericSerializer.ReadJSONClassInstance<PlayerQueueStats>(reader);
-		} else if(fieldType == typeof(PlayerQueueStats[])) {
-			reader.ReadArrayStart();
-			
-			PlayerQueueStats[] valArray = new PlayerQueueStats[QueueSettings.queueCount];
-			for(int i = 0; i < QueueSettings.queueCount; i++) {
-				valArray[i] = GenericSerializer.ReadJSONClassInstance<PlayerQueueStats>(reader);
-			}
-			
-			reader.ReadArrayEnd();
-			
-			return valArray;
-		} else if(fieldType == typeof(InputControl[])) {
-			reader.ReadArrayStart();
-			
-			List<InputControl> valList = new List<InputControl>();
-			while(true) {
-				try {
-					valList.Add(GenericSerializer.ReadJSONClassInstance<InputControl>(reader));
-				} catch {
-					break;
-				}
-			}
-			
-			reader.ReadArrayEnd();
-			
-			return valList.ToArray();
-		} else if(fieldType == typeof(Artifact)) {
-			return Jboy.Json.ReadObject<Artifact>(reader);
-		} else if(fieldType == typeof(ArtifactSlot)) {
-			return Jboy.Json.ReadObject<ArtifactSlot>(reader);
-		} else if(fieldType == typeof(ArtifactTree)) {
-			return Jboy.Json.ReadObject<ArtifactTree>(reader);
-		} else if(fieldType == typeof(ArtifactInventory)) {
-			return Jboy.Json.ReadObject<ArtifactInventory>(reader);
-		} else if(fieldType == typeof(List<ItemSlot>)) {
-			return Jboy.Json.ReadObject<List<ItemSlot>>(reader);
-		} else if(fieldType == typeof(TimeStamp)) {
-			return Jboy.Json.ReadObject<TimeStamp>(reader);
-		} else if(fieldType == typeof(SkillBuild)) {
-			return Jboy.Json.ReadObject<SkillBuild>(reader);
-		//} else if(fieldType == typeof(WeaponBuild)) {
-		//	return Jboy.Json.ReadObject<WeaponBuild>(reader);
-		//} else if(fieldType == typeof(AttunementBuild)) {
-		//	return Jboy.Json.ReadObject<AttunementBuild>(reader);
-		} else if(fieldType == typeof(WeaponBuild[])) {
-			return Jboy.Json.ReadObject<WeaponBuild[]>(reader);
-		} else if(fieldType == typeof(AttunementBuild[])) {
-			return Jboy.Json.ReadObject<AttunementBuild[]>(reader);
-		} else if(fieldType == typeof(Guild)) {
-			return GenericSerializer.ReadJSONClassInstance<Guild>(reader);
-		} else if(fieldType == typeof(GuildMember)) {
-			return GenericSerializer.ReadJSONClassInstance<GuildMember>(reader);
-		} else if(fieldType == typeof(GuildMember[])) {
-			return Jboy.Json.ReadObject<GuildMember[]>(reader);
-		} else if(fieldType == typeof(List<string>)) {
-			return Jboy.Json.ReadObject<List<string>>(reader);
-		} else if(fieldType == typeof(List<Friend>)) {
-			return Jboy.Json.ReadObject<List<Friend>>(reader);
-		} else if(fieldType == typeof(List<FriendsGroup>)) {
-			return Jboy.Json.ReadObject<List<FriendsGroup>>(reader);
-		} else if(fieldType == typeof(Texture2D)) {
-			return Texture2DSerializer.JsonDeserializer(reader);
-		} else {
-			LogManager.General.LogError("Unknown field type for GenericSerializer.ReadJSONValue: " + fieldType);
-			return (int)(reader.ReadNumber());
 		}
+
+		return ReadObject(fieldType, reader);
 	}
-	
+
+	// ReadObject
+	public static object ReadObject(Type fieldType, Jboy.JsonReader reader) {
+		// Call via reflection: Jboy.Json.ReadObject<T>(reader)
+		MethodInfo method = typeof(Jboy.Json).GetMethod("ReadObject", new [] { typeof(Jboy.JsonReader) });
+		MethodInfo generic = method.MakeGenericMethod(fieldType);
+		
+		var parameters = new object[] {
+			reader
+		};
+		
+		return generic.Invoke(null, parameters);
+	}
+
+	// ReadObject
+	public static object ReadObject(Type fieldType, string json) {
+		// Call via reflection: Jboy.Json.ReadObject<T>(reader)
+		MethodInfo method = typeof(Jboy.Json).GetMethod("ReadObject", new [] { typeof(string) });
+		MethodInfo generic = method.MakeGenericMethod(fieldType);
+		
+		var parameters = new object[] {
+			json
+		};
+		
+		return generic.Invoke(null, parameters);
+	}
+
 	// Read a new class instance from JSON
-	public static T ReadJSONClassInstance<T>(Jboy.JsonReader reader) where T : new() {
+	public static T ReadJSON<T>(Jboy.JsonReader reader) where T : new() {
 		T instance = new T();
 		
 		reader.ReadObjectStart();
 		
 		string propName;
-		bool success = true;
+		bool success;
 		var typeInfo = typeof(T);
 		
 		while(true) {

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class InputSettings {
@@ -15,7 +15,7 @@ public class InputSettings {
 		controls = inputMgr.controls;
 	}
 	
-	// Writer
+	/*// Writer
 	public static void JsonSerializer(Jboy.JsonWriter writer, object instance) {
 		GenericSerializer.WriteJSONClassInstance<InputSettings>(writer, (InputSettings)instance);
 	}
@@ -23,5 +23,5 @@ public class InputSettings {
 	// Reader
 	public static object JsonDeserializer(Jboy.JsonReader reader) {
 		return GenericSerializer.ReadJSONClassInstance<InputSettings>(reader);
-	}
+	}*/
 }

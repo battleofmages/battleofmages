@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 
-[System.Serializable]
-public class FriendsGroup : JsonSerializable<FriendsGroup> {
+[Serializable]
+public class FriendsGroup : JSONSerializable<FriendsGroup> {
 	public string name;
 	public Color color;
 	public List<Friend> friends;

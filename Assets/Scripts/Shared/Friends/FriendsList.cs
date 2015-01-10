@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 [System.Serializable]
-public class FriendsList : JsonSerializable<FriendsList> {
+public class FriendsList : JSONSerializable<FriendsList> {
 	// This should keep user-defined order, so don't make it a HashSet
 	public List<FriendsGroup> groups;
 
@@ -41,7 +40,7 @@ public class FriendsList : JsonSerializable<FriendsList> {
 	}
 	
 	// All friends
-	public System.Collections.Generic.IEnumerable<Friend> allFriends {
+	public IEnumerable<Friend> allFriends {
 		get {
 			foreach(var grp in groups) {
 				foreach(var friend in grp.friends) {
