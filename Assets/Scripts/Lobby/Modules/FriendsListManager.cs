@@ -7,6 +7,9 @@ public class FriendsListManager : MonoBehaviour {
 
 	// OnEnable
 	void OnEnable() {
+		if(PlayerAccount.mine == null)
+			return;
+
 		PlayerAccount.mine.friendsList.Get(data => {
 			ConstructFriendsList();
 		});
