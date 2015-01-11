@@ -12,7 +12,7 @@ public class AccountDataConnector : SingletonMonoBehaviour<AccountDataConnector>
 
 	// Start
 	void Start() {
-		ViewProfile(PlayerAccount.mine);
+		ViewMyProfile();
 	}
 
 	// ViewProfile
@@ -26,5 +26,10 @@ public class AccountDataConnector : SingletonMonoBehaviour<AccountDataConnector>
 				}
 			});
 		}
+	}
+
+	// ViewMyProfile
+	public void ViewMyProfile() {
+		ViewProfile(PlayerAccount.mine);
 	}
 }

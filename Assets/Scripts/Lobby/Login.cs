@@ -26,6 +26,11 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 		SendLoginRequest(emailField.text, passwordField.text);
 	}
 
+	// LogOut
+	public void LogOut() {
+		Lobby.RPC("AccountLogOut", Lobby.lobby);
+	}
+
 	// Send login request
 	public void SendLoginRequest(string email, string password) {
 		LogManager.General.Log("Sending login request...");
@@ -73,6 +78,10 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 	
 	// OnAccountLoggedOut
 	void OnAccountLoggedOut(Account account) {
+		// Login page
+		if(Lobby.connectionStatus == LobbyConnectionStatus.Connected)
+			UIManager.instance.currentState = "Login";
+
 		// Activate low pass
 		AudioManager.instance.Fade(
 			4f,

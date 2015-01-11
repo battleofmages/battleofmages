@@ -20,12 +20,17 @@ public class FriendsListManager : MonoBehaviour {
 	void ConstructFriendsList() {
 		var friendsList = PlayerAccount.mine.friendsList.value;
 
+		DeleteFriendsList();
+
 		for(int i = 0; i < friendsList.groups.Count; i++) {
 			var group = friendsList.groups[i];
 			var clone = (GameObject)Instantiate(friendsGroupPrefab);
 
 			clone.transform.SetParent(friendsGroupRoot, false);
 			clone.transform.SetSiblingIndex(i);
+
+			// Set friends group instance
+			clone.GetComponent<FriendsGroupInstance>().friendsGroup = group;
 
 			clone.name = group.name;
 			clone.GetComponentInChildren<Text>().text = group.name;
@@ -49,6 +54,14 @@ public class FriendsListManager : MonoBehaviour {
 				clone.name = data;
 				clone.GetComponentInChildren<Text>().text = data;
 			});
+		}
+	}
+
+	// DeleteFriendsList
+	void DeleteFriendsList() {
+		foreach(Transform tr in friendsGroupRoot) {
+			if(tr.GetComponent<FriendsGroupInstance>())
+				Destroy(tr.gameObject);
 		}
 	}
 }

@@ -29,6 +29,7 @@ GameObject:
   - 114: {fileID: 11490208}
   - 114: {fileID: 11448308}
   - 114: {fileID: 11449254}
+  - 114: {fileID: 11472418}
   m_Layer: 5
   m_Name: Friend
   m_TagString: Untagged
@@ -123,6 +124,20 @@ MonoBehaviour:
   m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
+--- !u!114 &11472418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6ab8b46c3684842a6bc495e0ccb5c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  friend:
+    accountId: 
+    note: 
 --- !u!114 &11490208
 MonoBehaviour:
   m_ObjectHideFlags: 1
