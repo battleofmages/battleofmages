@@ -42,17 +42,12 @@ public class Register : SingletonMonoBehaviour<Register>, Initializable {
 		LogManager.General.Log("Received " + propertyName + ": " + json);
 
 		var val = GenericSerializer.ReadObject(Type.GetType(typeName), json);
-
 		var account = PlayerAccount.Get(accountId);
 
 		var propertyField = account.GetType().GetField(propertyName);
 		var property = propertyField.GetValue(account);
 		var propertyType = propertyField.FieldType;
 		var valueProperty = propertyType.GetProperty("value");
-
-		/*LogManager.General.Log("Prop: " + propertyField);
-		LogManager.General.Log("Prop Type: " + propertyType);
-		LogManager.General.Log("Value Prop: " + valueProperty);*/
 
 		valueProperty.SetValue(property, val, null);
 

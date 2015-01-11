@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 
 public class FriendsListManager : MonoBehaviour {
+	public Transform friendsGroupRoot;
 	public GameObject friendsGroupPrefab;
 	public GameObject friendPrefab;
 
@@ -23,8 +24,10 @@ public class FriendsListManager : MonoBehaviour {
 			var group = friendsList.groups[i];
 			var clone = (GameObject)Instantiate(friendsGroupPrefab);
 
-			clone.transform.SetParent(transform, false);
+			clone.transform.SetParent(friendsGroupRoot, false);
 			clone.transform.SetSiblingIndex(i);
+
+			clone.name = group.name;
 			clone.GetComponentInChildren<Text>().text = group.name;
 
 			BuildFriendsGroup(group, clone);
@@ -38,7 +41,12 @@ public class FriendsListManager : MonoBehaviour {
 			var clone = (GameObject)Instantiate(friendPrefab);
 			clone.transform.SetParent(groupObject.transform, false);
 
+			// Set friend instance
+			clone.GetComponent<FriendInstance>().friend = friend;
+
+			// Fetch name
 			PlayerAccount.Get(friend.accountId).playerName.Connect(data => {
+				clone.name = data;
 				clone.GetComponentInChildren<Text>().text = data;
 			});
 		}
