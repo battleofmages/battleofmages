@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using uLobby;
 
 public class FriendsListManager : MonoBehaviour {
 	public Transform friendsGroupRoot;
+
 	public GameObject addFriendUI;
+	public InputField addFriendInputField;
+	public Button addFriendAcceptField;
 
 	public GameObject friendsGroupPrefab;
 	public GameObject friendPrefab;
@@ -64,14 +68,15 @@ public class FriendsListManager : MonoBehaviour {
 	// ToggleAddFriendUI
 	public void ToggleAddFriendUI() {
 		bool active = !addFriendUI.activeSelf;
+		addFriendInputField.interactable = active;
 		addFriendUI.SetActive(active);
-
-		if(active)
-			addFriendUI.GetComponentInChildren<InputField>().Select();
 	}
 
 	// AddFriend
 	public void AddFriend() {
-		addFriendUI.SetActive(false);
+		addFriendInputField.interactable = false;
+		addFriendAcceptField.interactable = false;
+
+		Lobby.RPC("SetFriendsList", Lobby.lobby, PlayerAccount.mine.id);
 	}
 }

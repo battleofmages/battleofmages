@@ -475,7 +475,7 @@ MonoBehaviour:
           m_StringArgument: buttonClick
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 191784241}
+      - m_Target: {fileID: 430633606}
         m_MethodName: ViewMyProfile
         m_Mode: 1
         m_Arguments:
@@ -6624,6 +6624,12 @@ MonoBehaviour:
   m_PreferredHeight: 38
   m_FlexibleWidth: 100
   m_FlexibleHeight: -1
+--- !u!114 &1571910429
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11491606, guid: c7526747797659f438ff119f963a4cf8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1978670606}
+  m_Script: {fileID: 575553740, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!114 &1571910432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6633,6 +6639,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbd70ff60cc3a7b49acb19831bd1b80d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1571910433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1571910426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e8e5a1ecbf61a44b0a663760298413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1575673988
@@ -6957,6 +6974,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   friendsGroupRoot: {fileID: 1476629850}
   addFriendUI: {fileID: 657184745}
+  addFriendInputField: {fileID: 1571910429}
+  addFriendAcceptField: {fileID: 1051321847}
   friendsGroupPrefab: {fileID: 153650, guid: 0acae8d88166a49418e89533a8543d7a, type: 2}
   friendPrefab: {fileID: 165868, guid: 1e26c37c33e556443948bd8478063ec9, type: 2}
 --- !u!114 &1645146400
