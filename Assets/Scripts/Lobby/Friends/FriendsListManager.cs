@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class FriendsListManager : MonoBehaviour {
 	public Transform friendsGroupRoot;
+	public GameObject addFriendUI;
+
 	public GameObject friendsGroupPrefab;
 	public GameObject friendPrefab;
 
@@ -14,6 +16,8 @@ public class FriendsListManager : MonoBehaviour {
 		PlayerAccount.mine.friendsList.Get(data => {
 			ConstructFriendsList();
 		});
+
+		addFriendUI.SetActive(false);
 	}
 
 	// ConstructFriendsList
@@ -55,5 +59,19 @@ public class FriendsListManager : MonoBehaviour {
 	// DeleteFriendsList
 	void DeleteFriendsList() {
 		friendsGroupRoot.DeleteChildrenWithComponent<FriendsGroupWidget>();
+	}
+
+	// ToggleAddFriendUI
+	public void ToggleAddFriendUI() {
+		bool active = !addFriendUI.activeSelf;
+		addFriendUI.SetActive(active);
+
+		if(active)
+			addFriendUI.GetComponentInChildren<InputField>().Select();
+	}
+
+	// AddFriend
+	public void AddFriend() {
+		addFriendUI.SetActive(false);
 	}
 }

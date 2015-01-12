@@ -17,29 +17,10 @@ public class NameChanger : MonoBehaviour {
 
 		// Receive RPCs
 		Lobby.AddListener(this);
-
-		// Intercept adding of characters
-		nameField.onValidateInput += (text, charIndex, addedChar) => {
-			// Japanese space
-			if(addedChar == '　')
-				addedChar = ' ';
-
-			if(!System.Char.IsLetter(addedChar) && addedChar != ' ')
-				return default(char);
-
-			string newText = text.Insert(charIndex, addedChar.ToString());
-			string prettified = newText.PrettifyPlayerName();
-
-			if(newText.Length == prettified.Length)
-				return prettified[charIndex];
-			else
-				return default(char);
-		};
 	}
 
-	// Prettify
-	public void Prettify() {
-		nameField.text = nameField.text.PrettifyPlayerName();
+	// Validate
+	public void Validate() {
 		validName = Validator.playerName.IsMatch(nameField.text);
 		acceptButton.gameObject.SetActive(false);
 	}

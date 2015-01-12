@@ -5,23 +5,45 @@ public class FriendWidget : MonoBehaviour {
 	public Friend friend;
 	public Image onlineStatusImage;
 
+	private PlayerAccount friendAccount;
+	private AsyncProperty<string>.ConnectCallBack nameCallBack;
+	private AsyncProperty<OnlineStatus>.ConnectCallBack statusCallBack;
+
 	// Start
 	void Start () {
-		var friendAccount = PlayerAccount.Get(friend.accountId);
+		friendAccount = PlayerAccount.Get(friend.accountId);
 
 		// Fetch name
-		friendAccount.playerName.Connect(data => {
-			name = data;
-			GetComponentInChildren<Text>().text = data;
-		});
+		nameCallBack = newName => {
+			name = newName;
+			GetComponentInChildren<Text>().text = newName;
+		};
 
 		// Online status
-		friendAccount.onlineStatus.Connect(data => {
-			onlineStatusImage.sprite = OnlineStatusSprites.instance.sprites[(int)data];
+		statusCallBack = status => {
+			onlineStatusImage.sprite = OnlineStatusSprites.Get(status);
+		};
+
+		// Connect
+		friendAccount.playerName.Connect(nameCallBack);
+		friendAccount.onlineStatus.Connect(statusCallBack);
+
+		// Button setup
+		var button = GetComponent<Button>();
+
+		button.onClick.AddListener(() => {
+			Profile.instance.ViewProfile(friendAccount);
 		});
 
-		GetComponent<Button>().onClick.AddListener(() => {
-			AccountDataConnector.instance.ViewProfile(friendAccount);
+		button.onClick.AddListener(() => {
+			Sounds.instance.Play("buttonClick");
 		});
+	}
+
+	// OnDestroy
+	void OnDestroy() {
+		// Disconnect
+		friendAccount.playerName.Disconnect(nameCallBack);
+		friendAccount.onlineStatus.Disconnect(statusCallBack);
 	}
 }

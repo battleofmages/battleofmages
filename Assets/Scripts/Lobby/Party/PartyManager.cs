@@ -25,7 +25,7 @@ public class PartyManager : MonoBehaviour {
 			transform,
 			(clone, id) => {
 				// Set info
-				clone.GetComponent<PartyMemberWidget>().accountId = id;
+				clone.GetComponent<PartyMemberWidget>().account = PlayerAccount.Get(id);
 			}
 		);
 	}

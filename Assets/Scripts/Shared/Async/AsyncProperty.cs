@@ -43,6 +43,14 @@ public class AsyncProperty<T> : AsyncPropertyBase {
 		Request();
 	}
 
+	// Disconnect
+	public void Disconnect(ConnectCallBack callBack) {
+		onValueChange -= callBack;
+
+		if(!available)
+			onReceive -= callBack;
+	}
+
 	// Get
 	// One-time callback if you only care about the value once
 	public void Get(ConnectCallBack callBack) {

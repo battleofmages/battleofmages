@@ -2,24 +2,46 @@
 using UnityEngine.UI;
 
 public class PartyMemberWidget : MonoBehaviour {
-	public string accountId;
+	public PlayerAccount account;
 	public Text nameComponent;
 	public Text infoComponent;
 	public Image onlineStatusImage;
 
+	private AsyncProperty<string>.ConnectCallBack nameCallBack;
+	private AsyncProperty<OnlineStatus>.ConnectCallBack statusCallBack;
+
 	// Start
 	void Start() {
-		var account = PlayerAccount.Get(accountId);
-
 		// Fetch name
-		account.playerName.Connect(data => {
-			name = data;
-			nameComponent.text = data;
-		});
-
+		nameCallBack = newName => {
+			name = newName;
+			nameComponent.text = newName;
+		};
+		
 		// Online status
-		account.onlineStatus.Connect(data => {
-			onlineStatusImage.sprite = OnlineStatusSprites.instance.sprites[(int)data];
+		statusCallBack = status => {
+			onlineStatusImage.sprite = OnlineStatusSprites.Get(status);
+		};
+
+		// Connect
+		account.playerName.Connect(nameCallBack);
+		account.onlineStatus.Connect(statusCallBack);
+
+		var button = GetComponent<Button>();
+		
+		button.onClick.AddListener(() => {
+			Profile.instance.ViewProfile(account);
 		});
+		
+		button.onClick.AddListener(() => {
+			Sounds.instance.Play("buttonClick");
+		});
+	}
+
+	// OnDestroy
+	void OnDestroy() {
+		// Disconnect
+		account.playerName.Disconnect(nameCallBack);
+		account.onlineStatus.Disconnect(statusCallBack);
 	}
 }

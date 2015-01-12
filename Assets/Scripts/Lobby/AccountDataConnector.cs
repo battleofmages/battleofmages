@@ -1,22 +1,23 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 
-public class AccountDataConnector : SingletonMonoBehaviour<AccountDataConnector> {
-	[Serializable]
-	public struct AccountDataConnection {
-		public string propertyName;
-		public Text[] textFields;
-	}
+[Serializable]
+public struct AccountDataConnection {
+	public string propertyName;
+	public Text[] textFields;
+}
 
+public class AccountDataConnector : MonoBehaviour {
 	public AccountDataConnection[] connections;
 
 	// Start
 	void Start() {
-		ViewMyProfile();
+		ConnectMyAccount();
 	}
 
-	// ViewProfile
-	public void ViewProfile(PlayerAccount account) {
+	// Connect
+	public void Connect(PlayerAccount account) {
 		foreach(var connection in connections) {
 			var textFields = connection.textFields;
 			
@@ -28,8 +29,8 @@ public class AccountDataConnector : SingletonMonoBehaviour<AccountDataConnector>
 		}
 	}
 
-	// ViewMyProfile
-	public void ViewMyProfile() {
-		ViewProfile(PlayerAccount.mine);
+	// ConnectMyAccount
+	public void ConnectMyAccount() {
+		Connect(PlayerAccount.mine);
 	}
 }

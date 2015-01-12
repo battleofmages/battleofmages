@@ -96,12 +96,15 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 
 		// Activate low pass
 		AudioManager.instance.Fade(
-			4f,
+			2f,
 			(val) => {
 				val = 1f - val;
 				AudioManager.instance.mixer.SetFloat("musicCutOffFreq", 500f + 21500f * val * val);
 			}
 		);
+
+		// Reset player account
+		PlayerAccount.mine = null;
 	}
 	
 	// OnLogInFailed
