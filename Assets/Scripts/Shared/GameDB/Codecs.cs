@@ -17,6 +17,7 @@ public class Codecs : MonoBehaviour, Initializable {
 
 		// Register JSON codecs for integrated types
 		Json.AddCodec<Color>(ColorSerializer.ReadJSON, ColorSerializer.WriteJSON);
+		Json.AddCodec<OnlineStatus>(OnlineStatusSerializer.ReadJSON, OnlineStatusSerializer.WriteJSON);
 	}
 
 	// RegisterClassCodecs

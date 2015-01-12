@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class Party {
+public class Party : JSONSerializable<Party> {
 	public const int maxSize = 5;
 
 	// Accounts

@@ -6,6 +6,7 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 	public InputField emailField;
 	public InputField passwordField;
 	public AudioClip loginSound;
+	public bool autoLogin;
 
 	// Init
 	public void Init() {
@@ -48,6 +49,17 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 	}
 
 #region Callbacks
+	// uLobby: Connected
+	void uLobby_OnConnected() {
+		// Activate UI
+		UIManager.instance.currentState = "Login";
+		
+		// Auto login
+		if(autoLogin)
+			//Login.instance.SendLoginRequest("a", "a");
+			Login.instance.SendEncryptedLoginRequest(PlayerPrefs.GetString("AccountEmail", ""), PlayerPrefs.GetString("AccountSaltedAndHashedPassword", ""));
+	}
+
 	// OnAccountLoggedIn
 	void OnAccountLoggedIn(Account account) {
 		LogManager.General.Log("Successfully logged in: " + account.name);

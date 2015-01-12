@@ -54,12 +54,6 @@ public class PlayerAccount : PlayerAccountBase, AsyncRequester {
 	}
 
 #region Properties
-	// Online status
-	public OnlineStatus onlineStatus {
-		get;
-		protected set;
-	}
-
 	// Is mine
 	public bool isMine {
 		get {

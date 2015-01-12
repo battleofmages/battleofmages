@@ -8,4 +8,12 @@ static class TransformExtensions {
 		foreach(Transform child in root)
 			child.MoveToLayer(layer);
 	}
+
+	// DeleteChildrenWithComponent
+	public static void DeleteChildrenWithComponent<T>(this Transform root) {
+		foreach(Transform child in root) {
+			if(child.GetComponent<T>() != null)
+				GameObject.Destroy(child.gameObject);
+		}
+	}
 }

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 
-public class FriendsGroupInstance : MonoBehaviour {
+public class FriendsGroupWidget : MonoBehaviour {
 	public FriendsGroup friendsGroup;
 }

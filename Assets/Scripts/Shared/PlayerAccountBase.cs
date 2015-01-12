@@ -3,6 +3,8 @@
 	public AsyncProperty<string> playerName;
 	public AsyncProperty<string> email;
 	public AsyncProperty<FriendsList> friendsList;
+	public AsyncProperty<Party> party;
+	public AsyncProperty<OnlineStatus> onlineStatus;
 	//public AsyncProperty<AccessLevel> accessLevel;
 
 	// Init
@@ -10,6 +12,8 @@
 		playerName = new AsyncProperty<string>(req, "playerName");
 		email = new AsyncProperty<string>(req, "email");
 		friendsList = new AsyncProperty<FriendsList>(req, "friendsList");
+		party = new AsyncProperty<Party>(req, "party");
+		onlineStatus = new AsyncProperty<OnlineStatus>(req, "onlineStatus");
 	}
 
 	// Index operator
