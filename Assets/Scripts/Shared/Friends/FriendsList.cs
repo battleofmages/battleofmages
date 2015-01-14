@@ -70,4 +70,9 @@ public class FriendsList : JSONSerializable<FriendsList> {
 		
 		return true;
 	}
+
+	// CanAdd
+	public bool CanAdd(PlayerAccountBase account) {
+		return CanAdd(account.id);
+	}
 }

@@ -51,11 +51,18 @@ public class Register : SingletonMonoBehaviour<Register>, Initializable {
 
 		valueProperty.SetValue(property, val, null);
 
-		if(account.isMine && propertyName == "playerName" && (UIManager.instance.currentState == "Waiting" || UIManager.instance.currentState == "Ask Name")) {
-			if(string.IsNullOrEmpty((string)val))
-				UIManager.instance.currentState = "Ask Name";
-			else
-				UIManager.instance.currentState = "Lobby";
+		if(propertyName == "playerName") {
+			// Add name to account dictionary
+			if(!string.IsNullOrEmpty((string)val))
+				PlayerAccount.playerNameToAccount[(string)val] = account;
+
+			// Next page
+			if(account.isMine && (UIManager.instance.currentState == "Waiting" || UIManager.instance.currentState == "Ask Name")) {
+				if(string.IsNullOrEmpty((string)val))
+					UIManager.instance.currentState = "Ask Name";
+				else
+					UIManager.instance.currentState = "Lobby";
+			}
 		}
 	}
 }

@@ -13,7 +13,7 @@ public class FormAction : MonoBehaviour {
 
 	// Update
 	void Update() {
-		if(Input.GetKeyDown(KeyCode.Return)) {
+		if(Input.GetKeyDown(KeyCode.Return) && button.interactable) {
 			var selected = system.currentSelectedGameObject;
 
 			if(!selected)

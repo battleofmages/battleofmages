@@ -1302,7 +1302,7 @@ Prefab:
     - target: {fileID: 11425560, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1645146399}
+      objectReference: {fileID: 1051321848}
     - target: {fileID: 11425560, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ToggleAddFriendUI
@@ -3475,7 +3475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &657184746
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3490,10 +3490,10 @@ RectTransform:
   - {fileID: 1051321845}
   m_Father: {fileID: 1645146396}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 166.75, y: -435.994049}
+  m_SizeDelta: {x: 313.5, y: 38.0039711}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &657184747
 MonoBehaviour:
@@ -4305,7 +4305,7 @@ Prefab:
     - target: {fileID: 11425560, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1645146399}
+      objectReference: {fileID: 1051321848}
     - target: {fileID: 11425560, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: AddFriend
@@ -4952,6 +4952,19 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 895797166}
   m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &1051321848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1051321844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd62e6abb2057040a32c53a19ae85aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addFriendUI: {fileID: 657184745}
+  nameInputField: {fileID: 1571910429}
 --- !u!1 &1052091066
 GameObject:
   m_ObjectHideFlags: 0
@@ -6973,9 +6986,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   friendsGroupRoot: {fileID: 1476629850}
-  addFriendUI: {fileID: 657184745}
-  addFriendInputField: {fileID: 1571910429}
-  addFriendAcceptField: {fileID: 1051321847}
   friendsGroupPrefab: {fileID: 153650, guid: 0acae8d88166a49418e89533a8543d7a, type: 2}
   friendPrefab: {fileID: 165868, guid: 1e26c37c33e556443948bd8478063ec9, type: 2}
 --- !u!114 &1645146400
@@ -8386,7 +8396,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11491606, guid: c7526747797659f438ff119f963a4cf8, type: 2}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 22494062, guid: c7526747797659f438ff119f963a4cf8, type: 2}
       propertyPath: m_LocalPosition.x
@@ -8490,6 +8500,26 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11491606, guid: c7526747797659f438ff119f963a4cf8, type: 2}
       propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491606, guid: c7526747797659f438ff119f963a4cf8, type: 2}
+      propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491606, guid: c7526747797659f438ff119f963a4cf8, type: 2}
+      propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491606, guid: c7526747797659f438ff119f963a4cf8, type: 2}
+      propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1051321848}
+    - target: {fileID: 11491606, guid: c7526747797659f438ff119f963a4cf8, type: 2}
+      propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Validate
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491606, guid: c7526747797659f438ff119f963a4cf8, type: 2}
+      propertyPath: m_OnValueChange.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     m_RemovedComponents: []

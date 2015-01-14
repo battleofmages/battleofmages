@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 using uLobby;
 
 public class FriendsListManager : MonoBehaviour {
 	public Transform friendsGroupRoot;
-
-	public GameObject addFriendUI;
-	public InputField addFriendInputField;
-	public Button addFriendAcceptField;
-
 	public GameObject friendsGroupPrefab;
 	public GameObject friendPrefab;
+
+	// Start
+	void Start() {
+		Lobby.AddListener(this);
+	}
 
 	// OnEnable
 	void OnEnable() {
@@ -20,8 +21,6 @@ public class FriendsListManager : MonoBehaviour {
 		PlayerAccount.mine.friendsList.Get(data => {
 			ConstructFriendsList();
 		});
-
-		addFriendUI.SetActive(false);
 	}
 
 	// ConstructFriendsList
@@ -65,18 +64,30 @@ public class FriendsListManager : MonoBehaviour {
 		friendsGroupRoot.DeleteChildrenWithComponent<FriendsGroupWidget>();
 	}
 
-	// ToggleAddFriendUI
-	public void ToggleAddFriendUI() {
-		bool active = !addFriendUI.activeSelf;
-		addFriendInputField.interactable = active;
-		addFriendUI.SetActive(active);
-	}
+#region RPCs
+	[RPC]
+	void AddFriendError(string playerName, BoM.AddFriendError error) {
+		string reason;
 
-	// AddFriend
-	public void AddFriend() {
-		addFriendInputField.interactable = false;
-		addFriendAcceptField.interactable = false;
+		switch(error) {
+			case BoM.AddFriendError.PlayerDoesntExist:
+				reason = "Player doesn't exist";
+				break;
 
-		Lobby.RPC("SetFriendsList", Lobby.lobby, PlayerAccount.mine.id);
+			case BoM.AddFriendError.AlreadyInFriendsList:
+				reason = "Already in friends list";
+				break;
+
+			case BoM.AddFriendError.CantAddYourself:
+				reason = "Can't add yourself to friends list";
+				break;
+
+			default:
+				reason = "Unknown error";
+				break;
+		}
+
+		NotificationManager.instance.CreateNotification(reason + " (<color=yellow>" + playerName + "</color>)", 4f);
 	}
+#endregion
 }

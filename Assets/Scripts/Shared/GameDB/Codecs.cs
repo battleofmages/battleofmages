@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Jboy;
+using BoM;
 
 public class Codecs : MonoBehaviour, Initializable {
 	// Init
@@ -17,7 +18,15 @@ public class Codecs : MonoBehaviour, Initializable {
 
 		// Register JSON codecs for integrated types
 		Json.AddCodec<Color>(ColorSerializer.ReadJSON, ColorSerializer.WriteJSON);
-		Json.AddCodec<OnlineStatus>(OnlineStatusSerializer.ReadJSON, OnlineStatusSerializer.WriteJSON);
+
+		// Enums
+		RegisterEnumCodec<OnlineStatus>();
+		RegisterEnumCodec<AddFriendError>();
+	}
+
+	// RegisterEnumCodec
+	void RegisterEnumCodec<T>() where T : System.IConvertible {
+		Json.AddCodec<T>(EnumSerializer<T>.ReadJSON, EnumSerializer<T>.WriteJSON);
 	}
 
 	// RegisterClassCodecs
