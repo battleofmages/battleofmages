@@ -13,10 +13,11 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: Freezing Wind
   productName: Battle of Mages
+  cloudProjectId: 
   defaultCursor: {fileID: 2800000, guid: 9a2cd1f7e0a349343a09dec1832a3960, type: 3}
   cursorHotspot: {x: 0, y: 0}
-  defaultScreenWidth: 800
-  defaultScreenHeight: 450
+  defaultScreenWidth: 1600
+  defaultScreenHeight: 900
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_RenderingPath: 3
@@ -73,13 +74,13 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  iPhoneBundleIdentifier: com.Company.ProductName
+  bundleIdentifier: com.Company.ProductName
+  bundleVersion: 1.0
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   xboxOneDisableKinectGpuReservation: 0
   productGUID: bb5f7e445b2a1674e88e9ffec69c1436
-  iPhoneBundleVersion: 1.0
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
@@ -256,6 +257,7 @@ PlayerSettings:
     7: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     15: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     16: CROSS_PLATFORM_INPUT;MOBILE_INPUT
+  useIl2CppPrecompiledHeader: 0
   metroPackageName: battle-of-mages
   metroPackageLogo: 
   metroPackageLogo140: 
