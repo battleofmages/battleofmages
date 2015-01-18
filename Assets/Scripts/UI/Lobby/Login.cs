@@ -5,8 +5,7 @@ using uLobby;
 public class Login : SingletonMonoBehaviour<Login>, Initializable {
 	public InputField emailField;
 	public InputField passwordField;
-	public AudioClip loginSound;
-	public bool autoLogin;
+	private bool autoLogin;
 
 	// Init
 	public void Init() {
@@ -17,6 +16,7 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 
 		// Load saved login data
 		emailField.text = PlayerPrefs.GetString("AccountEmail", "");
+		autoLogin = PlayerPrefs.GetInt("AutoLogin", 0) != 0;
 
 		// Receive lobby events
 		Lobby.AddListener(this);
@@ -54,7 +54,7 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 		var encryptedPassword = PlayerPrefs.GetString("AccountSaltedAndHashedPassword", "");
 
 		if(string.IsNullOrEmpty(email) || string.IsNullOrEmpty(encryptedPassword)) {
-			LogManager.General.Log("No login data saved, can't automatically login");
+			LogManager.General.Log("No login data saved, can't automatically+ login");
 			return;
 		}
 
@@ -77,7 +77,7 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 		LogManager.General.Log("Successfully logged in: " + account.name);
 
 		// Login sound
-		loginSound.Play();
+		Sounds.instance.Play("logIn");
 
 		// Deactivate low pass
 		AudioManager.instance.Fade(

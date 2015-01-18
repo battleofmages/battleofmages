@@ -3103,6 +3103,8 @@ MonoBehaviour:
   soundPool:
   - id: buttonClick
     clip: {fileID: 8300000, guid: 1ca0042bb2b766a448c1f10172250bde, type: 3}
+  - id: logIn
+    clip: {fileID: 8300000, guid: eb2014ec10828814aa27e07c4261725b, type: 3}
 --- !u!1 &518499827
 GameObject:
   m_ObjectHideFlags: 0
@@ -3471,8 +3473,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emailField: {fileID: 870826464}
   passwordField: {fileID: 395282092}
-  loginSound: {fileID: 8300000, guid: eb2014ec10828814aa27e07c4261725b, type: 3}
-  autoLogin: 1
 --- !u!4 &630339412
 Transform:
   m_ObjectHideFlags: 0
@@ -7373,7 +7373,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22464858, guid: 13414234c7cc6454fb6532bc63e15208, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 28.0024529
+      value: 28.0025101
       objectReference: {fileID: 0}
     - target: {fileID: 22464858, guid: 13414234c7cc6454fb6532bc63e15208, type: 2}
       propertyPath: m_SizeDelta.y
@@ -8670,7 +8670,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22426886, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 155.002213
+      value: 155.002274
       objectReference: {fileID: 0}
     - target: {fileID: 22426886, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_SizeDelta.y
@@ -8742,7 +8742,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22481598, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 77.5011063
+      value: 77.5011368
       objectReference: {fileID: 0}
     - target: {fileID: 22481598, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -8750,7 +8750,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22481598, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 135.002213
+      value: 135.002274
       objectReference: {fileID: 0}
     - target: {fileID: 22481598, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_SizeDelta.y
