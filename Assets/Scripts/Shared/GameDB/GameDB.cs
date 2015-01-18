@@ -109,7 +109,7 @@ public class GameDB : SingletonMonoBehaviour<GameDB> {
 		var mapReduceRequest = bucket.MapReduce(
 			new JavaScriptMapPhase(jsMapPhase),
 			new JavaScriptReducePhase(jsReducePhase, argument)
-			);
+		);
 		
 		// Wait until the request finishes
 		yield return mapReduceRequest.WaitUntilDone();

@@ -11,7 +11,7 @@ public class FriendWidget : MonoBehaviour {
 
 	// Start
 	void Start () {
-		friendAccount = PlayerAccount.Get(friend.accountId);
+		friendAccount = friend.account;
 
 		// Fetch name
 		nameCallBack = newName => {

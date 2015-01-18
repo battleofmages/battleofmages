@@ -49,15 +49,13 @@ public class FriendsList : JSONSerializable<FriendsList> {
 			}
 		}
 	}
-	
-#if !LOBBY_SERVER
+
 	// Online count
 	public int onlineCount {
 		get {
-			return allFriends.Count(friend => PlayerAccount.Get(friend.accountId).onlineStatus.value != OnlineStatus.Offline);
+			return allFriends.Count(friend => friend.account.onlineStatus.value != OnlineStatus.Offline);
 		}
 	}
-#endif
 	
 	// CanAdd
 	public bool CanAdd(string accountId) {
