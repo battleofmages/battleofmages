@@ -11,8 +11,8 @@ public struct AccountDataConnection {
 public class AccountDataConnector : MonoBehaviour {
 	public AccountDataConnection[] connections;
 
-	// Start
-	void Start() {
+	// OnEnable
+	void OnEnable() {
 		ConnectMyAccount();
 	}
 

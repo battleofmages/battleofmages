@@ -88,6 +88,9 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 	void OnAccountLoggedIn(Account account) {
 		LogManager.General.Log("Successfully logged in: " + account.name);
 
+		// Set my account
+		PlayerAccount.mine = PlayerAccount.Get(account.id.value);
+
 		// Login sound
 		Sounds.instance.Play("logIn");
 
@@ -98,9 +101,6 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 				AudioManager.instance.mixer.SetFloat("musicCutOffFreq", 500f + 21500f * val * val);
 			}
 		);
-
-		// Set my account
-		PlayerAccount.mine = PlayerAccount.Get(account.id.value);
 
 		PlayerPrefs.SetString("AccountEmail", lastLoginMail);
 		PlayerPrefs.SetString("AccountSaltedAndHashedPassword", lastLoginEncryptedPassword);
