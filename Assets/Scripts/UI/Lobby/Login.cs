@@ -5,7 +5,10 @@ using uLobby;
 public class Login : SingletonMonoBehaviour<Login>, Initializable {
 	public InputField emailField;
 	public InputField passwordField;
-	private bool autoLogin;
+	public Toggle autoLoginToggle;
+
+	private string lastLoginMail;
+	private string lastLoginEncryptedPassword;
 
 	// Init
 	public void Init() {
@@ -16,7 +19,7 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 
 		// Load saved login data
 		emailField.text = PlayerPrefs.GetString("AccountEmail", "");
-		autoLogin = PlayerPrefs.GetInt("AutoLogin", 0) != 0;
+		autoLoginToggle.isOn = PlayerPrefs.GetInt("AutoLogin", 0) != 0;
 
 		// Receive lobby events
 		Lobby.AddListener(this);
@@ -43,7 +46,11 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 	// Send encrypted login request
 	public void SendEncryptedLoginRequest(string email, string encryptedPassword) {
 		LogManager.General.Log("Using encrypted login request...");
-		
+
+		// Set this to save it in PlayerPrefs later if login was successful
+		lastLoginMail = email;
+		lastLoginEncryptedPassword = encryptedPassword;
+
 		// Login RPC
 		Lobby.RPC("AccountLogIn", Lobby.lobby, email, encryptedPassword, SystemInfo.deviceUniqueIdentifier);
 	}
@@ -54,11 +61,16 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 		var encryptedPassword = PlayerPrefs.GetString("AccountSaltedAndHashedPassword", "");
 
 		if(string.IsNullOrEmpty(email) || string.IsNullOrEmpty(encryptedPassword)) {
-			LogManager.General.Log("No login data saved, can't automatically+ login");
+			LogManager.General.Log("No login data saved, can't automatically login");
 			return;
 		}
 
 		Login.instance.SendEncryptedLoginRequest(email, encryptedPassword);
+	}
+
+	// SetAutoLogin
+	public void SetAutoLogin(bool enabled) {
+		PlayerPrefs.SetInt("AutoLogin", enabled ? 1 : 0);
 	}
 
 #region Callbacks
@@ -68,7 +80,7 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 		UIManager.instance.currentState = "Login";
 		
 		// Auto login
-		if(autoLogin)
+		if(autoLoginToggle.isOn)
 			AutoLogin();
 	}
 
@@ -90,8 +102,8 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 		// Set my account
 		PlayerAccount.mine = PlayerAccount.Get(account.id.value);
 
-		/*PlayerPrefs.SetString("AccountEmail", accountEmail);
-		PlayerPrefs.SetString("AccountSaltedAndHashedPassword", accountPasswordEncrypted);*/
+		PlayerPrefs.SetString("AccountEmail", lastLoginMail);
+		PlayerPrefs.SetString("AccountSaltedAndHashedPassword", lastLoginEncryptedPassword);
 
 		// Go to lobby
 		if(PlayerAccount.mine.playerName.available)
