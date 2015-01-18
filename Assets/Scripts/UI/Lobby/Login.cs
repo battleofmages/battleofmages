@@ -48,6 +48,19 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 		Lobby.RPC("AccountLogIn", Lobby.lobby, email, encryptedPassword, SystemInfo.deviceUniqueIdentifier);
 	}
 
+	// AutoLogin
+	void AutoLogin() {
+		var email = PlayerPrefs.GetString("AccountEmail", "");
+		var encryptedPassword = PlayerPrefs.GetString("AccountSaltedAndHashedPassword", "");
+
+		if(string.IsNullOrEmpty(email) || string.IsNullOrEmpty(encryptedPassword)) {
+			LogManager.General.Log("No login data saved, can't automatically login");
+			return;
+		}
+
+		Login.instance.SendEncryptedLoginRequest(email, encryptedPassword);
+	}
+
 #region Callbacks
 	// uLobby: Connected
 	void uLobby_OnConnected() {
@@ -56,8 +69,7 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 		
 		// Auto login
 		if(autoLogin)
-			//Login.instance.SendLoginRequest("a", "a");
-			Login.instance.SendEncryptedLoginRequest(PlayerPrefs.GetString("AccountEmail", ""), PlayerPrefs.GetString("AccountSaltedAndHashedPassword", ""));
+			AutoLogin();
 	}
 
 	// OnAccountLoggedIn
