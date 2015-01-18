@@ -885,6 +885,155 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 13414234c7cc6454fb6532bc63e15208, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &174983110
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1122532754}
+    m_Modifications:
+    - target: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_AnchorMin.x
+      value: .25
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_AnchorMax.x
+      value: .25
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_Pivot.x
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 174390, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_Name
+      value: Auto Login
+      objectReference: {fileID: 0}
+    - target: {fileID: 11464374, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: m_Text
+      value: Auto login
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 630339411}
+    - target: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetAutoLogin
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 509098267}
+    - target: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: toggleClick
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e3a8671197042464a80a80165a4ce403, type: 2}
+  m_IsPrefabParent: 0
+--- !u!224 &174983111
+RectTransform:
+  m_PrefabParentObject: {fileID: 22435836, guid: e3a8671197042464a80a80165a4ce403,
+    type: 2}
+  m_PrefabInternal: {fileID: 174983110}
+--- !u!114 &174983112
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11451560, guid: e3a8671197042464a80a80165a4ce403,
+    type: 2}
+  m_PrefabInternal: {fileID: 174983110}
+  m_Script: {fileID: 2109663825, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &191784239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,6 +1878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partyMemberPrefab: {fileID: 180540, guid: 2d815c148d6073246a6c32246fb87f7f, type: 2}
+  emptySlotPrefab: {fileID: 152638, guid: 0b21fcfe73bac814986f2a56cd201b33, type: 2}
 --- !u!1 &411792067
 GameObject:
   m_PrefabParentObject: {fileID: 116682, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
@@ -3105,6 +3255,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 1ca0042bb2b766a448c1f10172250bde, type: 3}
   - id: logIn
     clip: {fileID: 8300000, guid: eb2014ec10828814aa27e07c4261725b, type: 3}
+  - id: toggleClick
+    clip: {fileID: 8300000, guid: 1ca0042bb2b766a448c1f10172250bde, type: 3}
 --- !u!1 &518499827
 GameObject:
   m_ObjectHideFlags: 0
@@ -3473,6 +3625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emailField: {fileID: 870826464}
   passwordField: {fileID: 395282092}
+  autoLoginToggle: {fileID: 174983112}
 --- !u!4 &630339412
 Transform:
   m_ObjectHideFlags: 0
@@ -5292,6 +5445,7 @@ RectTransform:
   - {fileID: 1498779150}
   - {fileID: 404556076}
   - {fileID: 1350454072}
+  - {fileID: 174983111}
   m_Father: {fileID: 772239941}
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}

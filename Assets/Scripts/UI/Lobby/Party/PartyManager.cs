@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PartyManager : MonoBehaviour {
 	public GameObject partyMemberPrefab;
+	public GameObject emptySlotPrefab;
 
 	// OnEnable
 	void OnEnable() {
@@ -28,10 +30,17 @@ public class PartyManager : MonoBehaviour {
 				clone.GetComponent<PartyMemberWidget>().account = PlayerAccount.Get(id);
 			}
 		);
+
+		// Show empty slots
+		for(int i = party.accountIds.Count; i < Party.maxSize; i++) {
+			var clone = (GameObject)Object.Instantiate(emptySlotPrefab);
+			clone.transform.SetParent(transform, false);
+			clone.transform.SetSiblingIndex(i);
+		}
 	}
 
 	// DeletePartyList
 	void DeletePartyList() {
-		transform.DeleteChildrenWithComponent<PartyMemberWidget>();
+		transform.DeleteChildrenWithComponent<Button>();
 	}
 }
