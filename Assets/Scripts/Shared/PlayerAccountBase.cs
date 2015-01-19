@@ -23,6 +23,14 @@
 		}
 	}
 
+	// ToString
+	public override string ToString() {
+		if(playerName.available)
+			return string.Format("{0} ({1})", playerName.value, id);
+		
+		return string.Format("[Account: {0}]", id);
+	}
+
 #region Properties
 	// Account ID
 	public string id {

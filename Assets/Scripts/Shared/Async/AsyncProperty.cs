@@ -1,16 +1,9 @@
-﻿public class AsyncPropertyBase {
-	// Delegate
-	public delegate void ConnectObjectCallBack(object val);
-
-	// Get
-	public virtual void GetObject(ConnectObjectCallBack callBack) {
-
-	}
-}
+﻿using System.Collections.Generic;
 
 public class AsyncProperty<T> : AsyncPropertyBase {
 	private T _val;
 	private bool requestSent;
+	private Dictionary<object, ConnectCallBack> keyToCallBack;
 
 	// Constructor
 	public AsyncProperty(AsyncRequester req, string propertyName) {
@@ -19,6 +12,7 @@ public class AsyncProperty<T> : AsyncPropertyBase {
 		requestSent = false;
 		_val = default(T);
 		requester = req;
+		keyToCallBack = new Dictionary<object, ConnectCallBack>();
 	}
 
 	// Delegate
@@ -30,7 +24,10 @@ public class AsyncProperty<T> : AsyncPropertyBase {
 
 	// Connect
 	// Permanently connects the value change to the event
-	public void Connect(ConnectCallBack callBack) {
+	public void Connect(object key, ConnectCallBack callBack) {
+		if(key != null)
+			keyToCallBack[key] = callBack;
+
 		onValueChange += callBack;
 
 		if(available) {
@@ -41,6 +38,24 @@ public class AsyncProperty<T> : AsyncPropertyBase {
 		}
 
 		Request();
+	}
+
+	// Connect
+	public void Connect(ConnectCallBack callBack) {
+		Connect(null, callBack);
+	}
+
+	// Disconnect
+	public void Disconnect(object key) {
+		ConnectCallBack callBack;
+
+		if(!keyToCallBack.TryGetValue(key, out callBack))
+			return;
+
+		onValueChange -= callBack;
+		
+		if(!available)
+			onReceive -= callBack;
 	}
 
 	// Disconnect

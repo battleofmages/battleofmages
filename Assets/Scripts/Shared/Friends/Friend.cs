@@ -17,12 +17,7 @@ public class Friend : JSONSerializable<Friend> {
 
 	// ToString
 	public override string ToString() {
-		var playerName = account.playerName;
-
-		if(playerName.available)
-			return string.Format("[Friend: {0} ({1})]", playerName.value, accountId);
-
-		return string.Format("[Friend: {0}]", accountId);
+		return account.ToString();
 	}
 
 #region Properties

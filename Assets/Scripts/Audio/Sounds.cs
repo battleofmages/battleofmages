@@ -27,6 +27,10 @@ public class Sounds : SingletonMonoBehaviour<Sounds>, Initializable {
 
 	// Play
 	public void Play(AudioClip clip) {
+		// This prevents sounds from playing until everything is initialized
+		if(!StartUp.finished)
+			return;
+
 		audioSource.PlayOneShot(clip);
 	}
 

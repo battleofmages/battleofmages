@@ -116,7 +116,7 @@ MonoBehaviour:
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 3
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
@@ -229,7 +229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30cd73238564d842b01e2ab934cbe65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accountId: 
   nameComponent: {fileID: 11409844}
   infoComponent: {fileID: 11417240}
   onlineStatusImage: {fileID: 11498882}

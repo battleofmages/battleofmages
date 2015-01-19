@@ -18,5 +18,15 @@ public class StartUp : MonoBehaviour {
 				initObj.Init();
 			}
 		}
+
+		StartUp.finished = true;
 	}
+
+#region Properties
+	// Finished
+	public static bool finished {
+		get;
+		protected set;
+	}
+#endregion
 }
