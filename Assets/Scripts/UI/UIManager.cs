@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using uLobby;
 
 public class UIManager : DestroyableSingletonMonoBehaviour<UIManager>, Initializable {
 	public FadeTime fadeTime;
@@ -19,6 +20,20 @@ public class UIManager : DestroyableSingletonMonoBehaviour<UIManager>, Initializ
 			state.SetActive(false);
 			stateNameToGameObject.Add(state.name.Replace(" UI", ""), state);
 		}
+
+		// Go to lobby or waiting page on login
+		Login.instance.onLogIn += () => {
+			if(PlayerAccount.mine.playerName.available)
+				UIManager.instance.currentState = "Lobby";
+			else
+				UIManager.instance.currentState = "Waiting";
+		};
+
+		// Return to login page on logout
+		Login.instance.onLogOut += () => {
+			if(Lobby.connectionStatus == LobbyConnectionStatus.Connected)
+				UIManager.instance.currentState = "Login";
+		};
 	}
 
 	// FadeOut

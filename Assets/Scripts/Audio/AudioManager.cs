@@ -7,6 +7,27 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>, Initializable 
 	// Init
 	public void Init() {
 		AudioListener.volume = PlayerPrefs.GetFloat("Audio_MasterVolume", 1f);
+
+		// Login: Deactivate low pass
+		Login.instance.onLogIn += () => {
+			this.Fade(
+				4f,
+				(val) => {
+					mixer.SetFloat("musicCutOffFreq", 500f + 21500f * val * val);
+				}
+			);
+		};
+
+		// Logout: Activate low pass
+		Login.instance.onLogOut += () => {
+			this.Fade(
+				2f,
+				(val) => {
+					val = 1f - val;
+					mixer.SetFloat("musicCutOffFreq", 500f + 21500f * val * val);
+				}
+			);
+		};
 	}
 
 	// Master volume

@@ -24,7 +24,7 @@ public class AsyncProperty<T> : AsyncPropertyBase {
 
 	// Connect
 	// Permanently connects the value change to the event
-	public void Connect(object key, ConnectCallBack callBack) {
+	public void Connect(object key, ConnectCallBack callBack, bool request = true) {
 		if(key != null)
 			keyToCallBack[key] = callBack;
 
@@ -37,12 +37,13 @@ public class AsyncProperty<T> : AsyncPropertyBase {
 			onReceive += callBack;
 		}
 
-		Request();
+		if(request)
+			Request();
 	}
 
 	// Connect
-	public void Connect(ConnectCallBack callBack) {
-		Connect(null, callBack);
+	public void Connect(ConnectCallBack callBack, bool request = true) {
+		Connect(null, callBack, request);
 	}
 
 	// Disconnect

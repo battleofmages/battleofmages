@@ -10,6 +10,9 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 	private string lastLoginMail;
 	private string lastLoginEncryptedPassword;
 
+	public event CallBack onLogIn;
+	public event CallBack onLogOut;
+
 	// Init
 	public void Init() {
 		// Add this class as a listener to different account events
@@ -94,38 +97,19 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 		// Login sound
 		Sounds.instance.Play("logIn");
 
-		// Deactivate low pass
-		AudioManager.instance.Fade(
-			4f,
-			(val) => {
-				AudioManager.instance.mixer.SetFloat("musicCutOffFreq", 500f + 21500f * val * val);
-			}
-		);
-
 		PlayerPrefs.SetString("AccountEmail", lastLoginMail);
 		PlayerPrefs.SetString("AccountSaltedAndHashedPassword", lastLoginEncryptedPassword);
 
-		// Go to lobby
-		if(PlayerAccount.mine.playerName.available)
-			UIManager.instance.currentState = "Lobby";
-		else
-			UIManager.instance.currentState = "Waiting";
+		// Callback
+		if(onLogIn != null)
+			onLogIn();
 	}
 	
 	// OnAccountLoggedOut
 	void OnAccountLoggedOut(Account account) {
-		// Login page
-		if(Lobby.connectionStatus == LobbyConnectionStatus.Connected)
-			UIManager.instance.currentState = "Login";
-
-		// Activate low pass
-		AudioManager.instance.Fade(
-			2f,
-			(val) => {
-				val = 1f - val;
-				AudioManager.instance.mixer.SetFloat("musicCutOffFreq", 500f + 21500f * val * val);
-			}
-		);
+		// Callback
+		if(onLogOut != null)
+			onLogOut();
 
 		// Reset player account
 		PlayerAccount.mine = null;

@@ -3,24 +3,30 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using uLobby;
 
-public class FriendsListManager : MonoBehaviour {
+public class FriendsListManager : MonoBehaviour, Initializable {
 	public Transform friendsGroupRoot;
 	public GameObject friendsGroupPrefab;
 	public GameObject friendPrefab;
 
-	// Start
-	void Start() {
+	// Init
+	public void Init() {
 		Lobby.AddListener(this);
-	}
-
-	// OnEnable
-	void OnEnable() {
-		if(PlayerAccount.mine == null)
-			return;
-
-		PlayerAccount.mine.friendsList.Get(data => {
-			ConstructFriendsList();
-		});
+		
+		// Construct friends list on login
+		Login.instance.onLogIn += () => {
+			PlayerAccount.mine.friendsList.Connect(
+				this,
+				data => {
+					ConstructFriendsList();
+				},
+				false
+			);
+		};
+		
+		// Disconnect listeners on logout
+		Login.instance.onLogOut += () => {
+			PlayerAccount.mine.friendsList.Disconnect(this);
+		};
 	}
 
 	// ConstructFriendsList
@@ -35,10 +41,11 @@ public class FriendsListManager : MonoBehaviour {
 			friendsGroupRoot,
 			(clone, group) => {
 				// Set friends group instance
-				clone.GetComponent<FriendsGroupWidget>().friendsGroup = group;
+				var widget = clone.GetComponent<FriendsGroupWidget>();
+				widget.friendsGroup = group;
 				
 				clone.name = group.name;
-				clone.GetComponentInChildren<Text>().text = group.name;
+				widget.textComponent.text = group.name;
 				
 				BuildFriendsGroup(group, clone);
 			}

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class FriendWidget : MonoBehaviour {
 	public Friend friend;
 	public Image onlineStatusImage;
+	public Text textComponent;
 
 	private PlayerAccount friendAccount;
 	private AsyncProperty<string>.ConnectCallBack nameCallBack;
@@ -13,20 +14,15 @@ public class FriendWidget : MonoBehaviour {
 	void Start () {
 		friendAccount = friend.account;
 
-		// Fetch name
-		nameCallBack = newName => {
-			name = newName;
-			GetComponentInChildren<Text>().text = newName;
-		};
-
-		// Online status
-		statusCallBack = status => {
-			onlineStatusImage.sprite = OnlineStatusSprites.Get(status);
-		};
-
 		// Connect
-		friendAccount.playerName.Connect(nameCallBack);
-		friendAccount.onlineStatus.Connect(statusCallBack);
+		friendAccount.playerName.Connect(this, newName => {
+			name = newName;
+			textComponent.text = newName;
+		});
+
+		friendAccount.onlineStatus.Connect(this, status => {
+			onlineStatusImage.sprite = OnlineStatusSprites.Get(status);
+		});
 
 		// Button setup
 		var button = GetComponent<Button>();
@@ -42,8 +38,11 @@ public class FriendWidget : MonoBehaviour {
 
 	// OnDestroy
 	void OnDestroy() {
+		if(friendAccount == null)
+			return;
+
 		// Disconnect
-		friendAccount.playerName.Disconnect(nameCallBack);
-		friendAccount.onlineStatus.Disconnect(statusCallBack);
+		friendAccount.playerName.Disconnect(this);
+		friendAccount.onlineStatus.Disconnect(this);
 	}
 }
