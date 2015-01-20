@@ -3,6 +3,7 @@
 	public enum AddFriendError {
 		PlayerDoesntExist,
 		AlreadyInFriendsList,
-		CantAddYourself
+		CantAddYourself,
+		UnknownError
 	}
 }

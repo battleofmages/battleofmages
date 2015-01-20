@@ -69,6 +69,7 @@ MonoBehaviour:
     name: 
     color: {r: 1, g: 1, b: 1, a: 1}
     friends: []
+  textComponent: {fileID: 11469006}
 --- !u!114 &11469006
 MonoBehaviour:
   m_ObjectHideFlags: 1

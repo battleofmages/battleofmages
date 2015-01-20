@@ -13,7 +13,7 @@ public class AddFriendButton : MonoBehaviour {
 
 	// AddFriend
 	public void AddFriend() {
-		Lobby.RPC("AddFriend", Lobby.lobby, nameInputField.text, "General");
+		Lobby.RPC("AddFriendToGroup", Lobby.lobby, nameInputField.text, "General");
 		nameInputField.text = "";
 	}
 

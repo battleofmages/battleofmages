@@ -194,6 +194,7 @@ MonoBehaviour:
     accountId: 
     note: 
   onlineStatusImage: {fileID: 11483652}
+  textComponent: {fileID: 11431696}
 --- !u!114 &11483652
 MonoBehaviour:
   m_ObjectHideFlags: 1
