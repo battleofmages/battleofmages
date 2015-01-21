@@ -61,6 +61,19 @@ public class FriendsList : JSONSerializable<FriendsList> {
 			return allFriends.Count(friend => friend.account.onlineStatus.value != OnlineStatus.Offline);
 		}
 	}
+
+	// Friends count
+	public int friendsCount {
+		get {
+			int count = 0;
+
+			foreach(var grp in groups) {
+				count += grp.friends.Count;
+			}
+
+			return count;
+		}
+	}
 	
 	// CanAdd
 	public bool CanAdd(string accountId) {

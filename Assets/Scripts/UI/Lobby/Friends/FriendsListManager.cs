@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
 using uLobby;
+using System.Collections.Generic;
+using System.Linq;
 
-public class FriendsListManager : MonoBehaviour, Initializable {
+public class FriendsListManager : SingletonMonoBehaviour<FriendsListManager>, Initializable {
 	public Transform friendsGroupRoot;
 	public GameObject friendsGroupPrefab;
 	public GameObject friendPrefab;
+
+	public Dictionary<Friend, FriendWidget> friendToWidget;
 
 	// Init
 	public void Init() {
@@ -29,11 +31,26 @@ public class FriendsListManager : MonoBehaviour, Initializable {
 		};
 	}
 
+	// SortGroup
+	public void SortGroup(FriendsGroup group) {
+		group.friends = group.friends.OrderByDescending(
+			x => x.account.onlineStatus.value
+		).ThenBy(
+			x => x.account.playerName.value
+		).ToList();
+
+		for(int i = 0; i < group.friends.Count; i++) {
+			var friend = group.friends[i];
+			friendToWidget[friend].transform.SetSiblingIndex(i + 1);
+		}
+	}
+
 	// ConstructFriendsList
-	void ConstructFriendsList() {
+	public void ConstructFriendsList() {
 		var friendsList = PlayerAccount.mine.friendsList.value;
 
 		DeleteFriendsList();
+		friendToWidget = new Dictionary<Friend, FriendWidget>(friendsList.friendsCount);
 
 		UIListBuilder<FriendsGroup>.Build(
 			friendsList.groups,
@@ -63,6 +80,9 @@ public class FriendsListManager : MonoBehaviour, Initializable {
 				var friendWidget = clone.GetComponent<FriendWidget>();
 				friendWidget.friend = friend;
 				friendWidget.group = group;
+				
+				// Save in dictionary
+				friendToWidget[friend] = friendWidget;
 			},
 			1
 		);

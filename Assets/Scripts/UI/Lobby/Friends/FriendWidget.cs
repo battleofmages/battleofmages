@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class FriendWidget : MonoBehaviour {
 	public Friend friend;
@@ -14,15 +15,17 @@ public class FriendWidget : MonoBehaviour {
 	// Start
 	void Start () {
 		friendAccount = friend.account;
-
+		
 		// Connect
 		friendAccount.playerName.Connect(this, newName => {
 			name = newName;
 			textComponent.text = newName;
+			FriendsListManager.instance.SortGroup(group);
 		});
 
 		friendAccount.onlineStatus.Connect(this, status => {
 			onlineStatusImage.sprite = OnlineStatusSprites.Get(status);
+			FriendsListManager.instance.SortGroup(group);
 		});
 
 		// Button setup

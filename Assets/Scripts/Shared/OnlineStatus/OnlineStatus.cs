@@ -1,7 +1,7 @@
-﻿﻿public enum OnlineStatus {
+﻿public enum OnlineStatus {
 	Offline,
-	Online,
-	InQueue,
+	AFK,
 	InMatch,
-	AFK
+	InQueue,
+	Online
 }
