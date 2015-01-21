@@ -9,7 +9,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>, Initializable 
 		AudioListener.volume = PlayerPrefs.GetFloat("Audio_MasterVolume", 1f);
 
 		// Login: Deactivate low pass
-		Login.instance.onLogIn += () => {
+		Login.instance.onLogIn += (account) => {
 			this.Fade(
 				4f,
 				(val) => {
@@ -19,7 +19,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>, Initializable 
 		};
 
 		// Logout: Activate low pass
-		Login.instance.onLogOut += () => {
+		Login.instance.onLogOut += (account) => {
 			this.Fade(
 				2f,
 				(val) => {

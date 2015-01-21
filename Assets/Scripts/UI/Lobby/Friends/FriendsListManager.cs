@@ -13,8 +13,8 @@ public class FriendsListManager : MonoBehaviour, Initializable {
 		Lobby.AddListener(this);
 		
 		// Construct friends list on login
-		Login.instance.onLogIn += () => {
-			PlayerAccount.mine.friendsList.Connect(
+		Login.instance.onLogIn += (account) => {
+			account.friendsList.Connect(
 				this,
 				data => {
 					ConstructFriendsList();
@@ -24,8 +24,8 @@ public class FriendsListManager : MonoBehaviour, Initializable {
 		};
 		
 		// Disconnect listeners on logout
-		Login.instance.onLogOut += () => {
-			PlayerAccount.mine.friendsList.Disconnect(this);
+		Login.instance.onLogOut += (account) => {
+			account.friendsList.Disconnect(this);
 		};
 	}
 
@@ -60,7 +60,9 @@ public class FriendsListManager : MonoBehaviour, Initializable {
 			groupObject,
 			(clone, friend) => {
 				// Set friend instance
-				clone.GetComponent<FriendWidget>().friend = friend;
+				var friendWidget = clone.GetComponent<FriendWidget>();
+				friendWidget.friend = friend;
+				friendWidget.group = group;
 			},
 			1
 		);
@@ -71,30 +73,63 @@ public class FriendsListManager : MonoBehaviour, Initializable {
 		friendsGroupRoot.DeleteChildrenWithComponent<FriendsGroupWidget>();
 	}
 
+	// ErrorSuffix
+	string ErrorSuffix(string accountId) {
+		return " (<color=yellow>" + PlayerAccount.Get(accountId).playerName.value + "</color>)";
+	}
+
 #region RPCs
 	[RPC]
-	void AddFriendError(string playerName, BoM.AddFriendError error) {
+	void AddFriendError(string accountId, BoM.AddFriendError error) {
 		string reason;
 
 		switch(error) {
 			case BoM.AddFriendError.PlayerDoesntExist:
 				reason = "Player doesn't exist";
+				reason += " (<color=yellow>" + accountId + "</color>)";
 				break;
 
 			case BoM.AddFriendError.AlreadyInFriendsList:
 				reason = "Already in friends list";
+				reason += ErrorSuffix(accountId);
 				break;
 
 			case BoM.AddFriendError.CantAddYourself:
 				reason = "Can't add yourself to friends list";
+				reason += ErrorSuffix(accountId);
 				break;
 
 			default:
 				reason = "Unknown error";
+				reason += ErrorSuffix(accountId);
 				break;
 		}
 
-		NotificationManager.instance.CreateNotification(reason + " (<color=yellow>" + playerName + "</color>)", 4f);
+		NotificationManager.instance.CreateNotification(reason, 4f);
+	}
+
+	[RPC]
+	void RemoveFriendError(string accountId, BoM.RemoveFriendError error) {
+		string reason;
+		
+		switch(error) {
+			case BoM.RemoveFriendError.PlayerDoesntExist:
+				reason = "Player doesn't exist";
+				reason += ErrorSuffix(accountId);
+				break;
+				
+			case BoM.RemoveFriendError.GroupDoesntExist:
+				reason = "Group doesn't exist";
+				reason += ErrorSuffix(accountId);
+				break;
+				
+			default:
+				reason = "Unknown error";
+				reason += ErrorSuffix(accountId);
+				break;
+		}
+		
+		NotificationManager.instance.CreateNotification(reason, 4f);
 	}
 #endregion
 }

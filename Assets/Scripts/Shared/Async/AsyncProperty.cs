@@ -69,14 +69,16 @@ public class AsyncProperty<T> : AsyncPropertyBase {
 
 	// Get
 	// One-time callback if you only care about the value once
-	public void Get(ConnectCallBack callBack) {
+	public void Get(ConnectCallBack callBack, bool request = true) {
 		if(available) {
 			callBack(_val);
 			return;
 		}
 
 		onReceive += callBack;
-		Request();
+
+		if(request)
+			Request();
 	}
 
 	// GetObject

@@ -1,6 +1,10 @@
 ﻿using uLobby;
 using System.Collections.Generic;
 
+// Delegate
+public delegate void AccountChangedCallBack(PlayerAccount account);
+
+// PlayerAccount
 public class PlayerAccount : PlayerAccountBase, AsyncRequester {
 	public static Dictionary<string, PlayerAccount> idToAccount = new Dictionary<string, PlayerAccount>();
 	public static Dictionary<string, PlayerAccount> playerNameToAccount = new Dictionary<string, PlayerAccount>();

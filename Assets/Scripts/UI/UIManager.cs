@@ -22,15 +22,15 @@ public class UIManager : DestroyableSingletonMonoBehaviour<UIManager>, Initializ
 		}
 
 		// Go to lobby or waiting page on login
-		Login.instance.onLogIn += () => {
-			if(PlayerAccount.mine.playerName.available)
+		Login.instance.onLogIn += (account) => {
+			if(account.playerName.available)
 				UIManager.instance.currentState = "Lobby";
 			else
 				UIManager.instance.currentState = "Waiting";
 		};
 
 		// Return to login page on logout
-		Login.instance.onLogOut += () => {
+		Login.instance.onLogOut += (account) => {
 			if(Lobby.connectionStatus == LobbyConnectionStatus.Connected)
 				UIManager.instance.currentState = "Login";
 		};

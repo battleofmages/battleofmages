@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class FriendWidget : MonoBehaviour {
 	public Friend friend;
+	public FriendsGroup group;
 	public Image onlineStatusImage;
 	public Text textComponent;
 

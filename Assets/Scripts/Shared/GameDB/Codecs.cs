@@ -22,6 +22,7 @@ public class Codecs : MonoBehaviour, Initializable {
 		// Enums
 		RegisterEnumCodec<OnlineStatus>();
 		RegisterEnumCodec<AddFriendError>();
+		RegisterEnumCodec<RemoveFriendError>();
 	}
 
 	// RegisterEnumCodec

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 [Serializable]
 public class FriendsGroup : JSONSerializable<FriendsGroup> {
@@ -20,5 +21,10 @@ public class FriendsGroup : JSONSerializable<FriendsGroup> {
 		name = nName;
 		color = Color.white;
 		friends = new List<Friend>();
+	}
+
+	// ContainsAccount
+	public bool ContainsAccount(string accountId) {
+		return friends.Any(friend => friend.accountId == accountId);
 	}
 }

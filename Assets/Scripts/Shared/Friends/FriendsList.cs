@@ -22,9 +22,14 @@ public class FriendsList : JSONSerializable<FriendsList> {
 		groups.RemoveAll(grp => grp.name == groupName);
 	}
 	
-	// GetGroup
+	// GetGroupByName
 	public FriendsGroup GetGroupByName(string groupName) {
 		return groups.Find(grp => grp.name == groupName);
+	}
+
+	// GetGroupByName
+	public FriendsGroup GetGroupByAccount(string accountId) {
+		return groups.Find(grp => grp.ContainsAccount(accountId));
 	}
 	
 	// ContainsAccount

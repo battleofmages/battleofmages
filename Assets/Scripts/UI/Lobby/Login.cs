@@ -10,8 +10,8 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 	private string lastLoginMail;
 	private string lastLoginEncryptedPassword;
 
-	public event CallBack onLogIn;
-	public event CallBack onLogOut;
+	public event AccountChangedCallBack onLogIn;
+	public event AccountChangedCallBack onLogOut;
 
 	// Init
 	public void Init() {
@@ -102,14 +102,14 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 
 		// Callback
 		if(onLogIn != null)
-			onLogIn();
+			onLogIn(PlayerAccount.mine);
 	}
 	
 	// OnAccountLoggedOut
 	void OnAccountLoggedOut(Account account) {
 		// Callback
 		if(onLogOut != null)
-			onLogOut();
+			onLogOut(PlayerAccount.mine);
 
 		// Reset player account
 		PlayerAccount.mine = null;

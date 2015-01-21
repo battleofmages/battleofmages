@@ -13,6 +13,7 @@ public class AddFriendButton : MonoBehaviour {
 
 	// AddFriend
 	public void AddFriend() {
+		LogManager.General.Log("Sending request to add friend: " + nameInputField.text);
 		Lobby.RPC("AddFriendToGroup", Lobby.lobby, nameInputField.text, "General");
 		nameInputField.text = "";
 	}
