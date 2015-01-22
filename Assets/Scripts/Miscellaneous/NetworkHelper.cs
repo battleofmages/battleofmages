@@ -6,7 +6,7 @@ using System.Collections;
 public delegate void IPAndPortCallBack(string host, int port);
 
 // NetworkHelper
-public static class NetworkHelper {
+public class NetworkHelper : SingletonMonoBehaviour<NetworkHelper> {
 	// Disable network emulation
 	public static void DisableNetworkEmulation() {
 		uLink.Network.emulation.minLatency = 0;
@@ -14,6 +14,21 @@ public static class NetworkHelper {
 		uLink.Network.emulation.maxBandwidth = 0;
 		uLink.Network.emulation.chanceOfDuplicates = 0;
 		uLink.Network.emulation.chanceOfLoss = 0;
+	}
+
+	// GetTexture
+	public delegate void TextureCallBack(Texture tex);
+	public static void GetTexture(string url, TextureCallBack callBack) {
+		NetworkHelper.instance.StartCoroutine(GetTextureCoroutine(url, callBack));
+	}
+
+	// GetTextureCoroutine
+	static IEnumerator GetTextureCoroutine(string url, TextureCallBack callBack) {
+		var request = new WWW(url);
+		yield return request;
+		if(!string.IsNullOrEmpty(request.error))
+			LogManager.General.LogError("Couldn't load texture: " + url);
+		callBack(request.texture);
 	}
 	
 	// Init public lobby key

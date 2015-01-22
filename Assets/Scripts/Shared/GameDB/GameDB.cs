@@ -179,6 +179,22 @@ public class GameDB : SingletonMonoBehaviour<GameDB> {
 		System.Security.Cryptography.RandomNumberGenerator.Create().GetBytes(array);
 		return System.Convert.ToBase64String(array);
 	}
+
+	// MD5
+	public static string MD5(string password) {
+		// Byte array representation of that string
+		byte[] encodedPassword = new System.Text.UTF8Encoding().GetBytes(password);
+
+		// Need MD5 to calculate the hash
+		byte[] hash = ((System.Security.Cryptography.HashAlgorithm) System.Security.Cryptography.CryptoConfig.CreateFromName("MD5")).ComputeHash(encodedPassword);
+		
+		// String representation (similar to UNIX format)
+		return System.BitConverter.ToString(hash)
+			// Without dashes
+			.Replace("-", string.Empty)
+				// Make lowercase
+				.ToLower();
+	}
 #endregion
 	
 #region Common MapReduce functions

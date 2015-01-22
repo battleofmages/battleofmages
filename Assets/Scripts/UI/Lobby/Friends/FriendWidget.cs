@@ -7,6 +7,7 @@ public class FriendWidget : MonoBehaviour {
 	public FriendsGroup group;
 	public Image onlineStatusImage;
 	public Text textComponent;
+	public RawImage avatar;
 
 	private PlayerAccount friendAccount;
 	private AsyncProperty<string>.ConnectCallBack nameCallBack;
@@ -26,6 +27,18 @@ public class FriendWidget : MonoBehaviour {
 		friendAccount.onlineStatus.Connect(this, status => {
 			onlineStatusImage.sprite = OnlineStatusSprites.Get(status);
 			FriendsListManager.instance.SortGroup(group);
+		});
+
+		friendAccount.avatarURL.Connect(this, url => {
+			NetworkHelper.GetTexture(url, tex => {
+				avatar.texture = tex;
+				avatar.Fade(
+					1.0f,
+					val => {
+						avatar.color = new Color(1f, 1f, 1f, val);
+					}
+				);
+			});
 		});
 
 		// Button setup
@@ -48,5 +61,6 @@ public class FriendWidget : MonoBehaviour {
 		// Disconnect
 		friendAccount.playerName.Disconnect(this);
 		friendAccount.onlineStatus.Disconnect(this);
+		friendAccount.avatarURL.Disconnect(this);
 	}
 }

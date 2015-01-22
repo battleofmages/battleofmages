@@ -6,26 +6,31 @@ public class PartyMemberWidget : MonoBehaviour {
 	public Text nameComponent;
 	public Text infoComponent;
 	public Image onlineStatusImage;
-
-	private AsyncProperty<string>.ConnectCallBack nameCallBack;
-	private AsyncProperty<OnlineStatus>.ConnectCallBack statusCallBack;
+	public RawImage avatar;
 
 	// Start
 	void Start() {
-		// Fetch name
-		nameCallBack = newName => {
+		// Connect
+		account.playerName.Connect(this, newName => {
 			name = newName;
 			nameComponent.text = newName;
-		};
-		
-		// Online status
-		statusCallBack = status => {
-			onlineStatusImage.sprite = OnlineStatusSprites.Get(status);
-		};
+		});
 
-		// Connect
-		account.playerName.Connect(nameCallBack);
-		account.onlineStatus.Connect(statusCallBack);
+		account.onlineStatus.Connect(this, status => {
+			onlineStatusImage.sprite = OnlineStatusSprites.Get(status);
+		});
+
+		account.avatarURL.Connect(this, url => {
+			NetworkHelper.GetTexture(url, tex => {
+				avatar.texture = tex;
+				avatar.Fade(
+					1.0f,
+					val => {
+						avatar.color = new Color(1f, 1f, 1f, val);
+					}
+				);
+			});
+		});
 
 		var button = GetComponent<Button>();
 		
@@ -41,7 +46,8 @@ public class PartyMemberWidget : MonoBehaviour {
 	// OnDestroy
 	void OnDestroy() {
 		// Disconnect
-		account.playerName.Disconnect(nameCallBack);
-		account.onlineStatus.Disconnect(statusCallBack);
+		account.playerName.Disconnect(this);
+		account.onlineStatus.Disconnect(this);
+		account.avatarURL.Disconnect(this);
 	}
 }

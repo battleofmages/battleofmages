@@ -5,6 +5,7 @@
 	public AsyncProperty<FriendsList> friendsList;
 	public AsyncProperty<Party> party;
 	public AsyncProperty<OnlineStatus> onlineStatus;
+	public AsyncProperty<string> avatarURL;
 	//public AsyncProperty<AccessLevel> accessLevel;
 
 	// Init
@@ -14,6 +15,7 @@
 		friendsList = new AsyncProperty<FriendsList>(req, "friendsList");
 		party = new AsyncProperty<Party>(req, "party");
 		onlineStatus = new AsyncProperty<OnlineStatus>(req, "onlineStatus");
+		avatarURL = new AsyncProperty<string>(req, "avatarURL");
 	}
 
 	// Index operator
