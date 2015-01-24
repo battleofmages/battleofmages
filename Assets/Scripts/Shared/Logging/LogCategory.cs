@@ -27,6 +27,7 @@ public class LogCategory {
 	
 	// Constructor
 	public LogCategory(string categoryName, bool nUseUnityDebugLog = true, bool autoFlush = true) {
+		LogManager.list.Add(this);
 #if !UNITY_WEBPLAYER
 		filePath = logPath + categoryName + ".log";
 		writer = File.AppendText(filePath);

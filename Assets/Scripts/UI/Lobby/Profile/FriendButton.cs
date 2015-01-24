@@ -13,7 +13,7 @@ public class FriendButton : MonoBehaviour, Initializable {
 		AccountChangedCallBack updateFriendship = newAccount => {
 			PlayerAccount.mine.friendsList.Get(
 				friendsList => {
-					if(newAccount == PlayerAccount.mine) {
+					if(newAccount == null || newAccount == PlayerAccount.mine) {
 						addButton.gameObject.SetActive(false);
 						removeButton.gameObject.SetActive(false);
 						return;

@@ -31,6 +31,9 @@ public class FriendWidget : MonoBehaviour {
 
 		friendAccount.avatarURL.Connect(this, url => {
 			NetworkHelper.GetTexture(url, tex => {
+				if(avatar == null)
+					return;
+
 				avatar.texture = tex;
 				avatar.Fade(
 					1.0f,

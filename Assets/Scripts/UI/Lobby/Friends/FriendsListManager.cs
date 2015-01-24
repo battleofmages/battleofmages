@@ -7,7 +7,6 @@ public class FriendsListManager : SingletonMonoBehaviour<FriendsListManager>, In
 	public Transform friendsGroupRoot;
 	public GameObject friendsGroupPrefab;
 	public GameObject friendPrefab;
-
 	public Dictionary<Friend, FriendWidget> friendToWidget;
 
 	// Init

@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
-public class LogManager {
+public static class LogManager {
+	public static List<LogCategory> list = new List<LogCategory>();
+
 	public static LogCategory General = null;
 	public static LogCategory Online = null;
 	public static LogCategory Chat = null;
@@ -36,11 +39,8 @@ public class LogManager {
 	
 	// Close all
 	public static void CloseAll() {
-		LogManager.General.Close();
-		LogManager.Online.Close();
-		LogManager.Chat.Close();
-		LogManager.DB.Close();
-		LogManager.System.Close();
-		LogManager.Spam.Close();
+		foreach(var log in list) {
+			log.Close();
+		}
 	}
 }

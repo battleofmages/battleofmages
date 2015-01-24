@@ -52,7 +52,7 @@ public class AsyncProperty<T> : AsyncPropertyBase {
 
 		if(!keyToCallBack.TryGetValue(key, out callBack))
 			return;
-
+		
 		onValueChange -= callBack;
 		
 		if(!available)
@@ -145,19 +145,26 @@ public class AsyncProperty<T> : AsyncPropertyBase {
 		}
 
 		set {
-			requester.WriteAsyncProperty(name, value, (newValue) => {
-				_val = (T)newValue;
-				
-				if(available) {
-					if(onValueChange != null)
-						onValueChange(_val);
-				} else {
-					if(onReceive != null)
-						onReceive(_val);
-
-					available = true;
-				}
+			requester.WriteAsyncProperty(name, value, newValue => {
+				directValue = value;
 			});
+		}
+	}
+
+	// Value
+	public T directValue {
+		set {
+			_val = value;
+			
+			if(available) {
+				if(onValueChange != null)
+					onValueChange(_val);
+			} else {
+				available = true;
+
+				if(onReceive != null)
+					onReceive(_val);
+			}
 		}
 	}
 #endregion
