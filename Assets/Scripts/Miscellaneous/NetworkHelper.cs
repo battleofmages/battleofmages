@@ -1,12 +1,16 @@
 ﻿using uLobby;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 // Delegate: IPAndPortCallBack
 public delegate void IPAndPortCallBack(string host, int port);
 
 // NetworkHelper
 public class NetworkHelper : SingletonMonoBehaviour<NetworkHelper> {
+	public const int maxWWWTries = 5;
+	public static Dictionary<string, Texture> urlToTexture = new Dictionary<string, Texture>();
+
 	// Disable network emulation
 	public static void DisableNetworkEmulation() {
 		uLink.Network.emulation.minLatency = 0;
@@ -16,19 +20,51 @@ public class NetworkHelper : SingletonMonoBehaviour<NetworkHelper> {
 		uLink.Network.emulation.chanceOfLoss = 0;
 	}
 
+	// URLRequest
+	struct URLRequest {
+		public string url;
+		public int retries;
+	}
+
 	// GetTexture
 	public delegate void TextureCallBack(Texture tex);
 	public static void GetTexture(string url, TextureCallBack callBack) {
-		NetworkHelper.instance.StartCoroutine(GetTextureCoroutine(url, callBack));
+		// Cached?
+		Texture texture;
+
+		if(urlToTexture.TryGetValue(url, out texture)) {
+			callBack(texture);
+			return;
+		}
+
+		// Not cached: Download it!
+		NetworkHelper.instance.StartCoroutine(GetTextureCoroutine(new URLRequest {
+			url = url,
+			retries = 0
+		}, callBack));
 	}
 
 	// GetTextureCoroutine
-	static IEnumerator GetTextureCoroutine(string url, TextureCallBack callBack) {
-		var request = new WWW(url);
+	static IEnumerator GetTextureCoroutine(URLRequest urlRequest, TextureCallBack callBack) {
+		var request = new WWW(urlRequest.url);
 		yield return request;
-		if(!string.IsNullOrEmpty(request.error))
-			LogManager.General.LogError("Couldn't load texture: " + url);
-		callBack(request.texture);
+
+		if(!string.IsNullOrEmpty(request.error)) {
+			LogManager.General.LogError("Couldn't load texture: " + urlRequest.url + " (" + request.error + ")");
+
+			// Re-download it
+			urlRequest.retries += 1;
+
+			if(urlRequest.retries < maxWWWTries) {
+				NetworkHelper.instance.StartCoroutine(GetTextureCoroutine(urlRequest, callBack));
+			}
+
+			yield break;
+		}
+
+		var texture = request.texture;
+		urlToTexture[urlRequest.url] = texture;
+		callBack(texture);
 	}
 	
 	// Init public lobby key

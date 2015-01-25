@@ -107,6 +107,8 @@ public class Login : SingletonMonoBehaviour<Login>, Initializable {
 	
 	// OnAccountLoggedOut
 	void OnAccountLoggedOut(Account account) {
+		PlayerAccount.mine.onlineStatus.value = OnlineStatus.Offline;
+
 		// Callback
 		if(onLogOut != null)
 			onLogOut(PlayerAccount.mine);

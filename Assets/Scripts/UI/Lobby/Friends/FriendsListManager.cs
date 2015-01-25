@@ -40,7 +40,11 @@ public class FriendsListManager : SingletonMonoBehaviour<FriendsListManager>, In
 
 		for(int i = 0; i < group.friends.Count; i++) {
 			var friend = group.friends[i];
-			friendToWidget[friend].transform.SetSiblingIndex(i + 1);
+
+			FriendWidget friendWidget;
+
+			if(friendToWidget.TryGetValue(friend, out friendWidget))
+				friendWidget.transform.SetSiblingIndex(i + 1);
 		}
 	}
 
