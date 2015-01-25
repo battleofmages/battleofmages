@@ -14,7 +14,7 @@ public class FriendsListManager : SingletonMonoBehaviour<FriendsListManager>, In
 		Lobby.AddListener(this);
 		
 		// Construct friends list on login
-		Login.instance.onLogIn += (account) => {
+		Login.instance.onLogIn += account => {
 			account.friendsList.Connect(
 				this,
 				data => {

@@ -11,8 +11,22 @@ public class Party : JSONSerializable<Party> {
 		accountIds = new List<string>(maxSize);
 	}
 
+	// Add
+	public void Add(PlayerAccountBase account) {
+		Add(account.id);
+	}
+
+	// Add
+	public void Add(string accountId) {
+		accountIds.Add(accountId);
+	}
+
 	// CanAdd
 	public bool CanAdd(PlayerAccountBase account) {
-		return !accountIds.Contains(account.id);
+		return account != null
+			&& accountIds.Count < maxSize
+			&& !accountIds.Contains(account.id)
+			&& account.onlineStatus.value != OnlineStatus.Offline
+			&& account.onlineStatus.value != OnlineStatus.InMatch;
 	}
 }
