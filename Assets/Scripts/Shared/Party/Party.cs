@@ -10,4 +10,9 @@ public class Party : JSONSerializable<Party> {
 	public Party() {
 		accountIds = new List<string>(maxSize);
 	}
+
+	// CanAdd
+	public bool CanAdd(PlayerAccountBase account) {
+		return !accountIds.Contains(account.id);
+	}
 }
