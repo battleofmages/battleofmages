@@ -27,7 +27,7 @@ public class FriendWidget : MonoBehaviour {
 		friendAccount.onlineStatus.Connect(this, status => {
 			onlineStatusImage.sprite = OnlineStatusSprites.Get(status);
 			FriendsListManager.instance.SortGroup(group);
-		});
+		}, false);
 
 		friendAccount.avatarURL.Connect(this, url => {
 			NetworkHelper.GetTexture(url, tex => {

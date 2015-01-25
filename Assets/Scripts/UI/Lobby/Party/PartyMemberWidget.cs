@@ -18,7 +18,7 @@ public class PartyMemberWidget : MonoBehaviour {
 
 		account.onlineStatus.Connect(this, status => {
 			onlineStatusImage.sprite = OnlineStatusSprites.Get(status);
-		});
+		}, false);
 
 		account.avatarURL.Connect(this, url => {
 			NetworkHelper.GetTexture(url, tex => {
