@@ -111,7 +111,7 @@ PlayerSettings:
   iPadHighResPortraitSplashScreen: {fileID: 0}
   iPadLandscapeSplashScreen: {fileID: 0}
   iPadHighResLandscapeSplashScreen: {fileID: 0}
-  iOSCustomLaunchScreenType: 0
+  iOSLaunchScreenType: 0
   iOSLaunchScreenPortrait: {fileID: 0}
   iOSLaunchScreenLandscape: {fileID: 0}
   iOSLaunchScreenBackgroundColor:
@@ -188,6 +188,7 @@ PlayerSettings:
   ps4PronunciationSIGPath: 
   ps4BackgroundImagePath: 
   ps4StartupImagePath: 
+  ps4SaveDataImagePath: 
   ps4BGMPath: 
   ps4ShareFilePath: 
   ps4NPtitleDatPath: 
@@ -257,7 +258,6 @@ PlayerSettings:
     7: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     15: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     16: CROSS_PLATFORM_INPUT;MOBILE_INPUT
-  useIl2CppPrecompiledHeader: 0
   metroPackageName: battle-of-mages
   metroPackageLogo: 
   metroPackageLogo140: 
