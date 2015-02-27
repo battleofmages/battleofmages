@@ -24,62 +24,6 @@ RenderSettings:
   m_AmbientEquatorColor: {r: .114, g: .125, b: .133000001, a: 1}
   m_AmbientGroundColor: {r: .0469999984, g: .0430000015, b: .0350000001, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientProbe:
-    sh[ 0]: .114998169
-    sh[ 1]: -.0181268938
-    sh[ 2]: -.0104870871
-    sh[ 3]: 9.68499762e-07
-    sh[ 4]: -4.52828573e-07
-    sh[ 5]: .00151021685
-    sh[ 6]: .0123732099
-    sh[ 7]: 3.05734659e-07
-    sh[ 8]: .0173495635
-    sh[ 9]: .119896956
-    sh[10]: -.0209933873
-    sh[11]: -.0183340833
-    sh[12]: 1.74802608e-06
-    sh[13]: -8.72695296e-07
-    sh[14]: .00326798391
-    sh[15]: .0146519607
-    sh[16]: 4.59503212e-07
-    sh[17]: .0194337852
-    sh[18]: .10570062
-    sh[19]: -.0196143426
-    sh[20]: -.0242410041
-    sh[21]: 3.50887353e-06
-    sh[22]: -1.72414639e-06
-    sh[23]: .00673469156
-    sh[24]: .0122798495
-    sh[25]: 5.27263524e-07
-    sh[26]: .0131575856
-  m_AmbientProbeInGamma:
-    sh[ 0]: .345855623
-    sh[ 1]: -.0317721739
-    sh[ 2]: -.00786245614
-    sh[ 3]: 1.13654608e-06
-    sh[ 4]: -5.3525298e-07
-    sh[ 5]: .00160900224
-    sh[ 6]: .0148669444
-    sh[ 7]: 4.03922826e-07
-    sh[ 8]: .0242695883
-    sh[ 9]: .337571383
-    sh[10]: -.0284669176
-    sh[11]: -.0133045614
-    sh[12]: 1.79614665e-06
-    sh[13]: -8.97745224e-07
-    sh[14]: .00302879326
-    sh[15]: .01584078
-    sh[16]: 5.41233703e-07
-    sh[17]: .025104776
-    sh[18]: .293874592
-    sh[19]: -.0190241616
-    sh[20]: -.0216891319
-    sh[21]: 3.29494696e-06
-    sh[22]: -1.65515928e-06
-    sh[23]: .00627694465
-    sh[24]: .0134794191
-    sh[25]: 8.00050827e-07
-    sh[26]: .018362999
   m_AmbientMode: 0
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: .5
@@ -92,7 +36,6 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_GeneratedSkyboxReflection: {fileID: 0}
   m_Sun: {fileID: 0}
 --- !u!127 &3
 LevelGameManager:
@@ -100,11 +43,9 @@ LevelGameManager:
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 4
+  serializedVersion: 5
   m_GIWorkflowMode: 0
-  m_LightmapsModeLegacy: 1
   m_LightmapsMode: 1
-  m_UseDualLightmapsInForward: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -4373,8 +4314,8 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
