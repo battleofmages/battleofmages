@@ -1,5 +1,4 @@
 ﻿using System.IO;
-
 using UnityEngine;
 
 public class LogCategory {
@@ -35,6 +34,7 @@ public class LogCategory {
 		filePath = logPath + categoryName + ".log";
 		writer = File.AppendText(filePath);
 		writer.AutoFlush = autoFlush;
+
 #if UNITY_EDITOR
 		useUnityDebugLog = nUseUnityDebugLog;
 #endif
@@ -43,6 +43,7 @@ public class LogCategory {
 	// Log
 	public void Log(object msg) {
 		writer.WriteLine(System.DateTime.UtcNow.ToString(timeFormat) + ": " + msg);
+
 #if UNITY_EDITOR
 		if(useUnityDebugLog)
 			Debug.Log(string.Concat("<color=" + timeColor + ">", System.DateTime.UtcNow.ToString(timeFormat), ":</color> <color=" + messageColor + ">", msg.ToString().Replace("\n", "</color>\n<color=" + messageColor + ">"), "</color>"));
@@ -52,6 +53,7 @@ public class LogCategory {
 	// LogWarning
 	public void LogWarning(object msg) {
 		writer.WriteLine(System.DateTime.UtcNow.ToString(timeFormat) + ": [WARNING] " + msg);
+
 #if UNITY_EDITOR
 		if(useUnityDebugLog)
 			Debug.LogWarning(string.Concat("<color=" + timeColor + ">", System.DateTime.UtcNow.ToString(timeFormat), ":</color> <color=" + messageColor + ">", msg.ToString().Replace("\n", "</color>\n<color=" + messageColor + ">"), "</color>"));
@@ -61,6 +63,7 @@ public class LogCategory {
 	// LogError
 	public void LogError(object msg) {
 		writer.WriteLine(System.DateTime.UtcNow.ToString(timeFormat) + ": [ERROR] " + msg);
+
 #if UNITY_EDITOR
 		if(useUnityDebugLog)
 			Debug.LogError(string.Concat("<color=" + timeColor + ">", System.DateTime.UtcNow.ToString(timeFormat), ":</color> <color=" + messageColor + ">", msg.ToString().Replace("\n", "</color>\n<color=" + messageColor + ">"), "</color>"));
