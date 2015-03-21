@@ -79,6 +79,7 @@ namespace UnityTest
             }
         }
         public string Message { get { return messages; } }
+        public string Logs { get { return null; } }
         public bool Executed { get { return resultType != ResultType.NotRun; } }
         public string Name { get { if (m_Go != null) m_Name = m_Go.name; return m_Name; } }
         public string Id { get { return id; } }

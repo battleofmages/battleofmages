@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityTest
 {
-    public enum TestResultState
+    public enum TestResultState : byte
     {
         Inconclusive = 0,
 
