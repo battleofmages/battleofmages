@@ -1,17 +1,15 @@
-﻿#if !UNITY_WEBPLAYER
-using System.IO;
-#endif
+﻿using System.IO;
 
 using UnityEngine;
 
 public class LogCategory {
 	public static string logPath = "./logs/"; 
 	public static string timeFormat = "yyyy-MM-dd HH:mm:ss.fff";
-	
-#if !UNITY_WEBPLAYER
+	public static string timeColor;
+	public static string messageColor;
+
 	public string filePath;
 	private StreamWriter writer;
-#endif
 	
 	private bool useUnityDebugLog;
 	
@@ -19,63 +17,59 @@ public class LogCategory {
 	public static void Init(string newLogPath) {
 		logPath = newLogPath;
 		
-#if !UNITY_WEBPLAYER
 		if(!Directory.Exists(logPath))
 			Directory.CreateDirectory(logPath);
+		
+#if UNITY_PRO_LICENSE
+		timeColor = "#808080";
+		messageColor = "#dddddd";
+#else
+		timeColor = "#00156B";
+		messageColor = "#0033FF";
 #endif
 	}
 	
 	// Constructor
 	public LogCategory(string categoryName, bool nUseUnityDebugLog = true, bool autoFlush = true) {
 		LogManager.list.Add(this);
-#if !UNITY_WEBPLAYER
 		filePath = logPath + categoryName + ".log";
 		writer = File.AppendText(filePath);
 		writer.AutoFlush = autoFlush;
-#endif
-#if UNITY_EDITOR || UNITY_WEBPLAYER
+#if UNITY_EDITOR
 		useUnityDebugLog = nUseUnityDebugLog;
 #endif
 	}
 	
 	// Log
 	public void Log(object msg) {
-#if !UNITY_WEBPLAYER
 		writer.WriteLine(System.DateTime.UtcNow.ToString(timeFormat) + ": " + msg);
-#endif
-#if UNITY_EDITOR || UNITY_WEBPLAYER
+#if UNITY_EDITOR
 		if(useUnityDebugLog)
-			Debug.Log(string.Concat("<color=#808080>", System.DateTime.UtcNow.ToString(timeFormat), ":</color> <color=#dddddd>", msg.ToString().Replace("\n", "</color>\n<color=#dddddd>"), "</color>"));
+			Debug.Log(string.Concat("<color=" + timeColor + ">", System.DateTime.UtcNow.ToString(timeFormat), ":</color> <color=" + messageColor + ">", msg.ToString().Replace("\n", "</color>\n<color=" + messageColor + ">"), "</color>"));
 #endif
 	}
 	
 	// LogWarning
 	public void LogWarning(object msg) {
-#if !UNITY_WEBPLAYER
 		writer.WriteLine(System.DateTime.UtcNow.ToString(timeFormat) + ": [WARNING] " + msg);
-#endif
-#if UNITY_EDITOR || UNITY_WEBPLAYER
+#if UNITY_EDITOR
 		if(useUnityDebugLog)
-			Debug.LogWarning(string.Concat("<color=#808080>", System.DateTime.UtcNow.ToString(timeFormat), ":</color> <color=#dddddd>", msg.ToString().Replace("\n", "</color>\n<color=#dddddd>"), "</color>"));
+			Debug.LogWarning(string.Concat("<color=" + timeColor + ">", System.DateTime.UtcNow.ToString(timeFormat), ":</color> <color=" + messageColor + ">", msg.ToString().Replace("\n", "</color>\n<color=" + messageColor + ">"), "</color>"));
 #endif
 	}
 	
 	// LogError
 	public void LogError(object msg) {
-#if !UNITY_WEBPLAYER
 		writer.WriteLine(System.DateTime.UtcNow.ToString(timeFormat) + ": [ERROR] " + msg);
-#endif
-#if UNITY_EDITOR || UNITY_WEBPLAYER
+#if UNITY_EDITOR
 		if(useUnityDebugLog)
-			Debug.LogError(string.Concat("<color=#808080>", System.DateTime.UtcNow.ToString(timeFormat), ":</color> <color=#dddddd>", msg.ToString().Replace("\n", "</color>\n<color=#dddddd>"), "</color>"));
+			Debug.LogError(string.Concat("<color=" + timeColor + ">", System.DateTime.UtcNow.ToString(timeFormat), ":</color> <color=" + messageColor + ">", msg.ToString().Replace("\n", "</color>\n<color=" + messageColor + ">"), "</color>"));
 #endif
 	}
 	
 	// Close
 	public void Close() {
-#if !UNITY_WEBPLAYER
 		writer.Close();
-#endif
 	}
 	
 	// GenerateReport
