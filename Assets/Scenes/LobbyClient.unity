@@ -1051,7 +1051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &228548392
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4955,7 +4955,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22457072, guid: 712715a528e86ec47aadf55b25ad7cd4, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: .200000003
       objectReference: {fileID: 0}
     - target: {fileID: 22431412, guid: 712715a528e86ec47aadf55b25ad7cd4, type: 2}
       propertyPath: m_LocalPosition.x
@@ -6410,7 +6410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1122532754
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8723,7 +8723,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11425560, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 22426886, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_LocalPosition.x
@@ -8811,7 +8811,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11425560, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11425560, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -8820,10 +8820,10 @@ Prefab:
     - target: {fileID: 11425560, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 509098267}
+      objectReference: {fileID: 228548394}
     - target: {fileID: 11425560, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Play
+      value: CreateNewAccount
       objectReference: {fileID: 0}
     - target: {fileID: 11425560, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -8835,7 +8835,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11425560, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: buttonClick
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 11425560, guid: a1d033e2d37030b48b4a5be7f359a9d3, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
