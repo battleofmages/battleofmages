@@ -1,12 +1,17 @@
 ﻿using UnityEngine.UI;
 using uLobby;
 
-public class Profile : SingletonMonoBehaviour<Profile> {
+public class Profile : SingletonMonoBehaviour<Profile>, Initializable {
 	public PlayerAccount displayedAccount;
 	public AccountDataConnection[] connections;
 
 	public event AccountChangedCallBack onDisplayedAccountChanged;
-	
+
+	// Init
+	public void Init() {
+		instance = this;
+	}
+
 	// OnEnable
 	void OnEnable() {
 		if(PlayerAccount.mine == null)
