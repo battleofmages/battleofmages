@@ -1112,6 +1112,28 @@ MonoBehaviour:
   - {fileID: 633108381}
   - {fileID: 127401954}
   - {fileID: 1132647196}
+--- !u!1 &228876494
+GameObject:
+  m_PrefabParentObject: {fileID: 166760, guid: 13414234c7cc6454fb6532bc63e15208, type: 2}
+  m_PrefabInternal: {fileID: 1901223136}
+--- !u!114 &228876495
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11476006, guid: 13414234c7cc6454fb6532bc63e15208,
+    type: 2}
+  m_PrefabInternal: {fileID: 1901223136}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &228876497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 228876494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4014130434de644cbae9bb85f2f8469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textComponent: {fileID: 228876495}
 --- !u!114 &230653748
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11491606, guid: c7526747797659f438ff119f963a4cf8,
@@ -9636,7 +9658,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11476006, guid: 13414234c7cc6454fb6532bc63e15208, type: 2}
       propertyPath: m_Text
-      value: Build 2015, Jan 05
+      value: 'Version: {month} {day}, {year}'
       objectReference: {fileID: 0}
     - target: {fileID: 11476006, guid: 13414234c7cc6454fb6532bc63e15208, type: 2}
       propertyPath: m_FontData.m_Alignment
