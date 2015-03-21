@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 [System.Serializable]
-public class TimeStamp {
+public class TimeStamp : JSONSerializable<TimeStamp> {
 	public double unixTimeStamp;
 	
 	// Constructor
@@ -31,15 +31,16 @@ public class TimeStamp {
 	}
 	
 	// Writer
-	public static void WriteJSON(Jboy.JsonWriter writer, object instance) {
+	public static new void WriteJSON(Jboy.JsonWriter writer, object instance) {
 		var fieldFilter = new HashSet<string>() {
 			"unixTimeStamp",
 		};
+
 		GenericSerializer.WriteJSON<TimeStamp>(writer, (TimeStamp)instance, fieldFilter);
 	}
 	
 	// Reader
-	public static object ReadJSON(Jboy.JsonReader reader) {
+	public static new object ReadJSON(Jboy.JsonReader reader) {
 		return GenericSerializer.ReadJSON<TimeStamp>(reader);
 	}
 	

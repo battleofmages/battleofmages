@@ -80,6 +80,7 @@ public class LogCategory {
 	
 	// GenerateReport
 	public void GenerateReport() {
+		Log("Build date: " + Utility.GetBuildDate());
 		Log("Platform: " + Application.platform);
 		Log("Unity player version: " + Application.unityVersion);
 		Log("Device ID: " + SystemInfo.deviceUniqueIdentifier);

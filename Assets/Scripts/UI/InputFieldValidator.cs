@@ -8,6 +8,12 @@ public class InputFieldValidator : MonoBehaviour {
 	private Text textComponent;
 	private Color defaultTextColor;
 
+	// Valid
+	public bool valid {
+		get;
+		protected set;
+	}
+
 	// Validate
 	public void Validate() {
 		if(inputField == null) {
@@ -24,9 +30,11 @@ public class InputFieldValidator : MonoBehaviour {
 
 		var regex = (Regex)typeof(Validator).GetField(validationType).GetValue(null);
 		if(regex.IsMatch(inputField.text)) {
+			valid = true;
 			textComponent.color = defaultTextColor;
 		} else {
-			textComponent.color = new Color(defaultTextColor.r, defaultTextColor.g, defaultTextColor.b, defaultTextColor.a * 0.25f);
+			valid = false;
+			textComponent.color = new Color(defaultTextColor.r, defaultTextColor.g, defaultTextColor.b, defaultTextColor.a * 0.35f);
 		}
 	}
 }

@@ -6,15 +6,15 @@ using System;
 public class Register : SingletonMonoBehaviour<Register>, Initializable {
 	public InputField emailField;
 	public InputField passwordField;
-	public InputField repeatPasswordField;
 	public InputField loginEmailField;
+	public Button registerButton;
 
 	// Init
 	public void Init() {
 		// Add this class as a listener to different account events
 		AccountManager.OnAccountRegistered += OnAccountRegistered;
 		AccountManager.OnRegisterFailed += OnRegisterFailed;
-		
+
 		// Receive lobby events
 		Lobby.AddListener(this);
 	}
@@ -23,17 +23,35 @@ public class Register : SingletonMonoBehaviour<Register>, Initializable {
 	void OnEnable() {
 		// Load login field text
 		emailField.text = loginEmailField.text;
+
+		// Validate
+		Validate();
+	}
+
+	// CreateNewAccount
+	public void CreateNewAccount() {
+		LogManager.General.Log("Requesting to create a new account: " + emailField.text);
+
+		// Request lobby to register a new account
+		Lobby.RPC("AccountRegister", Lobby.lobby, emailField.text, GameDB.EncryptPasswordString(passwordField.text));
+	}
+
+	// Validate
+	public void Validate() {
+		/*registerButton.interactable =
+			emailField.GetComponent<InputFieldValidator>().valid &&
+			passwordField.GetComponent<InputFieldValidator>().valid;*/
 	}
 
 #region Callbacks
 	// OnAccountRegistered
 	void OnAccountRegistered(Account account) {
-		
+		LogManager.General.Log("Registered account: " + account);
 	}
 	
 	// OnRegisterFailed
 	void OnRegisterFailed(string accountName, AccountError error) {
-		
+		LogManager.General.LogWarning("Account registration failed: " + accountName + " (" + error + ")");
 	}
 #endregion
 
