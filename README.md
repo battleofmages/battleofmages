@@ -31,7 +31,6 @@ Code Style Guide
 	}
 
 * Indenting via __tabs__, aligning via __spaces__
-* One `using` declaration per line
 * __Namespace__, __class__ and __function__ names are written in __PascalCase__
 * __Variables__ are written in __camelCase__
 * Always use `var` unless you can't or unless you really want to emphasize the data type
@@ -40,4 +39,5 @@ Code Style Guide
 * No empty lines at the start or end of the file
 * Comments start with `//` followed by a space
 * Disabled code starts with `//` __not__ followed by a space
-* Always add a comment directly above the function definition containing the __function name__ or an __explanation__
+* Always add a __comment directly above the function definition__ containing the __function name__ or an __explanation__
+* One `using` declaration per line, no empty lines between them
