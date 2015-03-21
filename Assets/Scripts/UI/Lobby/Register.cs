@@ -31,6 +31,7 @@ public class Register : SingletonMonoBehaviour<Register>, Initializable {
 	// CreateNewAccount
 	public void CreateNewAccount() {
 		LogManager.General.Log("Requesting to create a new account: " + emailField.text);
+
 		// Request lobby to register a new account
 		Lobby.RPC("AccountRegister", Lobby.lobby, emailField.text, GameDB.EncryptPasswordString(passwordField.text));
 	}
