@@ -42,16 +42,33 @@ public class Register : SingletonMonoBehaviour<Register>, Initializable {
 			emailField.GetComponent<InputFieldValidator>().valid &&
 			passwordField.GetComponent<InputFieldValidator>().valid;*/
 	}
-
+	
 #region Callbacks
 	// OnAccountRegistered
 	void OnAccountRegistered(Account account) {
+		// Create a notification
+		NotificationManager.instance.CreateNotification ("You have successfully registered!", 3);
+		// Send the player back to the main menu
+		UIManager.instance.currentState = "Login";
+
 		LogManager.General.Log("Registered account: " + account);
 	}
 	
 	// OnRegisterFailed
 	void OnRegisterFailed(string accountName, AccountError error) {
+		// Create a notification
+		NotificationManager.instance.CreateNotification("Registration failed: " + error.ToString(), 3f);
+
 		LogManager.General.LogWarning("Account registration failed: " + accountName + " (" + error + ")");
+	}
+
+	// EmailAlreadyExists
+	[RPC]
+	void EmailAlreadyExists() {
+		// Create a notification
+		NotificationManager.instance.CreateNotification("Registration failed: Email Already Exists", 3f);
+
+		LogManager.General.LogWarning("Account registration failed: Email Already Exists");
 	}
 #endregion
 
