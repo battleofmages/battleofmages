@@ -9,14 +9,11 @@ public class Profile : SingletonMonoBehaviour<Profile>, Initializable {
 
 	// Init
 	public void Init() {
-		instance = this;
+		Awake();
 	}
 
 	// OnEnable
 	void OnEnable() {
-		if(PlayerAccount.mine == null)
-			return;
-
 		ViewMyProfile();
 	}
 	
@@ -40,6 +37,9 @@ public class Profile : SingletonMonoBehaviour<Profile>, Initializable {
 	
 	// ViewMyProfile
 	public void ViewMyProfile() {
+		if(PlayerAccount.mine == null)
+			return;
+
 		ViewProfile(PlayerAccount.mine);
 	}
 
