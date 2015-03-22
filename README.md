@@ -1,24 +1,34 @@
-Battle of Mages
-====================
+#Battle of Mages
 
-General info
----------------------
+##General info
 
 An open source MOBA, see https://battleofmages.com for more info.
 
-Code Style Guide
----------------------
+##Code Style Guide
+
+###TL;DR
 
 	using System;
+	using System.Collections.Generic;
 
 	namespace Example { 
 		public class Test {
+			public string firstField;
+			public string secondField;
+			
+			private string privateField;
+			
 			// Start
 			void Start() {
 				var x = 42;
+				var y = 1337;
 				
-				// Do nothing
-				//DisabledCode();
+				// This is an awesome if statement
+				if(false) {
+					//DisabledCode();
+				} else {
+					//DisabledCode();
+				}
 			}
 			
 			// Update
@@ -29,6 +39,8 @@ Code Style Guide
 			}
 		}
 	}
+
+### Rules
 
 * Indenting via __tabs__, aligning via __spaces__
 * __Namespace__, __class__ and __function__ names are written in __PascalCase__
@@ -46,3 +58,4 @@ Code Style Guide
 * One space after the ending bracket `}` of a block if it is followed by a second block (e.g. `else`, `catch`, ...)
 * Follow-up blocks like `else` and `catch` are written on the same line as the ending bracket `}` of the preceding block
 * A comment `// ` that is not at the first line of a block needs to be preceded by a new line
+* Private class fields need to explicitly state that they are `private`
