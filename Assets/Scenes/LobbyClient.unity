@@ -1111,7 +1111,6 @@ MonoBehaviour:
   fields:
   - {fileID: 633108381}
   - {fileID: 127401954}
-  - {fileID: 0}
 --- !u!1 &228876494
 GameObject:
   m_PrefabParentObject: {fileID: 166760, guid: 13414234c7cc6454fb6532bc63e15208, type: 2}
