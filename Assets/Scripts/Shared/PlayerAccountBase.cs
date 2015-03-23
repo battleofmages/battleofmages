@@ -6,6 +6,7 @@
 	public AsyncProperty<Party> party;
 	public AsyncProperty<OnlineStatus> onlineStatus;
 	public AsyncProperty<string> avatarURL;
+	public AsyncProperty<string> country;
 	//public AsyncProperty<AccessLevel> accessLevel;
 
 	// Init
@@ -16,6 +17,7 @@
 		party = new AsyncProperty<Party>(req, "party");
 		onlineStatus = new AsyncProperty<OnlineStatus>(req, "onlineStatus");
 		avatarURL = new AsyncProperty<string>(req, "avatarURL");
+		country = new AsyncProperty<string>(req, "country");
 	}
 
 	// Index operator
