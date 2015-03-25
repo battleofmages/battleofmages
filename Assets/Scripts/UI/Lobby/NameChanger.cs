@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using uLobby;
+using BoM.UI.Notifications;
 
 public class NameChanger : MonoBehaviour {
 	public Button acceptButton;

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using uLobby;
+using BoM.UI;
+using BoM.UI.Notifications;
 
 public class PartyManager : MonoBehaviour, Initializable {
 	public GameObject partyMemberPrefab;

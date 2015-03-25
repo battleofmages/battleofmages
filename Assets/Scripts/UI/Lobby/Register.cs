@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using uLobby;
 using System;
+using BoM.UI;
+using BoM.UI.Notifications;
 
 public class Register : SingletonMonoBehaviour<Register>, Initializable {
 	public InputField emailField;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using BoM.UI;
 using uLobby;
 
 public class LobbyConnector : SingletonMonoBehaviour<LobbyConnector>, Initializable {

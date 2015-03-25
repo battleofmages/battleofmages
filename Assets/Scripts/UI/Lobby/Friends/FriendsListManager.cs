@@ -3,6 +3,8 @@ using uLobby;
 using System.Collections.Generic;
 using System.Linq;
 using BoM.Friends;
+using BoM.UI;
+using BoM.UI.Notifications;
 
 public class FriendsListManager : SingletonMonoBehaviour<FriendsListManager>, Initializable {
 	public Transform friendsGroupRoot;

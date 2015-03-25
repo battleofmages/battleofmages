@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class HideScrollbar : MonoBehaviour {
-	public const float threshold = 0.99f;
+namespace BoM.UI {
+	// HideScrollbar
+	public class HideScrollbar : MonoBehaviour {
+		public const float threshold = 0.99f;
 
-	// Update
-	void Update() {
-		var scrollBar = GetComponent<Scrollbar>();
+		// Update
+		void Update() {
+			var scrollBar = GetComponent<Scrollbar>();
 
-		if(scrollBar.size >= threshold)
-			GetComponent<CanvasGroup>().alpha = 0f;
-		else
-			GetComponent<CanvasGroup>().alpha = 1f;
+			if(scrollBar.size >= threshold)
+				GetComponent<CanvasGroup>().alpha = 0f;
+			else
+				GetComponent<CanvasGroup>().alpha = 1f;
+		}
 	}
 }
