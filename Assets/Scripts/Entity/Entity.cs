@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using BoM.Skills;
 using System.Collections.Generic;
 
 [SelectionBase]

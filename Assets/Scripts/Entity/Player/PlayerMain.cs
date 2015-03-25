@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using BoM.Input;
+using BoM.Skills;
 
 public class PlayerMain : Entity {
 	public RayCaster rayCaster;
