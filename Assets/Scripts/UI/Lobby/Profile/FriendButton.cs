@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using BoM.UI.Lobby;
 
 public class FriendButton : MonoBehaviour, Initializable {
 	public Button addButton;

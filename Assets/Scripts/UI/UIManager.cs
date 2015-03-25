@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using uLobby;
+using BoM.UI.Lobby;
 
 namespace BoM.UI {
 	// UIManager
@@ -33,7 +34,7 @@ namespace BoM.UI {
 
 			// Return to login page on logout
 			Login.instance.onLogOut += (account) => {
-				if(Lobby.connectionStatus == LobbyConnectionStatus.Connected)
+				if(uLobby.Lobby.connectionStatus == LobbyConnectionStatus.Connected)
 					UIManager.instance.currentState = "Login";
 			};
 		}

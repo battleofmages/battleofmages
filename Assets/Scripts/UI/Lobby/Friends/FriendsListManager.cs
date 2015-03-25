@@ -5,6 +5,7 @@ using System.Linq;
 using BoM.Friends;
 using BoM.UI;
 using BoM.UI.Notifications;
+using BoM.UI.Lobby;
 
 public class FriendsListManager : SingletonMonoBehaviour<FriendsListManager>, Initializable {
 	public Transform friendsGroupRoot;

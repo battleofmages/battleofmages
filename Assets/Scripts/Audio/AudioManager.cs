@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
+using BoM.UI.Lobby;
 
 public class AudioManager : SingletonMonoBehaviour<AudioManager>, Initializable {
 	public AudioMixer mixer;

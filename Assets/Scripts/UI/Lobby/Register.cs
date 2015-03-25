@@ -5,101 +5,104 @@ using System;
 using BoM.UI;
 using BoM.UI.Notifications;
 
-public class Register : SingletonMonoBehaviour<Register>, Initializable {
-	public InputField emailField;
-	public InputField passwordField;
-	public InputField loginEmailField;
-	public Button registerButton;
+namespace BoM.UI.Lobby {
+	// Register
+	public class Register : SingletonMonoBehaviour<Register>, Initializable {
+		public InputField emailField;
+		public InputField passwordField;
+		public InputField loginEmailField;
+		public Button registerButton;
 
-	// Init
-	public void Init() {
-		// Add this class as a listener to different account events
-		AccountManager.OnAccountRegistered += OnAccountRegistered;
-		AccountManager.OnRegisterFailed += OnRegisterFailed;
+		// Init
+		public void Init() {
+			// Add this class as a listener to different account events
+			AccountManager.OnAccountRegistered += OnAccountRegistered;
+			AccountManager.OnRegisterFailed += OnRegisterFailed;
 
-		// Receive lobby events
-		Lobby.AddListener(this);
-	}
+			// Receive lobby events
+			uLobby.Lobby.AddListener(this);
+		}
 
-	// OnEnable
-	void OnEnable() {
-		// Load login field text
-		emailField.text = loginEmailField.text;
+		// OnEnable
+		void OnEnable() {
+			// Load login field text
+			emailField.text = loginEmailField.text;
+
+			// Validate
+			Validate();
+		}
+
+		// CreateNewAccount
+		public void CreateNewAccount() {
+			LogManager.General.Log("Requesting to create a new account: " + emailField.text);
+
+			// Request lobby to register a new account
+			uLobby.Lobby.RPC("AccountRegister", uLobby.Lobby.lobby, emailField.text, GameDB.EncryptPasswordString(passwordField.text));
+		}
 
 		// Validate
-		Validate();
-	}
+		public void Validate() {
+			/*registerButton.interactable =
+				emailField.GetComponent<InputFieldValidator>().valid &&
+				passwordField.GetComponent<InputFieldValidator>().valid;*/
+		}
+		
+	#region Callbacks
+		// OnAccountRegistered
+		void OnAccountRegistered(Account account) {
+			LogManager.General.Log("Registered account: " + account);
 
-	// CreateNewAccount
-	public void CreateNewAccount() {
-		LogManager.General.Log("Requesting to create a new account: " + emailField.text);
+			// Create a notification
+			NotificationManager.instance.CreateNotification("You have successfully registered!");
 
-		// Request lobby to register a new account
-		Lobby.RPC("AccountRegister", Lobby.lobby, emailField.text, GameDB.EncryptPasswordString(passwordField.text));
-	}
+			// Send the player back to the main menu
+			UIManager.instance.currentState = "Login";
+		}
+		
+		// OnRegisterFailed
+		void OnRegisterFailed(string accountName, AccountError error) {
+			LogManager.General.LogWarning("Account registration failed: " + accountName + " (" + error + ")");
 
-	// Validate
-	public void Validate() {
-		/*registerButton.interactable =
-			emailField.GetComponent<InputFieldValidator>().valid &&
-			passwordField.GetComponent<InputFieldValidator>().valid;*/
-	}
-	
-#region Callbacks
-	// OnAccountRegistered
-	void OnAccountRegistered(Account account) {
-		LogManager.General.Log("Registered account: " + account);
+			// Create a notification
+			NotificationManager.instance.CreateNotification("Registration failed: " + error);
+		}
 
-		// Create a notification
-		NotificationManager.instance.CreateNotification("You have successfully registered!");
+		// EmailAlreadyExists
+		[RPC]
+		void EmailAlreadyExists() {
+			LogManager.General.LogWarning("Account registration failed: Email already exists");
 
-		// Send the player back to the main menu
-		UIManager.instance.currentState = "Login";
-	}
-	
-	// OnRegisterFailed
-	void OnRegisterFailed(string accountName, AccountError error) {
-		LogManager.General.LogWarning("Account registration failed: " + accountName + " (" + error + ")");
+			// Create a notification
+			NotificationManager.instance.CreateNotification("Registration failed: Email already exists");
+		}
+	#endregion
 
-		// Create a notification
-		NotificationManager.instance.CreateNotification("Registration failed: " + error);
-	}
+		[RPC]
+		void ReceiveAccountInfo(string accountId, string propertyName, string typeName, string json) {
+			LogManager.General.Log("Received " + propertyName + ": " + json);
 
-	// EmailAlreadyExists
-	[RPC]
-	void EmailAlreadyExists() {
-		LogManager.General.LogWarning("Account registration failed: Email already exists");
+			var val = GenericSerializer.ReadObject(Type.GetType(typeName), json);
+			var account = PlayerAccount.Get(accountId);
 
-		// Create a notification
-		NotificationManager.instance.CreateNotification("Registration failed: Email already exists");
-	}
-#endregion
+			var propertyField = account.GetType().GetField(propertyName);
+			var property = propertyField.GetValue(account);
+			var propertyType = propertyField.FieldType;
+			var valueProperty = propertyType.GetProperty("value");
 
-	[RPC]
-	void ReceiveAccountInfo(string accountId, string propertyName, string typeName, string json) {
-		LogManager.General.Log("Received " + propertyName + ": " + json);
+			valueProperty.SetValue(property, val, null);
 
-		var val = GenericSerializer.ReadObject(Type.GetType(typeName), json);
-		var account = PlayerAccount.Get(accountId);
+			if(propertyName == "playerName") {
+				// Add name to account dictionary
+				if(!string.IsNullOrEmpty((string)val))
+					PlayerAccount.playerNameToAccount[(string)val] = account;
 
-		var propertyField = account.GetType().GetField(propertyName);
-		var property = propertyField.GetValue(account);
-		var propertyType = propertyField.FieldType;
-		var valueProperty = propertyType.GetProperty("value");
-
-		valueProperty.SetValue(property, val, null);
-
-		if(propertyName == "playerName") {
-			// Add name to account dictionary
-			if(!string.IsNullOrEmpty((string)val))
-				PlayerAccount.playerNameToAccount[(string)val] = account;
-
-			// Next page
-			if(account.isMine && (UIManager.instance.currentState == "Waiting" || UIManager.instance.currentState == "Ask Name")) {
-				if(string.IsNullOrEmpty((string)val))
-					UIManager.instance.currentState = "Ask Name";
-				else
-					UIManager.instance.currentState = "Lobby";
+				// Next page
+				if(account.isMine && (UIManager.instance.currentState == "Waiting" || UIManager.instance.currentState == "Ask Name")) {
+					if(string.IsNullOrEmpty((string)val))
+						UIManager.instance.currentState = "Ask Name";
+					else
+						UIManager.instance.currentState = "Lobby";
+				}
 			}
 		}
 	}

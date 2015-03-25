@@ -1,6 +1,6 @@
-﻿using UnityEngine.UI;
-using uLobby;
+﻿using uLobby;
 using BoM.Async;
+using BoM.UI.Lobby;
 
 public class Profile : SingletonMonoBehaviour<Profile>, Initializable {
 	public PlayerAccount displayedAccount;

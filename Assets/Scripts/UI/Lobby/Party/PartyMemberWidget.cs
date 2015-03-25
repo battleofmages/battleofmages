@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using BoM.UI;
 
 public class PartyMemberWidget : MonoBehaviour {
 	public PlayerAccount account;

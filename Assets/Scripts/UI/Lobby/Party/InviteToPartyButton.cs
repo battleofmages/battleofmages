@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using uLobby;
+using BoM.UI.Lobby;
 
 public class InviteToPartyButton : MonoBehaviour, Initializable {
 	// Init

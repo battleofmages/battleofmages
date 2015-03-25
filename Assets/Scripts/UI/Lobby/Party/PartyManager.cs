@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using uLobby;
 using BoM.UI;
 using BoM.UI.Notifications;
+using BoM.UI.Lobby;
 
 public class PartyManager : MonoBehaviour, Initializable {
 	public GameObject partyMemberPrefab;
