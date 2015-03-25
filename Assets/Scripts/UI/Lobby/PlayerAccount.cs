@@ -1,5 +1,6 @@
 ﻿using uLobby;
 using System.Collections.Generic;
+using BoM.Async;
 
 // Delegate
 public delegate void AccountChangedCallBack(PlayerAccount account);

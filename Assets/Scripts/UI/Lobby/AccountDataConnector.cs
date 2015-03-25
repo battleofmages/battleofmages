@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using BoM.Async;
 
 [Serializable]
 public struct AccountDataConnection {

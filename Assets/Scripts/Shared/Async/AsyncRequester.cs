@@ -1,6 +1,10 @@
-﻿public delegate void WriteAsyncPropertyCallBack(object val);
+﻿namespace BoM.Async {
+	// WriteAsyncPropertyCallBack
+	public delegate void WriteAsyncPropertyCallBack(object val);
 
-public interface AsyncRequester {
-	void RequestAsyncProperty(string propertyName);
-	void WriteAsyncProperty(string propertyName, object val, WriteAsyncPropertyCallBack callBack);
+	// AsyncRequester
+	public interface AsyncRequester {
+		void RequestAsyncProperty(string propertyName);
+		void WriteAsyncProperty(string propertyName, object val, WriteAsyncPropertyCallBack callBack);
+	}
 }

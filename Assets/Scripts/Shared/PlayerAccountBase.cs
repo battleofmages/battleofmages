@@ -1,4 +1,6 @@
-﻿public class PlayerAccountBase {
+﻿using BoM.Async;
+
+public class PlayerAccountBase {
 	// Player name
 	public AsyncProperty<string> playerName;
 	public AsyncProperty<string> email;

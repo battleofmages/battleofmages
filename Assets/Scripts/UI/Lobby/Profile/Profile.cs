@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 using uLobby;
+using BoM.Async;
 
 public class Profile : SingletonMonoBehaviour<Profile>, Initializable {
 	public PlayerAccount displayedAccount;

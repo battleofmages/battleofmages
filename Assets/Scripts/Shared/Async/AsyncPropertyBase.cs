@@ -1,9 +1,12 @@
-public class AsyncPropertyBase {
-	// Delegate
+namespace BoM.Async {
+	// ConnectObjectCallBack
 	public delegate void ConnectObjectCallBack(object val);
-	
-	// Get
-	public virtual void GetObject(ConnectObjectCallBack callBack) {
-		
+
+	// AsyncPropertyBase
+	public class AsyncPropertyBase {
+		// Get
+		public virtual void GetObject(ConnectObjectCallBack callBack) {
+			// ...
+		}
 	}
 }
