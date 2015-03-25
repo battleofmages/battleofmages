@@ -2,22 +2,22 @@
 
 [System.Serializable]
 public class TimeStamp : JSONSerializable<TimeStamp> {
-	public double unixTimeStamp;
+	public double timeStamp;
 	
 	// Constructor
 	public TimeStamp() {
-		unixTimeStamp = DateTimeToUnixTimeStamp(System.DateTime.UtcNow);
+		timeStamp = DateTimeToUnixTimeStamp(System.DateTime.UtcNow);
 	}
 	
 	// Constructor
 	public TimeStamp(System.DateTime dt) {
-		unixTimeStamp = DateTimeToUnixTimeStamp(dt);
+		timeStamp = DateTimeToUnixTimeStamp(dt);
 	}
 	
 	// Readable datetime
 	public string readableDateTime {
 		get {
-			var dateTime = UnixTimeStampToDateTime(unixTimeStamp);
+			var dateTime = UnixTimeStampToDateTime(timeStamp);
 			return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
 		}
 	}
@@ -25,7 +25,7 @@ public class TimeStamp : JSONSerializable<TimeStamp> {
 	// Datetime object
 	public System.DateTime dateTime {
 		get {
-			var dateTime = UnixTimeStampToDateTime(unixTimeStamp);
+			var dateTime = UnixTimeStampToDateTime(timeStamp);
 			return dateTime;
 		}
 	}
@@ -62,14 +62,14 @@ public class TimeStamp : JSONSerializable<TimeStamp> {
 	public static void WriteToBitStream(uLink.BitStream stream, object val, params object[] args) {
 		var obj = (TimeStamp)val;
 		
-		stream.WriteDouble(obj.unixTimeStamp);
+		stream.WriteDouble(obj.timeStamp);
 	}
 	
 	// BitStream Reader
 	public static object ReadFromBitStream(uLink.BitStream stream, params object[] args) {
 		var obj = new TimeStamp();
 		
-		obj.unixTimeStamp = stream.ReadDouble();
+		obj.timeStamp = stream.ReadDouble();
 		
 		return obj;
 	}
