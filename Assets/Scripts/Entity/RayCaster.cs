@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using BoM.Input;
 
 public class RayCaster : MonoBehaviour {
 	private Camera cam;

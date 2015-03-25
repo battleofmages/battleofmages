@@ -1,27 +1,19 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿namespace BoM.Input {
+	// InputSettings
+	public class InputSettings {
+		//public float mouseSensitivity;
+		public InputControl[] controls;
 
-public class InputSettings {
-	//public float mouseSensitivity;
-	public InputControl[] controls;
-	
-	public InputSettings() {
-		//mouseSensitivity = 0.5f;
-		controls = new InputControl[0];
+		// Empty constructor
+		public InputSettings() {
+			//mouseSensitivity = 0.5f;
+			controls = new InputControl[0];
+		}
+
+		// Constructor
+		public InputSettings(InputManager inputMgr) {
+			//mouseSensitivity = inputMgr.mouseSensitivity;
+			controls = inputMgr.controls;
+		}
 	}
-	
-	public InputSettings(InputManager inputMgr) {
-		//mouseSensitivity = inputMgr.mouseSensitivity;
-		controls = inputMgr.controls;
-	}
-	
-	/*// Writer
-	public static void JsonSerializer(Jboy.JsonWriter writer, object instance) {
-		GenericSerializer.WriteJSONClassInstance<InputSettings>(writer, (InputSettings)instance);
-	}
-	
-	// Reader
-	public static object JsonDeserializer(Jboy.JsonReader reader) {
-		return GenericSerializer.ReadJSONClassInstance<InputSettings>(reader);
-	}*/
 }
