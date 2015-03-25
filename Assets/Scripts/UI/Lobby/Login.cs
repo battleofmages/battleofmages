@@ -34,7 +34,7 @@ namespace BoM.UI.Lobby {
 		
 		// LogIn
 		public void LogIn() {
-			SendLoginRequest(emailField.text, passwordField.text);
+			SendLoginRequest();
 		}
 
 		// LogOut
@@ -43,7 +43,13 @@ namespace BoM.UI.Lobby {
 		}
 
 		// Send login request
-		public void SendLoginRequest(string email, string password) {
+		public void SendLoginRequest(string email = null, string password = null) {
+			if(email == null)
+				email = emailField.text;
+
+			if(password == null)
+				password = passwordField.text;
+
 			LogManager.General.Log("Sending login request...");
 			
 			// Login RPC
@@ -84,7 +90,10 @@ namespace BoM.UI.Lobby {
 		// uLobby: Connected
 		void uLobby_OnConnected() {
 			// Activate UI
-			UIManager.instance.currentState = "Login";
+			if(string.IsNullOrEmpty(emailField.text))
+				UIManager.instance.currentState = "Register";
+			else
+				UIManager.instance.currentState = "Login";
 			
 			// Auto login
 			if(autoLoginToggle.isOn)

@@ -10,6 +10,7 @@ namespace BoM.UI {
 		void OnEnable() {
 			foreach(var field in fields) {
 				if(string.IsNullOrEmpty(field.text)) {
+					LogManager.General.Log("[OnEnableFocusEmptyField] Focusing: " + field);
 					field.Select();
 					return;
 				}

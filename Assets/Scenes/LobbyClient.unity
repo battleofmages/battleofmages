@@ -628,6 +628,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   validationType: password
+--- !u!114 &127401958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 127401953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d220184eb6b63b45b042714f1b6afd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &133135689
 Prefab:
   m_ObjectHideFlags: 0
@@ -6759,6 +6770,17 @@ CanvasRenderer:
 GameObject:
   m_PrefabParentObject: {fileID: 140990, guid: c7526747797659f438ff119f963a4cf8, type: 2}
   m_PrefabInternal: {fileID: 1887900324}
+--- !u!114 &1243838593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1243838592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e8e5a1ecbf61a44b0a663760298413, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1243838595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6768,6 +6790,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbd70ff60cc3a7b49acb19831bd1b80d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1243838596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1243838592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d220184eb6b63b45b042714f1b6afd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1253477637
@@ -8111,7 +8144,6 @@ GameObject:
   - 225: {fileID: 1616422113}
   - 114: {fileID: 1616422115}
   - 114: {fileID: 1616422117}
-  - 114: {fileID: 1616422116}
   m_Layer: 5
   m_Name: Ask Name UI
   m_TagString: Untagged
@@ -8162,19 +8194,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1259132578}
---- !u!114 &1616422116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1616422112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4725ea95c7ce3648a9a2198d070537b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fields:
-  - {fileID: 230653748}
 --- !u!114 &1616422117
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,8 +25,9 @@ namespace BoM.UI.Lobby {
 
 		// OnEnable
 		void OnEnable() {
-			// Load login field text
-			emailField.text = loginEmailField.text;
+			// If we entered no E-Mail in Register yet: Load login E-Mail
+			if(string.IsNullOrEmpty(emailField.text))
+				emailField.text = loginEmailField.text;
 
 			// Validate
 			Validate();
@@ -42,9 +43,9 @@ namespace BoM.UI.Lobby {
 
 		// Validate
 		public void Validate() {
-			/*registerButton.interactable =
+			registerButton.interactable =
 				emailField.GetComponent<InputFieldValidator>().valid &&
-				passwordField.GetComponent<InputFieldValidator>().valid;*/
+				passwordField.GetComponent<InputFieldValidator>().valid;
 		}
 		
 	#region Callbacks
@@ -54,6 +55,11 @@ namespace BoM.UI.Lobby {
 
 			// Create a notification
 			NotificationManager.instance.CreateNotification("You have successfully registered!");
+
+			// Set login data to newly registered data
+			Login.instance.emailField.text = emailField.text;
+			Login.instance.passwordField.text = passwordField.text;
+			Login.instance.LogIn();
 
 			// Send the player back to the main menu
 			UIManager.instance.currentState = "Login";
