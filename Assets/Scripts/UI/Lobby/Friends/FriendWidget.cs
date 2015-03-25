@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using BoM.Async;
+using BoM.Friends;
 
 public class FriendWidget : MonoBehaviour {
 	public Friend friend;

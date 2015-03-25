@@ -1,4 +1,5 @@
 ﻿using BoM.Async;
+using BoM.Friends;
 
 public class PlayerAccountBase {
 	// Player name

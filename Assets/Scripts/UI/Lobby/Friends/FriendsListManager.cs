@@ -2,6 +2,7 @@
 using uLobby;
 using System.Collections.Generic;
 using System.Linq;
+using BoM.Friends;
 
 public class FriendsListManager : SingletonMonoBehaviour<FriendsListManager>, Initializable {
 	public Transform friendsGroupRoot;
