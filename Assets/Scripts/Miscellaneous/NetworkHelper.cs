@@ -38,7 +38,7 @@ public class NetworkHelper : SingletonMonoBehaviour<NetworkHelper> {
 		}
 
 		// Not cached: Download it!
-		NetworkHelper.instance.StartCoroutine(GetTextureCoroutine(new URLRequest {
+		NetworkHelper.Async(GetTextureCoroutine(new URLRequest {
 			url = url,
 			retries = 0
 		}, callBack));
@@ -56,7 +56,7 @@ public class NetworkHelper : SingletonMonoBehaviour<NetworkHelper> {
 			urlRequest.retries += 1;
 
 			if(urlRequest.retries < maxWWWTries) {
-				NetworkHelper.instance.StartCoroutine(GetTextureCoroutine(urlRequest, callBack));
+				NetworkHelper.Async(GetTextureCoroutine(urlRequest, callBack));
 			}
 
 			yield break;

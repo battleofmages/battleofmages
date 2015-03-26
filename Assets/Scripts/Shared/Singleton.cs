@@ -1,4 +1,7 @@
-﻿// Singleton
+﻿using UnityEngine;
+using System.Collections;
+
+// Singleton
 public abstract class Singleton<T> where T : Singleton<T> {
 	private static T _instance = default(T);
 	
@@ -29,6 +32,11 @@ public abstract class SingletonMonoBehaviour<T> : uLink.MonoBehaviour where T : 
 		} else if(_instance != this) {
 			Destroy(gameObject);
 		}
+	}
+
+	// Async
+	public static Coroutine Async(IEnumerator enumerator) {
+		return _instance.StartCoroutine(enumerator);
 	}
 }
 
