@@ -72,13 +72,13 @@ namespace BoM.UI {
 			if(stateNameToGameObject.TryGetValue(stateName, out newObject)) {
 				var newCanvasGroup = newObject.GetComponent<CanvasGroup>();
 				newCanvasGroup.alpha = 0f;
-				
+
 				newObject.SetActive(true);
 				
 				// Fade alpha
 				newCanvasGroup.Fade(
 					fadeTime.fadeIn,
-					(val) => {
+					val => {
 						newCanvasGroup.alpha = val;
 					}
 				);
