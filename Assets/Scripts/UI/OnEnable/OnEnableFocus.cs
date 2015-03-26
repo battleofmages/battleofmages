@@ -10,11 +10,13 @@ namespace BoM.UI {
 		
 		// OnEnable
 		void OnEnable() {
-			// To be safe, stop all coroutines
-			StopAllCoroutines();
-
 			// Select it once it's active
 			StartCoroutine(SelectWhenActive(GetComponent<Selectable>()));
+		}
+
+		// OnDisable
+		void OnDisable() {
+			StopAllCoroutines();
 		}
 		
 		// SelectWhenActive

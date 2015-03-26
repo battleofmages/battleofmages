@@ -9,9 +9,6 @@ namespace BoM.UI {
 
 		// OnEnable
 		void OnEnable() {
-			// To be safe, stop all coroutines
-			StopAllCoroutines();
-
 			// Check all fields for empty text
 			foreach(var field in fields) {
 				if(string.IsNullOrEmpty(field.text)) {
@@ -19,6 +16,11 @@ namespace BoM.UI {
 					return;
 				}
 			}
+		}
+
+		// OnDisable
+		void OnDisable() {
+			StopAllCoroutines();
 		}
 	}
 }
