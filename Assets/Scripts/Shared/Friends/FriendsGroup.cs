@@ -25,6 +25,13 @@ namespace BoM.Friends {
 			friends = new List<Friend>();
 		}
 
+		// Constructor
+		public FriendsGroup(string nName, List<Friend> nFriends) {
+			name = nName;
+			color = Color.white;
+			friends = nFriends;
+		}
+
 		// ContainsAccount
 		public bool ContainsAccount(string accountId) {
 			return friends.Any(friend => friend.accountId == accountId);

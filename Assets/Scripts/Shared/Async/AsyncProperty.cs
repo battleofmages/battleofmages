@@ -17,11 +17,9 @@ namespace BoM.Async {
 		// Constructor
 		public AsyncProperty(AsyncRequester req, string propertyName) {
 			name = propertyName;
-			available = false;
-			requestSent = false;
-			_val = default(T);
 			requester = req;
 			keyToCallBack = new Dictionary<object, ConnectCallBack>();
+			Clear();
 		}
 
 		// Connect
@@ -49,24 +47,22 @@ namespace BoM.Async {
 		}
 
 		// Disconnect
-		public void Disconnect(object key) {
+		public bool Disconnect(object key) {
 			ConnectCallBack callBack;
 
 			if(!keyToCallBack.TryGetValue(key, out callBack))
-				return;
+				return false;
 			
 			onValueChange -= callBack;
-			
-			if(!available)
-				onReceive -= callBack;
+			onReceive -= callBack;
+
+			return true;
 		}
 
 		// Disconnect
 		public void Disconnect(ConnectCallBack callBack) {
 			onValueChange -= callBack;
-
-			if(!available)
-				onReceive -= callBack;
+			onReceive -= callBack;
 		}
 
 		// Get
@@ -95,6 +91,13 @@ namespace BoM.Async {
 			};
 
 			Request();
+		}
+
+		// Clear
+		public void Clear() {
+			available = false;
+			requestSent = false;
+			_val = default(T);
 		}
 
 		// Request

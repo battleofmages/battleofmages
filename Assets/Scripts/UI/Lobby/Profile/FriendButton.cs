@@ -46,6 +46,7 @@ public class FriendButton : MonoBehaviour, Initializable {
 		// On logout
 		Login.instance.onLogOut += (account) => {
 			account.friendsList.Disconnect(this);
+			account.friendsList.Clear();
 		};
 	}
 }

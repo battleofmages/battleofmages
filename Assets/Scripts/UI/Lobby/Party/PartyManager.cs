@@ -27,6 +27,7 @@ public class PartyManager : MonoBehaviour, Initializable {
 		// Disconnect listeners on logout
 		Login.instance.onLogOut += (account) => {
 			account.party.Disconnect(this);
+			account.party.Clear();
 		};
 	}
 

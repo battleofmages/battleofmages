@@ -106,7 +106,7 @@ public class GameDB : SingletonMonoBehaviour<GameDB> {
 			new JavaScriptMapPhase(jsMapPhase),
 			new JavaScriptReducePhase(jsReducePhase, argument)
 		);
-		
+
 		// Wait until the request finishes
 		yield return mapReduceRequest.WaitUntilDone();
 		
@@ -200,11 +200,10 @@ public class GameDB : SingletonMonoBehaviour<GameDB> {
 			function(value, keydata, arg) {
 				var obj = JSON.parse(value.values[0].data);
 				
-				var generatedObject = new Object();
-				generatedObject.key = value.key;
-				generatedObject.val = obj." + property + @";
-				
-				return [generatedObject];
+				return [{
+					key: value.key,
+					val: obj." + property + @"
+				}];
 			}
 		";
 	}
