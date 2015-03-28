@@ -11,7 +11,8 @@ An open source MOBA, see https://battleofmages.com for more info.
 	using System;
 	using System.Collections.Generic;
 
-	namespace Example { 
+	namespace Example {
+		// Test
 		public class Test {
 			public string firstField;
 			public string secondField;
@@ -59,3 +60,5 @@ An open source MOBA, see https://battleofmages.com for more info.
 * Follow-up blocks like `else` and `catch` are written on the same line as the ending bracket `}` of the preceding block
 * A comment `// ` that is not at the first line of a block needs to be preceded by a new line
 * Private class fields need to explicitly state that they are `private`
+* The very first block in a source file is not preceded by a comment
+* A block requires a new empty line before and after it if there is more code in the same block
