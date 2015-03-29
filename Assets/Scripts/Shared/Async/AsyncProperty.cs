@@ -25,6 +25,9 @@ namespace BoM.Async {
 		// Connect
 		// Permanently connects the value change to the event
 		public void Connect(object key, ConnectCallBack callBack, bool request = true) {
+			if(keyToCallBack.ContainsKey(key))
+				return;
+
 			if(key != null)
 				keyToCallBack[key] = callBack;
 

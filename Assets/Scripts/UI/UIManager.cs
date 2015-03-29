@@ -26,10 +26,7 @@ namespace BoM.UI {
 
 			// Go to lobby or waiting page on login
 			Login.instance.onLogIn += (account) => {
-				if(account.playerName.available)
-					UIManager.instance.currentState = "Lobby";
-				else
-					UIManager.instance.currentState = "Waiting";
+				UIManager.instance.currentState = "Waiting";
 			};
 
 			// Return to login page on logout

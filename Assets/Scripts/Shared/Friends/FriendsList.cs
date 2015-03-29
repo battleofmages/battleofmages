@@ -57,6 +57,13 @@ namespace BoM.Friends {
 			}
 		}
 
+		// All friend IDs
+		public IEnumerable<string> allFriendIds {
+			get {
+				return allFriends.Select(friend => friend.accountId);
+			}
+		}
+
 		// Online count
 		public int onlineCount {
 			get {
