@@ -88,7 +88,7 @@ public class Traits : JSONSerializable<Traits> {
 				"CD reduction +", cooldownReduction, s,
 				"Attack speed +", attackSpeed, s,
 				"Move speed +", moveSpeed
-				);
+			);
 		}
 	}
 	
@@ -102,7 +102,7 @@ public class Traits : JSONSerializable<Traits> {
 			"CD reduction: ", cooldownReduction, " ", formatStart, "+", other.cooldownReduction, formatEnd, s,
 			"Attack speed: ", attackSpeed, " ", formatStart, "+", other.attackSpeed, formatEnd, s,
 			"Move speed: ", moveSpeed, " ", formatStart, "+", other.moveSpeed, formatEnd
-			);
+		);
 	}
 	
 	// To string
@@ -133,22 +133,30 @@ public class Traits : JSONSerializable<Traits> {
 	
 	// Max stat points
 	public int maxStatPoints {
-		get { return 300; }
+		get { 
+			return 300; 
+		}
 	}
 	
 	// Stat points left
 	public int statPointsLeft {
-		get { return maxStatPoints - totalStatPointsUsed; }
+		get { 
+			return maxStatPoints - totalStatPointsUsed; 
+		}
 	}
 	
 	// Attack damage multiplier
 	public float attackDmgMultiplier {
-		get { return 1.0f + ((attack - 50) * 0.005f); }
+		get { 
+			return 1.0f + ((attack - 50) * 0.005f); 
+		}
 	}
 	
 	// Defense damage multiplier
 	public float defenseDmgMultiplier {
-		get { return 1.0f - ((defense - 50) * 0.003333f); }
+		get { 
+			return 1.0f - ((defense - 50) * 0.003333f); 
+		}
 	}
 	
 	// Energy multiplier
@@ -160,16 +168,22 @@ public class Traits : JSONSerializable<Traits> {
 	
 	// Cooldown multiplier
 	public float cooldownMultiplier {
-		get { return 1.0f - ((cooldownReduction - 50) * 0.005f); }
+		get { 
+			return 1.0f - ((cooldownReduction - 50) * 0.005f); 
+		}
 	}
 	
 	// Attack speed multiplier
 	public float attackSpeedMultiplier {
-		get { return 1.0f - ((attackSpeed - 50) * 0.005f); }
+		get { 
+			return 1.0f - ((attackSpeed - 50) * 0.005f); 
+		}
 	}
 	
 	// Move speed multiplier	
 	public float moveSpeedMultiplier {
-		get { return 1.0f + ((moveSpeed - 50) * 0.005f); }
+		get { 
+			return 1.0f + ((moveSpeed - 50) * 0.005f); 
+		}
 	}
 }
