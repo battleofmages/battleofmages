@@ -12,6 +12,7 @@ public class PlayerAccountBase {
 	public AsyncProperty<string> avatarURL;
 	public AsyncProperty<string> country;
 	public AsyncProperty<List<string>> followers;
+	public AsyncProperty<Traits> traits;
 	//public AsyncProperty<AccessLevel> accessLevel;
 
 	// Init
@@ -25,6 +26,7 @@ public class PlayerAccountBase {
 		avatarURL = new AsyncProperty<string>(req, "avatarURL");
 		country = new AsyncProperty<string>(req, "country");
 		followers = new AsyncProperty<List<string>>(req, "followers");
+		traits = new AsyncProperty<Traits> (req, "traits");
 	}
 
 	// Index operator
