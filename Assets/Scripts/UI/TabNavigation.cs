@@ -1,4 +1,4 @@
-﻿//Author: Melang http://forum.unity3d.com/members/melang.593409/
+﻿// Original author: Melang http://forum.unity3d.com/members/melang.593409/
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -15,24 +15,37 @@ namespace BoM.UI {
 
 		// Update
 		void Update() {
-			if(UnityEngine.Input.GetKeyDown(KeyCode.Tab) && system.currentSelectedGameObject) {
-				Selectable current = system.currentSelectedGameObject.GetComponent<Selectable>();
+			// Are we pressing the tab key?
+			if(!UnityEngine.Input.GetKeyDown(KeyCode.Tab))
+				return;
 
-				if(!current)
-					return;
+			// Do we have a selected game object?
+			if(!system.currentSelectedGameObject)
+				return;
 
-				Selectable next = current.FindSelectableOnDown();
+			// Get the Selectable
+			var current = system.currentSelectedGameObject.GetComponent<Selectable>();
 
-				if(next!= null) {
-					InputField inputField = next.GetComponent<InputField>();
+			// Does the game object have a Selectable?
+			if(!current)
+				return;
 
-					if(inputField !=null)
-						inputField.OnPointerClick(new PointerEventData(system));  //if it's an input field, also set the text caret
+			// Get the next focusable element
+			var next = current.FindSelectableOnDown();
 
-					system.SetSelectedGameObject(next.gameObject, new BaseEventData(system));
-				}
-				//else Debug.Log("next nagivation element not found");
-			}
+			// Is there something we can tab to?
+			if(next == null)
+				return;
+
+			// Is it an input field?
+			var inputField = next.GetComponent<InputField>();
+
+			// If it's an input field, also set the text caret
+			if(inputField != null)
+				inputField.OnPointerClick(new PointerEventData(system));
+
+			// Select it
+			system.SetSelectedGameObject(next.gameObject, new BaseEventData(system));
 		}
 	}
 }
