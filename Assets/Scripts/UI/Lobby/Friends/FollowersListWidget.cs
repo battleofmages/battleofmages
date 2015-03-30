@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using uLobby;
 using BoM.UI;
 using BoM.UI.Lobby;
+using BoM.UI.Notifications;
 using BoM.Friends;
 using System.Linq;
 using System.Collections.Generic;
@@ -12,6 +14,8 @@ public class FollowersListWidget : SingletonMonoBehaviour<FollowersListWidget>, 
 
 	// Init
 	public void Init() {
+		Lobby.AddListener(this);
+
 		// Construct friends list on login
 		Login.instance.onLogIn += account => {
 			account.followers.Connect(
@@ -55,4 +59,13 @@ public class FollowersListWidget : SingletonMonoBehaviour<FollowersListWidget>, 
 			1
 		);
 	}
+
+#region RPCs
+	[RPC]
+	void NewFollower(string accountId) {
+		PlayerAccount.Get(accountId).playerName.Get(playerName => {
+			NotificationManager.instance.CreateNotification("<color=yellow>" + playerName + "</color> has added you as a friend!", 4f);
+		});
+	}
+#endregion
 }
