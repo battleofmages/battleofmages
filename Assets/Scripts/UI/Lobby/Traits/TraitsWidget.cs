@@ -7,8 +7,9 @@ public class TraitsWidget : MonoBehaviour, Initializable {
 		Login.instance.onLogIn += account => {
 			account.traits.Connect(
 				this,
-				data => { LogManager.General.Log("Traits: " + data.ToString());
-			}
+				data => {
+					LogManager.General.Log("Traits: " + data);
+				}
 			);
 		};
 	}
