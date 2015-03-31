@@ -45,5 +45,14 @@ namespace BoM.Tests {
 			Assert.AreEqual(expectedValue, traits.attackSpeed);
 			Assert.AreEqual(expectedValue, traits.moveSpeed);
 		}
+
+		[Test]
+		public void Equal_Attack_vs_Defense_points_should_not_change_the_damage([NUnit.Framework.Range(-50, 50, 10)] int value) {
+			float damage = 1000f;
+			var traits = new Traits(value);
+			var resultingDamage = damage * traits.attackDmgMultiplier * traits.defenseDmgMultiplier;
+
+			Assert.That(damage, Is.EqualTo(resultingDamage).Within(0.1));
+		}
 	}
 }

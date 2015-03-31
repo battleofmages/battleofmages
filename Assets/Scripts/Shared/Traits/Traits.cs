@@ -159,7 +159,7 @@
 		// Defense damage multiplier
 		public float defenseDmgMultiplier {
 			get { 
-				return 1.0f - (defense * 0.003333f);
+				return 1f / (1f + (defense * 0.005f));
 			}
 		}
 		
