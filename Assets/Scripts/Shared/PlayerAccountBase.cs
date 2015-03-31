@@ -1,4 +1,5 @@
-﻿using BoM.Async;
+﻿using BoM;
+using BoM.Async;
 using BoM.Friends;
 using System.Collections.Generic;
 
