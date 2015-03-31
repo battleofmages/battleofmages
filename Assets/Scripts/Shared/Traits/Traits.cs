@@ -144,21 +144,21 @@
 		
 		// Points left
 		public int pointsLeft {
-			get { 
+			get {
 				return maxPoints - totalPointsUsed;
 			}
 		}
 		
 		// Attack damage multiplier
 		public float attackDmgMultiplier {
-			get { 
+			get {
 				return 1.0f + (attack * 0.005f);
 			}
 		}
 		
 		// Defense damage multiplier
 		public float defenseDmgMultiplier {
-			get { 
+			get {
 				return 1f / (1f + (defense * 0.005f));
 			}
 		}
@@ -172,21 +172,21 @@
 		
 		// Cooldown multiplier
 		public float cooldownMultiplier {
-			get { 
+			get {
 				return 1.0f - (cooldownReduction * 0.005f);
 			}
 		}
 		
 		// Attack speed multiplier
 		public float attackSpeedMultiplier {
-			get { 
+			get {
 				return 1.0f - (attackSpeed * 0.005f);
 			}
 		}
 		
 		// Move speed multiplier	
 		public float moveSpeedMultiplier {
-			get { 
+			get {
 				return 1.0f + (moveSpeed * 0.005f);
 			}
 		}
