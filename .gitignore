@@ -3,8 +3,12 @@
 /[Tt]emp/
 /[Oo]bj/
 /[Ll]ogs/
-/Assets/UnityTestTools/Examples/
+
 /ProjectSettings/EditorBuildSettings.asset
+
+/Assets/UnityTestTools/Examples/
+/Assets/UnityTestTools/Common/Settings.meta
+/Assets/UnityTestTools/Common/Settings/
 
 # ============ #
 #   Perforce   #
