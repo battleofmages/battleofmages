@@ -2,7 +2,7 @@
 using BoM.Async;
 
 namespace BoM.Tests {
-	// TraitsTest
+	// AsyncProperyTests
 	class AsyncProperyTests : AsyncRequester {
 		public const string famousPlayer = "Luke Skywalker";
 
