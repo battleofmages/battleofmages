@@ -48,7 +48,7 @@ namespace BoM.UI.Lobby {
 				passwordField.GetComponent<InputFieldValidator>().valid;
 		}
 		
-	#region Callbacks
+#region Callbacks
 		// OnAccountRegistered
 		void OnAccountRegistered(Account account) {
 			LogManager.General.Log("Registered account: " + account);
@@ -81,8 +81,9 @@ namespace BoM.UI.Lobby {
 			// Create a notification
 			NotificationManager.instance.CreateNotification("Registration failed: Email already exists");
 		}
-	#endregion
+#endregion
 
+#region RPCs
 		[RPC]
 		void ReceiveAccountInfo(string accountId, string propertyName, string typeName, string json) {
 			LogManager.General.Log("Received " + propertyName + ": " + json);
@@ -111,5 +112,6 @@ namespace BoM.UI.Lobby {
 				}
 			}
 		}
+#endregion
 	}
 }
