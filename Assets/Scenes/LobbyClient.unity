@@ -4966,7 +4966,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22457072, guid: 712715a528e86ec47aadf55b25ad7cd4, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: .200000003
       objectReference: {fileID: 0}
     - target: {fileID: 22431412, guid: 712715a528e86ec47aadf55b25ad7cd4, type: 2}
       propertyPath: m_LocalPosition.x
@@ -6975,6 +6975,7 @@ RectTransform:
   - {fileID: 56238430}
   - {fileID: 1094415620}
   - {fileID: 400358435}
+  - {fileID: 1292982108}
   m_Father: {fileID: 2142990247}
   m_RootOrder: 4
   m_AnchorMin: {x: .75, y: 0}
@@ -7058,6 +7059,45 @@ AudioListener:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1288917495}
   m_Enabled: 1
+--- !u!1 &1292982107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1292982108}
+  - 114: {fileID: 1292982109}
+  m_Layer: 0
+  m_Name: Country Widget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1292982108
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1292982107}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1253477638}
+  m_RootOrder: 4
+--- !u!114 &1292982109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1292982107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176bcd8d4d357524b8d90b6b47181007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1305663154
 GameObject:
   m_ObjectHideFlags: 0
