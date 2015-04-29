@@ -29,7 +29,7 @@ public class FriendsListManager : SingletonMonoBehaviour<FriendsListManager>, In
 		};
 		
 		// Disconnect listeners on logout
-		Login.instance.onLogOut += (account) => {
+		Login.instance.onLogOut += account => {
 			account.friendsList.Disconnect(this);
 			account.friendsList.Clear();
 		};
