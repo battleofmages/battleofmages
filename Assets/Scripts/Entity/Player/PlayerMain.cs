@@ -44,9 +44,9 @@ public class PlayerMain : Entity {
 	void Update() {
 		// Movement
 		motor.SetMoveVector(
-			InputManager.instance.GetButtonFloat(buttons.Right) - InputManager.instance.GetButtonFloat(buttons.Left) + Input.GetAxis("Horizontal"),
+			InputManager.instance.GetButtonFloat(buttons.Right) - InputManager.instance.GetButtonFloat(buttons.Left) + Input.GetAxis("GamePad Horizontal"),
 			0f,
-			InputManager.instance.GetButtonFloat(buttons.Forward) - InputManager.instance.GetButtonFloat(buttons.Backward) + Input.GetAxis("Vertical")
+			InputManager.instance.GetButtonFloat(buttons.Forward) - InputManager.instance.GetButtonFloat(buttons.Backward) + Input.GetAxis("GamePad Vertical")
 		);
 
 		// Skill

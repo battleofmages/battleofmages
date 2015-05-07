@@ -13,7 +13,7 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 4
+  serializedVersion: 6
   m_Fog: 0
   m_FogColor: {r: .5, g: .5, b: .5, a: 1}
   m_FogMode: 3
@@ -23,63 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: .211999997, g: .226999998, b: .259000003, a: 1}
   m_AmbientEquatorColor: {r: .114, g: .125, b: .133000001, a: 1}
   m_AmbientGroundColor: {r: .0469999984, g: .0430000015, b: .0350000001, a: 1}
-  m_AmbientSkyboxAmount: 1
-  m_AmbientProbe:
-    sh[ 0]: .168264687
-    sh[ 1]: -.0179972611
-    sh[ 2]: -.00791809708
-    sh[ 3]: .00676752627
-    sh[ 4]: -.00194005051
-    sh[ 5]: .00889331382
-    sh[ 6]: .00981250498
-    sh[ 7]: -.00995213259
-    sh[ 8]: .0234115198
-    sh[ 9]: .211337745
-    sh[10]: -.0224084798
-    sh[11]: -.0129199177
-    sh[12]: .0112225711
-    sh[13]: -.00318785431
-    sh[14]: .0150066186
-    sh[15]: .0142905954
-    sh[16]: -.0151864514
-    sh[17]: .0336183235
-    sh[18]: .290774852
-    sh[19]: -.0276802983
-    sh[20]: -.0225766376
-    sh[21]: .0206624195
-    sh[22]: -.00565427262
-    sh[23]: .0290439874
-    sh[24]: .0183066204
-    sh[25]: -.0225653742
-    sh[26]: .04088277
-  m_AmbientProbeInGamma:
-    sh[ 0]: .425810277
-    sh[ 1]: -.0267859418
-    sh[ 2]: -.00826618075
-    sh[ 3]: .00892018434
-    sh[ 4]: -.00190405233
-    sh[ 5]: .0137550049
-    sh[ 6]: .0103240144
-    sh[ 7]: -.00831929129
-    sh[ 8]: .0257588271
-    sh[ 9]: .465763241
-    sh[10]: -.0243587792
-    sh[11]: -.0102964342
-    sh[12]: .0112359431
-    sh[13]: -.00235712389
-    sh[14]: .0174231287
-    sh[15]: .0121345147
-    sh[16]: -.0100910282
-    sh[17]: .0300547723
-    sh[18]: .529366374
-    sh[19]: -.0175078399
-    sh[20]: -.013267532
-    sh[21]: .0148999924
-    sh[22]: -.00299418368
-    sh[23]: .0234492496
-    sh[24]: .0126769207
-    sh[25]: -.0122032678
-    sh[26]: .0302676372
+  m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: .5
@@ -92,7 +36,6 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_GeneratedSkyboxReflection: {fileID: 0}
   m_Sun: {fileID: 0}
 --- !u!127 &3
 LevelGameManager:
@@ -100,17 +43,15 @@ LevelGameManager:
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 4
-  m_LightProbesLegacy: {fileID: 0}
+  serializedVersion: 5
   m_GIWorkflowMode: 0
-  m_LightmapsModeLegacy: 1
   m_LightmapsMode: 1
-  m_UseDualLightmapsInForward: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
+    m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
@@ -118,28 +59,15 @@ LightmapSettings:
     serializedVersion: 3
     m_Resolution: 2
     m_BakeResolution: 40
-    m_LastUsedResolution: 0
     m_TextureWidth: 1024
     m_TextureHeight: 1024
-    m_BounceBoost: 1
-    m_BounceIntensity: 1
-    m_SkyLightColor: {r: .860000014, g: .930000007, b: 1, a: 1}
-    m_SkyLightIntensity: 0
-    m_Quality: 0
-    m_Bounces: 1
-    m_FinalGatherRays: 1000
-    m_FinalGatherContrastThreshold: .0500000007
-    m_FinalGatherGradientThreshold: 0
-    m_FinalGatherInterpolationPoints: 15
-    m_AOAmount: 0
     m_AOMaxDistance: 1
-    m_AOContrast: 1
-    m_LODSurfaceMappingDistance: 1
     m_Padding: 2
     m_CompAOExponent: 0
     m_LightmapParameters: {fileID: 0}
     m_TextureCompression: 1
-    m_LockAtlas: 0
+    m_FinalGather: 0
+    m_FinalGatherRayCount: 1024
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &5
@@ -171,7 +99,7 @@ GameObject:
   - 65: {fileID: 136841565}
   - 23: {fileID: 136841564}
   - 54: {fileID: 136841563}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,10 +144,6 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapIndexDynamic: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_LightmapTilingOffsetDynamic: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
@@ -302,7 +226,7 @@ GameObject:
   - 65: {fileID: 1074798731}
   - 23: {fileID: 1074798730}
   - 54: {fileID: 1074798729}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,10 +271,6 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapIndexDynamic: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_LightmapTilingOffsetDynamic: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
@@ -399,7 +319,7 @@ GameObject:
   - 65: {fileID: 1123183392}
   - 23: {fileID: 1123183391}
   - 54: {fileID: 1123183390}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,10 +364,6 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapIndexDynamic: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_LightmapTilingOffsetDynamic: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
@@ -508,10 +424,10 @@ Light:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1180283609}
   m_Enabled: 1
-  serializedVersion: 5
+  serializedVersion: 6
   m_Type: 1
   m_Color: {r: 1, g: .956862748, b: .839215696, a: 1}
-  m_Intensity: .5
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -521,11 +437,8 @@ Light:
     m_Strength: 1
     m_Bias: .0500000007
     m_NormalBias: 0
-    m_Softness: 4
-    m_SoftnessFade: 1
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
-  m_ActuallyLightmapped: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
   m_CullingMask:
@@ -560,7 +473,7 @@ GameObject:
   - 65: {fileID: 1228330909}
   - 23: {fileID: 1228330908}
   - 54: {fileID: 1228330907}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,10 +518,6 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapIndexDynamic: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_LightmapTilingOffsetDynamic: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
@@ -657,7 +566,7 @@ GameObject:
   - 65: {fileID: 1585156970}
   - 23: {fileID: 1585156969}
   - 54: {fileID: 1585156968}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,10 +611,6 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapIndexDynamic: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_LightmapTilingOffsetDynamic: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
@@ -782,12 +687,8 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapIndexDynamic: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_LightmapTilingOffsetDynamic: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: c02d59c6157727c4c9ffa4a51bd4e5c3, type: 2}
+  - {fileID: 2100000, guid: 49759d3ac94b2764194f4a173ee48867, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

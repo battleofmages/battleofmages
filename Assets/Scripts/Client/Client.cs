@@ -18,6 +18,9 @@ uzf/lC9NYarw==", @"EQ=="
 		// Encryption
 		uLink.Network.InitializeSecurity(true);
 
+		// TEMPORARY FOR TESTING
+		Application.LoadLevelAdditive("Test");
+
 		// Test
 		uLink.Network.Connect("localhost", 7000);
 	}
