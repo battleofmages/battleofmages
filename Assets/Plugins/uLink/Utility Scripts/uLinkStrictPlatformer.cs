@@ -26,7 +26,7 @@ using uLink;
 /// </remarks>
 
 [AddComponentMenu("uLink Utilities/Strict Platformer")]
-[RequireComponent(typeof(uLinkNetworkView))]
+[RequireComponent(typeof(uLink.NetworkView))]
 public class uLinkStrictPlatformer : uLink.MonoBehaviour
 {
 	private struct State
@@ -113,7 +113,7 @@ public class uLinkStrictPlatformer : uLink.MonoBehaviour
 
 	void uLink_OnNetworkInstantiate(uLink.NetworkMessageInfo info)
 	{
-		serverLastTimestamp = info.timestamp;
+		serverLastTimestamp = info.rawServerTimestamp;
 	}
 
 	void uLink_OnSerializeNetworkView(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -127,7 +127,7 @@ public class uLinkStrictPlatformer : uLink.MonoBehaviour
 		else
 		{
 			State state;
-			state.timestamp = info.timestamp;
+			state.timestamp = info.rawServerTimestamp;
 
 			state.pos = stream.Read<Vector3>();
 			state.vel = stream.Read<Vector3>();
@@ -150,7 +150,9 @@ public class uLinkStrictPlatformer : uLink.MonoBehaviour
 
 			// Check if states are in order
 			if (proxyStates[0].timestamp < proxyStates[1].timestamp)
+			{
 				Debug.LogError("Timestamp inconsistent: " + proxyStates[0].timestamp + " should be greater than " + proxyStates[1].timestamp);
+			}
 		}
 	}
 
@@ -175,7 +177,7 @@ public class uLinkStrictPlatformer : uLink.MonoBehaviour
 			}
 
 			Move move;
-			move.timestamp = uLink.Network.time;
+			move.timestamp = uLink.NetworkTime.rawServerTime;
 			move.deltaTime = Time.deltaTime;
 
 			lastVelY -= gravityAcceleration * move.deltaTime;
@@ -194,7 +196,7 @@ public class uLinkStrictPlatformer : uLink.MonoBehaviour
 		else
 		{
 			// This is the target playback time of the rigid body
-			double interpolationTime = uLink.Network.time - interpolationBackTime;
+			double interpolationTime = uLink.NetworkTime.rawServerTime - interpolationBackTime;
 
 			// Use interpolation if the target playback time is present in the buffer
 			if (proxyStates[0].timestamp > interpolationTime)
@@ -285,7 +287,7 @@ public class uLinkStrictPlatformer : uLink.MonoBehaviour
 	[RPC]
 	void ServerMove(Vector3 ownerPos, float velX, float velZ, bool jumping, float rotY, uLink.NetworkMessageInfo info)
 	{
-		if (info.sender != networkView.owner || info.timestamp <= serverLastTimestamp)
+		if (info.sender != networkView.owner || info.rawServerTimestamp <= serverLastTimestamp)
 		{
 			return;
 		}
@@ -298,7 +300,7 @@ public class uLinkStrictPlatformer : uLink.MonoBehaviour
 			velX = velZ = Mathf.Sqrt(sqrMaxServerSpeed) * 0.5f;
 		}
 
-		float deltaTime = (float)(info.timestamp - serverLastTimestamp);
+		float deltaTime = (float)(info.rawServerTimestamp - serverLastTimestamp);
 		Vector3 deltaPos = new Vector3(velX * deltaTime, 0, velZ * deltaTime);
 
 		if (wasGrounded && canJump && jumping)
@@ -309,7 +311,7 @@ public class uLinkStrictPlatformer : uLink.MonoBehaviour
 
 		character.Move(deltaPos);
 
-		serverLastTimestamp = info.timestamp;
+		serverLastTimestamp = info.rawServerTimestamp;
 		serverHasLastOwnerPos = true;
 		serverLastOwnerPos = ownerPos;
 	}
@@ -318,7 +320,7 @@ public class uLinkStrictPlatformer : uLink.MonoBehaviour
 	void GoodOwnerPos(uLink.NetworkMessageInfo info)
 	{
 		Move goodMove;
-		goodMove.timestamp = info.timestamp;
+		goodMove.timestamp = info.rawServerTimestamp;
 		goodMove.deltaTime = 0;
 		goodMove.vel = Vector3.zero;
 

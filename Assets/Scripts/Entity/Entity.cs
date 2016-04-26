@@ -105,7 +105,7 @@ public class Entity : MonoBehaviour {
 	public int enemiesLayerMask {
 		get {
 			// Enemies are in all layers except for own layer and "ignore raycast" layer
-			return ~(1 << gameObject.layer | Physics.kIgnoreRaycastLayer);
+			return ~(1 << gameObject.layer | Physics.IgnoreRaycastLayer);
 		}
 	}
 

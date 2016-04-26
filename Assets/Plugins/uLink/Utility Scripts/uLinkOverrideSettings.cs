@@ -26,19 +26,13 @@ public class uLinkOverrideSettings : MonoBehaviour
 	public class General : Settings
 	{
 		public float sendRate = uLink.Network.sendRate;
-		public int maxManualViewIDs = uLink.Network.maxManualViewIDs;
 		public bool isAuthoritativeServer = uLink.Network.isAuthoritativeServer;
-		public int minimumAllocatableViewIDs = uLink.Network.minimumAllocatableViewIDs;
-		public int minimumUsedViewIDs = uLink.Network.minimumUsedViewIDs;
 		public bool useDifferentStateForOwner = uLink.Network.useDifferentStateForOwner;
 
 		protected override void Apply()
 		{
 			uLink.Network.sendRate = sendRate;
-			uLink.Network.maxManualViewIDs = maxManualViewIDs;
 			uLink.Network.isAuthoritativeServer = isAuthoritativeServer;
-			uLink.Network.minimumAllocatableViewIDs = minimumAllocatableViewIDs;
-			uLink.Network.minimumUsedViewIDs = minimumUsedViewIDs;
 			uLink.Network.useDifferentStateForOwner = useDifferentStateForOwner;
 		}
 	}

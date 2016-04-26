@@ -12,7 +12,7 @@ using uLink;
 /// <remarks>
 /// When using this example script, it should be added as a component to the game object that a player controls.
 /// The game object must have a rigidbody, not a character controller component.
-/// The observed property of the uLinkNetworkView for the game object should be set to this component.
+/// The observed property of the uLink.NetworkView for the game object should be set to this component.
 ///
 /// Auth Server: The basic idea for this script is that the owner (controlling this object) sends unreliable "Move" RPCs to 
 /// the auth server with a rate dictated by uLink.Network.sendRate. The auth server receives this RPC and moves the 
@@ -30,7 +30,7 @@ using uLink;
 /// </remarks>
 
 [AddComponentMenu("uLink Utilities/Smooth Rigidbody")]
-[RequireComponent(typeof(uLinkNetworkView))]
+[RequireComponent(typeof(uLink.NetworkView))]
 [RequireComponent(typeof(Rigidbody))]
 public class uLinkSmoothRigidbody : uLink.MonoBehaviour
 {
@@ -69,7 +69,7 @@ public class uLinkSmoothRigidbody : uLink.MonoBehaviour
 		
 		curRot = transform.rotation;
 
-		rigidbody = base.GetComponent<Rigidbody>();
+		rigidbody = GetComponent<Rigidbody>();
 	}
 
 	void Start()
@@ -105,13 +105,13 @@ public class uLinkSmoothRigidbody : uLink.MonoBehaviour
 			Vector3 vel = stream.Read<Vector3>();
 			Quaternion rot = stream.Read<Quaternion>();
 
-			UpdateState(pos, vel, rot, info.timestamp);
+			UpdateState(pos, vel, rot, info.rawServerTimestamp);
 		}
 	}
 
 	private void UpdateState(Vector3 pos, Vector3 vel, Quaternion rot, double timestamp)
 	{
-		float deltaTime = (float)(uLink.Network.time - timestamp);
+		float deltaTime = (float)(uLink.NetworkTime.rawServerTime - timestamp);
 		Vector3 target = pos + vel * deltaTime;
 		
 		if (firstState)
@@ -182,17 +182,17 @@ public class uLinkSmoothRigidbody : uLink.MonoBehaviour
 	void Move(Vector3 pos, Vector3 vel, Quaternion rot, uLink.NetworkMessageInfo info)
 	{
 		// This code is only executed in the auth server
-		if (info.sender != networkView.owner || info.timestamp <= serverLastTimestamp)
+		if (info.sender != networkView.owner || info.rawServerTimestamp <= serverLastTimestamp)
 		{
 			// Make sure we throw away late and duplicate RPC messages. And trow away messages 
 			// from the wrong client (they could trying to cheat this way) 
 			return;
 		}
 
-		serverLastTimestamp = info.timestamp;
+		serverLastTimestamp = info.rawServerTimestamp;
 
 		// Add some more code right here if the server is authoritave and you want to do more security checks
 		// The server state is updated with incoming data from the client beeing the "owner" of this game object
-		UpdateState(pos, vel, rot, info.timestamp);
+		UpdateState(pos, vel, rot, info.rawServerTimestamp);
 	}
 }

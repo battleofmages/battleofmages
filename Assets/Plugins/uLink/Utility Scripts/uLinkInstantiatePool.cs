@@ -50,7 +50,7 @@ public class uLinkInstantiatePool : uLink.MonoBehaviour
 
 	void Start()
 	{
-		// this is here just so the componet can be enabled/disabled.
+		// this is here just so the component can be enabled/disabled.
 	}
 
 	void OnDisable()
@@ -65,6 +65,9 @@ public class uLinkInstantiatePool : uLink.MonoBehaviour
 			Debug.LogError("Prefab viewID must be set to Allocated or Unassigned", prefab);
 			return;
 		}
+
+		// we need to make sure the NetworkView knows the root gameobject in the prefab, of which it belongs to.
+		prefab.prefabRoot = prefab.transform.root.gameObject;
 
 		parent = new GameObject(name + "-Pool").transform;
 
@@ -103,6 +106,8 @@ public class uLinkInstantiatePool : uLink.MonoBehaviour
 		{
 			instance = pool.Pop();
 
+			instance.transform.parent = null;
+
 			args.SetupNetworkView(instance);
 
 			SetActive(instance, true); // will trigger callback message "OnEnable" (networkView.viewID != unassigned).
@@ -121,15 +126,17 @@ public class uLinkInstantiatePool : uLink.MonoBehaviour
 	{
 		SetActive(instance, false); // will trigger callback message "OnDisable" (networkView.viewID != unassigned).
 
+		instance.transform.parent = parent;
+
 		pool.Push(instance);
 	}
 
 	private static void SetActive(uLink.NetworkView instance, bool value)
 	{
 #if UNITY_3_5 || UNITY_3_4 || UNITY_3_3 || UNITY_3_2 || UNITY_3_1 || UNITY_3_0 || UNITY_2_6
-		instance.gameObject.SetActiveRecursively(value); // Unity 3.x or older
+		instance.prefabRoot.SetActiveRecursively(value); // Unity 3.x or older
 #else
-		instance.gameObject.SetActive(value); // Unity 4.x or later
+		instance.prefabRoot.SetActive(value); // Unity 4.x or later
 #endif
 	}
 }

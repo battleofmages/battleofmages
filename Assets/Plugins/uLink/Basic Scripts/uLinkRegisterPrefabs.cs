@@ -15,7 +15,7 @@ using uLink;
 ///
 /// Read more about registering prefabs in the manual chapter about Instantitating Objects.
 /// </summary>
-[AddComponentMenu("uLink Basics/Register Prefabs")]
+[AddComponentMenu("")]
 public class uLinkRegisterPrefabs : uLink.RegisterPrefabs
 {
 }

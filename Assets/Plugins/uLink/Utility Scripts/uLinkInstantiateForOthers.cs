@@ -11,7 +11,7 @@ using uLink;
 /// player. This script requires a non-authoritative server.
 /// </summary>
 [AddComponentMenu("uLink Utilities/Instantiate For Others")]
-[RequireComponent(typeof(uLinkNetworkView))]
+[RequireComponent(typeof(uLink.NetworkView))]
 public class uLinkInstantiateForOthers : uLink.MonoBehaviour
 {
 	public GameObject othersPrefab;

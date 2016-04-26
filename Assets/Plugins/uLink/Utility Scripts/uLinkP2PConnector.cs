@@ -16,10 +16,10 @@ using uLink;
 ///
 /// It is not possible so send statesync over a p2p connection. Use the connection to send RPCs instead.
 /// </remarks>
-/// <seealso cref="uLinkNetworkP2P"/>
+/// <seealso cref="uLink.NetworkP2P"/>
 
 [AddComponentMenu("uLink Utilities/P2P Connector")]
-[RequireComponent(typeof(uLinkNetworkP2P))]
+[RequireComponent(typeof(uLink.NetworkP2P))]
 public class uLinkP2PConnector : uLink.MonoBehaviour
 {
 	public string host = "127.0.0.1";

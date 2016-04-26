@@ -8,7 +8,7 @@ using UnityEngine;
 /// handle incoming connection attempts from other peers.
 /// </remarks>
 /// <seealso cref="uLinkP2PConnector"/>
-[AddComponentMenu("uLink Basics/Network P2P")]
+[AddComponentMenu("")]
 public sealed class uLinkNetworkP2P : uLink.NetworkP2P
 {
 }

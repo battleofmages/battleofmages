@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-[AddComponentMenu("uLink Basics/Server Authentication")]
+[AddComponentMenu("")]
 public sealed class uLinkServerAuthentication : uLink.ServerAuthentication
 {
 }

@@ -21,7 +21,7 @@ using UnityEngine;
 ///
 /// Read more about network views in the Network Views chapter in the uLink manual.
 /// </remarks>
-[AddComponentMenu("uLink Basics/Network View")]
+[AddComponentMenu("")]
 public sealed class uLinkNetworkView : uLink.NetworkView
 {
 }

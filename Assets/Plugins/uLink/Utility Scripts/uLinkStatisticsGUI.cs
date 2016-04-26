@@ -126,21 +126,30 @@ public class uLinkStatisticsGUI : uLink.MonoBehaviour
 		GUILayout.Label(uLink.NetworkUtility.GetStatusString(uLink.Network.peerType, uLink.Network.status));
 		GUILayout.EndHorizontal();
 
+		NetworkEndPoint listenEndPoint = uLink.Network.listenEndPoint;
+		if (!listenEndPoint.isUnassigned)
+		{
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Listen EndPoint:", GUILayout.Width(COLUMN_WIDTH));
+			GUILayout.Label(listenEndPoint.ToRawString());
+			GUILayout.EndHorizontal();
+		}
+
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Last Error:", GUILayout.Width(COLUMN_WIDTH));
 		GUILayout.Label(uLink.NetworkUtility.GetErrorString(uLink.Network.lastError));
 		GUILayout.EndHorizontal();
 
 		GUILayout.BeginHorizontal();
-		GUILayout.Label("Network Time:", GUILayout.Width(COLUMN_WIDTH));
-		GUILayout.Label(uLink.Network.time.ToString(CultureInfo.InvariantCulture) + " s");
+		GUILayout.Label("Server Time:", GUILayout.Width(COLUMN_WIDTH));
+		GUILayout.Label(uLink.NetworkTime.rawServerTime.ToString(CultureInfo.InvariantCulture) + " s");
 		GUILayout.EndHorizontal();
 
 		if (showDetails)
 		{
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Server Time Offset:", GUILayout.Width(COLUMN_WIDTH));
-			GUILayout.Label((uLink.Network.config.serverTimeOffsetInMillis * 0.001).ToString(CultureInfo.InvariantCulture) + " s");
+			GUILayout.Label(uLink.NetworkTime.rawServerTimeOffset.ToString(CultureInfo.InvariantCulture) + " s");
 			GUILayout.EndHorizontal();
 		}
 
@@ -246,7 +255,7 @@ public class uLinkStatisticsGUI : uLink.MonoBehaviour
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Encryption:", GUILayout.Width(COLUMN_WIDTH));
-			GUILayout.Label(player.hasSecurity ? "On" : "Off");
+			GUILayout.Label(player.securityStatus.ToString());
 			GUILayout.EndHorizontal();
 
 			GUILayout.EndVertical();

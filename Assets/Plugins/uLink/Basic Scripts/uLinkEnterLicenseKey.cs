@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-[AddComponentMenu("uLink Basics/Server License Key")]
+[AddComponentMenu("")]
 public sealed class uLinkEnterLicenseKey : uLink.EnterLicenseKey
 {
 }

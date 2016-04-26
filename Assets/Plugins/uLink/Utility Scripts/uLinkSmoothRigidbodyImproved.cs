@@ -14,7 +14,7 @@ using uLink;
 /// Add this script to the creator prefab, the owner prefab and the proxy prefab for this game object.
 /// You can skip the owner prefab if it is a server owned object. Then just use the creator and proxy prefab.
 /// The game object must have a rigidbody, not a character controller component.
-/// The observed property of the uLinkNetworkView for the game object should be set to this component.
+/// The observed property of the uLink.NetworkView for the game object should be set to this component.
 ///
 /// The client side prefabs (the proxy prefab and the owner prefab) should set the properties in the 
 /// rigidbody component like this: 
@@ -78,11 +78,12 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 
 	// Trim this value to make rotation start and stop in a smooth way in clients (proxies and owner)
 	public float rotationDamping = 0.85f;
-		
+
 	private Vector3 targetDir;
 	private float targetDistance;
 	private Vector3 optimalSmoothVelocity;
 	private bool firstState = true;
+	new private Rigidbody rigidbody;
 
 	private class State
 	{
@@ -99,6 +100,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 	void Awake()
 	{
 		curRot = transform.rotation;
+		rigidbody = GetComponent<Rigidbody>();
 	}
 
 	void uLink_OnSerializeNetworkViewOwner(uLink.BitStream stream, uLink.NetworkMessageInfo info)
@@ -115,7 +117,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 			// Send information to all proxies and the owner (clients)
 			// This code is executed on the creator (server) 
 			stream.Write(transform.position);
-			stream.Write(GetComponent<Rigidbody>().rotation); 
+			stream.Write(rigidbody.rotation); 
 
 		}
 		else
@@ -124,7 +126,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 			mostCurrentReceivedState.pos = stream.Read<Vector3>();
 			mostCurrentReceivedState.rot = stream.Read<Quaternion>(); 
 			
-			mostCurrentReceivedState.timestamp = info.timestamp + (interpolationBackTimeMs / 1000);
+			mostCurrentReceivedState.timestamp = info.rawServerTimestamp + (interpolationBackTimeMs / 1000);
 		}
 	}
 
@@ -138,7 +140,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 			return;
 		}
 
-		float timeLeftToTarget = (float)(mostCurrentReceivedState.timestamp - uLink.Network.time);
+		float timeLeftToTarget = (float)(mostCurrentReceivedState.timestamp - uLink.NetworkTime.rawServerTime);
 
 		Vector3 target;
 		if (timeLeftToTarget > 0)
@@ -146,7 +148,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 			//we can use interpolation
 			target = mostCurrentReceivedState.pos; 
 		}
-		else if (timeLeftToTarget <= 0 && (maxExtrapolationTimeMs / 1000) > (uLink.Network.time - mostCurrentReceivedState.timestamp))
+		else if (timeLeftToTarget <= 0 && (maxExtrapolationTimeMs / 1000) > (uLink.NetworkTime.rawServerTime - mostCurrentReceivedState.timestamp))
 		{
 			//Can not use extrapoaltion any more.
 			target = mostCurrentReceivedState.pos;
@@ -154,7 +156,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 		else 
 		{
 			//This is extrapolation, algorithm = let's fake a new position using current velocity
-			target = mostCurrentReceivedState.pos + GetComponent<Rigidbody>().velocity * Time.fixedDeltaTime;
+			target = mostCurrentReceivedState.pos + rigidbody.velocity * Time.fixedDeltaTime;
 			//Update mostCurrentReceivedState to a locally constructed (faked) timestamp and position 
 			mostCurrentReceivedState.timestamp += Time.fixedDeltaTime;
 			mostCurrentReceivedState.pos = target;
@@ -184,7 +186,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 		{
 			// Detected a too big distance error! Snap to correct position!
 			targetDistance = 0;
-			GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+			rigidbody.velocity = new Vector3(0, 0, 0);
 			transform.position = target;
 		}
 	}
@@ -198,7 +200,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 		}
 
 		// Only execute the smooth rotation for proxies and owner, not authority
-		if (networkView.hasAuthority)
+		if (networkView.isAuthority)
 		{
 			return;
 		}
@@ -220,7 +222,7 @@ public class uLinkSmoothRigidbodyImproved : uLink.MonoBehaviour
 			return;
 		}
 
-		GetComponent<Rigidbody>().velocity = optimalSmoothVelocity;
+		rigidbody.velocity = optimalSmoothVelocity;
 	}
 
 }

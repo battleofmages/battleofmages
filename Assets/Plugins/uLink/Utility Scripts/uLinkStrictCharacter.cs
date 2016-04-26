@@ -26,7 +26,7 @@ using uLink;
 /// </remarks>
 
 [AddComponentMenu("uLink Utilities/Strict Character")]
-[RequireComponent(typeof(uLinkNetworkView))]
+[RequireComponent(typeof(uLink.NetworkView))]
 public class uLinkStrictCharacter : uLink.MonoBehaviour
 {
 	private struct State
@@ -128,7 +128,7 @@ public class uLinkStrictCharacter : uLink.MonoBehaviour
 
 			// Record current state in slot 0
 			State state;
-			state.timestamp = info.timestamp;
+			state.timestamp = info.rawServerTimestamp;
 
 			state.pos = pos;
 			state.vel = velocity;
@@ -157,7 +157,7 @@ public class uLinkStrictCharacter : uLink.MonoBehaviour
 		}
 
 		// This is the target playback time of the rigid body
-		double interpolationTime = uLink.Network.time - interpolationBackTime;
+		double interpolationTime = uLink.NetworkTime.rawServerTime - interpolationBackTime;
 		
 		// Use interpolation if the target playback time is present in the buffer
 		if (proxyStates[0].timestamp > interpolationTime)
@@ -217,7 +217,7 @@ public class uLinkStrictCharacter : uLink.MonoBehaviour
 		// TODO: optimize by not sending rpc if no input and rotation. also add idleTime so server's timestamp is still in sync
 
 		Move move;
-		move.timestamp = uLink.Network.time;
+		move.timestamp = uLink.NetworkTime.rawServerTime;
 		move.deltaTime = (ownerMoves.Count > 0) ? (float)(move.timestamp - ownerMoves[ownerMoves.Count - 1].timestamp) : 0.0f;
 		move.vel = character.velocity;
 
@@ -229,7 +229,7 @@ public class uLinkStrictCharacter : uLink.MonoBehaviour
 	[RPC]
 	void ServerMove(Vector3 ownerPos, Vector3 vel, Quaternion rot, uLink.NetworkMessageInfo info)
 	{
-		if (info.timestamp <= serverLastTimestamp || !character.isGrounded)
+		if (info.rawServerTimestamp <= serverLastTimestamp || !character.isGrounded)
 		{
 			return;
 		}
@@ -241,12 +241,12 @@ public class uLinkStrictCharacter : uLink.MonoBehaviour
 			vel.x = vel.y = vel.z = Mathf.Sqrt(sqrMaxServerSpeed) / 3.0f;
 		}
 
-		float deltaTime = (float)(info.timestamp - serverLastTimestamp);
+		float deltaTime = (float)(info.rawServerTimestamp - serverLastTimestamp);
 		Vector3 deltaPos = vel * deltaTime;
 
 		character.Move(deltaPos);
 
-		serverLastTimestamp = info.timestamp;
+		serverLastTimestamp = info.rawServerTimestamp;
 
 		Vector3 serverPos = transform.position;
 		Vector3 diff = serverPos - ownerPos;
@@ -265,7 +265,7 @@ public class uLinkStrictCharacter : uLink.MonoBehaviour
 	void GoodOwnerPos(uLink.NetworkMessageInfo info)
 	{
 		Move goodMove;
-		goodMove.timestamp = info.timestamp;
+		goodMove.timestamp = info.rawServerTimestamp;
 		goodMove.deltaTime = 0;
 		goodMove.vel = Vector3.zero;
 

@@ -83,7 +83,7 @@ public class uLinkSimpleServer : uLink.MonoBehaviour
 			uLink.Network.DestroyPlayerObjects(player);
 			uLink.Network.RemoveRPCs(player);
 			
-			// this is not really necessery unless you are removing NetworkViews without calling uLink.Network.Destroy
+			// this is not really necessary unless you are removing NetworkViews without calling uLink.Network.Destroy
 			uLink.Network.RemoveInstantiates(player);
 		}
 	}
