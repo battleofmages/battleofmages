@@ -18,7 +18,7 @@ public class Player : NetworkBehaviour {
 
 		// Chat
 		chat = GameObject.Find("Chat").GetComponent<Chat>();
-		chat.Write(nick + " connected.");
+		chat.Write("System", nick + " connected.");
 
 		// Events
 		if(IsOwner) {
@@ -30,7 +30,7 @@ public class Player : NetworkBehaviour {
 	}
 
 	public override void OnDestroy() {
-		chat.Write(nick + " disconnected.");
+		chat.Write("System", nick + " disconnected.");
 
 		// Events
 		if(IsOwner) {
@@ -43,11 +43,11 @@ public class Player : NetworkBehaviour {
 
 	public void OnMove(InputAction.CallbackContext context) {
 		var value = context.ReadValue<Vector2>();
-		chat.Write("OnMove: " + value.ToString());
+		Debug.Log("OnMove: " + value.ToString());
 	}
 
 	public void OnFire(InputAction.CallbackContext context) {
-		chat.Write("OnFire");
+		Debug.Log("OnFire");
 	}
 
 	[ServerRpc]
@@ -57,6 +57,6 @@ public class Player : NetworkBehaviour {
 
 	[ClientRpc]
 	public void NewMessageClientRpc(string message) {
-		chat.Write(nick + ": " + message);
+		chat.Write("Map", $"<b>{nick}</b>: {message}");
 	}
 }

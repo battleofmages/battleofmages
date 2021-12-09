@@ -22,8 +22,13 @@ public class Chat : MonoBehaviour {
 		}
 	}
 
-	public void Write(string message) {
-		messages[0].text = message;
+	public void Write(string channel, string message) {
+		if(messages.Length == 0 || messages[0] == null) {
+			return;
+		}
+
+		messages[0].text = $"[{channel}] {message}";
+		messages[0].color = GetChannelColor(channel);
 		messages[0].transform.SetAsLastSibling();
 
 		// The last index becomes the latest message
@@ -55,6 +60,23 @@ public class Chat : MonoBehaviour {
 	}
 
 	private void OnLog(string message, string stack, LogType type) {
-		Write(message);
+		Write("Debug", message);
+	}
+
+	public static Color GetChannelColor(string channel) {
+		switch(channel) {
+			case "Global":
+				return Color.white;
+			case "Announcement":
+				return Color.cyan;
+			case "Map":
+				return new Color(1.0f, 0.85f, 0.6f, 1f);
+			case "System":
+				return new Color(1f, 1f, 0.5f, 1f);
+			case "Debug":
+				return new Color(1f, 1f, 1f, 0.5f);
+			default:
+				return Color.white;
+		}
 	}
 }
