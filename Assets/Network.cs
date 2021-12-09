@@ -6,7 +6,11 @@ public class Network : MonoBehaviour {
 
 	private void Start() {
 		NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
-		DontDestroyOnLoad(this);
+		Game.Chat.NewMessage += message => {
+			if(message == "/dc") {
+				Disconnect();
+			}
+		};
 	}
 
 	private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback) {

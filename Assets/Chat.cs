@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System.Collections.Generic;
 
 public delegate void NewMessageHandler(string message);
 
@@ -10,6 +11,14 @@ public class Chat : MonoBehaviour {
 	public InputActionAsset inputActions;
 	public event NewMessageHandler NewMessage;
 	private TextMeshProUGUI[] messages;
+
+	private static Dictionary<string, Color> channels = new Dictionary<string, Color>(){
+		{"Global", Color.white},
+		{"Announcement", Color.cyan},
+		{"Map", new Color(1.0f, 0.85f, 0.6f, 1f)},
+		{"System", new Color(1f, 1f, 0.5f, 1f)},
+		{"Debug", new Color(1f, 1f, 1f, 0.5f)}
+	};
 
 	private void Start() {
 		messages = messagesContainer.GetComponentsInChildren<TextMeshProUGUI>();
@@ -64,19 +73,6 @@ public class Chat : MonoBehaviour {
 	}
 
 	public static Color GetChannelColor(string channel) {
-		switch(channel) {
-			case "Global":
-				return Color.white;
-			case "Announcement":
-				return Color.cyan;
-			case "Map":
-				return new Color(1.0f, 0.85f, 0.6f, 1f);
-			case "System":
-				return new Color(1f, 1f, 0.5f, 1f);
-			case "Debug":
-				return new Color(1f, 1f, 1f, 0.5f);
-			default:
-				return Color.white;
-		}
+		return channels[channel];
 	}
 }
