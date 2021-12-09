@@ -57,6 +57,6 @@ public class Player : NetworkBehaviour {
 
 	[ClientRpc]
 	public void NewMessageClientRpc(string message) {
-		chat.Write("Map", $"<b>{nick}</b>: {message}");
+		chat.Write("Map", $"{nick}: {message}");
 	}
 }

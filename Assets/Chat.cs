@@ -27,7 +27,7 @@ public class Chat : MonoBehaviour {
 			return;
 		}
 
-		messages[0].text = $"[{channel}] {message}";
+		messages[0].text = $"<alpha=#66>[{channel}] <alpha=#FF>{message}";
 		messages[0].color = GetChannelColor(channel);
 		messages[0].transform.SetAsLastSibling();
 
