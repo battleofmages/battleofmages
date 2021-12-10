@@ -36,7 +36,7 @@ public class Game : MonoBehaviour {
 		Input.actions["ShowCursor"].performed += UI.Activate;
 
 		// Bind chat events
-		Chat.NewMessage += Player.NewMessageServerRpc;
+		Chat.NewMessage += Player.NewMessage;
 	}
 
 	public static void Stop() {
@@ -57,6 +57,6 @@ public class Game : MonoBehaviour {
 		Input.actions["ShowCursor"].performed -= UI.Activate;
 
 		// Unbind chat events
-		Chat.NewMessage -= Player.NewMessageServerRpc;
+		Chat.NewMessage -= Player.NewMessage;
 	}
 }

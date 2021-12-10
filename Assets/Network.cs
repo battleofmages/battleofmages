@@ -6,11 +6,6 @@ public class Network : MonoBehaviour {
 
 	private void Start() {
 		NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
-		Game.Chat.NewMessage += message => {
-			if(message == "/dc") {
-				Disconnect();
-			}
-		};
 	}
 
 	private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback) {
@@ -23,14 +18,25 @@ public class Network : MonoBehaviour {
 
 	public void StartClient() {
 		NetworkManager.Singleton.StartClient();
+		Init();
 	}
 
 	public void StartServer() {
 		NetworkManager.Singleton.StartServer();
+		Init();
 	}
 
 	public void StartHost() {
 		NetworkManager.Singleton.StartHost();
+		Init();
+	}
+
+	public void Init() {
+		NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler("pos", (senderClientId, reader) => {
+			var player = Player.ByClientId(senderClientId);
+			reader.ReadValueSafe(out Vector3 position);
+			player.OnPositionReceived(position);
+		});
 	}
 
 	public void Disconnect() {
