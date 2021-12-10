@@ -462,7 +462,7 @@ MonoBehaviour:
   player: {fileID: 5014205834473804560}
   client: {fileID: 7585729804621411204}
   proxy: {fileID: 1373305695537637111}
-  movementPrediction: 0.1
+  movementPrediction: 0.15
 --- !u!114 &1373305695537637111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,7 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 5014205834473804560}
   cam: {fileID: 5283804284090617033}
-  movementPrediction: 0.1
+  movementPrediction: 0.15
 --- !u!1 &7283024060915036417
 GameObject:
   m_ObjectHideFlags: 0
