@@ -5,8 +5,9 @@ using Unity.Netcode;
 using Unity.Collections;
 using System.Collections.Generic;
 
-public class Player : NetworkBehaviour {
-	private static Dictionary<ulong, Player> players = new Dictionary<ulong, Player>();
+public partial class Player : NetworkBehaviour {
+	private static List<Player> players = new List<Player>();
+	private static Dictionary<ulong, Player> clientIdToPlayer = new Dictionary<ulong, Player>();
 	
 	public TextMeshPro label;
 	public InputActionAsset inputActions;
@@ -15,14 +16,24 @@ public class Player : NetworkBehaviour {
 	public float moveSpeed;
 	private ulong clientId;
 	private Vector3 moveVector;
+	private CustomMessagingManager messagingManager;
 
 	public override void OnNetworkSpawn() {
 		clientId = GetComponent<NetworkObject>().OwnerClientId;
-		players.Add(clientId, this);
+		messagingManager = NetworkManager.Singleton.CustomMessagingManager;
 
 		// Set label text
-		name = "Player " + clientId;
+		if(IsOwner) {
+			name = "Player " + clientId;
+		} else {
+			name = "Proxy " + clientId;
+		}
+		
 		label.text = name;
+
+		// Add to global player list
+		players.Add(this);
+		clientIdToPlayer.Add(clientId, this);
 		
 		// Camera
 		CameraManager.AddCamera(cam);
@@ -38,7 +49,9 @@ public class Player : NetworkBehaviour {
 	}
 
 	public void OnDisable() {
-		players.Remove(clientId);
+		// Remove from the global player list
+		players.Remove(this);
+		clientIdToPlayer.Remove(clientId);
 
 		// Camera
 		CameraManager.RemoveCamera(cam);
@@ -60,26 +73,20 @@ public class Player : NetworkBehaviour {
 		controller.Move(moveVector * moveSpeed);
 
 		if(IsOwner) {
-			using FastBufferWriter writer = new FastBufferWriter(12, Allocator.Temp);
-			writer.WriteValueSafe(transform.position);
-			var receiver = NetworkManager.Singleton.ServerClientId;
-			Debug.Log($"sending {writer.Length} bytes to {receiver}");
-			NetworkManager.Singleton.CustomMessagingManager.SendNamedMessage("pos", receiver, writer, NetworkDelivery.UnreliableSequenced);
+			if(IsServer) {
+				using FastBufferWriter writer = new FastBufferWriter(20, Allocator.Temp);
+				writer.WriteValueSafe(clientId);
+				writer.WriteValueSafe(transform.position);
+
+				messagingManager.SendNamedMessageToAll("position confirmed", writer, NetworkDelivery.UnreliableSequenced);
+			} else {
+				using FastBufferWriter writer = new FastBufferWriter(12, Allocator.Temp);
+				writer.WriteValueSafe(transform.position);
+
+				var receiver = NetworkManager.Singleton.ServerClientId;
+				messagingManager.SendNamedMessage("position request", receiver, writer, NetworkDelivery.UnreliableSequenced);
+			}
 		}
-	}
-
-	public void Move(InputAction.CallbackContext context) {
-		var value = context.ReadValue<Vector2>();
-		moveVector = new Vector3(value.x, 0, value.y);
-	}
-
-	public void Fire(InputAction.CallbackContext context) {
-		Debug.Log("Fire");
-	}
-
-	public void OnPositionReceived(Vector3 newPosition) {
-		Debug.Log($"received new position {newPosition}");
-		transform.position = newPosition;
 	}
 
 	public void NewMessage(string message) {
@@ -103,7 +110,7 @@ public class Player : NetworkBehaviour {
 	}
 
 	public static Player ByClientId(ulong clientId) {
-		return players[clientId];
+		return clientIdToPlayer[clientId];
 	}
 
 	[ServerRpc]

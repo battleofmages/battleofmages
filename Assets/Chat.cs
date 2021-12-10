@@ -17,7 +17,7 @@ public class Chat : MonoBehaviour {
 		{"Announcement", Color.cyan},
 		{"Map", new Color(1.0f, 0.85f, 0.6f, 1f)},
 		{"System", new Color(1f, 1f, 0.5f, 1f)},
-		{"Debug", new Color(1f, 1f, 1f, 0.5f)}
+		{"Debug", new Color(1f, 1f, 1f, 1f)}
 	};
 
 	private void Start() {
@@ -32,7 +32,7 @@ public class Chat : MonoBehaviour {
 	}
 
 	public void Write(string channel, string message) {
-		if(messages.Length == 0 || messages[0] == null) {
+		if(messages == null || messages.Length == 0 || messages[0] == null) {
 			return;
 		}
 
