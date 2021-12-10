@@ -60,6 +60,7 @@ public class Network : MonoBehaviour {
 		NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler("server position", (senderClientId, reader) => {
 			reader.ReadValueSafe(out ulong clientId);
 			reader.ReadValueSafe(out Vector3 position);
+			reader.ReadValueSafe(out Vector3 direction);
 
 			var player = PlayerManager.FindClientId(clientId);
 
@@ -68,6 +69,7 @@ public class Network : MonoBehaviour {
 			}
 
 			player.Position = position;
+			player.Direction = direction;
 		});
 	}
 
@@ -80,7 +82,9 @@ public class Network : MonoBehaviour {
 			}
 
 			reader.ReadValueSafe(out Vector3 position);
+			reader.ReadValueSafe(out Vector3 direction);
 			sender.Position = position;
+			sender.Direction = direction;
 		});
 	}
 }

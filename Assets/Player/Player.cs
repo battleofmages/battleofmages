@@ -8,18 +8,9 @@ public class Player : NetworkBehaviour, IPlayer {
 	public float moveSpeed;
 	public GameObject networkShadow;
 	private Vector3 realPosition;
-
 	public ulong ClientId { get; set; }
-	public Vector3 Position {
-		get {
-			return realPosition;
-		}
+	public Vector3 Direction { get; set; }
 
-		set {
-			realPosition = value;
-			networkShadow.transform.position = value;
-		}
-	}
 	public string Name {
 		get {
 			return gameObject.name;
@@ -29,6 +20,17 @@ public class Player : NetworkBehaviour, IPlayer {
 			gameObject.name = value;
 			label.text = value;
 			networkShadow.gameObject.name = $"{value} - Shadow";
+		}
+	}
+
+	public Vector3 Position {
+		get {
+			return realPosition;
+		}
+
+		set {
+			realPosition = value;
+			networkShadow.transform.position = value;
 		}
 	}
 
@@ -54,8 +56,8 @@ public class Player : NetworkBehaviour, IPlayer {
 
 	private void EnableNetworkComponents() {
 		if(IsClient && IsServer && IsOwner) {
-			GetComponent<Server>().enabled = true;
 			GetComponent<Client>().enabled = true;
+			// GetComponent<Server>().enabled = true;
 			return;
 		}
 

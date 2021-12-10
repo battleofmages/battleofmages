@@ -8,8 +8,9 @@ public class Client: NetworkBehaviour {
 	public Server server;
 	public InputActionAsset inputActions;
 	public Camera cam;
-	private Vector3 moveVector;
+	private Vector3 direction;
 	private Vector3 lastPositionSent;
+	private Vector3 lastDirectionSent;
 
 	private void OnEnable() {
 		CameraManager.AddCamera(cam);
@@ -26,25 +27,34 @@ public class Client: NetworkBehaviour {
 	}
 
 	private void FixedUpdate() {
-		player.Move(moveVector);
+		player.Move(direction);
 
-		if(transform.position != lastPositionSent) {
+		if(transform.position != lastPositionSent || direction != lastDirectionSent) {
 			SendPositionToServer();
 			lastPositionSent = transform.position;
+			lastDirectionSent = direction;
 		}
 	}
 
 	private void SendPositionToServer() {
 		if(IsServer) {
 			player.Position = transform.position;
+			player.Direction = direction;
 			server.BroadcastPosition();
 			return;
 		}
 
-		using FastBufferWriter writer = new FastBufferWriter(12, Allocator.Temp);
+		using FastBufferWriter writer = new FastBufferWriter(24, Allocator.Temp);
 		writer.WriteValueSafe(transform.position);
+		writer.WriteValueSafe(direction);
 		var receiver = NetworkManager.Singleton.ServerClientId;
-		NetworkManager.Singleton.CustomMessagingManager.SendNamedMessage("client position", receiver, writer, NetworkDelivery.UnreliableSequenced);
+		var delivery = NetworkDelivery.UnreliableSequenced;
+
+		if(direction == Vector3.zero) {
+			delivery = NetworkDelivery.ReliableSequenced;
+		}
+
+		NetworkManager.Singleton.CustomMessagingManager.SendNamedMessage("client position", receiver, writer, delivery);
 	}
 
 	public void NewMessage(string message) {
@@ -60,7 +70,7 @@ public class Client: NetworkBehaviour {
 	public void Move(InputAction.CallbackContext context) {
 		var value = context.ReadValue<Vector2>();
 		// Debug.Log("Move " + value);
-		moveVector = new Vector3(value.x, 0, value.y);
+		direction = new Vector3(value.x, 0, value.y);
 	}
 
 	public void Fire(InputAction.CallbackContext context) {

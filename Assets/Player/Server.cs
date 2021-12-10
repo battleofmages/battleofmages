@@ -6,49 +6,35 @@ public class Server: NetworkBehaviour {
 	public Player player;
 	public Client client;
 	public Proxy proxy;
+	public float movementPrediction;
 	private Vector3 lastPositionSent;
-
-	private void OnEnable() {
-		
-	}
-
-	private void OnDisable() {
-		
-	}
+	private Vector3 lastDirectionSent;
 
 	private void FixedUpdate() {
-		if(transform.position != player.Position) {
-			var direction = new Vector3(player.Position.x, 0, player.Position.z) - new Vector3(transform.position.x, 0, transform.position.z);
-			player.Move(direction);
-		}
+		var direction = player.Position - transform.position;
+		var prediction = player.Direction * movementPrediction;
+		player.Move(direction + prediction);
 
-		if(transform.position != lastPositionSent) {
+		if(player.Position != lastPositionSent || player.Direction != lastDirectionSent) {
 			BroadcastPosition();
-			lastPositionSent = transform.position;
+			lastPositionSent = player.Position;
+			lastDirectionSent = player.Direction;
 		}
 	}
 
 	public void BroadcastPosition() {
-		using FastBufferWriter writer = new FastBufferWriter(20, Allocator.Temp);
+		using FastBufferWriter writer = new FastBufferWriter(32, Allocator.Temp);
 		writer.WriteValueSafe(player.ClientId);
 		writer.WriteValueSafe(player.Position);
-		NetworkManager.Singleton.CustomMessagingManager.SendNamedMessageToAll("server position", writer, NetworkDelivery.UnreliableSequenced);
-	}
+		writer.WriteValueSafe(player.Direction);
 
-	public void PositionRequest(Vector3 newPosition) {
-		transform.position = newPosition;
+		var delivery = NetworkDelivery.UnreliableSequenced;
 
-		// Share position to other clients
-		foreach(var otherPlayer in PlayerManager.All) {
-			if(otherPlayer.ClientId == player.ClientId) {
-				continue;
-			}
-
-			using FastBufferWriter writer = new FastBufferWriter(20, Allocator.Temp);
-			writer.WriteValueSafe(player.ClientId);
-			writer.WriteValueSafe(transform.position);
-			//messagingManager.SendNamedMessage("position confirmed", player.ClientId, writer, NetworkDelivery.UnreliableSequenced);
+		if(player.Direction == Vector3.zero) {
+			delivery = NetworkDelivery.ReliableSequenced;
 		}
+
+		NetworkManager.Singleton.CustomMessagingManager.SendNamedMessageToAll("server position", writer, delivery);
 	}
 
 #region RPC
