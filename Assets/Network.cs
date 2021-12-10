@@ -4,6 +4,26 @@ using Unity.Netcode;
 public class Network : MonoBehaviour {
 	public Transform spawn;
 
+	private void Start() {
+		NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
+	}
+
+	public void StartClient() {
+		Run("client");
+	}
+
+	public void StartServer() {
+		Run("server");
+	}
+
+	public void StartHost() {
+		Run("host");
+	}
+
+	public void Disconnect() {
+		NetworkManager.Singleton.Shutdown();
+	}
+
 	private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback) {
 		var approve = true;
 		var offset = Random.insideUnitCircle * spawn.GetComponent<SphereCollider>().radius;
@@ -12,38 +32,55 @@ public class Network : MonoBehaviour {
 		callback(approve, null, approve, position, Quaternion.identity);
 	}
 
-	public void StartClient() {
-		NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
-		NetworkManager.Singleton.StartClient();
-		Init();
+	private void Run(string type) {
+		switch(type) {
+			case "client":
+				NetworkManager.Singleton.StartClient();
+				break;
+
+			case "server":
+				NetworkManager.Singleton.StartServer();
+				break;
+
+			case "host":
+				NetworkManager.Singleton.StartHost();
+				break;
+		}
+
+		if(NetworkManager.Singleton.IsClient) {
+			ClientReceiveMessages();
+		}
+		
+		if(NetworkManager.Singleton.IsServer) {
+			ServerReceiveMessages();
+		}
 	}
 
-	public void StartServer() {
-		NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
-		NetworkManager.Singleton.StartServer();
-		Init();
-	}
-
-	public void StartHost() {
-		NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
-		NetworkManager.Singleton.StartHost();
-		Init();
-	}
-
-	public void Init() {
-		NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler("position request", (senderClientId, reader) => {
-			reader.ReadValueSafe(out Vector3 position);
-			Player.ByClientId(senderClientId).PositionRequest(position);
-		});
-
-		NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler("position confirmed", (senderClientId, reader) => {
+	private void ClientReceiveMessages() {
+		NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler("server position", (senderClientId, reader) => {
 			reader.ReadValueSafe(out ulong clientId);
 			reader.ReadValueSafe(out Vector3 position);
-			Player.ByClientId(clientId).PositionConfirmed(position);
+
+			var player = PlayerManager.FindClientId(clientId);
+
+			if(player == null) {
+				return;
+			}
+
+			player.Position = position;
 		});
 	}
 
-	public void Disconnect() {
-		NetworkManager.Singleton.Shutdown();
+	private void ServerReceiveMessages() {
+		NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler("client position", (senderClientId, reader) => {
+			var sender = PlayerManager.FindClientId(senderClientId);
+
+			if(sender == null) {
+				return;
+			}
+
+			reader.ReadValueSafe(out Vector3 position);
+			sender.Position = position;
+		});
 	}
 }

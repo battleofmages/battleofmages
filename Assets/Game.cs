@@ -5,11 +5,13 @@ public class Game : MonoBehaviour {
 	public static Game Instance { get; private set; }
 
 	public Player player;
+	public Client client;
 	public PlayerInput input;
 	public Chat chat;
 	public GameObject menu;
 	
 	public static Player Player { get{ return Instance.player; } }
+	public static Client Client { get{ return Instance.client; } }
 	public static Chat Chat { get{ return Instance.chat; } }
 	public static PlayerInput Input { get{ return Instance.input; } }
 	public static GameObject Menu { get{ return Instance.menu; } }
@@ -25,18 +27,18 @@ public class Game : MonoBehaviour {
 		// Disable interactive UI
 		UI.Deactivate();
 
-		// Swap camera to player camera
-		CameraManager.SetActiveCamera(Player.cam);
+		// // Swap camera to player camera
+		CameraManager.SetActiveCamera(Client.cam);
 
 		// Bind gameplay events
-		Input.actions["Move"].performed += Player.Move;
-		Input.actions["Move"].canceled += Player.Move;
-		Input.actions["Fire"].performed += Player.Fire;
+		Input.actions["Move"].performed += Client.Move;
+		Input.actions["Move"].canceled += Client.Move;
+		Input.actions["Fire"].performed += Client.Fire;
 		Input.actions["Chat"].performed += UI.ActivateAndSelectChat;
 		Input.actions["ShowCursor"].performed += UI.Activate;
 
 		// Bind chat events
-		Chat.NewMessage += Player.NewMessage;
+		Chat.NewMessage += Client.NewMessage;
 	}
 
 	public static void Stop() {
@@ -46,17 +48,17 @@ public class Game : MonoBehaviour {
 		// Enable interactive UI
 		UI.Activate();
 
-		// Swap camera to default camera
+		// // Swap camera to default camera
 		CameraManager.SetActiveCamera(null);
 
 		// Unbind gameplay events
-		Input.actions["Move"].performed -= Player.Move;
-		Input.actions["Move"].canceled -= Player.Move;
-		Input.actions["Fire"].performed -= Player.Fire;
+		Input.actions["Move"].performed -= Client.Move;
+		Input.actions["Move"].canceled -= Client.Move;
+		Input.actions["Fire"].performed -= Client.Fire;
 		Input.actions["Chat"].performed -= UI.ActivateAndSelectChat;
 		Input.actions["ShowCursor"].performed -= UI.Activate;
 
 		// Unbind chat events
-		Chat.NewMessage -= Player.NewMessage;
+		Chat.NewMessage -= Client.NewMessage;
 	}
 }
