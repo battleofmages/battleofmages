@@ -6,8 +6,20 @@ public class Player : NetworkBehaviour, IPlayer {
 	public TextMeshPro label;
 	public CharacterController controller;
 	public float moveSpeed;
+	public GameObject networkShadow;
+	private Vector3 realPosition;
+
 	public ulong ClientId { get; set; }
-	public Vector3 Position { get; set; }
+	public Vector3 Position {
+		get {
+			return realPosition;
+		}
+
+		set {
+			realPosition = value;
+			networkShadow.transform.position = value;
+		}
+	}
 	public string Name {
 		get {
 			return gameObject.name;
@@ -16,6 +28,7 @@ public class Player : NetworkBehaviour, IPlayer {
 		set {
 			gameObject.name = value;
 			label.text = value;
+			networkShadow.gameObject.name = $"{value} - Shadow";
 		}
 	}
 
@@ -31,10 +44,12 @@ public class Player : NetworkBehaviour, IPlayer {
 		Position = transform.position;
 		EnableNetworkComponents();
 		Register();
+		networkShadow.transform.SetParent(null, true);
 	}
 
 	private void OnDisable() {
 		Unregister();
+		Destroy(networkShadow);
 	}
 
 	private void EnableNetworkComponents() {
@@ -71,10 +86,13 @@ public class Player : NetworkBehaviour, IPlayer {
 	}
 
 	public void Move(Vector3 direction) {
-		if(direction.sqrMagnitude > 1) {
+		if(direction.sqrMagnitude > 1f) {
 			direction.Normalize();
 		}
 
-		controller.Move(direction * moveSpeed);
+		direction *= moveSpeed;
+		direction += Physics.gravity;
+
+		controller.Move(direction * Time.fixedDeltaTime);
 	}
 }

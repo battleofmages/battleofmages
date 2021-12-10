@@ -56,11 +56,5 @@ public class Server: NetworkBehaviour {
 	public void NewMessageServerRpc(string message) {
 		client.NewMessageClientRpc(message);
 	}
-
-	[ServerRpc]
-	public void NewPositionServerRpc(Vector3 position) {
-		transform.position = position;
-		proxy.NewPositionClientRpc(position);
-	}
 #endregion
 }

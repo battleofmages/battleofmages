@@ -4,9 +4,15 @@ using Unity.Netcode;
 public class Proxy : NetworkBehaviour {
 	public Player player;
 	public Camera cam;
+	public float interpolationTime;
+	private float interpolationSpeed;
 
 	private void OnEnable() {
 		CameraManager.AddCamera(cam);
+
+		if(interpolationTime != 0f) {
+			interpolationSpeed = 1f / interpolationTime;
+		}
 	}
 
 	private void OnDisable() {
@@ -14,17 +20,17 @@ public class Proxy : NetworkBehaviour {
 	}
 
 	private void FixedUpdate() {
-		if(transform.position != player.Position) {
-			var direction = new Vector3(player.Position.x, 0, player.Position.z) - new Vector3(transform.position.x, 0, transform.position.z);
-			player.Move(direction);
+		if(transform.position == player.Position) {
+			return;
 		}
-	}
 
-#region RPC
-	[ClientRpc]
-	public void NewPositionClientRpc(Vector3 position) {
-		Debug.Log($"Proxy {player.Name} received new position");
-		transform.position = position;
+		var distance = player.Position - transform.position;
+		float speed = 1f;
+
+		if(interpolationTime != 0f) {
+			speed = Mathf.Clamp(interpolationSpeed * Time.fixedDeltaTime, 0f, 1f);
+		}
+
+		player.controller.Move(distance * speed);
 	}
-#endregion
 }
