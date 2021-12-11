@@ -6,13 +6,13 @@ public class UI : MonoBehaviour {
 	public static void Activate() {
 		Cursor.visible = true;
 		Game.Input.SwitchCurrentActionMap("UI");
-		Debug.Log("Focus UI");
+		Game.Chat.inputField.gameObject.SetActive(true);
 	}
 
 	public static void Deactivate() {
 		Cursor.visible = false;
 		Game.Input.SwitchCurrentActionMap("Player");
-		Debug.Log("Focus gameplay");
+		Game.Chat.inputField.gameObject.SetActive(false);
 	}
 
 	// Overloads to use it in input actions

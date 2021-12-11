@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "The quick brown fox jumps over the lazy dog.\n\xC4\xE4\n\u3053\u3093\u306B\u3061\u306F\uFF01\n\u30AB\u30BF\u30AB\u30CA\uFF01\n\u6F22\u5B57\u306F\u96E3\u3057\u3044\u3067\u3059\u306D\u3002\n\uC548\uB155\uD558\uC138\uC694!\n\u3142\u3148\u3137\u3131\n\u3143\u3149\u3138\u3132\n\u3147\uC73C"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1bf422f1f43a84c44b01154fdc8d78d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4547409ff67475b44861d6547de373d2, type: 2}
   m_sharedMaterial: {fileID: 7427987311106605351, guid: 1bf422f1f43a84c44b01154fdc8d78d7,
     type: 2}
   m_fontSharedMaterials: []
@@ -133,6 +133,6 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}

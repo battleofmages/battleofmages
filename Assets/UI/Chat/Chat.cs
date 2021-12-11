@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ public delegate void NewMessageHandler(string message);
 
 public class Chat : MonoBehaviour {
 	public GameObject messagesContainer;
+	public Scrollbar scrollBar;
 	public TMP_InputField inputField;
 	public InputActionAsset inputActions;
 	public ChatHistory history;
@@ -24,6 +26,7 @@ public class Chat : MonoBehaviour {
 	private void Start() {
 		messages = messagesContainer.GetComponentsInChildren<TextMeshProUGUI>();
 		Clear();
+		scrollBar.value = 0f;
 	}
 
 	private void OnEnable() {
@@ -60,6 +63,17 @@ public class Chat : MonoBehaviour {
 		for(int i = 0; i < messages.Length-1; i++) {
 			messages[i] = messages[i+1];
 		}
+
+		// Snap scrollbar to the latest message once the layout is updated on the next frame
+		if(scrollBar.value < 0.01f) {
+			StartCoroutine(ResetScrollBar());
+		}
+	}
+
+	IEnumerator<int> ResetScrollBar() {
+		yield return 0;
+		yield return 0;
+		scrollBar.value = 0f;
 	}
 
 	public void OnSubmit(InputAction.CallbackContext value) {
