@@ -1,0 +1,8 @@
+Japanese:
+3000-303f,3040-309f,30a0-30ff,ff00-ffef
+
+CJK Unified Ideographs (Kanji):
+4e00-9fff
+
+Korean:
+3130-318F,AC00-D7AF
