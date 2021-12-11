@@ -1908,6 +1908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 569661778}
   - component: {fileID: 569661777}
+  - component: {fileID: 569661779}
   m_Layer: 5
   m_Name: Chat
   m_TagString: Untagged
@@ -1931,6 +1932,7 @@ MonoBehaviour:
   inputField: {fileID: 1515163406}
   inputActions: {fileID: -944628639613478452, guid: a4bb12be09344a54c9816b89f0cc3675,
     type: 3}
+  history: {fileID: 569661779}
 --- !u!224 &569661778
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1953,6 +1955,19 @@ RectTransform:
   m_AnchoredPosition: {x: 163.55652, y: 126}
   m_SizeDelta: {x: 327.105, y: 204.404}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &569661779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569661776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4365ec01124b52429d70ea307a90420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputField: {fileID: 1515163406}
 --- !u!1001 &603530766
 PrefabInstance:
   m_ObjectHideFlags: 0
