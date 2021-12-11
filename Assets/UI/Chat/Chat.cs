@@ -9,6 +9,7 @@ public class Chat : MonoBehaviour {
 	public GameObject messagesContainer;
 	public TMP_InputField inputField;
 	public InputActionAsset inputActions;
+	public ChatHistory history;
 	public event NewMessageHandler NewMessage;
 	private TextMeshProUGUI[] messages;
 
@@ -23,6 +24,18 @@ public class Chat : MonoBehaviour {
 	private void Start() {
 		messages = messagesContainer.GetComponentsInChildren<TextMeshProUGUI>();
 		Clear();
+	}
+
+	private void OnEnable() {
+		Application.logMessageReceived += OnLog;
+		inputActions.FindAction("Submit").performed += OnSubmit;
+		inputActions.FindAction("Navigate").performed += history.OnNavigate;
+	}
+
+	private void OnDisable() {
+		Application.logMessageReceived -= OnLog;
+		inputActions.FindAction("Submit").performed -= OnSubmit;
+		inputActions.FindAction("Navigate").performed -= history.OnNavigate;
 	}
 
 	public void Clear() {
@@ -55,17 +68,9 @@ public class Chat : MonoBehaviour {
 		}
 
 		NewMessage?.Invoke(inputField.text);
+		history.Add(inputField.text);
+		history.ScrollToStart();
 		inputField.text = "";
-	}
-
-	private void OnEnable() {
-		Application.logMessageReceived += OnLog;
-		inputActions.FindAction("Submit").performed += OnSubmit;
-	}
-
-	private void OnDisable() {
-		Application.logMessageReceived -= OnLog;
-		inputActions.FindAction("Submit").performed -= OnSubmit;
 	}
 
 	private void OnLog(string message, string stack, LogType type) {
