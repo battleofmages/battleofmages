@@ -7,6 +7,7 @@ public class Player : NetworkBehaviour, IPlayer {
 	public CharacterController controller;
 	public float moveSpeed;
 	public float jumpSpeed;
+	public Transform model;
 	public GameObject networkShadow;
 	private Vector3 realPosition;
 	public ulong ClientId { get; set; }
@@ -49,6 +50,7 @@ public class Player : NetworkBehaviour, IPlayer {
 
 		Position = transform.position;
 		originalStepOffset = controller.stepOffset;
+		model.localPosition = new Vector3(0f, -controller.skinWidth, 0f);
 		EnableNetworkComponents();
 		Register();
 		networkShadow.transform.SetParent(null, true);
