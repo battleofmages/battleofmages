@@ -85,7 +85,7 @@ public class Client: NetworkBehaviour {
 		var delivery = NetworkDelivery.UnreliableSequenced;
 
 		if(direction == Vector3.zero) {
-			delivery = NetworkDelivery.ReliableSequenced;
+			delivery = NetworkDelivery.Reliable;
 		}
 
 		NetworkManager.Singleton.CustomMessagingManager.SendNamedMessage("client position", receiver, writer, delivery);
@@ -100,7 +100,7 @@ public class Client: NetworkBehaviour {
 			return;
 		}
 
-		if(message.StartsWith("/maxfps")) {
+		if(message.StartsWith("/maxfps ")) {
 			var fps = int.Parse(message.Split(' ')[1]);
 			Application.targetFrameRate = fps;
 			return;
@@ -127,6 +127,12 @@ public class Client: NetworkBehaviour {
 
 	public void Fire(InputAction.CallbackContext context) {
 		// Debug.Log("Fire");
+	}
+
+	public void Jump(InputAction.CallbackContext context) {
+		if(player.Jump()) {
+			server.JumpServerRpc();
+		}
 	}
 #endregion
 

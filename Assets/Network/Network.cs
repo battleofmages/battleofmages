@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
+using Unity.Collections;
 
 public class Network : MonoBehaviour {
 	public Transform spawn;

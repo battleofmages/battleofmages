@@ -47,4 +47,15 @@ public class Proxy : NetworkBehaviour {
 	public void UpdateAnimation() {
 		animator.SetFloat("Speed", player.Direction.sqrMagnitude);
 	}
+
+#region RPC
+	[ClientRpc]
+	public void JumpClientRpc() {
+		if(IsOwner) {
+			return;
+		}
+		
+		player.Jump();
+	}
+#endregion
 }

@@ -6,10 +6,14 @@ public class Player : NetworkBehaviour, IPlayer {
 	public TextMeshPro label;
 	public CharacterController controller;
 	public float moveSpeed;
+	public float jumpSpeed;
 	public GameObject networkShadow;
 	private Vector3 realPosition;
 	public ulong ClientId { get; set; }
 	public Vector3 Direction { get; set; }
+	private float gravity;
+	private bool jump;
+	private float originalStepOffset;
 
 	public string Name {
 		get {
@@ -44,6 +48,7 @@ public class Player : NetworkBehaviour, IPlayer {
 		}
 
 		Position = transform.position;
+		originalStepOffset = controller.stepOffset;
 		EnableNetworkComponents();
 		Register();
 		networkShadow.transform.SetParent(null, true);
@@ -94,8 +99,34 @@ public class Player : NetworkBehaviour, IPlayer {
 		}
 
 		direction *= moveSpeed;
-		direction += Physics.gravity;
-		
-		controller.Move(direction * Time.fixedDeltaTime);
+
+		UpdateGravity();
+		direction.y = gravity;
+
+		controller.Move(direction * Time.deltaTime);
+	}
+
+	private void UpdateGravity() {
+		if(controller.isGrounded) {
+			controller.stepOffset = originalStepOffset;
+			gravity = Physics.gravity.y;
+
+			if(jump) {
+				gravity = jumpSpeed;
+				jump = false;
+			}
+		} else {
+			gravity += Physics.gravity.y * Time.deltaTime;
+			controller.stepOffset = 0f;
+		}
+	}
+
+	public bool Jump() {
+		if(!controller.isGrounded) {
+			return false;
+		}
+
+		jump = true;
+		return true;
 	}
 }

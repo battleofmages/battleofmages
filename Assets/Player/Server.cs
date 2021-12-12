@@ -27,7 +27,7 @@ public class Server: NetworkBehaviour {
 		var delivery = NetworkDelivery.UnreliableSequenced;
 
 		if(player.Direction == Vector3.zero) {
-			delivery = NetworkDelivery.ReliableSequenced;
+			delivery = NetworkDelivery.Reliable;
 		}
 
 		NetworkManager.Singleton.CustomMessagingManager.SendNamedMessageToAll("server position", writer, delivery);
@@ -37,6 +37,13 @@ public class Server: NetworkBehaviour {
 	}
 
 #region RPC
+	[ServerRpc]
+	public void JumpServerRpc() {
+		if(player.Jump()) {
+			proxy.JumpClientRpc();
+		}
+	}
+
 	[ServerRpc]
 	public void NewMessageServerRpc(string message) {
 		client.NewMessageClientRpc(message);

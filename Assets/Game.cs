@@ -39,6 +39,7 @@ public class Game : MonoBehaviour {
 		Input.actions["Look"].performed += Client.Look;
 		Input.actions["Look"].canceled += Client.Look;
 		Input.actions["Fire"].performed += Client.Fire;
+		Input.actions["Jump"].performed += Client.Jump;
 		Input.actions["Chat"].performed += UI.ActivateAndSelectChat;
 		Input.actions["ShowCursor"].performed += UI.Activate;
 
@@ -62,6 +63,7 @@ public class Game : MonoBehaviour {
 		Input.actions["Look"].performed -= Client.Look;
 		Input.actions["Look"].canceled -= Client.Look;
 		Input.actions["Fire"].performed -= Client.Fire;
+		Input.actions["Jump"].performed -= Client.Jump;
 		Input.actions["Chat"].performed -= UI.ActivateAndSelectChat;
 		Input.actions["ShowCursor"].performed -= UI.Activate;
 
