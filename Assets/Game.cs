@@ -9,18 +9,21 @@ public class Game : MonoBehaviour {
 	public PlayerInput input;
 	public Chat chat;
 	public GameObject menu;
+	public Config config;
 	
 	public static Player Player { get{ return Instance.player; } }
 	public static Client Client { get{ return Instance.client; } }
 	public static Chat Chat { get{ return Instance.chat; } }
 	public static PlayerInput Input { get{ return Instance.input; } }
 	public static GameObject Menu { get{ return Instance.menu; } }
+	public static Config Config { get{ return Instance.config; } }
 
 	private void Awake() {
 		Instance = this;
 	}
 
 	public static void Start() {
+		//Application.targetFrameRate = 10;
 		// Disable main menu
 		Menu.SetActive(false);
 
@@ -33,6 +36,8 @@ public class Game : MonoBehaviour {
 		// Bind gameplay events
 		Input.actions["Move"].performed += Client.Move;
 		Input.actions["Move"].canceled += Client.Move;
+		Input.actions["Look"].performed += Client.Look;
+		Input.actions["Look"].canceled += Client.Look;
 		Input.actions["Fire"].performed += Client.Fire;
 		Input.actions["Chat"].performed += UI.ActivateAndSelectChat;
 		Input.actions["ShowCursor"].performed += UI.Activate;
@@ -54,6 +59,8 @@ public class Game : MonoBehaviour {
 		// Unbind gameplay events
 		Input.actions["Move"].performed -= Client.Move;
 		Input.actions["Move"].canceled -= Client.Move;
+		Input.actions["Look"].performed -= Client.Look;
+		Input.actions["Look"].canceled -= Client.Look;
 		Input.actions["Fire"].performed -= Client.Fire;
 		Input.actions["Chat"].performed -= UI.ActivateAndSelectChat;
 		Input.actions["ShowCursor"].performed -= UI.Activate;

@@ -6,23 +6,19 @@ public class Server: NetworkBehaviour {
 	public Player player;
 	public Client client;
 	public Proxy proxy;
-	public float movementPrediction;
+
 	private Vector3 lastPositionSent;
 	private Vector3 lastDirectionSent;
 
 	private void FixedUpdate() {
-		var direction = player.Position - transform.position;
-		var prediction = player.Direction * movementPrediction;
-		player.Move(direction + prediction);
-
-		if(player.Position != lastPositionSent || player.Direction != lastDirectionSent) {
-			BroadcastPosition();
-			lastPositionSent = player.Position;
-			lastDirectionSent = player.Direction;
-		}
+		BroadcastPosition();
 	}
 
 	public void BroadcastPosition() {
+		if(player.Position == lastPositionSent && player.Direction == lastDirectionSent) {
+			return;
+		}
+
 		using FastBufferWriter writer = new FastBufferWriter(32, Allocator.Temp);
 		writer.WriteValueSafe(player.ClientId);
 		writer.WriteValueSafe(player.Position);
@@ -35,6 +31,9 @@ public class Server: NetworkBehaviour {
 		}
 
 		NetworkManager.Singleton.CustomMessagingManager.SendNamedMessageToAll("server position", writer, delivery);
+
+		lastPositionSent = player.Position;
+		lastDirectionSent = player.Direction;
 	}
 
 #region RPC

@@ -1,18 +1,20 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class UI : MonoBehaviour {
 	public static void Activate() {
 		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
 		Game.Input.SwitchCurrentActionMap("UI");
-		Game.Chat.inputField.gameObject.SetActive(true);
+		Game.Chat.inputField.GetComponent<CanvasGroup>().alpha = 1f;
 	}
 
 	public static void Deactivate() {
 		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
 		Game.Input.SwitchCurrentActionMap("Player");
-		Game.Chat.inputField.gameObject.SetActive(false);
+		Game.Chat.inputField.GetComponent<CanvasGroup>().alpha = 0.5f;
+		Game.Chat.inputField.DeactivateInputField();
 	}
 
 	// Overloads to use it in input actions
@@ -26,6 +28,7 @@ public class UI : MonoBehaviour {
 
 	public static void ActivateAndSelectChat(InputAction.CallbackContext context) {
 		Activate();
-		EventSystem.current.SetSelectedGameObject(Game.Chat.inputField.gameObject);
+		Game.Chat.inputField.Select();
+		Game.Chat.inputField.ActivateInputField();
 	}
 }

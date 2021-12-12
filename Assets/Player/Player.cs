@@ -57,12 +57,13 @@ public class Player : NetworkBehaviour, IPlayer {
 	private void EnableNetworkComponents() {
 		if(IsClient && IsServer && IsOwner) {
 			GetComponent<Client>().enabled = true;
-			// GetComponent<Server>().enabled = true;
+			GetComponent<Server>().enabled = true;
 			return;
 		}
 
 		if(IsServer) {
 			GetComponent<Server>().enabled = true;
+			GetComponent<Proxy>().enabled = true;
 			return;
 		}
 
@@ -94,7 +95,7 @@ public class Player : NetworkBehaviour, IPlayer {
 
 		direction *= moveSpeed;
 		direction += Physics.gravity;
-
+		
 		controller.Move(direction * Time.fixedDeltaTime);
 	}
 }
