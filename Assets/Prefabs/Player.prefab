@@ -443,7 +443,7 @@ CharacterController:
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.04
-  m_MinMoveDistance: 0.001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!114 &1234122460082155176
 MonoBehaviour:
@@ -476,10 +476,14 @@ MonoBehaviour:
   label: {fileID: 8341782346551636643}
   controller: {fileID: 2119036363929754220}
   moveSpeed: 4
-  jumpSpeed: 4.5
+  jumpHeight: 1
   model: {fileID: 7669114305612363752}
   modelYOffset: 0.03
   networkShadow: {fileID: 8499634735427984156}
+  gravityWhenGrounded: -2
+  allowJumpWhenNotGroundedTime: 0.2
+  allowJumpOverMaxGroundDistanceTime: 0.1
+  maxDistanceToGroundOnJump: 0.3
 --- !u!114 &7585729804621411204
 MonoBehaviour:
   m_ObjectHideFlags: 0

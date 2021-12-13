@@ -6,12 +6,19 @@ public class Player : NetworkBehaviour, IPlayer {
 	public TextMeshPro label;
 	public CharacterController controller;
 	public float moveSpeed;
-	public float jumpSpeed;
+	public float jumpHeight;
 	public Transform model;
 	public float modelYOffset;
 	public GameObject networkShadow;
 	public ulong ClientId { get; set; }
 	public Vector3 Direction { get; set; }
+	public float gravityWhenGrounded;
+	public float allowJumpOverMaxGroundDistanceTime;
+	public float allowJumpWhenNotGroundedTime;
+	public float maxDistanceToGroundOnJump;
+
+	[System.NonSerialized]
+	public float notGroundedTime;
 
 	[System.NonSerialized]
 	public bool jump;
@@ -115,22 +122,41 @@ public class Player : NetworkBehaviour, IPlayer {
 	}
 
 	private void UpdateGravity() {
-		if(controller.isGrounded) {
-			controller.stepOffset = originalStepOffset;
-			gravity = Physics.gravity.y;
+		var isGrounded = controller.isGrounded;
+		notGroundedTime += Time.deltaTime;
 
-			if(jump) {
-				gravity = jumpSpeed;
-				jump = false;
-			}
+		if(isGrounded && gravity < 0f) {
+			notGroundedTime = 0f;
+			gravity = gravityWhenGrounded;
+			controller.stepOffset = originalStepOffset;
 		} else {
-			gravity += Physics.gravity.y * Time.deltaTime;
 			controller.stepOffset = 0f;
+		}
+		
+		gravity += Physics.gravity.y * Time.deltaTime;
+
+		if(jump && canJump) {
+			gravity = Mathf.Sqrt(jumpHeight * 2 * -Physics.gravity.y);
+			jump = false;
+		}
+	}
+
+	public bool canJump {
+		get {
+			if(notGroundedTime < allowJumpOverMaxGroundDistanceTime) {
+				return true;
+			}
+
+			if(notGroundedTime < allowJumpWhenNotGroundedTime && Physics.Raycast(transform.position, Vector3.down, maxDistanceToGroundOnJump)) {
+				return true;
+			}
+
+			return false;
 		}
 	}
 
 	public bool Jump() {
-		if(!controller.isGrounded) {
+		if(!canJump) {
 			return false;
 		}
 
