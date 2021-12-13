@@ -46,8 +46,9 @@ public class Proxy : NetworkBehaviour {
 
 	public void UpdateAnimation() {
 		animator.SetFloat("Speed", player.Direction.sqrMagnitude);
-		animator.SetBool("Jump", player.jump);
+		animator.SetFloat("Gravity", player.gravity);
 		animator.SetBool("Grounded", player.controller.isGrounded);
+		animator.SetBool("Jump", player.jump);
 	}
 
 #region RPC

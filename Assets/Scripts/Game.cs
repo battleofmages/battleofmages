@@ -23,7 +23,6 @@ public class Game : MonoBehaviour {
 	}
 
 	public static void Start() {
-		//Application.targetFrameRate = 10;
 		// Disable main menu
 		Menu.SetActive(false);
 
@@ -39,6 +38,8 @@ public class Game : MonoBehaviour {
 		Input.actions["Look"].performed += Client.Look;
 		Input.actions["Look"].canceled += Client.Look;
 		Input.actions["Fire"].performed += Client.Fire;
+		Input.actions["Block"].performed += Client.StartBlock;
+		Input.actions["Block"].canceled += Client.StopBlock;
 		Input.actions["Jump"].performed += Client.Jump;
 		Input.actions["Chat"].performed += UI.ActivateAndSelectChat;
 		Input.actions["ShowCursor"].performed += UI.Activate;
@@ -63,6 +64,8 @@ public class Game : MonoBehaviour {
 		Input.actions["Look"].performed -= Client.Look;
 		Input.actions["Look"].canceled -= Client.Look;
 		Input.actions["Fire"].performed -= Client.Fire;
+		Input.actions["Block"].performed -= Client.StartBlock;
+		Input.actions["Block"].canceled -= Client.StopBlock;
 		Input.actions["Jump"].performed -= Client.Jump;
 		Input.actions["Chat"].performed -= UI.ActivateAndSelectChat;
 		Input.actions["ShowCursor"].performed -= UI.Activate;

@@ -16,8 +16,10 @@ public class Player : NetworkBehaviour, IPlayer {
 	[System.NonSerialized]
 	public bool jump;
 
+	[System.NonSerialized]
+	public float gravity;
+
 	private Vector3 realPosition;
-	private float gravity;
 	private float originalStepOffset;
 
 	public string Name {

@@ -15,6 +15,8 @@ public class Client: NetworkBehaviour {
 	private Vector3 inputDirection;
 	private Vector3 direction;
 	private Vector2 look;
+	private bool fire;
+	private bool block;
 	private Vector3 lastPositionSent;
 	private Vector3 lastDirectionSent;
 
@@ -64,8 +66,12 @@ public class Client: NetworkBehaviour {
 
 	private void UpdateAnimation() {
 		animator.SetFloat("Speed", direction.sqrMagnitude);
-		animator.SetBool("Jump", player.jump);
+		animator.SetFloat("Gravity", player.gravity);
 		animator.SetBool("Grounded", player.controller.isGrounded);
+		animator.SetBool("Jump", player.jump);
+		animator.SetBool("Attack", fire);
+		animator.SetBool("Block", block);
+		fire = false;
 	}
 
 	private void SendPositionToServer() {
@@ -128,12 +134,19 @@ public class Client: NetworkBehaviour {
 	}
 
 	public void Fire(InputAction.CallbackContext context) {
-		// Debug.Log("Fire");
+		fire = true;
+	}
+
+	public void StartBlock(InputAction.CallbackContext context) {
+		block = true;
+	}
+
+	public void StopBlock(InputAction.CallbackContext context) {
+		block = false;
 	}
 
 	public void Jump(InputAction.CallbackContext context) {
 		if(player.Jump()) {
-			animator.SetBool("Jump", true);
 			server.JumpServerRpc();
 		}
 	}

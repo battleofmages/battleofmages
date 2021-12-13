@@ -2407,7 +2407,7 @@ GameObject:
   - component: {fileID: 113447028740557092}
   - component: {fileID: 3663156714641672503}
   m_Layer: 0
-  m_Name: Kimiko
+  m_Name: Kimiko VRM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
