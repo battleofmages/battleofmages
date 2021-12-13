@@ -146,9 +146,12 @@ public class Client: NetworkBehaviour {
 	}
 
 	public void Jump(InputAction.CallbackContext context) {
-		if(player.Jump()) {
-			server.JumpServerRpc();
+		if(!player.Jump()) {
+			return;
 		}
+
+		animator.SetBool("Jump", true);
+		server.JumpServerRpc();
 	}
 #endregion
 

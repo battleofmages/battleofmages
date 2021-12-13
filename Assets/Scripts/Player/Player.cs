@@ -114,11 +114,10 @@ public class Player : NetworkBehaviour, IPlayer {
 		}
 
 		direction *= moveSpeed;
-
-		UpdateGravity();
 		direction.y = gravity;
 
 		controller.Move(direction * Time.deltaTime);
+		UpdateGravity();
 	}
 
 	private void UpdateGravity() {
@@ -134,11 +133,6 @@ public class Player : NetworkBehaviour, IPlayer {
 		}
 		
 		gravity += Physics.gravity.y * Time.deltaTime;
-
-		if(jump && canJump) {
-			gravity = Mathf.Sqrt(jumpHeight * 2 * -Physics.gravity.y);
-			jump = false;
-		}
 	}
 
 	public bool canJump {
@@ -160,7 +154,7 @@ public class Player : NetworkBehaviour, IPlayer {
 			return false;
 		}
 
-		jump = true;
+		gravity = Mathf.Sqrt(jumpHeight * 2 * -Physics.gravity.y);
 		return true;
 	}
 }

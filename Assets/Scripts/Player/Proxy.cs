@@ -17,10 +17,13 @@ public class Proxy : NetworkBehaviour {
 		CameraManager.RemoveCamera(cam);
 	}
 
-	private void FixedUpdate() {
-		UpdatePosition();
+	private void Update() {
 		UpdateRotation();
 		UpdateAnimation();
+	}
+
+	private void FixedUpdate() {
+		UpdatePosition();
 	}
 
 	public void UpdatePosition() {
@@ -58,7 +61,11 @@ public class Proxy : NetworkBehaviour {
 			return;
 		}
 		
-		player.Jump();
+		if(!player.Jump()) {
+			return;
+		}
+
+		animator.SetBool("Jump", true);
 	}
 #endregion
 }

@@ -439,7 +439,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.7
-  m_Radius: 0.2
+  m_Radius: 0.18
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.04
@@ -476,13 +476,13 @@ MonoBehaviour:
   label: {fileID: 8341782346551636643}
   controller: {fileID: 2119036363929754220}
   moveSpeed: 4
-  jumpHeight: 1
+  jumpHeight: 0.7
   model: {fileID: 7669114305612363752}
   modelYOffset: 0.03
   networkShadow: {fileID: 8499634735427984156}
   gravityWhenGrounded: -2
-  allowJumpWhenNotGroundedTime: 0.2
   allowJumpOverMaxGroundDistanceTime: 0.1
+  allowJumpWhenNotGroundedTime: 0.2
   maxDistanceToGroundOnJump: 0.3
 --- !u!114 &7585729804621411204
 MonoBehaviour:

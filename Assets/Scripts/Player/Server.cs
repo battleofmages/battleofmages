@@ -39,9 +39,11 @@ public class Server: NetworkBehaviour {
 #region RPC
 	[ServerRpc]
 	public void JumpServerRpc() {
-		if(player.Jump()) {
-			proxy.JumpClientRpc();
+		if(!player.Jump()) {
+			return;
 		}
+
+		proxy.JumpClientRpc();
 	}
 
 	[ServerRpc]
