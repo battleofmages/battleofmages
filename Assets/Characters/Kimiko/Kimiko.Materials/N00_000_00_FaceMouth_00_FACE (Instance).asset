@@ -24,19 +24,19 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: e9e7f8fb293244c47ae2eee8c175b069, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3160727780d2df24eb8e488fd334baf1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 0eab935eec7a75c42889eebcbca2bba6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3072d1224e180704b912b1ff85e7ec8e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 8e9009bfcf4752747a097e108ed88c01, type: 3}
+        m_Texture: {fileID: 2800000, guid: 47275f656afc4aa43b25748ab8fbc59a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineWidthTexture:
-        m_Texture: {fileID: 2800000, guid: ebea3295f7611be42a85bf462433c9c7, type: 3}
+        m_Texture: {fileID: 2800000, guid: b2743480f7dc06248b489745c7d411ae, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RimTexture:
@@ -44,11 +44,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadeTexture:
-        m_Texture: {fileID: 2800000, guid: 73adf234fa68aca4680096f757c68607, type: 3}
+        m_Texture: {fileID: 2800000, guid: d28416c486f01ff4983fb0ea9b6619f2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SphereAdd:
-        m_Texture: {fileID: 2800000, guid: d7e2ad019005f6f4c839c51dfec3ac65, type: 3}
+        m_Texture: {fileID: 2800000, guid: ec5df0568c6c8be46973a6e38f485935, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:

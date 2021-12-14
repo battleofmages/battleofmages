@@ -12,6 +12,7 @@ public class Client: NetworkBehaviour {
 	public Transform model;
 	public Animator animator;
 	public float rotationSpeed;
+	public GameObject spawnOnFire;
 	private Vector3 inputDirection;
 	private Vector3 direction;
 	private Vector2 look;
@@ -135,6 +136,11 @@ public class Client: NetworkBehaviour {
 
 	public void Fire(InputAction.CallbackContext context) {
 		fire = true;
+		
+		// Ray ray = cam.ScreenPointToRay(new Vector2(0.5f, 0.5f));
+		// Physics.Raycast(ray)
+
+		GameObject.Instantiate(spawnOnFire, transform.position + Vector3.up, model.rotation);
 	}
 
 	public void StartBlock(InputAction.CallbackContext context) {
