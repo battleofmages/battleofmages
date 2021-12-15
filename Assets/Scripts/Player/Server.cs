@@ -15,31 +15,31 @@ public class Server: NetworkBehaviour {
 	}
 
 	public void BroadcastPosition() {
-		if(player.Position == lastPositionSent && player.Direction == lastDirectionSent) {
+		if(player.RemotePosition == lastPositionSent && player.RemoteDirection == lastDirectionSent) {
 			return;
 		}
 
 		using FastBufferWriter writer = new FastBufferWriter(32, Allocator.Temp);
 		writer.WriteValueSafe(player.ClientId);
-		writer.WriteValueSafe(player.Position);
-		writer.WriteValueSafe(player.Direction);
+		writer.WriteValueSafe(player.RemotePosition);
+		writer.WriteValueSafe(player.RemoteDirection);
 
 		var delivery = NetworkDelivery.UnreliableSequenced;
 
-		if(player.Direction == Vector3.zero) {
+		if(player.RemoteDirection == Vector3.zero) {
 			delivery = NetworkDelivery.Reliable;
 		}
 
 		NetworkManager.Singleton.CustomMessagingManager.SendNamedMessageToAll("server position", writer, delivery);
 
-		lastPositionSent = player.Position;
-		lastDirectionSent = player.Direction;
+		lastPositionSent = player.RemotePosition;
+		lastDirectionSent = player.RemoteDirection;
 	}
 
 #region RPC
 	[ServerRpc]
 	public void JumpServerRpc() {
-		if(!player.Jump()) {
+		if(!player.gravity.Jump()) {
 			return;
 		}
 

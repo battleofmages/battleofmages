@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,7 +11,6 @@ public class Client: NetworkBehaviour {
 	public Camera cam;
 	public CameraController camController;
 	public Transform model;
-	public Animator animator;
 	public float rotationSpeed;
 	private Vector3 inputDirection;
 	private Vector3 direction;
@@ -24,21 +22,18 @@ public class Client: NetworkBehaviour {
 
 	private void OnEnable() {
 		CameraManager.AddCamera(cam);
-		Game.Instance.player = player;
-		Game.Instance.client = this;
+		Game.SetPlayerObject(gameObject);
 		Game.Start();
 	}
 
 	private void OnDisable() {
 		CameraManager.RemoveCamera(cam);
 		Game.Stop();
-		Game.Instance.client = null;
-		Game.Instance.player = null;
+		Game.SetPlayerObject(null);
 	}
 
 	private void Update() {
 		UpdateRotation();
-		UpdateAnimation();
 	}
 
 	private void FixedUpdate() {
@@ -66,20 +61,10 @@ public class Client: NetworkBehaviour {
 		);
 	}
 
-	private void UpdateAnimation() {
-		animator.SetFloat("Speed", direction.sqrMagnitude);
-		animator.SetFloat("Gravity", player.gravity);
-		animator.SetBool("Grounded", player.controller.isGrounded);
-		animator.SetBool("Jump", player.jump);
-		animator.SetBool("Attack", fire);
-		animator.SetBool("Block", block);
-		fire = false;
-	}
-
 	private void SendPositionToServer() {
 		if(IsServer) {
-			player.Position = transform.position;
-			player.Direction = direction;
+			player.RemotePosition = transform.position;
+			player.RemoteDirection = direction;
 			return;
 		}
 
@@ -181,11 +166,10 @@ public class Client: NetworkBehaviour {
 	}
 
 	public void Jump(InputAction.CallbackContext context) {
-		if(!player.Jump()) {
+		if(!player.gravity.Jump()) {
 			return;
 		}
 
-		animator.SetBool("Jump", true);
 		server.JumpServerRpc();
 	}
 #endregion

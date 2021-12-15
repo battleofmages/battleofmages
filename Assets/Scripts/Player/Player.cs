@@ -5,30 +5,16 @@ using Unity.Netcode;
 public class Player : Entity, IPlayer {
 	public TextMeshPro label;
 	public CharacterController controller;
+	public Gravity gravity;
 	
 	public float moveSpeed;
-	public float jumpHeight;
 	public Transform model;
 	public float modelYOffset;
 	public GameObject networkShadow;
 	public ulong ClientId { get; set; }
-	public Vector3 Direction { get; set; }
-	public float gravityWhenGrounded;
-	public float allowJumpOverMaxGroundDistanceTime;
-	public float allowJumpWhenNotGroundedTime;
-	public float maxDistanceToGroundOnJump;
-
-	[System.NonSerialized]
-	public float notGroundedTime;
-
-	[System.NonSerialized]
-	public bool jump;
-
-	[System.NonSerialized]
-	public float gravity;
+	public Vector3 RemoteDirection { get; set; }
 
 	private Vector3 realPosition;
-	private float originalStepOffset;
 
 	public string Name {
 		get {
@@ -42,7 +28,7 @@ public class Player : Entity, IPlayer {
 		}
 	}
 
-	public Vector3 Position {
+	public Vector3 RemotePosition {
 		get {
 			return realPosition;
 		}
@@ -62,8 +48,7 @@ public class Player : Entity, IPlayer {
 			Name = "Proxy " + ClientId;
 		}
 
-		Position = transform.position;
-		originalStepOffset = controller.stepOffset;
+		RemotePosition = transform.position;
 		model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
 		EnableNetworkComponents();
 		Register();
@@ -118,47 +103,8 @@ public class Player : Entity, IPlayer {
 		}
 
 		direction *= moveSpeed;
-		direction.y = gravity;
+		direction.y = GetComponent<Gravity>().Speed;
 
 		controller.Move(direction * Time.deltaTime);
-		UpdateGravity();
-	}
-
-	private void UpdateGravity() {
-		var isGrounded = controller.isGrounded;
-		notGroundedTime += Time.deltaTime;
-
-		if(isGrounded && gravity < 0f) {
-			notGroundedTime = 0f;
-			gravity = gravityWhenGrounded;
-			controller.stepOffset = originalStepOffset;
-		} else {
-			controller.stepOffset = 0f;
-		}
-		
-		gravity += Physics.gravity.y * Time.deltaTime;
-	}
-
-	public bool canJump {
-		get {
-			if(notGroundedTime < allowJumpOverMaxGroundDistanceTime) {
-				return true;
-			}
-
-			if(notGroundedTime < allowJumpWhenNotGroundedTime && Physics.Raycast(transform.position, Vector3.down, maxDistanceToGroundOnJump)) {
-				return true;
-			}
-
-			return false;
-		}
-	}
-
-	public bool Jump() {
-		if(!canJump) {
-			return false;
-		}
-
-		gravity = Mathf.Sqrt(jumpHeight * 2 * -Physics.gravity.y);
-		return true;
 	}
 }

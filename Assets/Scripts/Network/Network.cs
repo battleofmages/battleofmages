@@ -82,8 +82,8 @@ public class Network : MonoBehaviour {
 				return;
 			}
 
-			player.Position = position;
-			player.Direction = direction;
+			player.RemotePosition = position;
+			player.RemoteDirection = direction;
 		});
 	}
 
@@ -97,8 +97,8 @@ public class Network : MonoBehaviour {
 
 			reader.ReadValueSafe(out Vector3 position);
 			reader.ReadValueSafe(out Vector3 direction);
-			sender.Position = position;
-			sender.Direction = direction;
+			sender.RemotePosition = position;
+			sender.RemoteDirection = direction;
 		});
 	}
 }

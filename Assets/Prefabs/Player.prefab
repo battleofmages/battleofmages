@@ -400,6 +400,9 @@ GameObject:
   - component: {fileID: 7585729804621411204}
   - component: {fileID: 838697470268910736}
   - component: {fileID: 1373305695537637111}
+  - component: {fileID: 5780932374599328331}
+  - component: {fileID: -7326193019154016585}
+  - component: {fileID: -346168184870665623}
   - component: {fileID: 2263400618342794246}
   m_Layer: 6
   m_Name: Player
@@ -474,18 +477,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b64254aa171af445b6a9ea73a049d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skeleton: {fileID: 2263400618342794246}
   label: {fileID: 8341782346551636643}
   controller: {fileID: 2119036363929754220}
-  skeleton: {fileID: 2263400618342794246}
+  gravity: {fileID: -7326193019154016585}
   moveSpeed: 4
   jumpHeight: 0.7
   model: {fileID: 4304170728917831478}
   modelYOffset: 0.03
   networkShadow: {fileID: 8499634735427984156}
-  gravityWhenGrounded: -2
-  allowJumpOverMaxGroundDistanceTime: 0.1
-  allowJumpWhenNotGroundedTime: 0.2
-  maxDistanceToGroundOnJump: 0.3
 --- !u!114 &7585729804621411204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,8 +507,6 @@ MonoBehaviour:
   model: {fileID: 4304170728917831478}
   animator: {fileID: 7879980679939085644}
   rotationSpeed: 10
-  spawnOnFire: {fileID: 1563332070489109486, guid: e4e283392e7e1f54dac5f75170bda24f,
-    type: 3}
 --- !u!114 &838697470268910736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,6 +540,51 @@ MonoBehaviour:
   animator: {fileID: 7879980679939085644}
   rotationSpeed: 10
   movementPrediction: 0.15
+--- !u!114 &5780932374599328331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403352713402487987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5b7949c0c715a4cbb64b928cc1eb10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7326193019154016585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403352713402487987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b26626fe40228a24796570931049df3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 2119036363929754220}
+  JumpHeight: 0.7
+  SpeedWhenGrounded: -2
+  AllowJumpTime: 0.1
+  AllowJumpCloseToGroundTime: 0.2
+  MaxGroundDistance: 0.3
+  Speed: 0
+--- !u!114 &-346168184870665623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403352713402487987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e55d4d1c6647fd44ba3bb525c5ff72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7879980679939085644}
+  player: {fileID: 5014205834473804560}
 --- !u!114 &2263400618342794246
 MonoBehaviour:
   m_ObjectHideFlags: 0

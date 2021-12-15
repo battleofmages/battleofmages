@@ -5,7 +5,6 @@ public class Proxy : NetworkBehaviour {
 	public Player player;
 	public Camera cam;
 	public Transform model;
-	public Animator animator;
 	public float rotationSpeed;
 	public float movementPrediction;
 
@@ -19,7 +18,6 @@ public class Proxy : NetworkBehaviour {
 
 	private void Update() {
 		UpdateRotation();
-		UpdateAnimation();
 	}
 
 	private void FixedUpdate() {
@@ -27,8 +25,8 @@ public class Proxy : NetworkBehaviour {
 	}
 
 	public void UpdatePosition() {
-		var direction = player.Position - transform.position;
-		var prediction = player.Direction * movementPrediction;
+		var direction = player.RemotePosition - transform.position;
+		var prediction = player.RemoteDirection * movementPrediction;
 		var finalDirection = direction + prediction;
 
 		finalDirection.y = 0f;
@@ -36,22 +34,15 @@ public class Proxy : NetworkBehaviour {
 	}
 
 	public void UpdateRotation() {
-		if(player.Direction == Vector3.zero) {
+		if(player.RemoteDirection == Vector3.zero) {
 			return;
 		}
 
 		model.rotation = Quaternion.Slerp(
 			model.rotation,
-			Quaternion.LookRotation(player.Direction),
+			Quaternion.LookRotation(player.RemoteDirection),
 			Time.deltaTime * rotationSpeed
 		);
-	}
-
-	public void UpdateAnimation() {
-		animator.SetFloat("Speed", player.Direction.sqrMagnitude);
-		animator.SetFloat("Gravity", player.gravity);
-		animator.SetBool("Grounded", player.controller.isGrounded);
-		animator.SetBool("Jump", player.jump);
 	}
 
 #region RPC
@@ -61,11 +52,9 @@ public class Proxy : NetworkBehaviour {
 			return;
 		}
 		
-		if(!player.Jump()) {
+		if(!player.gravity.Jump()) {
 			return;
 		}
-
-		animator.SetBool("Jump", true);
 	}
 #endregion
 }
