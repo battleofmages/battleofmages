@@ -33,9 +33,45 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Fire",
+                    "name": "Skill 1",
                     "type": "Button",
                     "id": "6aa3062d-bb85-4b49-98f5-de991d9053e7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill 2",
+                    "type": "Button",
+                    "id": "50d5370c-6e10-4bc2-8b2e-759ba71467b6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill 3",
+                    "type": "Button",
+                    "id": "c31c70d8-3a50-4ebc-9e6c-1ce4e773e9a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill 4",
+                    "type": "Button",
+                    "id": "42550af7-5980-476d-9254-8facb889a2ce",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill 5",
+                    "type": "Button",
+                    "id": "e8d9eb29-7920-4f05-a50c-985e893a8e04",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -60,7 +96,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ShowCursor",
+                    "name": "Show cursor",
                     "type": "Button",
                     "id": "5215569f-9e14-4368-bf49-fc0723be72db",
                     "expectedControlType": "Button",
@@ -237,12 +273,23 @@
                 },
                 {
                     "name": "",
+                    "id": "9648924d-466d-45a3-8b26-e4ad4e2fa286",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Skill 1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Fire",
+                    "action": "Skill 1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -253,7 +300,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Fire",
+                    "action": "Skill 1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -264,7 +311,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Touch",
-                    "action": "Fire",
+                    "action": "Skill 1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -275,7 +322,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
-                    "action": "Fire",
+                    "action": "Skill 1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -286,7 +333,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Fire",
+                    "action": "Skill 1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -308,7 +355,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "ShowCursor",
+                    "action": "Show cursor",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -353,6 +400,50 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0eec11a3-0e67-4b1f-9c6b-703df3fb8793",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Skill 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b0864c5-ec7c-46f6-8d58-ada40cd9e4ae",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Skill 3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "66459afd-4136-48f4-a588-d50578d8bb99",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Skill 4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "af47691c-bbc1-497b-8bd5-5f826a871416",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Skill 5",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

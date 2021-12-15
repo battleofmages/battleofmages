@@ -1,31 +1,32 @@
+using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
-using Unity.Collections;
+using UnityEngine.SceneManagement;
 
 public class Network : MonoBehaviour {
-	public Transform spawn;
+	private Transform spawn;
 
-	private void Start() {
-		NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
+	private void OnEnable() {
+		NetworkManager.Singleton.ConnectionApprovalCallback += OnApprovalCheck;
 	}
 
 	public void StartClient() {
-		Run("client");
+		Run("client", "Practice");
 	}
 
 	public void StartServer() {
-		Run("server");
+		Run("server", "Practice");
 	}
 
 	public void StartHost() {
-		Run("host");
+		Run("host", "Practice");
 	}
 
 	public void Disconnect() {
 		NetworkManager.Singleton.Shutdown();
 	}
 
-	private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback) {
+	private void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback) {
 		var approve = true;
 		var offset = Random.insideUnitCircle * spawn.GetComponent<SphereCollider>().radius;
 		var position = new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);
@@ -33,8 +34,20 @@ public class Network : MonoBehaviour {
 		callback(approve, null, approve, position, Quaternion.identity);
 	}
 
-	private void Run(string type) {
-		switch(type) {
+	private void Run(string networkType, string sceneName) {
+		StartCoroutine(LoadScene(networkType, sceneName));
+	}
+
+	private IEnumerator LoadScene(string networkType, string sceneName) {
+		SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+
+		// Unity is so dumb - we need to do this hack to make GameObject.Find work
+		yield return null;
+		yield return null;
+
+		spawn = GameObject.FindGameObjectWithTag("Spawn").transform;
+
+		switch(networkType) {
 			case "client":
 				NetworkManager.Singleton.StartClient();
 				break;

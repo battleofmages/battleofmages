@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
@@ -12,7 +14,6 @@ public class Client: NetworkBehaviour {
 	public Transform model;
 	public Animator animator;
 	public float rotationSpeed;
-	public GameObject spawnOnFire;
 	private Vector3 inputDirection;
 	private Vector3 direction;
 	private Vector2 look;
@@ -134,13 +135,41 @@ public class Client: NetworkBehaviour {
 		}
 	}
 
-	public void Fire(InputAction.CallbackContext context) {
-		fire = true;
-		
-		// Ray ray = cam.ScreenPointToRay(new Vector2(0.5f, 0.5f));
-		// Physics.Raycast(ray)
+	public void Skill1(InputAction.CallbackContext context) {
+		UseSkill(1);
+	}
 
-		GameObject.Instantiate(spawnOnFire, transform.position + Vector3.up, model.rotation);
+	public void Skill2(InputAction.CallbackContext context) {
+		UseSkill(2);
+	}
+
+	public void Skill3(InputAction.CallbackContext context) {
+		UseSkill(3);
+	}
+
+	public void Skill4(InputAction.CallbackContext context) {
+		UseSkill(4);
+	}
+
+	public void Skill5(InputAction.CallbackContext context) {
+		UseSkill(5);
+	}
+
+	public async void UseSkill(int slotIndex) {
+		fire = true;
+		await Task.Delay(300);
+
+		var layerMask = LayerMask.NameToLayer("Default");
+		Ray ray = cam.ScreenPointToRay(new Vector2(0.5f, 0.5f));
+		Vector3 cursor;
+
+		if(Physics.Raycast(ray, out RaycastHit hit, layerMask)) {
+			cursor = hit.point;
+		} else {
+			cursor = cam.transform.position + cam.transform.forward * 100f;
+		}
+
+		player.UseSkill(Game.Skills.elements[0].skills[0], cursor);
 	}
 
 	public void StartBlock(InputAction.CallbackContext context) {

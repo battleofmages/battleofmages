@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1563332070489109484}
   - component: {fileID: 1563332070489109485}
   - component: {fileID: -6710880726570859313}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ice Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 3350921640376964613}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1563332070489109484
 MonoBehaviour:
@@ -49,6 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1500
   rigidBody: {fileID: 1563332070489109485}
+  collision: {fileID: -6710880726570859313}
+  particles: {fileID: 3350921640376964612}
+  explosion: {fileID: 247939221924084294, guid: c7a90301533c2db409475a1a381ae283,
+    type: 3}
 --- !u!54 &1563332070489109485
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -90,6 +94,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ice Trail
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816399186577911202, guid: fe4a416e042a46740ae4a9c196d15e96,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3816399186577911213, guid: fe4a416e042a46740ae4a9c196d15e96,
         type: 3}
@@ -149,6 +158,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: fe4a416e042a46740ae4a9c196d15e96, type: 3}
+--- !u!198 &3350921640376964612 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3816399186577911212, guid: fe4a416e042a46740ae4a9c196d15e96,
+    type: 3}
+  m_PrefabInstance: {fileID: 1906799098057882536}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3350921640376964613 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3816399186577911213, guid: fe4a416e042a46740ae4a9c196d15e96,

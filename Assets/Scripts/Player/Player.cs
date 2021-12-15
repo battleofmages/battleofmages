@@ -2,9 +2,10 @@ using TMPro;
 using UnityEngine;
 using Unity.Netcode;
 
-public class Player : NetworkBehaviour, IPlayer {
+public class Player : Entity, IPlayer {
 	public TextMeshPro label;
 	public CharacterController controller;
+	
 	public float moveSpeed;
 	public float jumpHeight;
 	public Transform model;
@@ -66,7 +67,10 @@ public class Player : NetworkBehaviour, IPlayer {
 		model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
 		EnableNetworkComponents();
 		Register();
-		networkShadow.transform.SetParent(null, true);
+		var playerRoot = GameObject.Find("Players");
+		transform.SetParent(playerRoot.transform);
+		networkShadow.transform.SetParent(playerRoot.transform, true);
+		SkillUsed += skill => Debug.Log(skill.name);
 	}
 
 	private void OnDisable() {
