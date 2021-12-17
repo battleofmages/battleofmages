@@ -55,7 +55,6 @@ public class Player : Entity, IPlayer {
 		var playerRoot = GameObject.Find("Players");
 		transform.SetParent(playerRoot.transform);
 		networkShadow.transform.SetParent(playerRoot.transform, true);
-		SkillUsed += skill => Debug.Log(skill.name);
 	}
 
 	private void OnDisable() {

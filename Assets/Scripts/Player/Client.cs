@@ -7,6 +7,8 @@ using Unity.Collections;
 public class Client: NetworkBehaviour {
 	public Player player;
 	public Server server;
+	public PlayerAnimations animations;
+	public PlayerCursor cursor;
 	public InputActionAsset inputActions;
 	public Camera cam;
 	public CameraController camController;
@@ -15,7 +17,6 @@ public class Client: NetworkBehaviour {
 	private Vector3 inputDirection;
 	private Vector3 direction;
 	private Vector2 look;
-	private bool block;
 	private Vector3 lastPositionSent;
 	private Vector3 lastDirectionSent;
 
@@ -140,18 +141,17 @@ public class Client: NetworkBehaviour {
 	}
 
 	public async void UseSkill(int slotIndex) {
-		GetComponent<PlayerAnimations>().Animator.SetBool("Attack", true);
+		animations.Animator.SetBool("Attack", true);
 		await Task.Delay(300);
-		var cursor = GetComponent<PlayerCursor>().Position;
-		player.UseSkill(Game.Skills.elements[0].skills[slotIndex], cursor);
+		player.UseSkill(Game.Skills.elements[0].skills[slotIndex], cursor.Position);
 	}
 
 	public void StartBlock(InputAction.CallbackContext context) {
-		block = true;
+		animations.Animator.SetBool("Block", true);
 	}
 
 	public void StopBlock(InputAction.CallbackContext context) {
-		block = false;
+		animations.Animator.SetBool("Block", false);
 	}
 
 	public void Jump(InputAction.CallbackContext context) {
