@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: -7326193019154016585}
   - component: {fileID: -346168184870665623}
   - component: {fileID: 2263400618342794246}
+  - component: {fileID: 6339195900674787528}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -482,7 +483,6 @@ MonoBehaviour:
   controller: {fileID: 2119036363929754220}
   gravity: {fileID: -7326193019154016585}
   moveSpeed: 4
-  jumpHeight: 0.7
   model: {fileID: 4304170728917831478}
   modelYOffset: 0.03
   networkShadow: {fileID: 8499634735427984156}
@@ -505,7 +505,6 @@ MonoBehaviour:
   cam: {fileID: 5283804284090617033}
   camController: {fileID: 5924383185328376581}
   model: {fileID: 4304170728917831478}
-  animator: {fileID: 7879980679939085644}
   rotationSpeed: 10
 --- !u!114 &838697470268910736
 MonoBehaviour:
@@ -537,7 +536,6 @@ MonoBehaviour:
   player: {fileID: 5014205834473804560}
   cam: {fileID: 5283804284090617033}
   model: {fileID: 4304170728917831478}
-  animator: {fileID: 7879980679939085644}
   rotationSpeed: 10
   movementPrediction: 0.15
 --- !u!114 &5780932374599328331
@@ -583,8 +581,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e55d4d1c6647fd44ba3bb525c5ff72d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 7879980679939085644}
-  player: {fileID: 5014205834473804560}
+  Animator: {fileID: 7879980679939085644}
+  Player: {fileID: 5014205834473804560}
+  fire: 0
+  block: 0
 --- !u!114 &2263400618342794246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -599,6 +599,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 7127151718488009340}
   rightHand: {fileID: 2450532859686471941}
+--- !u!114 &6339195900674787528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403352713402487987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e9afe6791e6c3e4ab38c978f490a558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 65
+  Cam: {fileID: 5283804284090617033}
+  Position: {x: 0, y: 0, z: 0}
 --- !u!1 &8499634735427984156
 GameObject:
   m_ObjectHideFlags: 0

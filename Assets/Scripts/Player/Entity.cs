@@ -17,6 +17,10 @@ public class Entity : NetworkBehaviour {
 		Quaternion skillRotation = Quaternion.identity;
 
 		switch(skill.position) {
+			case SkillPositionType.Cursor:
+				skillPosition = cursor;
+				break;
+
 			case SkillPositionType.Hands:
 				skillPosition = skeleton.handsCenter;
 				break;

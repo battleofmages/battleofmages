@@ -2690,7 +2690,7 @@ MonoBehaviour:
     PlayerPrefab: {fileID: 5403352713402487987, guid: 0898049371bea454dbcffc76ba58bd36,
       type: 3}
     NetworkPrefabs: []
-    TickRate: 50
+    TickRate: 100
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 1
     ConnectionData: 
@@ -5116,8 +5116,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 363823020}
   m_HandleRect: {fileID: 363823019}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.19435537
+  m_Value: 1
+  m_Size: 0.1943554
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5510,6 +5510,11 @@ MonoBehaviour:
         type: 3}
       position: 1
       rotation: 1
+    - name: Blizzard
+      prefab: {fileID: 7816935490880047551, guid: 0835fe5703761484eaf20f39066b4db2,
+        type: 3}
+      position: 0
+      rotation: 0
 --- !u!4 &1441638004
 Transform:
   m_ObjectHideFlags: 0

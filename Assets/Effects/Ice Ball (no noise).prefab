@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8943890232778162718
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1563332070489109486, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: m_Name
+      value: Ice Ball (no noise)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1563332070489109491, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1563332070489109491, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1563332070489109491, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1563332070489109491, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350921640376964612, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: NoiseModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350921640376964612, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: NoiseModule.quality
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350921640376964612, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: InitialModule.size3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350921640376964612, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: NoiseModule.strength.scalar
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350921640376964612, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350921640376964612, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350921640376964612, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350921640376964612, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350921640376964619, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: m_MaxParticleSize
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350921640376964619, guid: e4e283392e7e1f54dac5f75170bda24f,
+        type: 3}
+      propertyPath: m_RenderAlignment
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: e4e283392e7e1f54dac5f75170bda24f, type: 3}

@@ -15,7 +15,6 @@ public class Client: NetworkBehaviour {
 	private Vector3 inputDirection;
 	private Vector3 direction;
 	private Vector2 look;
-	private bool fire;
 	private bool block;
 	private Vector3 lastPositionSent;
 	private Vector3 lastDirectionSent;
@@ -121,40 +120,30 @@ public class Client: NetworkBehaviour {
 	}
 
 	public void Skill1(InputAction.CallbackContext context) {
-		UseSkill(1);
+		UseSkill(0);
 	}
 
 	public void Skill2(InputAction.CallbackContext context) {
-		UseSkill(2);
+		UseSkill(1);
 	}
 
 	public void Skill3(InputAction.CallbackContext context) {
-		UseSkill(3);
+		UseSkill(2);
 	}
 
 	public void Skill4(InputAction.CallbackContext context) {
-		UseSkill(4);
+		UseSkill(3);
 	}
 
 	public void Skill5(InputAction.CallbackContext context) {
-		UseSkill(5);
+		UseSkill(4);
 	}
 
 	public async void UseSkill(int slotIndex) {
-		fire = true;
+		GetComponent<PlayerAnimations>().Animator.SetBool("Attack", true);
 		await Task.Delay(300);
-
-		var layerMask = LayerMask.NameToLayer("Default");
-		Ray ray = cam.ScreenPointToRay(new Vector2(0.5f, 0.5f));
-		Vector3 cursor;
-
-		if(Physics.Raycast(ray, out RaycastHit hit, layerMask)) {
-			cursor = hit.point;
-		} else {
-			cursor = cam.transform.position + cam.transform.forward * 100f;
-		}
-
-		player.UseSkill(Game.Skills.elements[0].skills[0], cursor);
+		var cursor = GetComponent<PlayerCursor>().Position;
+		player.UseSkill(Game.Skills.elements[0].skills[slotIndex], cursor);
 	}
 
 	public void StartBlock(InputAction.CallbackContext context) {

@@ -11,15 +11,15 @@ public class Network : MonoBehaviour {
 	}
 
 	public void StartClient() {
-		Run("client", "Practice");
+		Run("client", "Arena");
 	}
 
 	public void StartServer() {
-		Run("server", "Practice");
+		Run("server", "Arena");
 	}
 
 	public void StartHost() {
-		Run("host", "Practice");
+		Run("host", "Arena");
 	}
 
 	public void Disconnect() {
@@ -31,7 +31,7 @@ public class Network : MonoBehaviour {
 		var offset = Random.insideUnitCircle * spawn.GetComponent<SphereCollider>().radius;
 		var position = new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);
 
-		callback(approve, null, approve, position, Quaternion.identity);
+		callback(approve, null, approve, position, spawn.rotation);
 	}
 
 	private void Run(string networkType, string sceneName) {

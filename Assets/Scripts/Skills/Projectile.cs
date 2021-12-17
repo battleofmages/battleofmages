@@ -19,7 +19,6 @@ public class Projectile : SkillInstance {
 	}
 
 	private void OnTriggerEnter(Collider other) {
-		Debug.Log($"Trigger: {other.name}");
 		Stop();
 		GameObject.Instantiate(explosion, transform.position, Quaternion.identity);
 	}
