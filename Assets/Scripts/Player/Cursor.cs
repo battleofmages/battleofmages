@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace BoM {
+namespace BoM.Player {
 	public class Cursor : MonoBehaviour {
 		public LayerMask LayerMask;
-		public Camera Cam;
+		public UnityEngine.Camera Cam;
 		public Vector3 Position;
 		private RaycastHit hit;
 

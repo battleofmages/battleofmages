@@ -2,7 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
 
-namespace BoM {
+namespace BoM.Player {
 	public class Server: NetworkBehaviour {
 		public Player player;
 		public Client client;

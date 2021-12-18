@@ -1,6 +1,6 @@
 {
-    "name": "Editor",
-    "rootNamespace": "BoM.Editor",
+    "name": "Skills",
+    "rootNamespace": "BoM.Skill",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

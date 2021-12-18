@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BoM {
+namespace BoM.Player {
 	public class Gravity : MonoBehaviour {
 		public CharacterController Controller;
 		public float JumpHeight;

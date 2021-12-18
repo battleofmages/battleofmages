@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BoM.Skills {
+namespace BoM.Skill {
 	[System.Serializable]
 	public class Element {
 		public string name;

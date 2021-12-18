@@ -1,20 +1,22 @@
 using UnityEngine;
 
-namespace BoM {
-	public class CameraController : MonoBehaviour {
+namespace BoM.Camera {
+	public class Controller : MonoBehaviour {
+		public float mouseSensitivity = 0.05f;
+		public float gamepadSensitivity = 100f;
 		public Vector2 angles;
 		private Vector2 mouse;
 		private Vector2 gamepad;
 
 		void Update() {
 			if(mouse != Vector2.zero) {
-				angles.x -= mouse.y * Game.Config.mouseSensitivity;
-				angles.y += mouse.x * Game.Config.mouseSensitivity;
+				angles.x -= mouse.y * mouseSensitivity;
+				angles.y += mouse.x * mouseSensitivity;
 			}
 			
 			if(gamepad != Vector2.zero) {
-				angles.x -= gamepad.y * Game.Config.gamepadSensitivity * Time.deltaTime;
-				angles.y += gamepad.x * Game.Config.gamepadSensitivity * Time.deltaTime;
+				angles.x -= gamepad.y * gamepadSensitivity * Time.deltaTime;
+				angles.y += gamepad.x * gamepadSensitivity * Time.deltaTime;
 			}
 			
 			transform.eulerAngles = angles;

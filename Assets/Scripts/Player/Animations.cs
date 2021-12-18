@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BoM {
+namespace BoM.Player {
 	public class Animations : MonoBehaviour {
 		public Animator Animator;
 		public Player Player;

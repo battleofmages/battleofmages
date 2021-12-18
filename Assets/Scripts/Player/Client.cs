@@ -4,15 +4,15 @@ using UnityEngine.InputSystem;
 using Unity.Netcode;
 using Unity.Collections;
 
-namespace BoM {
+namespace BoM.Player {
 	public class Client: NetworkBehaviour {
 		public Player player;
 		public Server server;
 		public Animations animations;
 		public Cursor cursor;
 		public InputActionAsset inputActions;
-		public Camera cam;
-		public CameraController camController;
+		public UnityEngine.Camera cam;
+		public Camera.Controller camController;
 		public Transform model;
 		public float rotationSpeed;
 		private Vector3 inputDirection;
@@ -22,13 +22,13 @@ namespace BoM {
 		private Vector3 lastDirectionSent;
 
 		private void OnEnable() {
-			CameraManager.AddCamera(cam);
+			Camera.Manager.AddCamera(cam);
 			Game.SetPlayerObject(gameObject);
 			Game.Start();
 		}
 
 		private void OnDisable() {
-			CameraManager.RemoveCamera(cam);
+			Camera.Manager.RemoveCamera(cam);
 			Game.Stop();
 			Game.SetPlayerObject(null);
 		}
@@ -144,7 +144,7 @@ namespace BoM {
 		public async void UseSkill(int slotIndex) {
 			animations.Animator.SetBool("Attack", true);
 			await Task.Delay(300);
-			player.UseSkill(Game.Skills.elements[0].skills[slotIndex], cursor.Position);
+			player.UseSkill(player.currentElement.skills[slotIndex], cursor.Position);
 		}
 
 		public void StartBlock(InputAction.CallbackContext context) {

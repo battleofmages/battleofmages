@@ -1,4 +1,4 @@
-namespace BoM {
+namespace BoM.Player {
 	public class Traits {
 		public int attack;
 		public int defense;

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace BoM.Skills {
+namespace BoM.Skill {
 	public class Manager : MonoBehaviour {
 		public List<Element> elements;
 

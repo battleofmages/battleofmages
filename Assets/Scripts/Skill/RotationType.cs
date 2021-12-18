@@ -1,4 +1,4 @@
-namespace BoM.Skills {
+namespace BoM.Skill {
 	public enum RotationType {
 		None,
 		ToCursor,

@@ -1,20 +1,20 @@
 using UnityEngine;
 using Unity.Netcode;
 
-namespace BoM {
+namespace BoM.Player {
 	public class Proxy : NetworkBehaviour {
 		public Player player;
-		public Camera cam;
+		public UnityEngine.Camera cam;
 		public Transform model;
 		public float rotationSpeed;
 		public float movementPrediction;
 
 		private void OnEnable() {
-			CameraManager.AddCamera(cam);
+			Camera.Manager.AddCamera(cam);
 		}
 
 		private void OnDisable() {
-			CameraManager.RemoveCamera(cam);
+			Camera.Manager.RemoveCamera(cam);
 		}
 
 		private void Update() {

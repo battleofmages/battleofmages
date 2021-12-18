@@ -1,24 +1,24 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace BoM {
-	public class CameraManager : MonoBehaviour {
-		public List<Camera> cameras;
-		public static CameraManager Instance { get; private set; }
+namespace BoM.Camera {
+	public class Manager : MonoBehaviour {
+		public List<UnityEngine.Camera> cameras;
+		public static Manager Instance { get; private set; }
 
 		private void Awake() {
 			Instance = this;
 		}
 
-		public static void AddCamera(Camera cam) {
+		public static void AddCamera(UnityEngine.Camera cam) {
 			Instance.cameras.Add(cam);
 		}
 
-		public static void RemoveCamera(Camera cam) {
+		public static void RemoveCamera(UnityEngine.Camera cam) {
 			Instance.cameras.Remove(cam);
 		}
 
-		public static void SetActiveCamera(Camera activeCam) {
+		public static void SetActiveCamera(UnityEngine.Camera activeCam) {
 			foreach(var cam in Instance.cameras) {
 				if(cam == activeCam) {
 					cam.enabled = true;

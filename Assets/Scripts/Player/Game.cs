@@ -1,23 +1,21 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace BoM {
+namespace BoM.Player {
 	public class Game : MonoBehaviour {
 		public static Game Instance { get; private set; }
 
 		public static Player Player { get{ return Instance.player; } }
 		public static Client Client { get{ return Instance.client; } }
-		public static Skills.Manager Skills { get{ return Instance.skills; } }
+		public static Skill.Manager Skills { get{ return Instance.skills; } }
 		public static GameObject Menu { get{ return Instance.menu; } }
-		public static Config Config { get{ return Instance.config; } }
 		public static PlayerInput Input { get{ return Instance.input; } }
 		public static Latency Latency { get{ return Instance.latency; } }
 		public static UI.Chat.Chat Chat { get{ return Instance.chat; } }
 		public static UI.LatencyView LatencyView { get{ return Instance.latencyView; } }
 		
 		public GameObject menu;
-		public Config config;
-		public Skills.Manager skills;
+		public Skill.Manager skills;
 		public PlayerInput input;
 		public UI.Chat.Chat chat;
 		public UI.LatencyView latencyView;
@@ -51,7 +49,7 @@ namespace BoM {
 			UI.Manager.Deactivate();
 
 			// Swap camera to player camera
-			CameraManager.SetActiveCamera(Client.cam);
+			BoM.Camera.Manager.SetActiveCamera(Client.cam);
 
 			// Bind gameplay events
 			Input.actions["Move"].performed += Client.Move;
@@ -82,7 +80,7 @@ namespace BoM {
 			UI.Manager.Activate();
 
 			// Swap camera to default camera
-			CameraManager.SetActiveCamera(null);
+			BoM.Camera.Manager.SetActiveCamera(null);
 
 			// Unbind gameplay events
 			Input.actions["Move"].performed -= Client.Move;

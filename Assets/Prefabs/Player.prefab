@@ -125,9 +125,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3344642298164773739}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d6d70d6b6d1a941b8224e4f61499ec, type: 3}
+  m_Script: {fileID: 11500000, guid: ac706795144bbe7439e5dc089cbdcd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseSensitivity: 0.05
+  gamepadSensitivity: 100
   angles: {x: 0, y: 0}
 --- !u!1 &3759314853037806794
 GameObject:
@@ -599,7 +601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LayerMask:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 193
   Cam: {fileID: 5283804284090617033}
   Position: {x: 0, y: 0, z: 0}
 --- !u!114 &2263400618342794246

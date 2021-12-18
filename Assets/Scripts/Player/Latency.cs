@@ -1,7 +1,7 @@
 using System;
 using Unity.Netcode;
 
-namespace BoM {
+namespace BoM.Player {
 	public class Latency : NetworkBehaviour {
 		public delegate void ReceivedHandler(long latencyIn, long latencyOut);
 		public event ReceivedHandler Received;

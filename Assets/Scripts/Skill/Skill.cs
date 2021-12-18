@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace BoM.Skills {
+namespace BoM.Skill {
 	[Serializable]
 	public class Skill {
 		public string name;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BoM {
+namespace BoM.Player {
 	public class Skeleton : MonoBehaviour {
 		public Transform leftHand;
 		public Transform rightHand;

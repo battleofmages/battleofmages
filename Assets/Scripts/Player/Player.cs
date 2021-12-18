@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using Unity.Netcode;
 
-namespace BoM {
+namespace BoM.Player {
 	public class Player : Entity, Core.IPlayer {
 		public NetworkObject networkObject;
 		public TextMeshPro label;
@@ -53,6 +53,7 @@ namespace BoM {
 			}
 
 			RemotePosition = transform.position;
+			elements = Game.Skills.elements;
 			model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
 			EnableNetworkComponents();
 			Register();
@@ -92,12 +93,10 @@ namespace BoM {
 
 		private void Register() {
 			Network.PlayerManager.Add(this);
-			Game.Chat.Write("System", $"{Name} connected.");
 		}
 
 		private void Unregister() {
 			Network.PlayerManager.Remove(this);
-			Game.Chat.Write("System", $"{Name} disconnected.");
 		}
 
 		public void Move(Vector3 direction) {

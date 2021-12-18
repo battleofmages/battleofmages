@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BoM.Skills {
+namespace BoM.Skill {
 	public class SpawnProjectiles : Instance {
 		public GameObject projectile;
 		public Transform spawn;
