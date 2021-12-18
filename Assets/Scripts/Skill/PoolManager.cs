@@ -19,7 +19,7 @@ namespace BoM.Skill {
 				instance.gameObject.SetActive(false);
 			}, instance => {
 				GameObject.Destroy(instance.gameObject);
-			}, false, 32, 64);
+			}, false, 128, 128);
 
 			pools.Add(prefab, newPool);
 			return newPool;
