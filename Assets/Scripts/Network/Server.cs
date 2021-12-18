@@ -28,17 +28,14 @@ namespace BoM.Network {
 		}
 
 		public static void SceneLoaded(Scene scene, LoadSceneMode mode) {
-			Debug.Log($"Loaded {scene.name}");
 			spawn = GameObject.FindGameObjectWithTag("Spawn").transform;
 			Ready?.Invoke();
 		}
 
 		public static void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback) {
-			Debug.Log($"Approving {clientId}");
 			var approve = true;
 			var offset = Random.insideUnitCircle * spawn.GetComponent<SphereCollider>().radius;
 			var position = new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);
-			Debug.Log($"Done {clientId}");
 
 			callback(approve, null, approve, position, spawn.rotation);
 		}
