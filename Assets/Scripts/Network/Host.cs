@@ -1,4 +1,3 @@
-using UnityEngine.SceneManagement;
 using Unity.Netcode;
 
 namespace BoM.Network {

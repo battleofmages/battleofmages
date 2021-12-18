@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 1563332070489109486, guid: e4e283392e7e1f54dac5f75170bda24f,
         type: 3}
       propertyPath: m_Name
-      value: Ice Ball (no noise)
+      value: Blizzard Ice Ball
       objectReference: {fileID: 0}
     - target: {fileID: 1563332070489109491, guid: e4e283392e7e1f54dac5f75170bda24f,
         type: 3}

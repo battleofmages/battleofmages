@@ -9,8 +9,8 @@ namespace BoM.Network {
 		public static Transform spawn;
 
 		public static void Init() {
-			SceneManager.sceneLoaded += SceneLoaded;
 			NetworkManager.Singleton.ConnectionApprovalCallback += OnApprovalCheck;
+			SceneManager.sceneLoaded += SceneLoaded;
 			SceneManager.LoadScene("Arena", LoadSceneMode.Additive);
 		}
 
@@ -32,12 +32,10 @@ namespace BoM.Network {
 			Ready?.Invoke();
 		}
 
-		public static void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback) {
-			var approve = true;
+		public static void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callBack) {
 			var offset = Random.insideUnitCircle * spawn.GetComponent<SphereCollider>().radius;
 			var position = new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);
-
-			callback(approve, null, approve, position, spawn.rotation);
+			callBack(true, null, true, position, spawn.rotation);
 		}
 
 		public static void ClientPosition(ulong senderClientId, FastBufferReader reader) {

@@ -49,13 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520cda9ed87388b4b8d1f3b65afde865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1250
   rigidBody: {fileID: 1563332070489109485}
   collision: {fileID: -6710880726570859313}
-  particles: {fileID: 3350921640376964612}
-  explosion: {fileID: 247939221924084294, guid: c7a90301533c2db409475a1a381ae283,
-    type: 3}
   lighting: {fileID: 2170822309187934714}
+  particles: {fileID: 3350921640376964612}
+  explosion: {fileID: -3792816742812588411, guid: c7a90301533c2db409475a1a381ae283,
+    type: 3}
+  speed: 30
 --- !u!54 &1563332070489109485
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -69,7 +69,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
 --- !u!135 &-6710880726570859313

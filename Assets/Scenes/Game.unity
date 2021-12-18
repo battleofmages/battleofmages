@@ -4554,7 +4554,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 363823019}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.19435535
+  m_Size: 0.19435537
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4942,27 +4942,22 @@ MonoBehaviour:
   - name: Ice
     skills:
     - name: Ice Ball
-      prefab: {fileID: 1563332070489109486, guid: e4e283392e7e1f54dac5f75170bda24f,
+      prefab: {fileID: 1563332070489109484, guid: e4e283392e7e1f54dac5f75170bda24f,
         type: 3}
       position: 1
       rotation: 1
     - name: Blizzard
-      prefab: {fileID: 7816935490880047551, guid: 0835fe5703761484eaf20f39066b4db2,
+      prefab: {fileID: 7816935490880047549, guid: 0835fe5703761484eaf20f39066b4db2,
         type: 3}
       position: 0
       rotation: 0
     - name: Fire Ball
-      prefab: {fileID: 5475913262226543393, guid: 8e86128edd8f1c045bcf5c10e68d7b15,
+      prefab: {fileID: 5475913262226543395, guid: 8e86128edd8f1c045bcf5c10e68d7b15,
         type: 3}
       position: 1
       rotation: 1
   - name: Fire
-    skills:
-    - name: Fire Ball
-      prefab: {fileID: 5475913262226543393, guid: 8e86128edd8f1c045bcf5c10e68d7b15,
-        type: 3}
-      position: 1
-      rotation: 1
+    skills: []
 --- !u!4 &1441638004
 Transform:
   m_ObjectHideFlags: 0

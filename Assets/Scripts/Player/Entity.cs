@@ -41,8 +41,13 @@ namespace BoM.Player {
 
 					break;
 			}
+
+			var instance = skill.Instantiate();
+			instance.transform.position = skillPosition;
+			instance.transform.rotation = skillRotation;
+			instance.pool = skill.pool;
+			instance.Init();
 			
-			GameObject.Instantiate(skill.prefab, skillPosition, skillRotation);
 			SkillUsed?.Invoke(skill);
 		}
 	}
