@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace BoM.Skill {
+namespace BoM.Skill.Instances {
 	public class Projectile : Instance {
 		public float speed;
 		public Rigidbody rigidBody;

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace BoM.Player {
 	public class Cursor : MonoBehaviour {
 		public LayerMask LayerMask;
-		public UnityEngine.Camera Cam;
+		public Camera Cam;
 		public Vector3 Position;
 		private RaycastHit hit;
 

@@ -4,17 +4,17 @@ using Unity.Netcode;
 namespace BoM.Player {
 	public class Proxy : NetworkBehaviour {
 		public Player player;
-		public UnityEngine.Camera cam;
+		public Camera cam;
 		public Transform model;
 		public float rotationSpeed;
 		public float movementPrediction;
 
 		private void OnEnable() {
-			Camera.Manager.AddCamera(cam);
+			CameraManager.AddCamera(cam);
 		}
 
 		private void OnDisable() {
-			Camera.Manager.RemoveCamera(cam);
+			CameraManager.RemoveCamera(cam);
 		}
 
 		private void Update() {

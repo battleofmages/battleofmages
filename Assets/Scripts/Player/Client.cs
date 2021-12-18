@@ -11,8 +11,8 @@ namespace BoM.Player {
 		public Animations animations;
 		public Cursor cursor;
 		public InputActionAsset inputActions;
-		public UnityEngine.Camera cam;
-		public Camera.Controller camController;
+		public Camera cam;
+		public CameraController camController;
 		public Transform model;
 		public float rotationSpeed;
 		private Vector3 inputDirection;
@@ -22,13 +22,13 @@ namespace BoM.Player {
 		private Vector3 lastDirectionSent;
 
 		private void OnEnable() {
-			Camera.Manager.AddCamera(cam);
+			CameraManager.AddCamera(cam);
 			Game.SetPlayerObject(gameObject);
 			Game.Start();
 		}
 
 		private void OnDisable() {
-			Camera.Manager.RemoveCamera(cam);
+			CameraManager.RemoveCamera(cam);
 			Game.Stop();
 			Game.SetPlayerObject(null);
 		}

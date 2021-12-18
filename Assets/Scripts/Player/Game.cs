@@ -49,7 +49,7 @@ namespace BoM.Player {
 			UI.Manager.Deactivate();
 
 			// Swap camera to player camera
-			BoM.Camera.Manager.SetActiveCamera(Client.cam);
+			CameraManager.SetActiveCamera(Client.cam);
 
 			// Bind gameplay events
 			Input.actions["Move"].performed += Client.Move;
@@ -80,7 +80,7 @@ namespace BoM.Player {
 			UI.Manager.Activate();
 
 			// Swap camera to default camera
-			BoM.Camera.Manager.SetActiveCamera(null);
+			CameraManager.SetActiveCamera(null);
 
 			// Unbind gameplay events
 			Input.actions["Move"].performed -= Client.Move;

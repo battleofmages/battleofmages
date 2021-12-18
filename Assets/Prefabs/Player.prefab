@@ -125,12 +125,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3344642298164773739}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac706795144bbe7439e5dc089cbdcd82, type: 3}
+  m_Script: {fileID: 11500000, guid: 5edcc9f203dcd66489409bd17c65c298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 0.05
   gamepadSensitivity: 100
-  angles: {x: 0, y: 0}
 --- !u!1 &3759314853037806794
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,6 +480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeleton: {fileID: 2263400618342794246}
+  currentElementIndex: 0
   networkObject: {fileID: 1234122460082155176}
   label: {fileID: 8341782346551636643}
   controller: {fileID: 2119036363929754220}

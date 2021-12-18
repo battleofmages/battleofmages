@@ -16,15 +16,15 @@ namespace BoM.UI {
 		}
 
 		public static void Activate() {
-			UnityEngine.Cursor.visible = true;
-			UnityEngine.Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
 			PlayerInput.SwitchCurrentActionMap("UI");
 			Chat.inputField.GetComponent<CanvasGroup>().alpha = 1f;
 		}
 
 		public static void Deactivate() {
-			UnityEngine.Cursor.visible = false;
-			UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+			Cursor.visible = false;
+			Cursor.lockState = CursorLockMode.Locked;
 			PlayerInput.SwitchCurrentActionMap("Player");
 			Chat.inputField.GetComponent<CanvasGroup>().alpha = 0.5f;
 			Chat.inputField.DeactivateInputField();
