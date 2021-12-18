@@ -1,12 +1,14 @@
 using UnityEngine;
 
-public class Skeleton : MonoBehaviour {
-	public Transform leftHand;
-	public Transform rightHand;
+namespace BoM {
+	public class Skeleton : MonoBehaviour {
+		public Transform leftHand;
+		public Transform rightHand;
 
-	public Vector3 handsCenter {
-		get {
-			return (leftHand.position + rightHand.position) / 2f;
+		public Vector3 handsCenter {
+			get {
+				return (leftHand.position + rightHand.position) / 2f;
+			}
 		}
 	}
 }

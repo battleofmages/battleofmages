@@ -1,0 +1,17 @@
+{
+    "name": "Network",
+    "rootNamespace": "BoM.Network",
+    "references": [
+        "GUID:1491147abca9d7d4bb7105af628b223e",
+        "GUID:21a2195a992bc4e499b8b150197950a7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

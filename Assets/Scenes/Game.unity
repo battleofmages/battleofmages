@@ -773,12 +773,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa83a3cb0441a4439f0a6c53af6d1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chat: {fileID: 569661777}
   menu: {fileID: 221618254}
   config: {fileID: 1679841008}
   skills: {fileID: 1441638003}
-  latencyView: {fileID: 954421972}
   input: {fileID: 878207911}
+  chat: {fileID: 569661777}
+  latencyView: {fileID: 954421972}
 --- !u!4 &198852181
 Transform:
   m_ObjectHideFlags: 0
@@ -1617,9 +1617,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 374794451}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 278faac4a5f06ac45bcc2aed8d601f51, type: 3}
+  m_Script: {fileID: 11500000, guid: 7821206d859eacd4f99f8831e20c9ca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 878207911}
+  chat: {fileID: 569661777}
 --- !u!1 &457222254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2003,7 +2005,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 619955427}
+      objectReference: {fileID: 0}
     - target: {fileID: 6478510207085027830, guid: 821a47670b8702d4cbe5916e5eaaed67,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -2100,7 +2102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 569661776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4365ec01124b52429d70ea307a90420, type: 3}
+  m_Script: {fileID: 11500000, guid: 536bae946142d784588c637e97e3c753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 488850495}
@@ -2355,7 +2357,6 @@ GameObject:
   - component: {fileID: 619955426}
   - component: {fileID: 619955425}
   - component: {fileID: 619955427}
-  - component: {fileID: 619955428}
   m_Layer: 0
   m_Name: Network
   m_TagString: Untagged
@@ -2425,7 +2426,7 @@ MonoBehaviour:
     EnableTimeResync: 0
     TimeResyncInterval: 30
     EnsureNetworkVariableLengthSafety: 0
-    EnableSceneManagement: 0
+    EnableSceneManagement: 1
     ForceSamePrefabs: 1
     RecycleNetworkIds: 1
     NetworkIdRecycleDelay: 120
@@ -2442,22 +2443,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 619955423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6662d2e9802f02a41bee7a3ef55ecba6, type: 3}
+  m_Script: {fileID: 11500000, guid: a3725d26e5d0a6b408be50d24b3675ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &619955428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 619955423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80ece6f90f1e82448b484db307cfaa85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  network: {fileID: 619955427}
 --- !u!1 &775903669
 GameObject:
   m_ObjectHideFlags: 0
@@ -3710,7 +3698,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 619955427}
+      objectReference: {fileID: 0}
     - target: {fileID: 6478510207085027830, guid: 821a47670b8702d4cbe5916e5eaaed67,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -6098,7 +6086,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 619955427}
+      objectReference: {fileID: 0}
     - target: {fileID: 6478510207085027830, guid: 821a47670b8702d4cbe5916e5eaaed67,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -6745,7 +6733,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 619955427}
+      objectReference: {fileID: 0}
     - target: {fileID: 6478510207085027830, guid: 821a47670b8702d4cbe5916e5eaaed67,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState

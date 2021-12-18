@@ -479,6 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeleton: {fileID: 2263400618342794246}
+  networkObject: {fileID: 1234122460082155176}
   label: {fileID: 8341782346551636643}
   controller: {fileID: 2119036363929754220}
   gravity: {fileID: -7326193019154016585}
@@ -570,7 +571,6 @@ MonoBehaviour:
   AllowJumpTime: 0.1
   AllowJumpCloseToGroundTime: 0.2
   MaxGroundDistance: 0.3
-  Speed: 0
 --- !u!114 &-346168184870665623
 MonoBehaviour:
   m_ObjectHideFlags: 0

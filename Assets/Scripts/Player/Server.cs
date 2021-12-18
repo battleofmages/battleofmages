@@ -2,53 +2,55 @@ using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
 
-public class Server: NetworkBehaviour {
-	public Player player;
-	public Client client;
-	public Proxy proxy;
+namespace BoM {
+	public class Server: NetworkBehaviour {
+		public Player player;
+		public Client client;
+		public Proxy proxy;
 
-	private Vector3 lastPositionSent;
-	private Vector3 lastDirectionSent;
+		private Vector3 lastPositionSent;
+		private Vector3 lastDirectionSent;
 
-	private void FixedUpdate() {
-		BroadcastPosition();
-	}
-
-	public void BroadcastPosition() {
-		if(player.RemotePosition == lastPositionSent && player.RemoteDirection == lastDirectionSent) {
-			return;
+		private void FixedUpdate() {
+			BroadcastPosition();
 		}
 
-		using FastBufferWriter writer = new FastBufferWriter(32, Allocator.Temp);
-		writer.WriteValueSafe(player.ClientId);
-		writer.WriteValueSafe(player.RemotePosition);
-		writer.WriteValueSafe(player.RemoteDirection);
+		public void BroadcastPosition() {
+			if(player.RemotePosition == lastPositionSent && player.RemoteDirection == lastDirectionSent) {
+				return;
+			}
 
-		var delivery = NetworkDelivery.UnreliableSequenced;
+			using FastBufferWriter writer = new FastBufferWriter(32, Allocator.Temp);
+			writer.WriteValueSafe(player.ClientId);
+			writer.WriteValueSafe(player.RemotePosition);
+			writer.WriteValueSafe(player.RemoteDirection);
 
-		if(player.RemoteDirection == Vector3.zero) {
-			delivery = NetworkDelivery.Reliable;
+			var delivery = NetworkDelivery.UnreliableSequenced;
+
+			if(player.RemoteDirection == Vector3.zero) {
+				delivery = NetworkDelivery.Reliable;
+			}
+
+			NetworkManager.Singleton.CustomMessagingManager.SendNamedMessageToAll("server position", writer, delivery);
+
+			lastPositionSent = player.RemotePosition;
+			lastDirectionSent = player.RemoteDirection;
 		}
 
-		NetworkManager.Singleton.CustomMessagingManager.SendNamedMessageToAll("server position", writer, delivery);
+	#region RPC
+		[ServerRpc]
+		public void JumpServerRpc() {
+			if(!player.gravity.Jump()) {
+				return;
+			}
 
-		lastPositionSent = player.RemotePosition;
-		lastDirectionSent = player.RemoteDirection;
-	}
-
-#region RPC
-	[ServerRpc]
-	public void JumpServerRpc() {
-		if(!player.gravity.Jump()) {
-			return;
+			proxy.JumpClientRpc();
 		}
 
-		proxy.JumpClientRpc();
+		[ServerRpc]
+		public void NewMessageServerRpc(string message) {
+			client.NewMessageClientRpc(message);
+		}
+	#endregion
 	}
-
-	[ServerRpc]
-	public void NewMessageServerRpc(string message) {
-		client.NewMessageClientRpc(message);
-	}
-#endregion
 }
