@@ -24,5 +24,14 @@ namespace BoM.Skill {
 			pools.Add(prefab, newPool);
 			return newPool;
 		}
+
+		public static Instance Instantiate(Instance prefab, Vector3 position, Quaternion rotation) {
+			var pool = GetPool(prefab);
+			var instance = pool.Get();
+			instance.transform.position = position;
+			instance.transform.rotation = rotation;
+			instance.pool = pool;
+			return instance;
+		}
 	}
 }

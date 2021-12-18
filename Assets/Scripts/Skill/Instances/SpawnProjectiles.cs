@@ -8,6 +8,7 @@ namespace BoM.Skill.Instances {
 		public float radius;
 		public float interval;
 		public float duration;
+		public bool randomizeAngle;
 
 		private float totalTime;
 		private float intervalTime;
@@ -41,7 +42,16 @@ namespace BoM.Skill.Instances {
 			var offset = new Vector3(random.x, 0f, random.y);
 			var instance = projectilePool.Get();
 			instance.transform.position = spawn.position + offset;
-			instance.transform.rotation = spawn.rotation;
+
+			if(randomizeAngle) {
+				var targetPoint = Random.insideUnitCircle * radius;
+				var targetOffset = new Vector3(targetPoint.x, 0f, targetPoint.y);
+				var target = transform.position + targetOffset;
+				instance.transform.rotation = Quaternion.LookRotation(target - instance.transform.position);
+			} else {
+				instance.transform.rotation = spawn.rotation;
+			}
+
 			instance.skill = skill;
 			instance.pool = projectilePool;
 			instance.Init();

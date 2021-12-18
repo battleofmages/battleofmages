@@ -82,3 +82,4 @@ MonoBehaviour:
   radius: 2
   interval: 0.1
   duration: 2
+  randomizeAngle: 1

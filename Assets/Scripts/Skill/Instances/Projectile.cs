@@ -53,11 +53,8 @@ namespace BoM.Skill.Instances {
 
 		private void OnCollisionEnter(Collision other) {
 			Die();
-			var explosionPool = PoolManager.GetPool(explosion);
-			var instance = explosionPool.Get();
-			instance.transform.position = transform.position;
+			var instance = PoolManager.Instantiate(explosion, transform.position, Quaternion.identity);
 			instance.skill = skill;
-			instance.pool = explosionPool;
 			instance.Init();
 		}
 
