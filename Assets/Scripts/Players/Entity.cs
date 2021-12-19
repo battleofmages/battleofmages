@@ -1,3 +1,4 @@
+using BoM.Skills;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
@@ -8,33 +9,33 @@ namespace BoM.Players {
 		public Traits traits;
 
 		[System.NonSerialized]
-		public List<Skills.Element> elements = new List<Skills.Element>();
+		public List<Element> elements = new List<Element>();
 
 		[System.NonSerialized]
 		public int currentElementIndex;
 
-		public Skills.Element currentElement {
+		public Element currentElement {
 			get {
 				return elements[currentElementIndex];
 			}
 		}
 
-		public void UseSkill(Skills.Skill skill, Vector3 cursor) {
+		public void UseSkill(Skill skill, Vector3 cursor) {
 			Vector3 skillPosition = Vector3.zero;
 			Quaternion skillRotation = Quaternion.identity;
 
 			switch(skill.position) {
-				case Skills.PositionType.Cursor:
+				case PositionType.Cursor:
 					skillPosition = cursor;
 					break;
 
-				case Skills.PositionType.Hands:
+				case PositionType.Hands:
 					skillPosition = skeleton.handsCenter;
 					break;
 			}
 
 			switch(skill.rotation) {
-				case Skills.RotationType.ToCursor:
+				case RotationType.ToCursor:
 					var towardsCursor = cursor - skillPosition;
 
 					if(towardsCursor != Vector3.zero) {

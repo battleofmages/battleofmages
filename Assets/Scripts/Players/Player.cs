@@ -15,7 +15,6 @@ namespace BoM.Players {
 		public Camera cam;
 		public Gravity gravity;
 		public Latency latency;
-		
 		public float moveSpeed;
 		public Transform model;
 		public float modelYOffset;
@@ -23,7 +22,7 @@ namespace BoM.Players {
 		public Account Account { get; private set; }
 		public ulong ClientId { get; set; }
 		public Vector3 RemoteDirection { get; set; }
-		private Vector3 realPosition;
+		private Vector3 remotePosition;
 
 		public string Name {
 			get {
@@ -44,11 +43,11 @@ namespace BoM.Players {
 
 		public Vector3 RemotePosition {
 			get {
-				return realPosition;
+				return remotePosition;
 			}
 
 			set {
-				realPosition = value;
+				remotePosition = value;
 				networkShadow.transform.position = value;
 			}
 		}

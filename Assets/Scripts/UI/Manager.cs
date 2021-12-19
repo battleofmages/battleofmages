@@ -1,3 +1,4 @@
+using BoM.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,15 +20,25 @@ namespace BoM.UI {
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
 			PlayerInput.SwitchCurrentActionMap("UI");
-			Chat.inputField.GetComponent<CanvasGroup>().alpha = 1f;
+			var inputFieldCanvas = Chat.inputField.GetComponent<CanvasGroup>();
+
+			inputFieldCanvas.Fade(
+				0.15f,
+				value => inputFieldCanvas.alpha = value
+			);
 		}
 
 		public static void Deactivate() {
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
 			PlayerInput.SwitchCurrentActionMap("Player");
-			Chat.inputField.GetComponent<CanvasGroup>().alpha = 0.5f;
 			Chat.inputField.DeactivateInputField();
+			var inputFieldCanvas = Chat.inputField.GetComponent<CanvasGroup>();
+
+			inputFieldCanvas.Fade(
+				0.15f,
+				value => inputFieldCanvas.alpha = 1f - value
+			);
 		}
 
 		// Overloads to use it in input actions

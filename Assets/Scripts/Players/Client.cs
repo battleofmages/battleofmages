@@ -11,7 +11,6 @@ namespace BoM.Players {
 		public Animations animations;
 		public Cursor cursor;
 		public InputActionAsset inputActions;
-		
 		public Cameras.Controller camController;
 		public Transform model;
 		public float rotationSpeed;

@@ -9,14 +9,18 @@ namespace BoM.Players {
 		public long latency { get; private set; }
 		private long roundTripTime;
 		private long pingTime;
-		private ulong[] ownerOnly;
+		private ClientRpcParams toOwner;
 
 		private IEnumerator Start() {
 			if(!IsServer) {
 				yield break;
 			}
 
-			ownerOnly = new ulong[]{ OwnerClientId };
+			toOwner = new ClientRpcParams {
+				Send = new ClientRpcSendParams {
+					TargetClientIds = new ulong[]{ OwnerClientId }
+				}
+			};
 
 			while(true) {
 				Ping();
@@ -26,13 +30,6 @@ namespace BoM.Players {
 
 		private void Ping() {
 			pingTime = System.DateTime.Now.Ticks / System.TimeSpan.TicksPerMillisecond;
-
-			var toOwner = new ClientRpcParams {
-				Send = new ClientRpcSendParams {
-					TargetClientIds = ownerOnly
-				}
-			};
-
 			PingClientRpc(pingTime, toOwner);
 		}
 
