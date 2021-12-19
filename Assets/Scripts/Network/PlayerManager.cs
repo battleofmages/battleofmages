@@ -12,12 +12,12 @@ namespace BoM.Network {
 			}
 		}
 
-		public static void Add(IPlayer player) {
+		public static void AddPlayer(IPlayer player) {
 			players.Add(player);
 			clientIdToPlayer.Add(player.ClientId, player);
 		}
 
-		public static void Remove(IPlayer player) {
+		public static void RemovePlayer(IPlayer player) {
 			players.Remove(player);
 			clientIdToPlayer.Remove(player.ClientId);
 		}

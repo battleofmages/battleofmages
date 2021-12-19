@@ -10,6 +10,7 @@ namespace BoM.Players {
 
 		public NetworkObject networkObject;
 		public CharacterController controller;
+		public Camera cam;
 		public Gravity gravity;
 		
 		public float moveSpeed;

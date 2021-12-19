@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace BoM.Players {
+namespace BoM {
 	public class CameraManager : MonoBehaviour {
 		public List<Camera> cameras;
 		public static CameraManager Instance { get; private set; }
@@ -24,11 +24,7 @@ namespace BoM.Players {
 					continue;
 				}
 				
-				if(cam == activeCam) {
-					cam.enabled = true;
-				} else {
-					cam.enabled = false;
-				}
+				cam.enabled = (cam == activeCam);
 			}
 
 			if(activeCam == null) {

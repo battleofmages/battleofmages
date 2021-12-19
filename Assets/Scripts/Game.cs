@@ -19,7 +19,8 @@ namespace BoM {
 		}
 
 		private void OnPlayerAdded(Players.Player player) {
-			Network.PlayerManager.Add(player);
+			Network.PlayerManager.AddPlayer(player);
+			CameraManager.AddCamera(player.cam);
 
 			if(player.IsOwner) {
 				SetPlayer(player);
@@ -28,7 +29,8 @@ namespace BoM {
 		}
 
 		private void OnPlayerRemoved(Players.Player player) {
-			Network.PlayerManager.Remove(player);
+			Network.PlayerManager.RemovePlayer(player);
+			CameraManager.RemoveCamera(player.cam);
 
 			if(player.IsOwner) {
 				Unbind();
@@ -60,7 +62,7 @@ namespace BoM {
 			UI.Manager.Deactivate();
 
 			// Swap camera to player camera
-			Players.CameraManager.SetActiveCamera(client.cam);
+			CameraManager.SetActiveCamera(client.player.cam);
 
 			// Bind gameplay events
 			input.actions["Move"].performed += client.Move;
@@ -91,7 +93,7 @@ namespace BoM {
 			UI.Manager.Activate();
 
 			// Swap camera to default camera
-			Players.CameraManager.SetActiveCamera(null);
+			CameraManager.SetActiveCamera(null);
 
 			// Unbind gameplay events
 			input.actions["Move"].performed -= client.Move;

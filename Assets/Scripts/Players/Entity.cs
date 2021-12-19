@@ -5,17 +5,19 @@ using Unity.Netcode;
 namespace BoM.Players {
 	public class Entity : NetworkBehaviour {
 		public Skeleton skeleton;
+		public Traits traits;
+
+		[System.NonSerialized]
+		public List<Skills.Element> elements = new List<Skills.Element>();
+
+		[System.NonSerialized]
 		public int currentElementIndex;
+
 		public Skills.Element currentElement {
 			get {
 				return elements[currentElementIndex];
 			}
 		}
-
-		public Traits traits;
-
-		[System.NonSerialized]
-		public List<Skills.Element> elements = new List<Skills.Element>();
 
 		public void UseSkill(Skills.Skill skill, Vector3 cursor) {
 			Vector3 skillPosition = Vector3.zero;

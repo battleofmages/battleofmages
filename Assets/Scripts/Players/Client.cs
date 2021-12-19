@@ -11,7 +11,7 @@ namespace BoM.Players {
 		public Animations animations;
 		public Cursor cursor;
 		public InputActionAsset inputActions;
-		public Camera cam;
+		
 		public CameraController camController;
 		public Transform model;
 		public float rotationSpeed;
@@ -20,18 +20,6 @@ namespace BoM.Players {
 		private Vector2 look;
 		private Vector3 lastPositionSent;
 		private Vector3 lastDirectionSent;
-
-		private void OnEnable() {
-			CameraManager.AddCamera(cam);
-			// Game.SetPlayerObject(gameObject);
-			// Game.Start();
-		}
-
-		private void OnDisable() {
-			CameraManager.RemoveCamera(cam);
-			// Game.Stop();
-			// Game.SetPlayerObject(null);
-		}
 
 		private void Update() {
 			UpdateRotation();
@@ -43,7 +31,7 @@ namespace BoM.Players {
 		}
 
 		private void UpdatePosition() {
-			direction = cam.transform.TransformDirection(inputDirection);
+			direction = player.cam.transform.TransformDirection(inputDirection);
 			direction.y = 0f;
 			direction.Normalize();
 

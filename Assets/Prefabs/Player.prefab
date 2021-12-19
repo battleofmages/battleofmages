@@ -309,6 +309,7 @@ MonoBehaviour:
   currentElementIndex: 0
   networkObject: {fileID: 1234122460082155176}
   controller: {fileID: 2119036363929754220}
+  cam: {fileID: 5283804284090617033}
   gravity: {fileID: -7326193019154016585}
   moveSpeed: 4
   model: {fileID: 4304170728917831478}
@@ -332,7 +333,6 @@ MonoBehaviour:
   cursor: {fileID: 6339195900674787528}
   inputActions: {fileID: -944628639613478452, guid: a4bb12be09344a54c9816b89f0cc3675,
     type: 3}
-  cam: {fileID: 5283804284090617033}
   camController: {fileID: 5924383185328376581}
   model: {fileID: 4304170728917831478}
   rotationSpeed: 10
@@ -364,7 +364,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5014205834473804560}
-  cam: {fileID: 5283804284090617033}
   model: {fileID: 4304170728917831478}
   rotationSpeed: 10
   movementPrediction: 0.15
