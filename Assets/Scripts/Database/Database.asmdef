@@ -1,0 +1,16 @@
+{
+    "name": "Database",
+    "rootNamespace": "BoM.Database",
+    "references": [
+        "GUID:21a2195a992bc4e499b8b150197950a7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

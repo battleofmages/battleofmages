@@ -14,6 +14,11 @@ namespace BoM.UI {
 			var row = GameObject.Instantiate(rowPrefab);
 			row.player = player;
 			row.transform.SetParent(playersContainer, false);
+
+			if(canvasGroup.alpha == 0f) {
+				row.gameObject.SetActive(false);
+			}
+
 			rows.Add(player, row);
 		}
 
@@ -23,6 +28,8 @@ namespace BoM.UI {
 		}
 
 		public void Show(InputAction.CallbackContext context) {
+			EnableUpdates();
+
 			this.Fade(
 				0.15f,
 				value => canvasGroup.alpha = value,
@@ -34,8 +41,23 @@ namespace BoM.UI {
 			this.Fade(
 				0.15f,
 				value => canvasGroup.alpha = 1f - value,
-				() => canvasGroup.interactable = false
+				() => {
+					canvasGroup.interactable = false;
+					DisableUpdates();
+				}
 			);
+		}
+
+		private void EnableUpdates() {
+			foreach(var row in rows.Values) {
+				row.gameObject.SetActive(true);
+			}
+		}
+
+		private void DisableUpdates() {
+			foreach(var row in rows.Values) {
+				row.gameObject.SetActive(false);
+			}
 		}
 	}
 }

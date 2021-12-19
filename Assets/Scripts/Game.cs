@@ -14,6 +14,7 @@ namespace BoM {
 		private Players.Latency latency;
 
 		private void Awake() {
+			Players.Player.database = new Database.Memory();
 			Players.Player.Added += OnPlayerAdded;
 			Players.Player.Added += scoreboard.OnPlayerAdded;
 			Players.Player.Removed += OnPlayerRemoved;

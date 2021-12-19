@@ -1,9 +1,11 @@
+using BoM.Core;
 using System;
 using UnityEngine;
 using Unity.Netcode;
 
 namespace BoM.Players {
-	public class Player : Entity, Core.IPlayer {
+	public class Player : Entity, IPlayer {
+		public static IDatabase database;
 		public static event Action<Player> Added;
 		public static event Action<Player> Removed;
 		public static event Action<Player, string> MessageReceived;
@@ -18,7 +20,7 @@ namespace BoM.Players {
 		public Transform model;
 		public float modelYOffset;
 		public GameObject networkShadow;
-		public Core.Account Account { get; private set; }
+		public Account Account { get; private set; }
 		public ulong ClientId { get; set; }
 		public Vector3 RemoteDirection { get; set; }
 		private Vector3 realPosition;
@@ -52,15 +54,9 @@ namespace BoM.Players {
 		}
 
 		public override void OnNetworkSpawn() {
-			Account = new Core.Account("123", "Name 名前", "test@example.com");
+			Account = database.GetAccount("id1");
 			ClientId = networkObject.OwnerClientId;
-
-			if(IsOwner) {
-				Name = $"{Account.Nick} (ID: {ClientId})";
-			} else {
-				Name = $"{Account.Nick} (ID: {ClientId}, Proxy)";
-			}
-
+			Name = Account.Nick;
 			RemotePosition = transform.position;
 			model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
 			EnableNetworkComponents();
