@@ -96,6 +96,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Scoreboard",
+                    "type": "Button",
+                    "id": "6a956cd0-9844-4bfc-aa8e-66002280cbca",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Show cursor",
                     "type": "Button",
                     "id": "5215569f-9e14-4368-bf49-fc0723be72db",
@@ -444,6 +453,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Skill 5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d04f7913-19b4-4aa2-8277-be718893646f",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Scoreboard",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

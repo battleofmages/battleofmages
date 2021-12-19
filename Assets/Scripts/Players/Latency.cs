@@ -1,43 +1,74 @@
 using System;
 using Unity.Netcode;
+using UnityEngine;
+using System.Collections;
 
 namespace BoM.Players {
 	public class Latency : NetworkBehaviour {
-		public event Action<long, long> Received;
-		private long latencyIn;
-		private long latencyOut;
+		public event Action<long> Received;
+		public long latency { get; private set; }
+		private long roundTripTime;
+		private long pingTime;
+		private ulong[] ownerOnly;
 
-		private void Start() {
-			if(!IsOwner) {
-				return;
+		private IEnumerator Start() {
+			if(!IsServer) {
+				yield break;
 			}
 
-			InvokeRepeating("SendPing", 0f, 1f);
+			ownerOnly = new ulong[]{ OwnerClientId };
+
+			while(true) {
+				Ping();
+				yield return new WaitForSecondsRealtime(1f);
+			}
 		}
 
-		private void SendPing() {
-			var now = System.DateTime.Now.Ticks / System.TimeSpan.TicksPerMillisecond;
-			PingServerRpc(now);
-		}
+		private void Ping() {
+			pingTime = System.DateTime.Now.Ticks / System.TimeSpan.TicksPerMillisecond;
 
-		[ServerRpc]
-		public void PingServerRpc(long clientNow) {
-			var now = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-			latencyOut = now - clientNow;
-			PongClientRpc(now, latencyOut);
+			var toOwner = new ClientRpcParams {
+				Send = new ClientRpcSendParams {
+					TargetClientIds = ownerOnly
+				}
+			};
+
+			PingClientRpc(pingTime, toOwner);
 		}
 
 		[ClientRpc]
-		public void PongClientRpc(long serverNow, long latencyOut) {
-			this.latencyOut = latencyOut;
-
+		public void PingClientRpc(long serverNow, ClientRpcParams rpcParams = default) {
 			if(!IsOwner) {
 				return;
 			}
 
 			var now = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-			latencyIn = now - serverNow;
-			Received?.Invoke(latencyIn, this.latencyOut);
+			latency = now - serverNow;
+			PongServerRpc();
+		}
+
+		[ServerRpc]
+		public void PongServerRpc() {
+			var now = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+			roundTripTime = now - pingTime;
+			ReceiveRTTClientRpc(roundTripTime);
+
+			// This is not 100% correct because send and receive latency can be different,
+			// however it provides a decent approximation.
+			latency = roundTripTime / 2;
+		}
+
+		[ClientRpc]
+		public void ReceiveRTTClientRpc(long rtt) {
+			roundTripTime = rtt;
+
+			// This is not 100% correct because send and receive latency can be different,
+			// however it provides a decent approximation.
+			latency = roundTripTime / 2;
+			
+			if(IsOwner) {
+				Received?.Invoke(latency);
+			}
 		}
 	}
 }

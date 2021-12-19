@@ -12,7 +12,7 @@ namespace BoM.Players {
 		public Cursor cursor;
 		public InputActionAsset inputActions;
 		
-		public CameraController camController;
+		public Cameras.Controller camController;
 		public Transform model;
 		public float rotationSpeed;
 		private Vector3 inputDirection;

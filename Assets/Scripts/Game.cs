@@ -7,6 +7,7 @@ namespace BoM {
 		public Skills.Manager skills;
 		public PlayerInput input;
 		public UI.Chat chat;
+		public UI.Scoreboard scoreboard;
 		public UI.LatencyView latencyView;
 
 		private Players.Client client;
@@ -14,13 +15,15 @@ namespace BoM {
 
 		private void Awake() {
 			Players.Player.Added += OnPlayerAdded;
+			Players.Player.Added += scoreboard.OnPlayerAdded;
 			Players.Player.Removed += OnPlayerRemoved;
+			Players.Player.Removed += scoreboard.OnPlayerRemoved;
 			Players.Player.MessageReceived += OnMessageReceived;
 		}
 
 		private void OnPlayerAdded(Players.Player player) {
 			Network.PlayerManager.AddPlayer(player);
-			CameraManager.AddCamera(player.cam);
+			Cameras.Manager.AddCamera(player.cam);
 
 			if(player.IsOwner) {
 				SetPlayer(player);
@@ -30,7 +33,7 @@ namespace BoM {
 
 		private void OnPlayerRemoved(Players.Player player) {
 			Network.PlayerManager.RemovePlayer(player);
-			CameraManager.RemoveCamera(player.cam);
+			Cameras.Manager.RemoveCamera(player.cam);
 
 			if(player.IsOwner) {
 				Unbind();
@@ -62,7 +65,7 @@ namespace BoM {
 			UI.Manager.Deactivate();
 
 			// Swap camera to player camera
-			CameraManager.SetActiveCamera(client.player.cam);
+			Cameras.Manager.SetActiveCamera(client.player.cam);
 
 			// Bind gameplay events
 			input.actions["Move"].performed += client.Move;
@@ -77,6 +80,8 @@ namespace BoM {
 			input.actions["Block"].performed += client.StartBlock;
 			input.actions["Block"].canceled += client.StopBlock;
 			input.actions["Jump"].performed += client.Jump;
+			input.actions["Scoreboard"].performed += scoreboard.Show;
+			input.actions["Scoreboard"].canceled += scoreboard.Hide;
 			input.actions["Chat"].performed += UI.Manager.ActivateAndSelectChat;
 			input.actions["Show cursor"].performed += UI.Manager.Activate;
 
@@ -93,7 +98,7 @@ namespace BoM {
 			UI.Manager.Activate();
 
 			// Swap camera to default camera
-			CameraManager.SetActiveCamera(null);
+			Cameras.Manager.SetActiveCamera(null);
 
 			// Unbind gameplay events
 			input.actions["Move"].performed -= client.Move;
@@ -108,6 +113,8 @@ namespace BoM {
 			input.actions["Block"].performed -= client.StartBlock;
 			input.actions["Block"].canceled -= client.StopBlock;
 			input.actions["Jump"].performed -= client.Jump;
+			input.actions["Scoreboard"].performed -= scoreboard.Show;
+			input.actions["Scoreboard"].canceled -= scoreboard.Hide;
 			input.actions["Chat"].performed -= UI.Manager.ActivateAndSelectChat;
 			input.actions["Show cursor"].performed -= UI.Manager.Activate;
 

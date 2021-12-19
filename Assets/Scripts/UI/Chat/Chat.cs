@@ -1,3 +1,4 @@
+using BoM.Core;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -52,12 +53,18 @@ namespace BoM.UI {
 				return;
 			}
 
-			messages[0].text = $"<alpha=#66>[{channel}] <alpha=#FF>{message}";
-			messages[0].color = GetChannelColor(channel);
-			messages[0].transform.SetAsLastSibling();
+			var newMessage = messages[0];
+			newMessage.text = $"<alpha=#66>[{channel}] <alpha=#FF>{message}";
+			newMessage.color = GetChannelColor(channel);
+			newMessage.transform.SetAsLastSibling();
+
+			newMessage.Fade(
+				0.15f,
+				value => newMessage.alpha = value
+			);
 
 			// The last index becomes the latest message
-			messages[messages.Length-1] = messages[0];
+			messages[messages.Length-1] = newMessage;
 
 			// Update the remaining indices
 			for(int i = 0; i < messages.Length-1; i++) {

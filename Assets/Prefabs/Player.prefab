@@ -125,7 +125,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3344642298164773739}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5edcc9f203dcd66489409bd17c65c298, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b20bd7c75cd39a469404cc052a0ea0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 0.05
@@ -306,11 +306,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeleton: {fileID: 2263400618342794246}
-  currentElementIndex: 0
   networkObject: {fileID: 1234122460082155176}
   controller: {fileID: 2119036363929754220}
   cam: {fileID: 5283804284090617033}
   gravity: {fileID: -7326193019154016585}
+  latency: {fileID: 5780932374599328331}
   moveSpeed: 4
   model: {fileID: 4304170728917831478}
   modelYOffset: 0.03

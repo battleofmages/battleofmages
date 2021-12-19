@@ -1,7 +1,7 @@
 using UnityEngine;
 
-namespace BoM.Players {
-	public class CameraController : MonoBehaviour {
+namespace BoM.Cameras {
+	public class Controller : MonoBehaviour {
 		public float mouseSensitivity = 0.05f;
 		public float gamepadSensitivity = 100f;
 		

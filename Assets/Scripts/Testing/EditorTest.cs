@@ -2,7 +2,7 @@
 using UnityEngine;
 using ParrelSync;
 
-namespace BoM {
+namespace BoM.Testing {
 	public class EditorTest : MonoBehaviour {
 		private void Start() {
 			if(ClonesManager.IsClone()) {

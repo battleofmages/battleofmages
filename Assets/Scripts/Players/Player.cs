@@ -12,6 +12,7 @@ namespace BoM.Players {
 		public CharacterController controller;
 		public Camera cam;
 		public Gravity gravity;
+		public Latency latency;
 		
 		public float moveSpeed;
 		public Transform model;
@@ -20,7 +21,6 @@ namespace BoM.Players {
 		public Core.Account Account { get; private set; }
 		public ulong ClientId { get; set; }
 		public Vector3 RemoteDirection { get; set; }
-
 		private Vector3 realPosition;
 
 		public string Name {
@@ -31,6 +31,12 @@ namespace BoM.Players {
 			set {
 				gameObject.name = value;
 				networkShadow.gameObject.name = $"{value} - Shadow";
+			}
+		}
+
+		public long Latency {
+			get {
+				return latency.latency;
 			}
 		}
 
@@ -46,7 +52,7 @@ namespace BoM.Players {
 		}
 
 		public override void OnNetworkSpawn() {
-			Account = new Core.Account("123", "Test", "test@example.com");
+			Account = new Core.Account("123", "Name 名前", "test@example.com");
 			ClientId = networkObject.OwnerClientId;
 
 			if(IsOwner) {

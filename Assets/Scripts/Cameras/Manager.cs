@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace BoM {
-	public class CameraManager : MonoBehaviour {
+namespace BoM.Cameras {
+	public class Manager : MonoBehaviour {
 		public List<Camera> cameras;
-		public static CameraManager Instance { get; private set; }
+		public static Manager Instance { get; private set; }
 
 		private void Awake() {
 			Instance = this;
