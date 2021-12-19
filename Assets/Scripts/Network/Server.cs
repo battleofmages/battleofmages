@@ -4,8 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace BoM.Network {
 	public static class Server {
-		public static event ReadyHandler Ready;
-		public delegate void ReadyHandler();
+		public static event System.Action Ready;
 		public static Transform spawn;
 
 		public static void Init() {

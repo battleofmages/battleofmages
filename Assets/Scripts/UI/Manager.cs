@@ -6,10 +6,10 @@ namespace BoM.UI {
 		public static Manager Instance { get; private set; }
 		
 		public PlayerInput playerInput;
-		public Chat.Chat chat;
+		public Chat chat;
 
 		public static PlayerInput PlayerInput { get{ return Instance.playerInput; } }
-		public static Chat.Chat Chat { get{ return Instance.chat; } }
+		public static Chat Chat { get{ return Instance.chat; } }
 
 		private void Awake() {
 			Instance = this;

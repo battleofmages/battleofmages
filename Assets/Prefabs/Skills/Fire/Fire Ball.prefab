@@ -52,8 +52,7 @@ MonoBehaviour:
   rigidBody: {fileID: 5475913262226543394}
   collision: {fileID: 8976344405814092800}
   lighting: {fileID: 4642093316782192949}
-  particles: {fileID: 7356716912205431294}
-  explosion: {fileID: 2369334154927238470, guid: bb19f6052c8c93f498f52db2f9d37e1a,
+  explosionPrefab: {fileID: 2369334154927238470, guid: bb19f6052c8c93f498f52db2f9d37e1a,
     type: 3}
   speed: 30
 --- !u!54 &5475913262226543394
@@ -238,12 +237,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: a0d835ed7e01d6e47906ed956bff9bb5, type: 3}
---- !u!198 &7356716912205431294 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 5359465880376068665, guid: a0d835ed7e01d6e47906ed956bff9bb5,
-    type: 3}
-  m_PrefabInstance: {fileID: 3204569379592817607}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7356716912205431295 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5359465880376068664, guid: a0d835ed7e01d6e47906ed956bff9bb5,

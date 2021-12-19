@@ -1,0 +1,20 @@
+{
+    "name": "Player",
+    "rootNamespace": "BoM.Players",
+    "references": [
+        "GUID:1491147abca9d7d4bb7105af628b223e",
+        "GUID:3b8ed52f1b5c64994af4c4e0aa4b6c4b",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:21a2195a992bc4e499b8b150197950a7",
+        "GUID:207491177f2f5cb4dbd6efe9599700c1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

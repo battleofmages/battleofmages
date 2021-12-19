@@ -76,10 +76,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8694b334bf472d42ba24d33341bfaf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 7614750222705406450, guid: 5a77ec5723dc0834786bcc348e651824,
+  projectilePrefab: {fileID: 7614750222705406450, guid: 5a77ec5723dc0834786bcc348e651824,
     type: 3}
   spawn: {fileID: 7816935490460320301}
   radius: 2
   interval: 0.1
   duration: 2
-  randomizeAngle: 1
+  randomizeAngle: 0

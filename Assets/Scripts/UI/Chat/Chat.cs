@@ -1,18 +1,18 @@
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
 
-namespace BoM.UI.Chat {
+namespace BoM.UI {
 	public class Chat : MonoBehaviour {
+		public static event Action<string> MessageSubmitted;
 		public GameObject messagesContainer;
 		public Scrollbar scrollBar;
 		public TMP_InputField inputField;
 		public InputActionAsset inputActions;
-		public History history;
-		public event NewMessageHandler NewMessage;
-		public delegate void NewMessageHandler(string message);
+		public ChatHistory history;
 		private TextMeshProUGUI[] messages;
 
 		private static Dictionary<string, Color> channels = new Dictionary<string, Color>(){
@@ -30,13 +30,13 @@ namespace BoM.UI.Chat {
 		}
 
 		private void OnEnable() {
-			Application.logMessageReceived += OnLog;
+			Application.logMessageReceived += OnDebugLog;
 			inputActions.FindAction("Submit").performed += OnSubmit;
 			inputActions.FindAction("Navigate").performed += history.OnNavigate;
 		}
 
 		private void OnDisable() {
-			Application.logMessageReceived -= OnLog;
+			Application.logMessageReceived -= OnDebugLog;
 			inputActions.FindAction("Submit").performed -= OnSubmit;
 			inputActions.FindAction("Navigate").performed -= history.OnNavigate;
 		}
@@ -81,13 +81,13 @@ namespace BoM.UI.Chat {
 				return;
 			}
 
-			NewMessage?.Invoke(inputField.text);
+			MessageSubmitted?.Invoke(inputField.text);
 			history.Add(inputField.text);
 			history.ScrollToStart();
 			inputField.text = "";
 		}
 
-		private void OnLog(string message, string stack, LogType type) {
+		private void OnDebugLog(string message, string stack, LogType type) {
 			Write("Debug", message);
 		}
 
