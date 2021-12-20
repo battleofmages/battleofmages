@@ -8,6 +8,11 @@ namespace BoM.Players {
 		public Player player;
 		private Vector3 lastPositionSent;
 		private Vector3 lastDirectionSent;
+		private CustomMessagingManager messenger;
+
+		public override void OnNetworkSpawn() {
+			messenger = NetworkManager.Singleton.CustomMessagingManager;
+		}
 
 		private void FixedUpdate() {
 			BroadcastPosition();
@@ -29,7 +34,7 @@ namespace BoM.Players {
 				delivery = NetworkDelivery.ReliableSequenced;
 			}
 
-			NetworkManager.Singleton.CustomMessagingManager.SendNamedMessageToAll("server position", writer, delivery);
+			messenger.SendNamedMessageToAll("server position", writer, delivery);
 
 			lastPositionSent = player.RemotePosition;
 			lastDirectionSent = player.RemoteDirection;
@@ -52,6 +57,10 @@ namespace BoM.Players {
 
 		[ServerRpc]
 		public async void UseSkillServerRpc(byte index, Vector3 cursorPosition) {
+			if(IsClient) {
+				return;
+			}
+			
 			player.UseSkillClientRpc(index, cursorPosition);
 			player.animations.Animator.SetBool("Attack", true);
 			await Task.Delay(300);

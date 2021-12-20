@@ -84,8 +84,9 @@ namespace BoM.Players {
 
 		private void EnableNetworkComponents() {
 			if(IsClient && IsServer && IsOwner) {
-				GetComponent<Client>().enabled = true;
 				GetComponent<Server>().enabled = true;
+				GetComponent<Client>().enabled = true;
+				GetComponent<Cursor>().enabled = true;
 				return;
 			}
 
@@ -96,6 +97,7 @@ namespace BoM.Players {
 
 			if(IsClient && IsOwner) {
 				GetComponent<Client>().enabled = true;
+				GetComponent<Cursor>().enabled = true;
 				return;
 			}
 
