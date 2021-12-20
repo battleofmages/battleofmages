@@ -26,7 +26,6 @@ namespace BoM.Players {
 			var distanceSqr = difference.sqrMagnitude;
 
 			if(distanceSqr > minDistanceSqr && distanceSqr < maxDistanceSqr && Time.time - lastSnap > coolDown) {
-				Debug.Log("Snap");
 				transform.position = remotePosition;
 				lastSnap = Time.time;
 			}
