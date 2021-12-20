@@ -25,6 +25,7 @@ namespace BoM {
 		private void OnPlayerAdded(Players.Player player) {
 			Network.PlayerManager.AddPlayer(player);
 			Cameras.Manager.AddCamera(player.cam);
+			player.elements = skills.elements;
 
 			if(player.IsOwner) {
 				SetPlayer(player);
@@ -55,7 +56,6 @@ namespace BoM {
 			
 			client = player.GetComponent<Players.Client>();
 			latency = player.GetComponent<Players.Latency>();
-			player.elements = skills.elements;
 		}
 
 		public void Bind() {

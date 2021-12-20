@@ -25,10 +25,12 @@ namespace BoM.Cameras {
 				}
 				
 				cam.enabled = (cam == activeCam);
+				cam.gameObject.SetActive(cam.enabled);
 			}
 
 			if(activeCam == null) {
 				Instance.cameras[0].enabled = true;
+				Instance.cameras[0].gameObject.SetActive(true);
 			}
 		}
 	}

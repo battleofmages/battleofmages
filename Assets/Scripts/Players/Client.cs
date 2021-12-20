@@ -8,7 +8,6 @@ namespace BoM.Players {
 	public class Client: NetworkBehaviour {
 		public Player player;
 		public Server server;
-		public Animations animations;
 		public Cursor cursor;
 		public InputActionAsset inputActions;
 		public Cameras.Controller camController;
@@ -17,6 +16,7 @@ namespace BoM.Players {
 		private Vector3 inputDirection;
 		private Vector3 direction;
 		private Vector2 look;
+		private Quaternion targetRotation;
 		private Vector3 lastPositionSent;
 		private Vector3 lastDirectionSent;
 
@@ -38,13 +38,13 @@ namespace BoM.Players {
 		}
 
 		private void UpdateRotation() {
-			if(direction == Vector3.zero) {
-				return;
+			if(direction != Vector3.zero) {
+				targetRotation = Quaternion.LookRotation(direction);
 			}
 
 			model.rotation = Quaternion.Slerp(
 				model.rotation,
-				Quaternion.LookRotation(direction),
+				targetRotation,
 				Time.deltaTime * rotationSpeed
 			);
 		}
@@ -68,7 +68,7 @@ namespace BoM.Players {
 			var delivery = NetworkDelivery.UnreliableSequenced;
 
 			if(direction == Vector3.zero) {
-				delivery = NetworkDelivery.Reliable;
+				delivery = NetworkDelivery.ReliableSequenced;
 			}
 
 			NetworkManager.Singleton.CustomMessagingManager.SendNamedMessage("client position", receiver, writer, delivery);
@@ -92,7 +92,6 @@ namespace BoM.Players {
 			server.SendChatMessageServerRpc(message);
 		}
 
-	#region Input
 		public void Move(InputAction.CallbackContext context) {
 			var value = context.ReadValue<Vector2>();
 			inputDirection = new Vector3(value.x, 0, value.y);
@@ -128,18 +127,19 @@ namespace BoM.Players {
 			UseSkill(4);
 		}
 
-		public async void UseSkill(int slotIndex) {
-			animations.Animator.SetBool("Attack", true);
+		public async void UseSkill(byte slotIndex) {
+			server.UseSkillServerRpc(slotIndex, cursor.Position);
+			player.animations.Animator.SetBool("Attack", true);
 			await Task.Delay(300);
 			player.UseSkill(player.currentElement.skills[slotIndex], cursor.Position);
 		}
 
 		public void StartBlock(InputAction.CallbackContext context) {
-			animations.Animator.SetBool("Block", true);
+			player.animations.Animator.SetBool("Block", true);
 		}
 
 		public void StopBlock(InputAction.CallbackContext context) {
-			animations.Animator.SetBool("Block", false);
+			player.animations.Animator.SetBool("Block", false);
 		}
 
 		public void Jump(InputAction.CallbackContext context) {
@@ -149,6 +149,5 @@ namespace BoM.Players {
 
 			server.JumpServerRpc();
 		}
-	#endregion
 	}
 }

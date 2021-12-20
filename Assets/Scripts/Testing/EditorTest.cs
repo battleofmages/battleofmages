@@ -8,7 +8,7 @@ namespace BoM.Testing {
 			if(ClonesManager.IsClone()) {
 				Network.Client.Start();
 			} else {
-				Network.Host.Start();
+				Network.Server.Start();
 			}
 		}
 	}

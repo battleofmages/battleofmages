@@ -47,7 +47,7 @@ namespace BoM.Network {
 			reader.ReadValueSafe(out Vector3 position);
 			reader.ReadValueSafe(out Vector3 direction);
 			sender.RemotePosition = position;
-			sender.RemoteDirection = direction;
+			sender.RemoteDirection = direction.normalized;
 		}
 	}
 }

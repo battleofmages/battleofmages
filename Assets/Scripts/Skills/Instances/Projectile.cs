@@ -4,6 +4,7 @@ namespace BoM.Skills.Instances {
 	public class Projectile : Instance {
 		public Rigidbody rigidBody;
 		public Collider collision;
+		public ParticleSystem particles;
 		public Light lighting;
 		public Explosion explosionPrefab;
 		public float speed;
@@ -37,10 +38,12 @@ namespace BoM.Skills.Instances {
 		private void StartMovement() {
 			rigidBody.WakeUp();
 			rigidBody.velocity = transform.forward * speed;
+			particles.Play();
 		}
 
 		private void StopMovement() {
 			rigidBody.Sleep();
+			particles.Stop(false, ParticleSystemStopBehavior.StopEmitting);
 		}
 
 		private void Update() {

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
@@ -5,9 +6,6 @@ using Unity.Collections;
 namespace BoM.Players {
 	public class Server: NetworkBehaviour {
 		public Player player;
-		public Client client;
-		public Proxy proxy;
-
 		private Vector3 lastPositionSent;
 		private Vector3 lastDirectionSent;
 
@@ -16,19 +14,19 @@ namespace BoM.Players {
 		}
 
 		public void BroadcastPosition() {
-			if(player.RemotePosition == lastPositionSent && player.RemoteDirection == lastDirectionSent) {
+			if(transform.position == lastPositionSent && player.RemoteDirection == lastDirectionSent) {
 				return;
 			}
 
 			using FastBufferWriter writer = new FastBufferWriter(32, Allocator.Temp);
 			writer.WriteValueSafe(player.ClientId);
-			writer.WriteValueSafe(player.RemotePosition);
+			writer.WriteValueSafe(transform.position);
 			writer.WriteValueSafe(player.RemoteDirection);
 
 			var delivery = NetworkDelivery.UnreliableSequenced;
 
 			if(player.RemoteDirection == Vector3.zero) {
-				delivery = NetworkDelivery.Reliable;
+				delivery = NetworkDelivery.ReliableSequenced;
 			}
 
 			NetworkManager.Singleton.CustomMessagingManager.SendNamedMessageToAll("server position", writer, delivery);
@@ -44,12 +42,20 @@ namespace BoM.Players {
 				return;
 			}
 
-			proxy.JumpClientRpc();
+			player.JumpClientRpc();
 		}
 
 		[ServerRpc]
 		public void SendChatMessageServerRpc(string message) {
 			player.ReceiveMessageClientRpc(message);
+		}
+
+		[ServerRpc]
+		public async void UseSkillServerRpc(byte index, Vector3 cursorPosition) {
+			player.UseSkillClientRpc(index, cursorPosition);
+			player.animations.Animator.SetBool("Attack", true);
+			await Task.Delay(300);
+			player.UseSkill(player.currentElement.skills[index], cursorPosition);
 		}
 	#endregion
 	}
