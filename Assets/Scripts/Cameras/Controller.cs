@@ -3,7 +3,7 @@ using UnityEngine;
 namespace BoM.Cameras {
 	public class Controller : MonoBehaviour {
 		public float mouseSensitivity = 0.05f;
-		public float gamepadSensitivity = 100f;
+		public float gamepadSensitivity = 150f;
 		
 		private Vector2 angles;
 		private Vector2 mouse;

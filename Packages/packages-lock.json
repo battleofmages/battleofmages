@@ -7,15 +7,9 @@
       "dependencies": {},
       "hash": "41cb54a5d275f81114ac20676677a96aa96bfa2e"
     },
-    "com.unity.2d.sprite": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
     "com.unity.burst": {
-      "version": "1.6.0",
-      "depth": 1,
+      "version": "1.6.3",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1"
@@ -62,15 +56,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.multiplayer.tools": {
-      "version": "1.0.0-pre.2",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.profiling.core": "1.0.0-pre.1"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.netcode.gameobjects": {
       "version": "1.0.0-pre.3",
       "depth": 0,
@@ -85,13 +70,6 @@
     },
     "com.unity.nuget.mono-cecil": {
       "version": "1.10.2",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.profiling.core": {
-      "version": "1.0.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -210,16 +188,6 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
-    },
-    "com.unity.visualscripting": {
-      "version": "1.7.6",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ugui": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
     },
     "com.veriorpies.parrelsync": {
       "version": "https://github.com/VeriorPies/ParrelSync.git?path=/ParrelSync",
