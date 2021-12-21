@@ -129,7 +129,7 @@ namespace BoM.Players {
 
 		[ClientRpc]
 		public void JumpClientRpc() {
-			if(IsOwner) {
+			if(IsOwner || IsServer) {
 				return;
 			}
 			
