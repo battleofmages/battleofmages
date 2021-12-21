@@ -60,11 +60,6 @@ namespace BoM.Players {
 		}
 
 		[ServerRpc]
-		public void SendChatMessageServerRpc(string message) {
-			player.ReceiveMessageClientRpc(message);
-		}
-
-		[ServerRpc]
 		public async void UseSkillServerRpc(byte index, Vector3 cursorPosition) {
 			if(IsHost && IsOwner) {
 				player.UseSkillClientRpc(index, cursorPosition);

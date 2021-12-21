@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 namespace BoM.UI {
-	public class LatencyView : MonoBehaviour {
+	public class Latency : MonoBehaviour {
 		public TextMeshProUGUI label;
 		private string baseText;
 

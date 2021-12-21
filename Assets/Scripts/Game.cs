@@ -5,13 +5,10 @@ namespace BoM {
 	public class Game : MonoBehaviour {
 		public GameObject menu;
 		public Skills.Manager skills;
-		public PlayerInput input;
-		public UI.Chat chat;
-		public UI.Scoreboard scoreboard;
-		public UI.LatencyView latencyView;
-
-		private Players.Client client;
-		private Players.Latency latency;
+		public PlayerInput inputSystem;
+		public UI.Chat chatUI;
+		public UI.Scoreboard scoreboardUI;
+		public UI.Latency latencyUI;
 
 		private void Awake() {
 			var database = new Database.Memory();
@@ -28,12 +25,11 @@ namespace BoM {
 			database.AddAccount(new Accounts.Account("id9", "Player 9 名前", "test9@example.com"));
 
 			Network.Server.database = database;
-			Players.Player.database = database;
 			Players.Player.Added += OnPlayerAdded;
-			Players.Player.Added += scoreboard.OnPlayerAdded;
+			Players.Player.Added += scoreboardUI.OnPlayerAdded;
 			Players.Player.Removed += OnPlayerRemoved;
-			Players.Player.Removed += scoreboard.OnPlayerRemoved;
-			Players.Player.MessageReceived += OnMessageReceived;
+			Players.Player.Removed += scoreboardUI.OnPlayerRemoved;
+			Players.Chat.MessageReceived += OnMessageReceived;
 		}
 
 		private void OnPlayerAdded(Players.Player player) {
@@ -42,8 +38,7 @@ namespace BoM {
 			player.elements = skills.elements;
 
 			if(player.IsOwner) {
-				SetPlayer(player);
-				Bind();
+				Bind(player);
 			}
 		}
 
@@ -52,27 +47,20 @@ namespace BoM {
 			Cameras.Manager.RemoveCamera(player.cam);
 
 			if(player.IsOwner) {
-				Unbind();
-				SetPlayer(null);
+				Unbind(player);
 			}
 		}
 
 		private void OnMessageReceived(Players.Player player, string message) {
-			chat.Write("Map", $"{player.Nick}: {message}");
+			chatUI.Write("Map", $"{player.Nick}: {message}");
 		}
 
-		public void SetPlayer(Players.Player player) {
-			if(player == null) {
-				client = null;
-				latency = null;
-				return;
-			}
-			
-			client = player.GetComponent<Players.Client>();
-			latency = player.GetComponent<Players.Latency>();
-		}
+		public void Bind(Players.Player player) {
+			var client = player.GetComponent<Players.Client>();
+			var latency = player.GetComponent<Players.Latency>();
+			var input = player.GetComponent<Players.Input>();
+			var chat = player.GetComponent<Players.Chat>();
 
-		public void Bind() {
 			// Disable main menu
 			menu.SetActive(false);
 
@@ -83,29 +71,35 @@ namespace BoM {
 			Cameras.Manager.SetActiveCamera(client.player.cam);
 
 			// Bind gameplay events
-			input.actions["Move"].performed += client.Move;
-			input.actions["Move"].canceled += client.Move;
-			input.actions["Look"].performed += client.Look;
-			input.actions["Look"].canceled += client.Look;
-			input.actions["Skill 1"].performed += client.Skill1;
-			input.actions["Skill 2"].performed += client.Skill2;
-			input.actions["Skill 3"].performed += client.Skill3;
-			input.actions["Skill 4"].performed += client.Skill4;
-			input.actions["Skill 5"].performed += client.Skill5;
-			input.actions["Block"].performed += client.StartBlock;
-			input.actions["Block"].canceled += client.StopBlock;
-			input.actions["Jump"].performed += client.Jump;
-			input.actions["Scoreboard"].performed += scoreboard.Show;
-			input.actions["Scoreboard"].canceled += scoreboard.Hide;
-			input.actions["Chat"].performed += UI.Manager.ActivateAndSelectChat;
-			input.actions["Show cursor"].performed += UI.Manager.Activate;
+			var actions = inputSystem.actions;
+			actions["Move"].performed += input.Move;
+			actions["Move"].canceled += input.Move;
+			actions["Look"].performed += input.Look;
+			actions["Look"].canceled += input.Look;
+			actions["Skill 1"].performed += input.Skill1;
+			actions["Skill 2"].performed += input.Skill2;
+			actions["Skill 3"].performed += input.Skill3;
+			actions["Skill 4"].performed += input.Skill4;
+			actions["Skill 5"].performed += input.Skill5;
+			actions["Block"].performed += input.StartBlock;
+			actions["Block"].canceled += input.StopBlock;
+			actions["Jump"].performed += input.Jump;
+			actions["Scoreboard"].performed += scoreboardUI.Show;
+			actions["Scoreboard"].canceled += scoreboardUI.Hide;
+			actions["Chat"].performed += UI.Manager.ActivateAndSelectChat;
+			actions["Show cursor"].performed += UI.Manager.Activate;
 
 			// Bind UI events
-			UI.Chat.MessageSubmitted += client.SendChatMessage;
-			latency.Received += latencyView.OnLatencyReceived;
+			UI.Chat.MessageSubmitted += chat.SubmitMessage;
+			latency.Received += latencyUI.OnLatencyReceived;
 		}
 
-		public void Unbind() {
+		public void Unbind(Players.Player player) {
+			var client = player.GetComponent<Players.Client>();
+			var latency = player.GetComponent<Players.Latency>();
+			var input = player.GetComponent<Players.Input>();
+			var chat = player.GetComponent<Players.Chat>();
+
 			// Enable main menu
 			menu.SetActive(true);
 
@@ -116,26 +110,27 @@ namespace BoM {
 			Cameras.Manager.SetActiveCamera(null);
 
 			// Unbind gameplay events
-			input.actions["Move"].performed -= client.Move;
-			input.actions["Move"].canceled -= client.Move;
-			input.actions["Look"].performed -= client.Look;
-			input.actions["Look"].canceled -= client.Look;
-			input.actions["Skill 1"].performed -= client.Skill1;
-			input.actions["Skill 2"].performed -= client.Skill2;
-			input.actions["Skill 3"].performed -= client.Skill3;
-			input.actions["Skill 4"].performed -= client.Skill4;
-			input.actions["Skill 5"].performed -= client.Skill5;
-			input.actions["Block"].performed -= client.StartBlock;
-			input.actions["Block"].canceled -= client.StopBlock;
-			input.actions["Jump"].performed -= client.Jump;
-			input.actions["Scoreboard"].performed -= scoreboard.Show;
-			input.actions["Scoreboard"].canceled -= scoreboard.Hide;
-			input.actions["Chat"].performed -= UI.Manager.ActivateAndSelectChat;
-			input.actions["Show cursor"].performed -= UI.Manager.Activate;
+			var actions = inputSystem.actions;
+			actions["Move"].performed -= input.Move;
+			actions["Move"].canceled -= input.Move;
+			actions["Look"].performed -= input.Look;
+			actions["Look"].canceled -= input.Look;
+			actions["Skill 1"].performed -= input.Skill1;
+			actions["Skill 2"].performed -= input.Skill2;
+			actions["Skill 3"].performed -= input.Skill3;
+			actions["Skill 4"].performed -= input.Skill4;
+			actions["Skill 5"].performed -= input.Skill5;
+			actions["Block"].performed -= input.StartBlock;
+			actions["Block"].canceled -= input.StopBlock;
+			actions["Jump"].performed -= input.Jump;
+			actions["Scoreboard"].performed -= scoreboardUI.Show;
+			actions["Scoreboard"].canceled -= scoreboardUI.Hide;
+			actions["Chat"].performed -= UI.Manager.ActivateAndSelectChat;
+			actions["Show cursor"].performed -= UI.Manager.Activate;
 
 			// Unbind chat events
-			UI.Chat.MessageSubmitted -= client.SendChatMessage;
-			latency.Received -= latencyView.OnLatencyReceived;
+			UI.Chat.MessageSubmitted -= chat.SubmitMessage;
+			latency.Received -= latencyUI.OnLatencyReceived;
 		}
 	}
 }

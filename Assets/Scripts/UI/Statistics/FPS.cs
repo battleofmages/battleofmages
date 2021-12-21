@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 namespace BoM.UI {
-	public class FPSView : MonoBehaviour {
+	public class FPS : MonoBehaviour {
 		public TextMeshProUGUI label;
 		
 		private int frames;

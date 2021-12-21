@@ -764,10 +764,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menu: {fileID: 221618254}
   skills: {fileID: 1441638003}
-  input: {fileID: 878207911}
-  chat: {fileID: 569661777}
-  scoreboard: {fileID: 1331623750}
-  latencyView: {fileID: 954421972}
+  inputSystem: {fileID: 878207911}
+  chatUI: {fileID: 569661777}
+  scoreboardUI: {fileID: 1331623750}
+  latencyUI: {fileID: 954421972}
 --- !u!4 &198852181
 Transform:
   m_ObjectHideFlags: 0

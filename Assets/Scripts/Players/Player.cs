@@ -8,10 +8,8 @@ using Unity.Collections;
 namespace BoM.Players {
 	public class Player : Entity, IPlayer {
 		public static Player main;
-		public static IDatabase database;
 		public static event Action<Player> Added;
 		public static event Action<Player> Removed;
-		public static event Action<Player, string> MessageReceived;
 
 		public NetworkVariable<bool> isReady;
 		public NetworkVariable<FixedString64Bytes> id;
@@ -129,11 +127,6 @@ namespace BoM.Players {
 			direction.y = gravity.Speed;
 
 			controller.Move(direction * Time.deltaTime);
-		}
-
-		[ClientRpc]
-		public void ReceiveMessageClientRpc(string message) {
-			MessageReceived?.Invoke(this, message);
 		}
 
 		[ClientRpc]
