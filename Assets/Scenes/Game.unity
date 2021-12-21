@@ -741,6 +741,7 @@ GameObject:
   - component: {fileID: 198852181}
   - component: {fileID: 198852183}
   - component: {fileID: 198852180}
+  - component: {fileID: 198852184}
   - component: {fileID: 198852182}
   m_Layer: 0
   m_Name: Game
@@ -808,6 +809,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b56ae7335fee647a1e72e28cef4686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &198852184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198852178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0a097104b76237428f55da3f8dee175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teams:
+  - name: Team 1
+    layer: 8
+  - name: Team 2
+    layer: 9
 --- !u!224 &219399319 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6478510207085027829, guid: 821a47670b8702d4cbe5916e5eaaed67,
@@ -1719,7 +1737,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 737449097}
   m_HandleRect: {fileID: 737449096}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5152,7 +5170,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 363823019}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.19435537
+  m_Size: 0.19435535
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
