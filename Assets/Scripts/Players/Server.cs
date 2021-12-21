@@ -1,3 +1,4 @@
+using BoM.Core;
 using System.Threading.Tasks;
 using UnityEngine;
 using Unity.Netcode;
@@ -9,9 +10,12 @@ namespace BoM.Players {
 		private Vector3 lastPositionSent;
 		private Vector3 lastDirectionSent;
 		private CustomMessagingManager messenger;
+		private IAccount account;
 
-		public override void OnNetworkSpawn() {
+		public void OnEnable() {
 			messenger = NetworkManager.Singleton.CustomMessagingManager;
+			account = Accounts.Manager.GetByClientId(player.ClientId);
+			player.nick.Value = account.Nick;
 		}
 
 		private void FixedUpdate() {

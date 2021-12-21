@@ -1,3 +1,4 @@
+using BoM.Core;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
@@ -7,6 +8,7 @@ namespace BoM.Network {
 	public static class Server {
 		public static event System.Action Ready;
 		public static Transform spawn;
+		public static IDatabase database;
 		private static float spawnRadius;
 		private static Match match;
 
@@ -59,30 +61,40 @@ namespace BoM.Network {
 			Ready?.Invoke();
 		}
 
-		public static void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callBack) {
+		public static void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate respond) {
 			var approve = false;
+			
+			// Account
 			var accountId = System.Text.Encoding.UTF8.GetString(connectionData, 0, connectionData.Length);
+			var account = database.GetAccount(accountId);
+			Accounts.Manager.AddClient(clientId, account);
+			
+			// Spawn
 			var offset = Random.insideUnitCircle * spawnRadius;
 			var position = new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);
+
+			// Team
 			var teamId = match.GetTeamIdByAccountId(accountId);
 
 			if(teamId != -1) {
 				approve = true;
 			}
 
-			callBack(approve, null, approve, position, spawn.rotation);
+			respond(approve, null, approve, position, spawn.rotation);
 		}
 
 		public static void OnClientConnected(ulong clientId) {
-			Debug.Log($"Client ID {clientId} connected.");
+			var account = Accounts.Manager.GetByClientId(clientId);
+			Debug.Log($"Account ID {account.Id} connected.");
 		}
 
 		public static void OnClientDisconnected(ulong clientId) {
-			Debug.Log($"Client ID {clientId} disconnected.");
+			var account = Accounts.Manager.GetByClientId(clientId);
+			Debug.Log($"Account ID {account.Id} disconnected.");
 		}
 
 		public static void ClientPosition(ulong senderClientId, FastBufferReader reader) {
-			var sender = PlayerManager.FindClientId(senderClientId);
+			var sender = PlayerManager.GetByClientId(senderClientId);
 
 			if(sender == null) {
 				return;

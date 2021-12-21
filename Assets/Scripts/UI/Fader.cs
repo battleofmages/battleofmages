@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace BoM.Core {
+namespace BoM.UI {
 	public class Fader : MonoBehaviour {
 		public bool isReversed { get; private set; }
 		public float duration;

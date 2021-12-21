@@ -18,7 +18,7 @@ namespace BoM.Players {
 				latency = player.latency.oneWay;
 			}
 
-			if(IsClient) {
+			if(IsClient && Player.main != null) {
 				latency = Player.main.latency.oneWay;
 			}
 

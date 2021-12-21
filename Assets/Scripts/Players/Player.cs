@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using Unity.Netcode;
+using Unity.Collections;
 
 namespace BoM.Players {
 	public class Player : Entity, IPlayer {
@@ -11,6 +12,10 @@ namespace BoM.Players {
 		public static event Action<Player> Added;
 		public static event Action<Player> Removed;
 		public static event Action<Player, string> MessageReceived;
+
+		public NetworkVariable<bool> isReady;
+		public NetworkVariable<FixedString64Bytes> id;
+		public NetworkVariable<FixedString64Bytes> nick;
 
 		public NetworkObject networkObject;
 		public CharacterController controller;
@@ -22,20 +27,13 @@ namespace BoM.Players {
 		public Transform model;
 		public float modelYOffset;
 		public GameObject networkShadow;
-		public Account Account { get; private set; }
 		public ulong ClientId { get; set; }
 		public Vector3 RemoteDirection { get; set; }
 		private Vector3 remotePosition;
-		public NetworkVariable<bool> isReady = new NetworkVariable<bool>(false);
 
-		public string Name {
+		public string Nick {
 			get {
-				return gameObject.name;
-			}
-			
-			set {
-				gameObject.name = value;
-				networkShadow.gameObject.name = $"{value} - Shadow";
+				return nick.Value.ToString();
 			}
 		}
 
@@ -58,13 +56,13 @@ namespace BoM.Players {
 
 		public override void OnNetworkSpawn() {
 			ClientId = networkObject.OwnerClientId;
-			Account = database.GetAccount("id" + ClientId);
-			Name = Account.Nick;
 			RemotePosition = transform.position;
 
 			if(IsOwner) {
 				Player.main = this;
 			}
+
+			nick.OnValueChanged += OnNickChanged;
 
 			var playerRoot = GameObject.Find("Players");
 			transform.SetParent(playerRoot.transform);
@@ -76,6 +74,12 @@ namespace BoM.Players {
 			if(IsOwner) {
 				ReadyServerRpc();
 			}
+		}
+
+		private void OnNickChanged(FixedString64Bytes oldNickFixed, FixedString64Bytes newNickFixed) {
+			var newNick = newNickFixed.ToString();
+			gameObject.name = newNick;
+			networkShadow.gameObject.name = newNick + " - Shadow";
 		}
 
 		private void OnDisable() {

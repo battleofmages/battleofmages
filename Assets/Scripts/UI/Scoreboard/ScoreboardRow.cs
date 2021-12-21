@@ -1,9 +1,10 @@
+using BoM.Core;
 using TMPro;
 using UnityEngine;
 
 namespace BoM.UI {
 	public class ScoreboardRow : MonoBehaviour {
-		public Core.IPlayer player;
+		public IPlayer player;
 		public TextMeshProUGUI playerName;
 		public TextMeshProUGUI score;
 		public TextMeshProUGUI damage;
@@ -23,7 +24,7 @@ namespace BoM.UI {
 				return;
 			}
 
-			playerName.text = player.Account.Nick;
+			playerName.text = player.Nick;
 			score.text = "-";
 			damage.text = "-";
 			kills.text = "-";

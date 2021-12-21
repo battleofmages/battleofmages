@@ -22,7 +22,7 @@ namespace BoM.Network {
 			clientIdToPlayer.Remove(player.ClientId);
 		}
 
-		public static IPlayer FindClientId(ulong clientId) {
+		public static IPlayer GetByClientId(ulong clientId) {
 			if(clientIdToPlayer.TryGetValue(clientId, out IPlayer player)) {
 				return player;
 			}

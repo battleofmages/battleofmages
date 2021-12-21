@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace BoM.Core {
+namespace BoM.UI {
 	public static class ComponentExtensions {
 		public static Fader FadeIn(this Component component, float fadeTime, Action<float> onFade, Action onFadeEnd = null) {
 			var gameObject = component.gameObject;

@@ -14,7 +14,21 @@ namespace BoM {
 		private Players.Latency latency;
 
 		private void Awake() {
-			Players.Player.database = new Database.Memory();
+			var database = new Database.Memory();
+
+			database.AddAccount(new Accounts.Account("id0", "Player 0 名前", "test0@example.com"));
+			database.AddAccount(new Accounts.Account("id1", "Player 1 名前", "test1@example.com"));
+			database.AddAccount(new Accounts.Account("id2", "Player 2 名前", "test2@example.com"));
+			database.AddAccount(new Accounts.Account("id3", "Player 3 名前", "test3@example.com"));
+			database.AddAccount(new Accounts.Account("id4", "Player 4 名前", "test4@example.com"));
+			database.AddAccount(new Accounts.Account("id5", "Player 5 名前", "test5@example.com"));
+			database.AddAccount(new Accounts.Account("id6", "Player 6 名前", "test6@example.com"));
+			database.AddAccount(new Accounts.Account("id7", "Player 7 名前", "test7@example.com"));
+			database.AddAccount(new Accounts.Account("id8", "Player 8 名前", "test8@example.com"));
+			database.AddAccount(new Accounts.Account("id9", "Player 9 名前", "test9@example.com"));
+
+			Network.Server.database = database;
+			Players.Player.database = database;
 			Players.Player.Added += OnPlayerAdded;
 			Players.Player.Added += scoreboard.OnPlayerAdded;
 			Players.Player.Removed += OnPlayerRemoved;
@@ -44,7 +58,7 @@ namespace BoM {
 		}
 
 		private void OnMessageReceived(Players.Player player, string message) {
-			chat.Write("Map", $"{player.Name}: {message}");
+			chat.Write("Map", $"{player.Nick}: {message}");
 		}
 
 		public void SetPlayer(Players.Player player) {

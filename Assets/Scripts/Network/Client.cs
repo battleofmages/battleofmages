@@ -18,7 +18,7 @@ namespace BoM.Network {
 			reader.ReadValueSafe(out Vector3 position);
 			reader.ReadValueSafe(out Vector3 direction);
 
-			var player = PlayerManager.FindClientId(clientId);
+			var player = PlayerManager.GetByClientId(clientId);
 
 			if(player == null) {
 				return;
