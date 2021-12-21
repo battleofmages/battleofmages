@@ -13,12 +13,17 @@ namespace BoM.Players {
 		public Cameras.Controller camController;
 		public Transform model;
 		public float rotationSpeed;
+		private CustomMessagingManager messenger;
 		private Vector3 inputDirection;
 		private Vector3 direction;
 		private Vector2 look;
 		private Quaternion targetRotation;
 		private Vector3 lastPositionSent;
 		private Vector3 lastDirectionSent;
+
+		public override void OnNetworkSpawn() {
+			messenger = NetworkManager.Singleton.CustomMessagingManager;
+		}
 
 		private void Update() {
 			UpdateRotation();
@@ -71,7 +76,7 @@ namespace BoM.Players {
 				delivery = NetworkDelivery.ReliableSequenced;
 			}
 
-			NetworkManager.Singleton.CustomMessagingManager.SendNamedMessage("client position", receiver, writer, delivery);
+			messenger.SendNamedMessage("client position", receiver, writer, delivery);
 
 			lastPositionSent = transform.position;
 			lastDirectionSent = direction;
@@ -128,10 +133,20 @@ namespace BoM.Players {
 		}
 
 		public async void UseSkill(byte slotIndex) {
+			if(slotIndex >= player.currentElement.skills.Count) {
+				return;
+			}
+			
+			var skill = player.currentElement.skills[slotIndex];
+
+			if(skill == null) {
+				return;
+			}
+
 			server.UseSkillServerRpc(slotIndex, cursor.Position);
 			player.animations.Animator.SetBool("Attack", true);
 			await Task.Delay(300);
-			player.UseSkill(player.currentElement.skills[slotIndex], cursor.Position);
+			player.UseSkill(skill, cursor.Position);
 		}
 
 		public void StartBlock(InputAction.CallbackContext context) {

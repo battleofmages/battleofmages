@@ -9,6 +9,8 @@ namespace BoM.Network {
 
 		public static void Init() {
 			NetworkManager.Singleton.ConnectionApprovalCallback += OnApprovalCheck;
+			NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+			NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
 			SceneManager.sceneLoaded += SceneLoaded;
 			SceneManager.LoadScene("Arena", LoadSceneMode.Additive);
 		}
@@ -35,6 +37,14 @@ namespace BoM.Network {
 			var offset = Random.insideUnitCircle * spawn.GetComponent<SphereCollider>().radius;
 			var position = new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);
 			callBack(true, null, true, position, spawn.rotation);
+		}
+
+		public static void OnClientConnected(ulong clientId) {
+			Debug.Log($"Client ID {clientId} connected.");
+		}
+
+		public static void OnClientDisconnected(ulong clientId) {
+			Debug.Log($"Client ID {clientId} disconnected.");
 		}
 
 		public static void ClientPosition(ulong senderClientId, FastBufferReader reader) {

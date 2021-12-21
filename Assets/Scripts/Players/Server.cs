@@ -43,6 +43,10 @@ namespace BoM.Players {
 	#region RPC
 		[ServerRpc]
 		public void JumpServerRpc() {
+			if(IsClient) {
+				return;
+			}
+			
 			if(!player.gravity.Jump()) {
 				return;
 			}

@@ -33,6 +33,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Element 1",
+                    "type": "Button",
+                    "id": "b1d4f9d1-6deb-4863-ad99-4ccbf68b8673",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Element 2",
+                    "type": "Button",
+                    "id": "fceba4ca-9a09-41cb-b9d1-39558eff764e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Skill 1",
                     "type": "Button",
                     "id": "6aa3062d-bb85-4b49-98f5-de991d9053e7",
@@ -464,6 +482,50 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Scoreboard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f3689fd0-2b79-494c-801f-d7886ededec9",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Element 1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a4a1e54-a491-452b-81dc-b47b9247a8e7",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Element 1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a24d02c0-c533-4e09-bea8-c3ee015694e1",
+                    "path": "<Keyboard>/f2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Element 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8cf5d6c-6446-48b2-a017-9662b586488b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Element 2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
