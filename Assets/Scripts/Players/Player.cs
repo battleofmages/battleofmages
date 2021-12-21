@@ -88,7 +88,7 @@ namespace BoM.Players {
 		}
 
 		private void EnableNetworkComponents() {
-			if(IsClient && IsServer && IsOwner) {
+			if(IsHost && IsOwner) {
 				GetComponent<Server>().enabled = true;
 				GetComponent<Client>().enabled = true;
 				GetComponent<Cursor>().enabled = true;
@@ -140,7 +140,7 @@ namespace BoM.Players {
 
 		[ClientRpc]
 		public async void UseSkillClientRpc(byte index, Vector3 cursorPosition) {
-			if(IsOwner) {
+			if(IsOwner || IsServer) {
 				return;
 			}
 

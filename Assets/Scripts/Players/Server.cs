@@ -43,10 +43,11 @@ namespace BoM.Players {
 	#region RPC
 		[ServerRpc]
 		public void JumpServerRpc() {
-			if(IsClient) {
+			if(IsHost && IsOwner) {
+				player.JumpClientRpc();
 				return;
 			}
-			
+
 			if(!player.gravity.Jump()) {
 				return;
 			}
@@ -61,14 +62,15 @@ namespace BoM.Players {
 
 		[ServerRpc]
 		public async void UseSkillServerRpc(byte index, Vector3 cursorPosition) {
-			if(IsClient) {
+			if(IsHost && IsOwner) {
+				player.UseSkillClientRpc(index, cursorPosition);
 				return;
 			}
 			
-			player.UseSkillClientRpc(index, cursorPosition);
 			player.animations.Animator.SetBool("Attack", true);
 			await Task.Delay(300);
 			player.UseSkill(player.currentElement.skills[index], cursorPosition);
+			player.UseSkillClientRpc(index, cursorPosition);
 		}
 	#endregion
 	}

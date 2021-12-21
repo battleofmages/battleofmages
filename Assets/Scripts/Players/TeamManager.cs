@@ -1,3 +1,4 @@
+using BoM.Core;
 using UnityEngine;
 using System.Collections.Generic;
 

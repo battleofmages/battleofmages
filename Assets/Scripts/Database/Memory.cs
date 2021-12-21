@@ -15,6 +15,8 @@ namespace BoM.Database {
 			accounts.Add("id5", new Account("id5", "Player 5 名前", "test5@example.com"));
 			accounts.Add("id6", new Account("id6", "Player 6 名前", "test6@example.com"));
 			accounts.Add("id7", new Account("id7", "Player 7 名前", "test7@example.com"));
+			accounts.Add("id8", new Account("id8", "Player 8 名前", "test8@example.com"));
+			accounts.Add("id9", new Account("id9", "Player 9 名前", "test9@example.com"));
 		}
 
 		public Account GetAccount(string id) {
