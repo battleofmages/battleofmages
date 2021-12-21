@@ -58,7 +58,7 @@ namespace BoM.UI {
 			newMessage.color = GetChannelColor(channel);
 			newMessage.transform.SetAsLastSibling();
 
-			newMessage.Fade(
+			newMessage.FadeIn(
 				0.15f,
 				value => newMessage.alpha = value
 			);

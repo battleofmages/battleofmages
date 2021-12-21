@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace BoM.Core {
 	public class Fader : MonoBehaviour {
+		public bool isReversed { get; private set; }
 		public float duration;
 		public Action<float> onFade;
 		public Action onFadeEnd;
@@ -14,21 +15,31 @@ namespace BoM.Core {
 			progress = time / duration;
 
 			if(progress >= 1f) {
-				onFade(1f);
+				if(isReversed) {
+					onFade(0f);
+				} else {
+					onFade(1f);
+				}
+				
 				onFadeEnd?.Invoke();
 				Stop();
 				return;
 			}
 
-			onFade(progress);
+			if(isReversed) {
+				onFade(1f - progress);
+			} else {
+				onFade(progress);
+			}
 		}
 
 		public void Stop() {
 			Destroy(this);
 		}
 
-		public void ReverseProgress() {
-			time = duration - time;
+		public void Reverse() {
+			isReversed = !isReversed;
+			progress = 1f - progress;
 		}
 	}
 }

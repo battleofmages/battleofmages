@@ -30,7 +30,7 @@ namespace BoM.UI {
 		public void Show(InputAction.CallbackContext context) {
 			EnableUpdates();
 
-			this.Fade(
+			this.FadeIn(
 				0.15f,
 				value => canvasGroup.alpha = value,
 				() => canvasGroup.interactable = true
@@ -38,9 +38,9 @@ namespace BoM.UI {
 		}
 
 		public void Hide(InputAction.CallbackContext context) {
-			this.Fade(
+			this.FadeOut(
 				0.15f,
-				value => canvasGroup.alpha = 1f - value,
+				value => canvasGroup.alpha = value,
 				() => {
 					canvasGroup.interactable = false;
 					DisableUpdates();

@@ -22,7 +22,7 @@ namespace BoM.UI {
 			PlayerInput.SwitchCurrentActionMap("UI");
 			var inputFieldCanvas = Chat.inputField.GetComponent<CanvasGroup>();
 
-			inputFieldCanvas.Fade(
+			inputFieldCanvas.FadeIn(
 				0.15f,
 				value => inputFieldCanvas.alpha = value
 			);
@@ -35,9 +35,9 @@ namespace BoM.UI {
 			Chat.inputField.DeactivateInputField();
 			var inputFieldCanvas = Chat.inputField.GetComponent<CanvasGroup>();
 
-			inputFieldCanvas.Fade(
+			inputFieldCanvas.FadeOut(
 				0.15f,
-				value => inputFieldCanvas.alpha = 1f - value
+				value => inputFieldCanvas.alpha = value
 			);
 		}
 
