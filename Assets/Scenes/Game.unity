@@ -2514,7 +2514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 619955424}
   - component: {fileID: 619955426}
-  - component: {fileID: 619955425}
+  - component: {fileID: 619955427}
   m_Layer: 0
   m_Name: Network
   m_TagString: Untagged
@@ -2537,25 +2537,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &619955425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 619955423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b84c2d8dfe509a34fb59e2b81f8e1319, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MessageBufferSize: 4096
-  MaxConnections: 10
-  MaxSentMessageQueueSize: 128
-  ConnectAddress: 127.0.0.1
-  ConnectPort: 7777
-  ServerListenPort: 7777
-  MessageSendMode: 0
 --- !u!114 &619955426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2573,7 +2554,7 @@ MonoBehaviour:
   LogLevel: 1
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 619955425}
+    NetworkTransport: {fileID: 619955427}
     PlayerPrefab: {fileID: 5403352713402487987, guid: 0898049371bea454dbcffc76ba58bd36,
       type: 3}
     NetworkPrefabs: []
@@ -2592,6 +2573,26 @@ MonoBehaviour:
     LoadSceneTimeOut: 120
     MessageBufferTimeout: 20
     EnableNetworkLogs: 1
+--- !u!114 &619955427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619955423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57c3fe0d2bf241e48b7cddeaa1b933af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Port: 7777
+  Address: 127.0.0.1
+  MaxClients: 10
+  MessageBufferSize: 5120
+  PingInterval: 500
+  TimeoutLimit: 32
+  TimeoutMinimum: 5000
+  TimeoutMaximum: 30000
 --- !u!1 &737449095
 GameObject:
   m_ObjectHideFlags: 0

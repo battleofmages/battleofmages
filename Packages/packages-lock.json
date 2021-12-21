@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.community.netcode.transport.enet": {
+      "version": "https://github.com/Unity-Technologies/multiplayer-community-contributions.git?path=/Transports/com.community.netcode.transport.enet",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "1d5be270157d8a4c705511ddbd13d138f31154d8"
+    },
     "com.nobi.roundedcorners": {
       "version": "https://github.com/kirevdokimov/Unity-UI-Rounded-Corners.git",
       "depth": 0,
