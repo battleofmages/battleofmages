@@ -7,8 +7,8 @@ using Unity.Collections;
 
 namespace BoM.Players {
 	public class Player : Entity, IPlayer {
-		public static IDatabase database;
 		public static Player main;
+		public static IDatabase database;
 		public static event Action<Player> Added;
 		public static event Action<Player> Removed;
 		public static event Action<Player, string> MessageReceived;
@@ -54,26 +54,40 @@ namespace BoM.Players {
 			}
 		}
 
+		private void Awake() {
+			nick.OnValueChanged += OnNickChanged;
+		}
+
 		public override void OnNetworkSpawn() {
+			// Network information
 			ClientId = networkObject.OwnerClientId;
 			RemotePosition = transform.position;
 
+			// For some reason Unity netcode doesn't call "value changed" on a new client connection,
+			// so we need to do it manually.
+			OnNickChanged("", nick.Value);
+
+			// Move player into the "Players" root object
+			Reparent();
+
+			// Enable client/server components depending on the network type
+			EnableNetworkComponents();
+			
+			// Adjust model position
+			model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
+
+			// Trigger "player added" event
 			if(IsOwner) {
 				Player.main = this;
 			}
 
-			nick.OnValueChanged += OnNickChanged;
+			Player.Added?.Invoke(this);
+		}
 
+		private void Reparent() {
 			var playerRoot = GameObject.Find("Players");
 			transform.SetParent(playerRoot.transform);
 			networkShadow.transform.SetParent(playerRoot.transform, true);
-			model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
-			EnableNetworkComponents();
-			Added?.Invoke(this);
-
-			if(IsOwner) {
-				ReadyServerRpc();
-			}
 		}
 
 		private void OnNickChanged(FixedString64Bytes oldNickFixed, FixedString64Bytes newNickFixed) {
@@ -151,11 +165,6 @@ namespace BoM.Players {
 			animations.Animator.SetBool("Attack", true);
 			await Task.Delay(300);
 			UseSkill(currentElement.skills[index], cursorPosition);
-		}
-
-		[ServerRpc]
-		public void ReadyServerRpc() {
-			isReady.Value = true;
 		}
 	}
 }

@@ -76,6 +76,11 @@ namespace BoM.Players {
 			player.UseSkill(player.currentElement.skills[index], cursorPosition);
 			player.UseSkillClientRpc(index, cursorPosition);
 		}
+
+		[ServerRpc]
+		public void ReadyServerRpc() {
+			player.isReady.Value = true;
+		}
 	#endregion
 	}
 }

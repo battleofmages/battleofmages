@@ -21,6 +21,12 @@ namespace BoM.Players {
 		private Vector3 lastPositionSent;
 		private Vector3 lastDirectionSent;
 
+		private void OnEnable() {
+			if(IsOwner) {
+				server.ReadyServerRpc();
+			}
+		}
+
 		public override void OnNetworkSpawn() {
 			messenger = NetworkManager.Singleton.CustomMessagingManager;
 		}
