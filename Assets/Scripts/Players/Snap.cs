@@ -14,10 +14,6 @@ namespace BoM.Players {
 		}
 
 		private void FixedUpdate() {
-			if(IsOwner) {
-				return;
-			}
-
 			CheckSnap(player.RemotePosition);
 		}
 

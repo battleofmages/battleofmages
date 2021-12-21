@@ -80,10 +80,10 @@ namespace BoM.Players {
 			writer.WriteValueSafe(direction);
 
 			var receiver = NetworkManager.Singleton.ServerClientId;
-			var delivery = NetworkDelivery.UnreliableSequenced;
+			var delivery = NetworkDelivery.Unreliable;
 
 			if(direction == Vector3.zero) {
-				delivery = NetworkDelivery.ReliableSequenced;
+				delivery = NetworkDelivery.Reliable;
 			}
 
 			messenger.SendNamedMessage("client position", receiver, writer, delivery);

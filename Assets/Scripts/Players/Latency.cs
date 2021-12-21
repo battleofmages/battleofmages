@@ -6,24 +6,37 @@ using System.Collections;
 namespace BoM.Players {
 	public class Latency : NetworkBehaviour {
 		public event Action<long> Received;
+		public long maxRoundTripTime;
 		public long oneWay { get; private set; }
-		private long roundTripTime;
-		private long pingSentTime;
+		public NetworkVariable<long> roundTripTime;
+		private long startTime;
 		private ClientRpcParams toOwner;
 		private bool waitingForResponse;
 
+		private void Awake() {
+			roundTripTime.OnValueChanged += OnRoundTripTimeChanged;
+		}
+
+		private void OnRoundTripTimeChanged(long oldRTT, long newRTT) {
+			// This is not 100% correct because send and receive latency can be different,
+			// however it provides a decent approximation.
+			oneWay = newRTT / 2;
+			Received?.Invoke(oneWay);
+		}
+
 		public override void OnNetworkSpawn() {
-			if(!IsServer) {
-				return;
+			// Initiate network variables
+			OnRoundTripTimeChanged(0, roundTripTime.Value);
+			
+			if(IsServer) {
+				toOwner = new ClientRpcParams {
+					Send = new ClientRpcSendParams {
+						TargetClientIds = new ulong[]{ OwnerClientId }
+					}
+				};
+
+				StartCoroutine(SendPingsPeriodically());
 			}
-
-			toOwner = new ClientRpcParams {
-				Send = new ClientRpcSendParams {
-					TargetClientIds = new ulong[]{ OwnerClientId }
-				}
-			};
-
-			StartCoroutine(SendPingsPeriodically());
 		}
 
 		private IEnumerator SendPingsPeriodically() {
@@ -42,40 +55,28 @@ namespace BoM.Players {
 
 		private void Ping() {
 			waitingForResponse = true;
-			pingSentTime = Now();
-			PingClientRpc(pingSentTime, toOwner);
+			startTime = Now();
+			PingClientRpc(toOwner);
 		}
 
 		[ClientRpc]
-		public void PingClientRpc(long serverNow, ClientRpcParams rpcParams = default) {
-			var now = Now();
-			oneWay = now - serverNow;
+		public void PingClientRpc(ClientRpcParams rpcParams = default) {
 			PongServerRpc();
 		}
 
 		[ServerRpc]
 		public void PongServerRpc() {
 			var now = Now();
-			roundTripTime = now - pingSentTime;
-			ReceiveRTTClientRpc(roundTripTime);
-			waitingForResponse = false;
+			var rtt = now - startTime;
 
-			// This is not 100% correct because send and receive latency can be different,
-			// however it provides a decent approximation.
-			oneWay = roundTripTime / 2;
-		}
-
-		[ClientRpc]
-		public void ReceiveRTTClientRpc(long rtt) {
-			roundTripTime = rtt;
-
-			// This is not 100% correct because send and receive latency can be different,
-			// however it provides a decent approximation.
-			oneWay = roundTripTime / 2;
-			
-			if(IsOwner) {
-				Received?.Invoke(oneWay);
+			// Prevent cheats that are based on faking your latency
+			// for lag compensation by limiting the latency.
+			if(rtt > maxRoundTripTime) {
+				rtt = maxRoundTripTime;
 			}
+
+			roundTripTime.Value = rtt;
+			waitingForResponse = false;
 		}
 	}
 }

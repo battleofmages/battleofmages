@@ -9,10 +9,6 @@ namespace BoM.Players {
 		private Quaternion targetRotation;
 
 		private void Update() {
-			if(IsOwner) {
-				return;
-			}
-
 			UpdateRotation();
 		}
 		

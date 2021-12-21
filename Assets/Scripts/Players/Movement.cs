@@ -8,10 +8,6 @@ namespace BoM.Players {
 		private Vector3 lastRemoteDirection;
 
 		private void FixedUpdate() {
-			if(IsOwner) {
-				return;
-			}
-
 			long latency = 0;
 
 			if(IsServer) {

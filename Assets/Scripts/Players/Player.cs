@@ -63,8 +63,7 @@ namespace BoM.Players {
 			ClientId = networkObject.OwnerClientId;
 			RemotePosition = transform.position;
 
-			// For some reason Unity netcode doesn't call "value changed" on a new client connection,
-			// so we need to do it manually.
+			// Initiate network variables
 			OnNickChanged("", nick.Value);
 
 			// Move player into the "Players" root object
@@ -106,27 +105,19 @@ namespace BoM.Players {
 		}
 
 		private void EnableNetworkComponents() {
-			if(IsHost && IsOwner) {
-				GetComponent<Server>().enabled = true;
+			if(!IsOwner) {
+				GetComponent<Movement>().enabled = true;
+				GetComponent<Rotation>().enabled = true;
+				GetComponent<Snap>().enabled = true;
+			}
+
+			if(IsOwner) {
 				GetComponent<Client>().enabled = true;
 				GetComponent<Cursor>().enabled = true;
-				return;
 			}
 
 			if(IsServer) {
 				GetComponent<Server>().enabled = true;
-				return;
-			}
-
-			if(IsClient && IsOwner) {
-				GetComponent<Client>().enabled = true;
-				GetComponent<Cursor>().enabled = true;
-				return;
-			}
-
-			if(IsClient && !IsOwner) {
-				// GetComponent<Proxy>().enabled = true;
-				return;
 			}
 		}
 

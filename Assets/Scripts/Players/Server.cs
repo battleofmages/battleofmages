@@ -32,10 +32,10 @@ namespace BoM.Players {
 			writer.WriteValueSafe(transform.position);
 			writer.WriteValueSafe(player.RemoteDirection);
 
-			var delivery = NetworkDelivery.UnreliableSequenced;
+			var delivery = NetworkDelivery.Unreliable;
 
 			if(player.RemoteDirection == Vector3.zero) {
-				delivery = NetworkDelivery.ReliableSequenced;
+				delivery = NetworkDelivery.Reliable;
 			}
 
 			messenger.SendNamedMessageToAll("server position", writer, delivery);
