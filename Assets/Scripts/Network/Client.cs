@@ -3,7 +3,8 @@ using Unity.Netcode;
 
 namespace BoM.Network {
 	public static class Client {
-		public static void Start() {
+		public static void Start(string accountId) {
+			NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.UTF8.GetBytes(accountId);
 			NetworkManager.Singleton.StartClient();
 			Listen();
 		}

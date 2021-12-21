@@ -61,10 +61,9 @@ namespace BoM.Network {
 
 		public static void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callBack) {
 			var approve = false;
+			var accountId = System.Text.Encoding.UTF8.GetString(connectionData, 0, connectionData.Length);
 			var offset = Random.insideUnitCircle * spawnRadius;
 			var position = new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);
-
-			var accountId = "id0";
 			var teamId = match.GetTeamIdByAccountId(accountId);
 
 			if(teamId != -1) {
