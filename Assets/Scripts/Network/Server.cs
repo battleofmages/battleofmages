@@ -6,6 +6,7 @@ namespace BoM.Network {
 	public static class Server {
 		public static event System.Action Ready;
 		public static Transform spawn;
+		private static float spawnRadius;
 
 		public static void Init() {
 			NetworkManager.Singleton.ConnectionApprovalCallback += OnApprovalCheck;
@@ -30,11 +31,12 @@ namespace BoM.Network {
 
 		public static void SceneLoaded(Scene scene, LoadSceneMode mode) {
 			spawn = GameObject.FindGameObjectWithTag("Spawn").transform;
+			spawnRadius = spawn.GetComponent<SphereCollider>().radius;
 			Ready?.Invoke();
 		}
 
 		public static void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callBack) {
-			var offset = Random.insideUnitCircle * spawn.GetComponent<SphereCollider>().radius;
+			var offset = Random.insideUnitCircle * spawnRadius;
 			var position = new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);
 			callBack(true, null, true, position, spawn.rotation);
 		}

@@ -26,6 +26,7 @@ namespace BoM.Players {
 		public ulong ClientId { get; set; }
 		public Vector3 RemoteDirection { get; set; }
 		private Vector3 remotePosition;
+		public NetworkVariable<bool> isReady = new NetworkVariable<bool>(false);
 
 		public string Name {
 			get {
@@ -56,8 +57,8 @@ namespace BoM.Players {
 		}
 
 		public override void OnNetworkSpawn() {
-			Account = database.GetAccount("id1");
 			ClientId = networkObject.OwnerClientId;
+			Account = database.GetAccount("id" + ClientId);
 			Name = Account.Nick;
 			RemotePosition = transform.position;
 
@@ -65,12 +66,16 @@ namespace BoM.Players {
 				Player.main = this;
 			}
 
-			model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
-			EnableNetworkComponents();
 			var playerRoot = GameObject.Find("Players");
 			transform.SetParent(playerRoot.transform);
 			networkShadow.transform.SetParent(playerRoot.transform, true);
+			model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
+			EnableNetworkComponents();
 			Added?.Invoke(this);
+
+			if(IsOwner) {
+				ReadyServerRpc();
+			}
 		}
 
 		private void OnDisable() {
@@ -142,6 +147,11 @@ namespace BoM.Players {
 			animations.Animator.SetBool("Attack", true);
 			await Task.Delay(300);
 			UseSkill(currentElement.skills[index], cursorPosition);
+		}
+
+		[ServerRpc]
+		public void ReadyServerRpc() {
+			isReady.Value = true;
 		}
 	}
 }

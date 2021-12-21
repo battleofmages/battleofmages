@@ -61,6 +61,10 @@ namespace BoM.Players {
 				return;
 			}
 
+			if(messenger == null) {
+				return;
+			}
+
 			if(transform.position == lastPositionSent && direction == lastDirectionSent) {
 				return;
 			}
