@@ -818,14 +818,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 198852178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0a097104b76237428f55da3f8dee175, type: 3}
+  m_Script: {fileID: 11500000, guid: d3cfc19f31e1fc449a9c00b535fcc01a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   teams:
   - name: Team 1
-    layer: 8
+    layer: 11
   - name: Team 2
-    layer: 9
+    layer: 12
 --- !u!224 &219399319 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6478510207085027829, guid: 821a47670b8702d4cbe5916e5eaaed67,
@@ -5171,7 +5171,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 363823019}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.1943554
+  m_Size: 0.19435535
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

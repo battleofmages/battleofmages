@@ -1,12 +1,13 @@
+using BoM.Core;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BoM.Players {
+namespace BoM.Teams {
 	[Serializable]
 	public class Team {
 		public string name;
-		[SerializeField, Core.Layer] public int layer;
-		[NonSerialized] public List<Player> players;
+		[SerializeField, Layer] public int layer;
+		[NonSerialized] public List<IPlayer> players;
 	}
 }
