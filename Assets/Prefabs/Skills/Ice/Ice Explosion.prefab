@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -3792816742812588411}
   - component: {fileID: 8193530147135755931}
   - component: {fileID: 2781812173362187313}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Ice Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}

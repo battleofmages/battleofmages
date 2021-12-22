@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace BoM.Network {
 	public static class Server {
+		public static string mapName = "Arena";
 		public static event System.Action Ready;
 		public static Transform spawn;
 		public static IDatabase database;
@@ -18,7 +19,7 @@ namespace BoM.Network {
 			NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
 			NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
 			SceneManager.sceneLoaded += SceneLoaded;
-			SceneManager.LoadScene("Arena", LoadSceneMode.Additive);
+			SceneManager.LoadScene(mapName, LoadSceneMode.Additive);
 		}
 
 		private static void CreateMatch() {
@@ -56,6 +57,7 @@ namespace BoM.Network {
 		}
 
 		public static void SceneLoaded(Scene scene, LoadSceneMode mode) {
+			SceneManager.SetActiveScene(scene);
 			spawn = GameObject.FindGameObjectWithTag("Spawn").transform;
 			spawnRadius = spawn.GetComponent<SphereCollider>().radius;
 			Ready?.Invoke();

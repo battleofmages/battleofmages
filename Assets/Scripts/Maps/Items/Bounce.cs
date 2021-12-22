@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BoM.Items {
+namespace BoM.Maps.Items {
 	public class Bounce : MonoBehaviour {
 		public Vector3 bounceVector;
 		public float bounceSpeed;

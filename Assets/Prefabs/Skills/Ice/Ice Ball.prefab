@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6710880726570859313}
   - component: {fileID: 2170822309187934714}
   - component: {fileID: 8460619619793728258}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Ice Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ PrefabInstance:
     - target: {fileID: 3816399186577911202, guid: fe4a416e042a46740ae4a9c196d15e96,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3816399186577911203, guid: fe4a416e042a46740ae4a9c196d15e96,
         type: 3}
