@@ -9,7 +9,7 @@ namespace BoM.Players {
 		public OwnerMovement movement;
 		public Jump jump;
 		public SkillSystem skillSystem;
-		public Cursor cursor;
+		public Animations animations;
 		public Cameras.Controller camController;
 
 		public void Move(InputAction.CallbackContext context) {
@@ -36,48 +36,31 @@ namespace BoM.Players {
 		}
 
 		public void StartBlock(InputAction.CallbackContext context) {
-			player.animations.Animator.SetBool("Block", true);
+			animations.Animator.SetBool("Block", true);
 		}
 
 		public void StopBlock(InputAction.CallbackContext context) {
-			player.animations.Animator.SetBool("Block", false);
+			animations.Animator.SetBool("Block", false);
 		}
 
 		public void Skill1(InputAction.CallbackContext context) {
-			UseSkill(0);
+			skillSystem.CastSkillAtIndex(0);
 		}
 
 		public void Skill2(InputAction.CallbackContext context) {
-			UseSkill(1);
+			skillSystem.CastSkillAtIndex(1);
 		}
 
 		public void Skill3(InputAction.CallbackContext context) {
-			UseSkill(2);
+			skillSystem.CastSkillAtIndex(2);
 		}
 
 		public void Skill4(InputAction.CallbackContext context) {
-			UseSkill(3);
+			skillSystem.CastSkillAtIndex(3);
 		}
 
 		public void Skill5(InputAction.CallbackContext context) {
-			UseSkill(4);
-		}
-
-		public async void UseSkill(byte slotIndex) {
-			if(slotIndex >= skillSystem.currentElement.skills.Count) {
-				return;
-			}
-			
-			var skill = skillSystem.currentElement.skills[slotIndex];
-
-			if(skill == null) {
-				return;
-			}
-
-			skillSystem.UseSkillServerRpc(slotIndex, cursor.Position);
-			player.animations.Animator.SetBool("Attack", true);
-			await Task.Delay(300);
-			skillSystem.UseSkill(skill, cursor.Position);
+			skillSystem.CastSkillAtIndex(4);
 		}
 	}
 }

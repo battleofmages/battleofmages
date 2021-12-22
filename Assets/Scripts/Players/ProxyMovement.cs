@@ -11,7 +11,7 @@ namespace BoM.Players {
 		private Vector3 lastRemoteDirection;
 
 		private void FixedUpdate() {
-			long latency = 0;
+			float latency = 0f;
 
 			if(IsServer) {
 				latency = player.latency.oneWay;
@@ -25,7 +25,7 @@ namespace BoM.Players {
 				latency = maxLatency;
 			}
 
-			UpdatePosition(latency * 0.001f);
+			UpdatePosition(latency);
 		}
 
 		public void UpdatePosition(float latency) {
@@ -44,7 +44,7 @@ namespace BoM.Players {
 			player.Move(direction);
 		}
 
-		private Vector3 CalculatePosition(Vector3 position, Vector3 direction, float latency) {
+		public static Vector3 CalculatePosition(Vector3 position, Vector3 direction, float latency) {
 			return position + direction * latency;
 		}
 

@@ -10,12 +10,8 @@ namespace BoM.Players {
 		public static event Action<Player> Added;
 		public static event Action<Player> Removed;
 
-		public NetworkVariable<FixedString64Bytes> id;
-		public NetworkVariable<FixedString64Bytes> nick;
-
-		public NetworkObject networkObject;
+		public Account account;
 		public CharacterController controller;
-		public Animations animations;
 		public Camera cam;
 		public Gravity gravity;
 		public Latency latency;
@@ -25,12 +21,11 @@ namespace BoM.Players {
 		public GameObject networkShadow;
 		public ulong ClientId { get; set; }
 		public Vector3 RemoteDirection { get; set; }
-		public Vector3 Direction { get; set; }
 		private Vector3 remotePosition;
 
 		public string Nick {
 			get {
-				return nick.Value.ToString();
+				return gameObject.name;
 			}
 		}
 
@@ -47,21 +42,26 @@ namespace BoM.Players {
 
 			set {
 				remotePosition = value;
-				networkShadow.transform.position = value;
+
+				if(networkShadow.activeSelf) {
+					networkShadow.transform.position = ProxyMovement.CalculatePosition(remotePosition, RemoteDirection, latency.oneWay);
+				}
 			}
 		}
 
 		private void Awake() {
-			nick.OnValueChanged += OnNickChanged;
+			account.NickChanged += OnNickChanged;
+		}
+
+		private void OnNickChanged(string nick) {
+			gameObject.name = nick;
+			networkShadow.gameObject.name = nick + " - Shadow";
 		}
 
 		public override void OnNetworkSpawn() {
 			// Network information
-			ClientId = networkObject.OwnerClientId;
+			ClientId = OwnerClientId;
 			RemotePosition = transform.position;
-
-			// Initiate network variables
-			OnNickChanged("", nick.Value);
 
 			// Move player into the "Players" root object
 			Reparent();
@@ -84,12 +84,6 @@ namespace BoM.Players {
 			var playerRoot = GameObject.Find("Players");
 			transform.SetParent(playerRoot.transform);
 			networkShadow.transform.SetParent(playerRoot.transform, true);
-		}
-
-		private void OnNickChanged(FixedString64Bytes oldNickFixed, FixedString64Bytes newNickFixed) {
-			var newNick = newNickFixed.ToString();
-			gameObject.name = newNick;
-			networkShadow.gameObject.name = newNick + " - Shadow";
 		}
 
 		private void OnDisable() {
@@ -115,7 +109,7 @@ namespace BoM.Players {
 			}
 
 			if(IsServer) {
-				GetComponent<ServerAccount>().enabled = true;
+				GetComponent<Account>().enabled = true;
 				GetComponent<ServerSendPosition>().enabled = true;
 			}
 		}

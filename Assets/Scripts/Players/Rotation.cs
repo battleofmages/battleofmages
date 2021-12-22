@@ -17,8 +17,11 @@ namespace BoM.Players {
 		}
 
 		private void Update() {
-			if(movement.direction != Vector3.zero) {
-				targetRotation = Quaternion.LookRotation(movement.direction);
+			var direction = movement.direction;
+			direction.y = 0f;
+
+			if(direction != Vector3.zero) {
+				targetRotation = Quaternion.LookRotation(direction);
 			}
 
 			model.rotation = Quaternion.Slerp(

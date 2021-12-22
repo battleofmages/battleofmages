@@ -5,10 +5,11 @@ using System.Collections;
 
 namespace BoM.Players {
 	public class Latency : NetworkBehaviour {
-		public event Action<long> Received;
-		public long maxRoundTripTime;
-		public long oneWay { get; private set; }
-		public NetworkVariable<long> roundTripTime;
+		public event Action<float> Received;
+		public float maxRoundTripTime;
+		public float oneWay { get; private set; }
+		public int oneWayInMilliseconds { get; private set; }
+		public NetworkVariable<float> roundTripTime;
 		private long startTime;
 		private ClientRpcParams toOwner;
 		private bool waitingForResponse;
@@ -17,10 +18,11 @@ namespace BoM.Players {
 			roundTripTime.OnValueChanged += OnRoundTripTimeChanged;
 		}
 
-		private void OnRoundTripTimeChanged(long oldRTT, long newRTT) {
+		private void OnRoundTripTimeChanged(float oldRTT, float newRTT) {
 			// This is not 100% correct because send and receive latency can be different,
 			// however it provides a decent approximation.
-			oneWay = newRTT / 2;
+			oneWay = newRTT * 0.5f;
+			oneWayInMilliseconds = (int)(oneWay * 1000f);
 			Received?.Invoke(oneWay);
 		}
 
@@ -67,7 +69,7 @@ namespace BoM.Players {
 		[ServerRpc]
 		public void PongServerRpc() {
 			var now = Now();
-			var rtt = now - startTime;
+			var rtt = (now - startTime) * 0.001f;
 
 			// Prevent cheats that are based on faking your latency
 			// for lag compensation by limiting the latency.

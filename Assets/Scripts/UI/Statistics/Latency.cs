@@ -10,8 +10,9 @@ namespace BoM.UI {
 			baseText = label.text;
 		}
 
-		public void OnLatencyReceived(long latency) {
-			label.text = $"{baseText} {latency} ms";
+		public void OnLatencyReceived(float latency) {
+			int ping = (int)(latency * 1000);
+			label.text = $"{baseText} {ping} ms";
 		}
 	}
 }

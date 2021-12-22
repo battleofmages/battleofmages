@@ -1,0 +1,4 @@
+1. Awake
+2. OnEnable
+3. OnNetworkSpawn
+4. Start
