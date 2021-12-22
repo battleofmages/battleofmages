@@ -29,9 +29,9 @@ namespace BoM.Players {
 			}
 		}
 
-		public float Latency {
+		public int Ping {
 			get {
-				return latency.oneWay;
+				return latency.oneWayInMilliseconds;
 			}
 		}
 

@@ -28,7 +28,7 @@ namespace BoM.UI {
 			score.text = "-";
 			damage.text = "-";
 			kills.text = "-";
-			ping.text = $"{player.Latency}";
+			ping.text = $"{player.Ping}";
 		}
 	}
 }
