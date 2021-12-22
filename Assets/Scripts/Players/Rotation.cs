@@ -3,18 +3,22 @@ using Unity.Netcode;
 
 namespace BoM.Players {
 	public class Rotation : NetworkBehaviour {
-		public Player player;
 		public Transform model;
 		public float speed;
 		private Quaternion targetRotation;
+		private IController movement { get; set; }
+
+		public override void OnNetworkSpawn() {
+			if(IsOwner) {
+				movement = GetComponent<OwnerMovement>();
+			} else {
+				movement = GetComponent<ProxyMovement>();
+			}
+		}
 
 		private void Update() {
-			UpdateRotation();
-		}
-		
-		private void UpdateRotation() {
-			if(player.RemoteDirection != Vector3.zero) {
-				targetRotation = Quaternion.LookRotation(player.RemoteDirection);
+			if(movement.direction != Vector3.zero) {
+				targetRotation = Quaternion.LookRotation(movement.direction);
 			}
 
 			model.rotation = Quaternion.Slerp(

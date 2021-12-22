@@ -1,4 +1,3 @@
-using BoM.Core;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -15,16 +14,17 @@ namespace BoM.UI {
 		public InputActionAsset inputActions;
 		public ChatHistory history;
 		private TextMeshProUGUI[] messages;
-
-		private static Dictionary<string, Color> channels = new Dictionary<string, Color>(){
-			{"Global", Color.white},
-			{"Announcement", Color.cyan},
-			{"Map", new Color(1.0f, 0.85f, 0.6f, 1f)},
-			{"System", new Color(1f, 1f, 0.5f, 1f)},
-			{"Debug", new Color(1f, 1f, 1f, 1f)}
-		};
+		private static Dictionary<string, Color> channels;
 
 		private void Start() {
+			channels = new Dictionary<string, Color>(){
+				{"Global", Color.white},
+				{"Announcement", Color.cyan},
+				{"Map", new Color(1.0f, 0.85f, 0.6f, 1f)},
+				{"System", new Color(1f, 1f, 0.5f, 1f)},
+				{"Debug", new Color(1f, 1f, 1f, 1f)}
+			};
+			
 			messages = messagesContainer.GetComponentsInChildren<TextMeshProUGUI>();
 			Clear();
 			scrollBar.value = 0f;
@@ -77,9 +77,8 @@ namespace BoM.UI {
 			}
 		}
 
-		IEnumerator<int> ResetScrollBar() {
-			yield return 0;
-			yield return 0;
+		System.Collections.IEnumerator ResetScrollBar() {
+			yield return new WaitForEndOfFrame();
 			scrollBar.value = 0f;
 		}
 

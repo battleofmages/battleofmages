@@ -39,7 +39,7 @@ namespace BoM {
 		private void OnPlayerAdded(Players.Player player) {
 			Network.PlayerManager.AddPlayer(player);
 			Cameras.Manager.AddCamera(player.cam);
-			player.elements = skills.elements;
+			player.GetComponent<Players.SkillSystem>().elements = skills.elements;
 
 			if(player.IsOwner) {
 				Bind(player);
@@ -60,7 +60,6 @@ namespace BoM {
 		}
 
 		public void Bind(Players.Player player) {
-			var client = player.GetComponent<Players.Client>();
 			var latency = player.GetComponent<Players.Latency>();
 			var input = player.GetComponent<Players.Input>();
 			var chat = player.GetComponent<Players.Chat>();
@@ -72,7 +71,7 @@ namespace BoM {
 			UI.Manager.Deactivate();
 
 			// Swap camera to player camera
-			Cameras.Manager.SetActiveCamera(client.player.cam);
+			Cameras.Manager.SetActiveCamera(player.cam);
 
 			// Bind gameplay events
 			var actions = inputSystem.actions;
@@ -99,7 +98,6 @@ namespace BoM {
 		}
 
 		public void Unbind(Players.Player player) {
-			var client = player.GetComponent<Players.Client>();
 			var latency = player.GetComponent<Players.Latency>();
 			var input = player.GetComponent<Players.Input>();
 			var chat = player.GetComponent<Players.Chat>();

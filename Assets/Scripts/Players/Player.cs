@@ -1,17 +1,15 @@
 using BoM.Core;
 using System;
-using System.Threading.Tasks;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
 
 namespace BoM.Players {
-	public class Player : Entity, IPlayer {
+	public class Player : NetworkBehaviour, IPlayer {
 		public static Player main;
 		public static event Action<Player> Added;
 		public static event Action<Player> Removed;
 
-		public NetworkVariable<bool> isReady;
 		public NetworkVariable<FixedString64Bytes> id;
 		public NetworkVariable<FixedString64Bytes> nick;
 
@@ -27,6 +25,7 @@ namespace BoM.Players {
 		public GameObject networkShadow;
 		public ulong ClientId { get; set; }
 		public Vector3 RemoteDirection { get; set; }
+		public Vector3 Direction { get; set; }
 		private Vector3 remotePosition;
 
 		public string Nick {
@@ -104,18 +103,20 @@ namespace BoM.Players {
 
 		private void EnableNetworkComponents() {
 			if(!IsOwner) {
-				GetComponent<Movement>().enabled = true;
-				GetComponent<Rotation>().enabled = true;
+				GetComponent<ProxyMovement>().enabled = true;
 				GetComponent<Snap>().enabled = true;
 			}
 
 			if(IsOwner) {
-				GetComponent<Client>().enabled = true;
+				GetComponent<OwnerMovement>().enabled = true;
+				GetComponent<OwnerSendPosition>().enabled = true;
 				GetComponent<Cursor>().enabled = true;
+				GetComponent<Ready>().enabled = true;
 			}
 
 			if(IsServer) {
-				GetComponent<Server>().enabled = true;
+				GetComponent<ServerAccount>().enabled = true;
+				GetComponent<ServerSendPosition>().enabled = true;
 			}
 		}
 
@@ -127,28 +128,6 @@ namespace BoM.Players {
 			direction.y = gravity.Speed;
 
 			controller.Move(direction * Time.deltaTime);
-		}
-
-		[ClientRpc]
-		public void JumpClientRpc() {
-			if(IsOwner || IsServer) {
-				return;
-			}
-			
-			if(!gravity.Jump()) {
-				return;
-			}
-		}
-
-		[ClientRpc]
-		public async void UseSkillClientRpc(byte index, Vector3 cursorPosition) {
-			if(IsOwner || IsServer) {
-				return;
-			}
-
-			animations.Animator.SetBool("Attack", true);
-			await Task.Delay(300);
-			UseSkill(currentElement.skills[index], cursorPosition);
 		}
 	}
 }

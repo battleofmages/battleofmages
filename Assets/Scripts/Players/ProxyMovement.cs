@@ -2,9 +2,12 @@ using UnityEngine;
 using Unity.Netcode;
 
 namespace BoM.Players {
-	public class Movement : NetworkBehaviour {
+	public class ProxyMovement : NetworkBehaviour, IController {
 		public Player player;
+		public Gravity gravity;
+		public CharacterController controller;
 		public long maxLatency;
+		public Vector3 direction { get; set; }
 		private Vector3 lastRemoteDirection;
 
 		private void FixedUpdate() {
@@ -32,13 +35,13 @@ namespace BoM.Players {
 				player.controller.Move(expectedPosition - transform.position);
 			}
 
-			var towardsExpectedPosition = expectedPosition - transform.position;
+			direction = expectedPosition - transform.position;
 
-			if(towardsExpectedPosition.sqrMagnitude < 0.01f) {
-				towardsExpectedPosition = Vector3.zero;
+			if(direction.sqrMagnitude < 0.01f) {
+				direction = Vector3.zero;
 			}
 
-			player.Move(towardsExpectedPosition);
+			player.Move(direction);
 		}
 
 		private Vector3 CalculatePosition(Vector3 position, Vector3 direction, float latency) {

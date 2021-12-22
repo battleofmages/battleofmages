@@ -1,18 +1,16 @@
 using BoM.Skills;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Threading.Tasks;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace BoM.Players {
-	public class Entity : NetworkBehaviour {
+	public class SkillSystem : NetworkBehaviour {
+		public Player player;
 		public Skeleton skeleton;
-		public Traits traits;
-
-		[System.NonSerialized]
-		public List<Element> elements = new List<Element>();
-
-		[System.NonSerialized]
-		public int currentElementIndex;
+		public Animations animations;
+		public List<Element> elements { get; set; }
+		private int currentElementIndex;
 
 		public Element currentElement {
 			get {
@@ -50,6 +48,30 @@ namespace BoM.Players {
 			instance.transform.rotation = skillRotation;
 			instance.pool = skill.pool;
 			instance.Init();
+		}
+
+		[ClientRpc]
+		public async void UseSkillClientRpc(byte index, Vector3 cursorPosition) {
+			if(IsOwner || IsServer) {
+				return;
+			}
+
+			animations.Animator.SetBool("Attack", true);
+			await Task.Delay(300);
+			UseSkill(currentElement.skills[index], cursorPosition);
+		}
+
+		[ServerRpc]
+		public async void UseSkillServerRpc(byte index, Vector3 cursorPosition) {
+			if(IsHost && IsOwner) {
+				UseSkillClientRpc(index, cursorPosition);
+				return;
+			}
+			
+			animations.Animator.SetBool("Attack", true);
+			await Task.Delay(300);
+			UseSkill(currentElement.skills[index], cursorPosition);
+			UseSkillClientRpc(index, cursorPosition);
 		}
 	}
 }

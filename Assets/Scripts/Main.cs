@@ -6,10 +6,7 @@ namespace BoM {
 		private void Start() {
 #if UNITY_EDITOR
 			if(ParrelSync.ClonesManager.IsClone()) {
-				var projectPath = ParrelSync.ClonesManager.GetCurrentProjectPath();
-				var parts = projectPath.Split("_clone_");
-				var cloneId = Int32.Parse(parts[parts.Length - 1]);
-				var accountId = $"id{cloneId + 1}";
+				var accountId = ParrelSync.ClonesManager.GetArgument();
 				Network.Client.Start(accountId);
 			} else {
 				Network.Host.Start("id0");

@@ -6,14 +6,15 @@ using Unity.Netcode;
 namespace BoM.Players {
 	public class Input: NetworkBehaviour {
 		public Player player;
-		public Client client;
-		public Server server;
+		public OwnerMovement movement;
+		public Jump jump;
+		public SkillSystem skillSystem;
 		public Cursor cursor;
 		public Cameras.Controller camController;
 
 		public void Move(InputAction.CallbackContext context) {
 			var value = context.ReadValue<Vector2>();
-			client.inputDirection = new Vector3(value.x, 0, value.y);
+			movement.inputDirection = new Vector3(value.x, 0, value.y);
 		}
 
 		public void Look(InputAction.CallbackContext context) {
@@ -31,7 +32,7 @@ namespace BoM.Players {
 				return;
 			}
 
-			server.JumpServerRpc();
+			jump.JumpServerRpc();
 		}
 
 		public void StartBlock(InputAction.CallbackContext context) {
@@ -63,20 +64,20 @@ namespace BoM.Players {
 		}
 
 		public async void UseSkill(byte slotIndex) {
-			if(slotIndex >= player.currentElement.skills.Count) {
+			if(slotIndex >= skillSystem.currentElement.skills.Count) {
 				return;
 			}
 			
-			var skill = player.currentElement.skills[slotIndex];
+			var skill = skillSystem.currentElement.skills[slotIndex];
 
 			if(skill == null) {
 				return;
 			}
 
-			server.UseSkillServerRpc(slotIndex, cursor.Position);
+			skillSystem.UseSkillServerRpc(slotIndex, cursor.Position);
 			player.animations.Animator.SetBool("Attack", true);
 			await Task.Delay(300);
-			player.UseSkill(skill, cursor.Position);
+			skillSystem.UseSkill(skill, cursor.Position);
 		}
 	}
 }
