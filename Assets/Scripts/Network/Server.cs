@@ -8,9 +8,7 @@ namespace BoM.Network {
 	public static class Server {
 		public static string mapName = "Arena";
 		public static event System.Action Ready;
-		public static Transform spawn;
 		public static IDatabase database;
-		private static float spawnRadius;
 		private static Match match;
 
 		public static void Init() {
@@ -57,32 +55,46 @@ namespace BoM.Network {
 		}
 
 		public static void SceneLoaded(Scene scene, LoadSceneMode mode) {
-			SceneManager.SetActiveScene(scene);
-			spawn = GameObject.FindGameObjectWithTag("Spawn").transform;
-			spawnRadius = spawn.GetComponent<SphereCollider>().radius;
+			//SceneManager.SetActiveScene(scene);
 			Ready?.Invoke();
 		}
 
-		public static void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate respond) {
-			var approve = false;
-			
+		public static void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate sendResponse) {
 			// Account
 			var accountId = System.Text.Encoding.UTF8.GetString(connectionData, 0, connectionData.Length);
 			var account = database.GetAccount(accountId);
 			Accounts.Manager.AddClient(clientId, account);
-			
-			// Spawn
-			var offset = Random.insideUnitCircle * spawnRadius;
-			var position = new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);
 
 			// Team
 			var teamId = match.GetTeamIdByAccountId(accountId);
 
-			if(teamId != -1) {
-				approve = true;
+			if(teamId == -1) {
+				// Deny connection
+				sendResponse(false, null, false, null, null);
+				return;
 			}
 
-			respond(approve, null, approve, position, spawn.rotation);
+			// Accept connection
+			sendResponse(false, null, true, null, null);
+
+			// Find the spawn point
+			var spawn = GameObject.Find($"Spawn {teamId + 1}").transform;
+			var spawnRadius = spawn.GetComponent<SphereCollider>().radius;
+			var offset = Random.insideUnitCircle * spawnRadius;
+			var position = new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);
+			var rotation = spawn.rotation;
+
+			// Create player object
+			var playerPrefab = NetworkManager.Singleton.NetworkConfig.PlayerPrefab;
+			var playerObject = GameObject.Instantiate(playerPrefab, position, rotation);
+
+			// Assign team
+			var player = playerObject.GetComponent<IPlayer>();
+			player.TeamId = teamId;
+
+			// Spawn player on every client
+			var networkObject = playerObject.GetComponent<NetworkObject>();
+			networkObject.SpawnAsPlayerObject(clientId);
 		}
 
 		public static void OnClientConnected(ulong clientId) {

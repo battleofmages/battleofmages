@@ -9,9 +9,11 @@ namespace BoM.Players {
 		public NetworkVariable<FixedString64Bytes> nick;
 		private IAccount account;
 
-		public override void OnNetworkSpawn() {
+		private void Awake() {
 			nick.OnValueChanged += OnNickChanged;
+		}
 
+		public override void OnNetworkSpawn() {
 			if(IsClient) {
 				NickChanged?.Invoke(nick.Value.ToString());
 			}

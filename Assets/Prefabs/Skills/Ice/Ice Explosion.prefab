@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -3792816742812588411}
   - component: {fileID: 8193530147135755931}
   - component: {fileID: 2781812173362187313}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Ice Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247939221924084294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9795866, y: 0, z: 3.5031972}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -1,3 +1,4 @@
+using BoM.Core;
 using BoM.Skills;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -59,6 +60,7 @@ namespace BoM.Players {
 			}
 
 			var instance = skill.Instantiate();
+			instance.transform.SetLayer(gameObject.layer);
 			instance.transform.position = skillPosition;
 			instance.transform.rotation = skillRotation;
 			instance.pool = skill.pool;

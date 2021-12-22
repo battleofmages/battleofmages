@@ -1,3 +1,4 @@
+using BoM.Core;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -41,6 +42,7 @@ namespace BoM.Skills.Instances {
 			var random = Random.insideUnitCircle * radius;
 			var offset = new Vector3(random.x, 0f, random.y);
 			var projectile = projectilePool.Get();
+			projectile.transform.SetLayer(gameObject.layer);
 			projectile.transform.position = spawn.position + offset;
 
 			if(randomizeAngle) {

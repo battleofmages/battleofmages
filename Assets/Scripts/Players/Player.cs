@@ -19,13 +19,28 @@ namespace BoM.Players {
 		public Transform model;
 		public float modelYOffset;
 		public GameObject networkShadow;
-		public ulong ClientId { get; set; }
-		public Vector3 RemoteDirection { get; set; }
+		public NetworkVariable<int> teamId;
 		private Vector3 remotePosition;
+
+		// IPlayer implementation
+		public ulong ClientId {
+			get;
+			set;
+		}
 
 		public string Nick {
 			get {
 				return gameObject.name;
+			}
+		}
+
+		public int TeamId {
+			get {
+				return teamId.Value;
+			}
+
+			set {
+				teamId.Value = value;
 			}
 		}
 
@@ -49,19 +64,30 @@ namespace BoM.Players {
 			}
 		}
 
-		private void Awake() {
-			account.NickChanged += OnNickChanged;
+		public Vector3 RemoteDirection {
+			get;
+			set;
 		}
 
-		private void OnNickChanged(string nick) {
-			gameObject.name = nick;
-			networkShadow.gameObject.name = nick + " - Shadow";
+		// Unity events
+		private void Awake() {
+			account.NickChanged += nick => {
+				gameObject.name = nick;
+				networkShadow.gameObject.name = nick + " - Shadow";
+			};
+
+			teamId.OnValueChanged += (oldTeam, newTeam) => {
+				transform.SetLayer(10 + newTeam);
+			};
 		}
 
 		public override void OnNetworkSpawn() {
 			// Network information
 			ClientId = OwnerClientId;
 			RemotePosition = transform.position;
+
+			// Change team
+			transform.SetLayer(10 + teamId.Value);
 
 			// Move player into the "Players" root object
 			Reparent();

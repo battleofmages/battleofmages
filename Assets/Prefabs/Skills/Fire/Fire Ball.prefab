@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8976344405814092800}
   - component: {fileID: 4642093316782192949}
   - component: {fileID: 3109278775362638797}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Fire Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!135 &8976344405814092800
 SphereCollider:
@@ -79,8 +79,8 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5475913262226543393}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_Material: {fileID: 13400000, guid: a5e61555244e29042b4070f246bb8f88, type: 2}
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.15

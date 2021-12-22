@@ -1,9 +1,12 @@
+using BoM.Core;
 using UnityEngine;
 
 namespace BoM.Skills.Instances {
 	public class Projectile : Instance {
+		const float finalGroundDistance = 0.1f;
+		
 		public Rigidbody rigidBody;
-		public Collider collision;
+		public SphereCollider collision;
 		public ParticleSystem particles;
 		public Light lighting;
 		public Explosion explosionPrefab;
@@ -23,27 +26,6 @@ namespace BoM.Skills.Instances {
 			deadTime = 0f;
 			lighting.intensity = lightIntensity;
 			Revive();
-		}
-
-		private void Revive() {
-			isAlive = true;
-			StartMovement();
-		}
-
-		private void Die() {
-			isAlive = false;
-			StopMovement();
-		}
-
-		private void StartMovement() {
-			rigidBody.WakeUp();
-			rigidBody.velocity = transform.forward * speed;
-			particles.Play();
-		}
-
-		private void StopMovement() {
-			rigidBody.Sleep();
-			particles.Stop(false, ParticleSystemStopBehavior.StopEmitting);
 		}
 
 		private void Update() {
@@ -71,15 +53,44 @@ namespace BoM.Skills.Instances {
 			}
 		}
 
-		private void OnCollisionEnter(Collision other) {
+		private void OnTriggerEnter(Collider other) {
+			if(GetCollisionPoint(out RaycastHit hit)) {
+				transform.position = hit.point - transform.forward * finalGroundDistance;
+			}
+
 			Die();
 			Explode();
 		}
 
+		private bool GetCollisionPoint(out RaycastHit hit) {
+			Vector3 forward = transform.forward;
+			Vector3 backward = -forward;
+			float maxDistance = 1f;
+
+			return Physics.Raycast(transform.position + backward * maxDistance, forward, out hit, maxDistance, Physics.AllLayers);
+		}
+
 		private void Explode() {
 			var explosion = PoolManager.Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+			explosion.transform.SetLayer(gameObject.layer);
 			explosion.skill = skill;
 			explosion.Init();
+		}
+
+		private void Revive() {
+			isAlive = true;
+			collision.enabled = true;
+			rigidBody.WakeUp();
+			rigidBody.velocity = transform.forward * speed;
+			particles.Play();
+		}
+
+		private void Die() {
+			isAlive = false;
+			collision.enabled = false;
+			rigidBody.Sleep();
+			particles.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+			//transform.SetLayer(9); // TODO: ...
 		}
 	}
 }

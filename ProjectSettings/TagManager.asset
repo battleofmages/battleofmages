@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Spawn
+  - Decal
   layers:
   - Default
   - TransparentFX
@@ -15,10 +16,10 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - Team unassigned
+  - Spectator
   - Team 1
   - Team 2
+  - 
   - 
   - 
   - 

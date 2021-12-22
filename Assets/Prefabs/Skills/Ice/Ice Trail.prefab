@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3816399186577911213}
   - component: {fileID: 3816399186577911212}
   - component: {fileID: 3816399186577911203}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Ice Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
