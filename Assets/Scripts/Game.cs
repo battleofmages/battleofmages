@@ -11,6 +11,15 @@ namespace BoM {
 		public UI.Latency latencyUI;
 
 		private void Awake() {
+			ConnectToDatabase();
+			Players.Player.Added += OnPlayerAdded;
+			Players.Player.Added += scoreboardUI.OnPlayerAdded;
+			Players.Player.Removed += OnPlayerRemoved;
+			Players.Player.Removed += scoreboardUI.OnPlayerRemoved;
+			Players.Chat.MessageReceived += OnMessageReceived;
+		}
+
+		private void ConnectToDatabase() {
 			var database = new Database.Memory();
 
 			database.AddAccount(new Accounts.Account("id0", "Player 0 名前", "test0@example.com"));
@@ -25,11 +34,6 @@ namespace BoM {
 			database.AddAccount(new Accounts.Account("id9", "Player 9 名前", "test9@example.com"));
 
 			Network.Server.database = database;
-			Players.Player.Added += OnPlayerAdded;
-			Players.Player.Added += scoreboardUI.OnPlayerAdded;
-			Players.Player.Removed += OnPlayerRemoved;
-			Players.Player.Removed += scoreboardUI.OnPlayerRemoved;
-			Players.Chat.MessageReceived += OnMessageReceived;
 		}
 
 		private void OnPlayerAdded(Players.Player player) {

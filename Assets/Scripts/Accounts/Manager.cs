@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BoM.Accounts {
 	public static class Manager {
-		private static Dictionary<ulong, IAccount> clientIdToAccount = new Dictionary<ulong, IAccount>();
+		private static readonly Dictionary<ulong, IAccount> clientIdToAccount = new Dictionary<ulong, IAccount>();
 
 		public static void AddClient(ulong clientId, IAccount account) {
 			clientIdToAccount.Add(clientId, account);

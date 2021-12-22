@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BoM.Database {
 	public class Memory : IDatabase {
-		private Dictionary<string, IAccount> accounts;
+		private readonly Dictionary<string, IAccount> accounts;
 		
 		public Memory() {
 			accounts = new Dictionary<string, IAccount>();

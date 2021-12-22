@@ -2,10 +2,14 @@ using System.Collections.Generic;
 
 namespace BoM.Network {
 	public class Match {
-		public List<List<string>> teams;
+		private readonly List<List<string>> teams;
 
 		public Match() {
 			teams = new List<List<string>>();
+		}
+
+		public void AddTeam(List<string> team) {
+			teams.Add(team);
 		}
 
 		public int GetTeamIdByAccountId(string id) {

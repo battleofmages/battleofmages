@@ -38,8 +38,8 @@ namespace BoM.Network {
 			team2.Add("id7");
 			team2.Add("id9");
 
-			match.teams.Add(team1);
-			match.teams.Add(team2);
+			match.AddTeam(team1);
+			match.AddTeam(team2);
 		}
 
 		public static void Start() {
