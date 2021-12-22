@@ -2,7 +2,6 @@ using BoM.Core;
 using System;
 using UnityEngine;
 using Unity.Netcode;
-using Unity.Collections;
 
 namespace BoM.Players {
 	public class Player : NetworkBehaviour, IPlayer {
@@ -13,6 +12,7 @@ namespace BoM.Players {
 		public Account account;
 		public CharacterController controller;
 		public Camera cam;
+		public Cameras.Controller camController;
 		public Gravity gravity;
 		public Latency latency;
 		public float moveSpeed;
@@ -71,6 +71,9 @@ namespace BoM.Players {
 			
 			// Adjust model position
 			model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
+
+			// Adjust camera rotation
+			camController.SetRotation(transform.rotation);
 
 			// Trigger "player added" event
 			if(IsOwner) {

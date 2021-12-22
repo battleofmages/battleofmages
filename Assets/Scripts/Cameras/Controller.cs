@@ -30,5 +30,10 @@ namespace BoM.Cameras {
 		public void GamepadLook(Vector2 input) {
 			gamepad = input;
 		}
+
+		public void SetRotation(Quaternion rotation) {
+			angles.x = rotation.eulerAngles.x;
+			angles.y = rotation.eulerAngles.y;
+		}
 	}
 }
