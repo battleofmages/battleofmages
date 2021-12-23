@@ -79,6 +79,7 @@ namespace BoM.UI {
 
 		System.Collections.IEnumerator ResetScrollBar() {
 			yield return new WaitForEndOfFrame();
+			yield return new WaitForEndOfFrame();
 			scrollBar.value = 0f;
 		}
 

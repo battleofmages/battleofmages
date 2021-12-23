@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 1
   particles: {fileID: 2781812173362187313}
+  damage: 0
 --- !u!199 &8193530147135755931
 ParticleSystemRenderer:
   serializedVersion: 6

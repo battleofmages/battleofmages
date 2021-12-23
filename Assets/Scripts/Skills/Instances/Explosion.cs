@@ -1,7 +1,9 @@
+using BoM.Core;
 using UnityEngine;
 
 namespace BoM.Skills {
 	public class Explosion : Instance {
+		public int damage { get; set; }
 		public float radius;
 		public ParticleSystem particles;
 		private Collider[] colliders;
@@ -24,7 +26,8 @@ namespace BoM.Skills {
 			int numColliders = Physics.OverlapSphereNonAlloc(center, radius, colliders, layerMask);
 
 			for (int i = 0; i < numColliders; i++) {
-				colliders[i].SendMessage("AddDamage");
+				var health = colliders[i].GetComponent<IHealth>();
+				health.TakeDamage(damage, skill, caster);
 			}
 		}
 

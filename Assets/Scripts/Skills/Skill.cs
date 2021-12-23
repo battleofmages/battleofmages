@@ -1,9 +1,10 @@
+using BoM.Core;
 using System;
 using UnityEngine.Pool;
 
 namespace BoM.Skills {
 	[Serializable]
-	public class Skill {
+	public class Skill : ISkill {
 		public string name;
 		public Instance prefab;
 		public PositionType position;
@@ -12,5 +13,11 @@ namespace BoM.Skills {
 
 		[NonSerialized]
 		public Element element;
+
+		public string Name {
+			get {
+				return name;
+			}
+		}
 	}
 }

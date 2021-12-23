@@ -55,6 +55,8 @@ MonoBehaviour:
   lighting: {fileID: 4642093316782192949}
   explosionPrefab: {fileID: 2369334154927238470, guid: bb19f6052c8c93f498f52db2f9d37e1a,
     type: 3}
+  directHitDamage: 30
+  splashDamage: 10
   speed: 30
 --- !u!54 &5475913262226543394
 Rigidbody:

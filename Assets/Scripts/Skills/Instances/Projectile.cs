@@ -4,12 +4,14 @@ using UnityEngine;
 namespace BoM.Skills.Instances {
 	public class Projectile : Instance {
 		const float finalGroundDistance = 0.15f;
-		
+
 		public Rigidbody rigidBody;
 		public SphereCollider collision;
 		public ParticleSystem particles;
 		public Light lighting;
 		public Explosion explosionPrefab;
+		public int directHitDamage;
+		public int splashDamage;
 		public float speed;
 
 		private bool isAlive;
@@ -58,8 +60,10 @@ namespace BoM.Skills.Instances {
 				transform.position = hit.point - transform.forward * finalGroundDistance;
 			}
 
+			// Direct hit damage
 			if(other.tag == "Player") {
-				Debug.Log("Direct hit");
+				var health = other.GetComponent<IHealth>();
+				health.TakeDamage(directHitDamage, skill, caster);
 			}
 
 			Die();
@@ -76,6 +80,7 @@ namespace BoM.Skills.Instances {
 
 		private void Explode() {
 			var explosion = PoolManager.Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+			explosion.GetComponent<Explosion>().damage = splashDamage;
 			explosion.transform.SetLayer(gameObject.layer);
 			explosion.skill = skill;
 			explosion.caster = caster;
