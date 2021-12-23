@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace BoM.Players {
 	public class SkillSystem : NetworkBehaviour {
+		public Player player;
 		public Cursor cursor;
 		public Skeleton skeleton;
 		public Animations animations;
@@ -58,7 +59,9 @@ namespace BoM.Players {
 					break;
 			}
 
-			var instance = skill.Instantiate();
+			var instance = skill.pool.Get();
+			instance.skill = skill;
+			instance.caster = player;
 			instance.transform.SetLayer(gameObject.layer);
 			instance.transform.position = skillPosition;
 			instance.transform.rotation = skillRotation;

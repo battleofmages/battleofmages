@@ -12,11 +12,5 @@ namespace BoM.Skills {
 
 		[NonSerialized]
 		public Element element;
-
-		public Instance Instantiate() {
-			var instance = pool.Get();
-			instance.skill = this;
-			return instance;
-		}
 	}
 }

@@ -42,6 +42,12 @@ namespace BoM.Players {
 			}
 		}
 
+		public Teams.Team Team {
+			get {
+				return Teams.Manager.Teams[TeamId];
+			}
+		}
+
 		public int Ping {
 			get {
 				return latency.oneWayInMilliseconds;

@@ -2,7 +2,8 @@
     "name": "Skills",
     "rootNamespace": "BoM.Skills",
     "references": [
-        "GUID:21a2195a992bc4e499b8b150197950a7"
+        "GUID:21a2195a992bc4e499b8b150197950a7",
+        "GUID:2fd3eeaead12b2244bba7b139659cf83"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

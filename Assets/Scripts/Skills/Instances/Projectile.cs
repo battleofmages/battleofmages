@@ -58,6 +58,10 @@ namespace BoM.Skills.Instances {
 				transform.position = hit.point - transform.forward * finalGroundDistance;
 			}
 
+			if(other.tag == "Player") {
+				Debug.Log("Direct hit");
+			}
+
 			Die();
 			Explode();
 		}
@@ -67,13 +71,14 @@ namespace BoM.Skills.Instances {
 			Vector3 backward = -forward;
 			float maxDistance = 1f;
 
-			return Physics.Raycast(transform.position + backward * maxDistance, forward, out hit, maxDistance, Physics.AllLayers);
+			return Physics.Raycast(transform.position + backward * maxDistance, forward, out hit, maxDistance, Physics.DefaultRaycastLayers);
 		}
 
 		private void Explode() {
 			var explosion = PoolManager.Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 			explosion.transform.SetLayer(gameObject.layer);
 			explosion.skill = skill;
+			explosion.caster = caster;
 			explosion.Init();
 		}
 
@@ -90,7 +95,6 @@ namespace BoM.Skills.Instances {
 			collision.enabled = false;
 			rigidBody.Sleep();
 			particles.Stop(false, ParticleSystemStopBehavior.StopEmitting);
-			//transform.SetLayer(9); // TODO: ...
 		}
 	}
 }

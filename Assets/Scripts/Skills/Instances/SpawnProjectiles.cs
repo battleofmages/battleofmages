@@ -61,6 +61,7 @@ namespace BoM.Skills.Instances {
 			}
 
 			projectile.skill = skill;
+			projectile.caster = caster;
 			projectile.pool = projectilePool;
 			projectile.Init();
 		}
