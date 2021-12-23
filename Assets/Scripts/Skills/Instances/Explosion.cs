@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BoM.Skills {
 	public class Explosion : Instance {
-		public int damage { get; set; }
+		public float damage { get; set; }
 		public float radius;
 		public ParticleSystem particles;
 		private Collider[] colliders;

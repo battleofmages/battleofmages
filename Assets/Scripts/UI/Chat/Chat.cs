@@ -21,6 +21,7 @@ namespace BoM.UI {
 				{"Global", Color.white},
 				{"Announcement", Color.cyan},
 				{"Map", new Color(1.0f, 0.85f, 0.6f, 1f)},
+				{"Combat", new Color(1f, 1f, 0.5f, 1f)},
 				{"System", new Color(1f, 1f, 0.5f, 1f)},
 				{"Debug", new Color(1f, 1f, 1f, 1f)}
 			};

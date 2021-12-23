@@ -10,8 +10,8 @@ namespace BoM.Skills.Instances {
 		public ParticleSystem particles;
 		public Light lighting;
 		public Explosion explosionPrefab;
-		public int directHitDamage;
-		public int splashDamage;
+		public float directHitDamage;
+		public float splashDamage;
 		public float speed;
 
 		private bool isAlive;

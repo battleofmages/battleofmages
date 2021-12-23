@@ -39,11 +39,20 @@ namespace BoM {
 		private void OnPlayerAdded(Players.Player player) {
 			Network.PlayerManager.AddPlayer(player);
 			Cameras.Manager.AddCamera(player.cam);
-			player.GetComponent<Players.SkillSystem>().elements = skills.elements;
+
+			var skillSystem = player.GetComponent<Players.SkillSystem>();
+			skillSystem.elements = new System.Collections.Generic.List<Skills.Element>();
+			var testElement = new Skills.Element();
+			testElement.skills = Skills.Manager.All;
+			skillSystem.elements.Add(testElement);
 
 			if(player.IsOwner) {
 				Bind(player);
 			}
+
+			var health = player.GetComponent<Players.Health>();
+			health.Damaged += OnPlayerDamage;
+			health.Died += OnPlayerDeath;
 		}
 
 		private void OnPlayerRemoved(Players.Player player) {
@@ -53,6 +62,14 @@ namespace BoM {
 			if(player.IsOwner) {
 				Unbind(player);
 			}
+		}
+
+		private void OnPlayerDamage(Players.DamageEvent damageEvent) {
+			chatUI.Write("Combat", $"{damageEvent.Receiver.Nick} received {damageEvent.Damage} damage.");
+		}
+
+		private void OnPlayerDeath(Players.DamageEvent damageEvent) {
+			chatUI.Write("Combat", $"{damageEvent.Receiver.Nick} died.");
 		}
 
 		private void OnMessageReceived(Players.Player player, string message) {

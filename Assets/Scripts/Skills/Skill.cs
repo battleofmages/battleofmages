@@ -1,23 +1,25 @@
 using BoM.Core;
 using System;
+using UnityEngine;
 using UnityEngine.Pool;
 
 namespace BoM.Skills {
 	[Serializable]
 	public class Skill : ISkill {
-		public string name;
-		public Instance prefab;
-		public PositionType position;
-		public RotationType rotation;
-		public ObjectPool<Instance> pool;
+		public short Id { get; set; }
 
-		[NonSerialized]
-		public Element element;
+		[SerializeField]
+		private string name;
 
 		public string Name {
 			get {
 				return name;
 			}
 		}
+
+		public Instance prefab;
+		public PositionType position;
+		public RotationType rotation;
+		public ObjectPool<Instance> pool;
 	}
 }
