@@ -4,11 +4,18 @@ namespace BoM.Players {
 	public class Cursor : MonoBehaviour {
 		public LayerMask LayerMask;
 		public Camera Cam;
-		public Vector3 Position;
+		public Vector3 Position { get; private set; }
 		private RaycastHit hit;
+		private Transform crossHair;
+
+		private void Awake() {
+			crossHair = GameObject.FindGameObjectWithTag("Crosshair").transform;
+		}
 
 		private void Update() {
-			if(Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, LayerMask)) {
+			var ray = Cam.ScreenPointToRay(crossHair.position);
+
+			if(Physics.Raycast(ray, out hit, LayerMask)) {
 				Position = hit.point;
 			} else {
 				Position = Cam.transform.position + Cam.transform.forward * 100f;

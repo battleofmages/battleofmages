@@ -50,9 +50,7 @@ namespace BoM {
 				Bind(player);
 			}
 
-			var health = player.GetComponent<Players.Health>();
-			health.Damaged += OnPlayerDamage;
-			health.Died += OnPlayerDeath;
+			BindHealth(player);
 		}
 
 		private void OnPlayerRemoved(Players.Player player) {
@@ -88,7 +86,7 @@ namespace BoM {
 			UI.Manager.Deactivate();
 
 			// Swap camera to player camera
-			Cameras.Manager.SetActiveCamera(player.cam);
+			Cameras.Manager.ActiveCamera = player.cam;
 
 			// Bind gameplay events
 			var actions = inputSystem.actions;
@@ -126,7 +124,7 @@ namespace BoM {
 			UI.Manager.Activate();
 
 			// Swap camera to default camera
-			Cameras.Manager.SetActiveCamera(null);
+			Cameras.Manager.ActiveCamera = Cameras.Manager.Instance.cameras[0];
 
 			// Unbind gameplay events
 			var actions = inputSystem.actions;
@@ -150,6 +148,25 @@ namespace BoM {
 			// Unbind chat events
 			UI.Chat.MessageSubmitted -= chat.SubmitMessage;
 			latency.Received -= latencyUI.OnLatencyReceived;
+		}
+
+		void BindHealth(Players.Player player) {
+			var health = player.GetComponent<Players.Health>();
+			health.Damaged += OnPlayerDamage;
+			health.Died += OnPlayerDeath;
+
+			var healthBar = player.GetComponentInChildren<UI.Overlays.Bar>();
+			var visibility = player.GetComponentInChildren<Players.Visibility>();
+
+			visibility.BecameVisible += () => {
+				healthBar.gameObject.SetActive(true);
+			};
+
+			visibility.BecameInvisible += () => {
+				healthBar.gameObject.SetActive(false);
+			};
+
+			health.PercentChanged += healthBar.SetFillAmount;
 		}
 	}
 }

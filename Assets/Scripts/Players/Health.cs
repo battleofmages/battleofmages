@@ -10,8 +10,11 @@ namespace BoM.Players {
 		public event Action<DamageEvent> Damaged;
 		public event Action<DamageEvent> Died;
 		public event Action<float> Changed;
+		public event Action<float> PercentChanged;
 		public NetworkVariable<float> health;
+		public NetworkVariable<float> maxHealth;
 		public IPlayer player;
+
 		private List<DamageEvent> damageEvents;
 
 		public bool isAlive {
@@ -32,12 +35,18 @@ namespace BoM.Players {
 
 			health.OnValueChanged += (oldHealth, newHealth) => {
 				Changed?.Invoke(newHealth);
+				PercentChanged?.Invoke(newHealth / maxHealth.Value);
 			};
 		}
 
 		public override void OnNetworkSpawn() {
+			if(IsServer) {
+				maxHealth.Value = 200f;
+			}
+
 			if(IsClient) {
 				Changed?.Invoke(health.Value);
+				PercentChanged?.Invoke(health.Value / maxHealth.Value);
 			}
 		}
 

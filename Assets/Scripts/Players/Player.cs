@@ -55,6 +55,18 @@ namespace BoM.Players {
 			}
 		}
 
+		public GameObject GameObject {
+			get {
+				return gameObject;
+			}
+		}
+
+		public Transform Transform {
+			get {
+				return transform;
+			}
+		}
+
 		public Vector3 RemotePosition {
 			get;
 			set;
@@ -78,6 +90,9 @@ namespace BoM.Players {
 				var defaultLayer = LayerMask.NameToLayer("Default");
 				cursor.LayerMask = (1 << defaultLayer) | Team.enemyTeamLayerMask;
 			};
+
+			var modelRenderer = model.GetComponentInChildren<SkinnedMeshRenderer>();
+			modelRenderer.gameObject.AddComponent<Visibility>();
 		}
 
 		public override void OnNetworkSpawn() {
