@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace BoM.Players {
 	public class SkillSystem : NetworkBehaviour {
-		public Player player;
 		public Cursor cursor;
 		public Skeleton skeleton;
 		public Animations animations;

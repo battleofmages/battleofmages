@@ -4,8 +4,6 @@ using Unity.Netcode;
 namespace BoM.Players {
 	public class ProxyMovement : NetworkBehaviour, IController {
 		public Player player;
-		public Gravity gravity;
-		public CharacterController controller;
 		public long maxLatency;
 		public Vector3 direction { get; set; }
 		private Vector3 lastRemoteDirection;

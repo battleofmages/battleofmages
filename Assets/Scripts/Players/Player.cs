@@ -18,9 +18,7 @@ namespace BoM.Players {
 		public float moveSpeed;
 		public Transform model;
 		public float modelYOffset;
-		public GameObject networkShadow;
 		public NetworkVariable<int> teamId;
-		private Vector3 remotePosition;
 
 		// IPlayer implementation
 		public ulong ClientId {
@@ -51,17 +49,8 @@ namespace BoM.Players {
 		}
 
 		public Vector3 RemotePosition {
-			get {
-				return remotePosition;
-			}
-
-			set {
-				remotePosition = value;
-
-				if(networkShadow.activeSelf) {
-					networkShadow.transform.position = ProxyMovement.CalculatePosition(remotePosition, RemoteDirection, latency.oneWay);
-				}
-			}
+			get;
+			set;
 		}
 
 		public Vector3 RemoteDirection {
@@ -73,7 +62,6 @@ namespace BoM.Players {
 		private void Awake() {
 			account.NickChanged += nick => {
 				gameObject.name = nick;
-				networkShadow.gameObject.name = nick + " - Shadow";
 			};
 
 			teamId.OnValueChanged += (oldTeam, newTeam) => {
@@ -112,7 +100,6 @@ namespace BoM.Players {
 		private void Reparent() {
 			var playerRoot = GameObject.Find("Players");
 			transform.SetParent(playerRoot.transform);
-			networkShadow.transform.SetParent(playerRoot.transform, true);
 		}
 
 		private void OnDisable() {
@@ -121,7 +108,6 @@ namespace BoM.Players {
 			}
 
 			Removed?.Invoke(this);
-			Destroy(networkShadow);
 		}
 
 		private void EnableNetworkComponents() {

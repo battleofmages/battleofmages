@@ -9,7 +9,8 @@ namespace BoM.Skills.Instances {
 		public float radius;
 		public float interval;
 		public float duration;
-		public bool randomizeAngle;
+		public bool randomizeStartPoint;
+		public bool randomizeEndPoint;
 
 		private float totalTime;
 		private float intervalTime;
@@ -39,13 +40,18 @@ namespace BoM.Skills.Instances {
 		}
 
 		void SpawnProjectile() {
-			var random = Random.insideUnitCircle * radius;
-			var offset = new Vector3(random.x, 0f, random.y);
+			var offset = Vector3.zero;
+
+			if(randomizeStartPoint) {
+				var random = Random.insideUnitCircle * radius;
+				offset = new Vector3(random.x, 0f, random.y);
+			}
+			
 			var projectile = projectilePool.Get();
 			projectile.transform.SetLayer(gameObject.layer);
 			projectile.transform.position = spawn.position + offset;
 
-			if(randomizeAngle) {
+			if(randomizeEndPoint) {
 				var targetPoint = Random.insideUnitCircle * radius;
 				var targetOffset = new Vector3(targetPoint.x, 0f, targetPoint.y);
 				var target = transform.position + targetOffset;

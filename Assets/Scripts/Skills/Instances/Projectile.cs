@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BoM.Skills.Instances {
 	public class Projectile : Instance {
-		const float finalGroundDistance = 0.1f;
+		const float finalGroundDistance = 0.15f;
 		
 		public Rigidbody rigidBody;
 		public SphereCollider collision;
