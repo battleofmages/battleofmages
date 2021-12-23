@@ -4,6 +4,8 @@ namespace BoM.Cameras {
 	public class Controller : MonoBehaviour {
 		public float mouseSensitivity = 0.05f;
 		public float gamepadSensitivity = 150f;
+		public float minClampRotationX;
+		public float maxClampRotationX;
 		
 		private Vector2 angles;
 		private Vector2 mouse;
@@ -19,7 +21,8 @@ namespace BoM.Cameras {
 				angles.x -= gamepad.y * gamepadSensitivity * Time.deltaTime;
 				angles.y += gamepad.x * gamepadSensitivity * Time.deltaTime;
 			}
-			
+
+			angles.x = Mathf.Clamp(angles.x, minClampRotationX, maxClampRotationX);
 			transform.eulerAngles = angles;
 		}
 

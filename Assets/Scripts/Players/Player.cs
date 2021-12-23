@@ -14,6 +14,7 @@ namespace BoM.Players {
 		public Camera cam;
 		public Cameras.Controller camController;
 		public Gravity gravity;
+		public Cursor cursor;
 		public Latency latency;
 		public float moveSpeed;
 		public Transform model;
@@ -71,7 +72,11 @@ namespace BoM.Players {
 			};
 
 			teamId.OnValueChanged += (oldTeam, newTeam) => {
-				transform.SetLayer(10 + newTeam);
+				var layer = Team.layer;
+				transform.SetLayer(layer);
+
+				var defaultLayer = LayerMask.NameToLayer("Default");
+				cursor.LayerMask = (1 << defaultLayer) | Team.enemyTeamLayerMask;
 			};
 		}
 
@@ -81,7 +86,7 @@ namespace BoM.Players {
 			RemotePosition = transform.position;
 
 			// Change team
-			transform.SetLayer(10 + teamId.Value);
+			teamId.OnValueChanged(-1, teamId.Value);
 
 			// Move player into the "Players" root object
 			Reparent();

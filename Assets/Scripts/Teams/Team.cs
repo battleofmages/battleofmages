@@ -10,6 +10,12 @@ namespace BoM.Teams {
 		[SerializeField, Layer] public int layer;
 		[NonSerialized] public List<IPlayer> players;
 
+		public int layerMask {
+			get {
+				return 1 << layer;
+			}
+		}
+
 		public int enemyTeamLayerMask {
 			get {
 				int layerMask = 0;

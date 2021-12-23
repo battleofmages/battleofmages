@@ -130,6 +130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 0.05
   gamepadSensitivity: 150
+  minClampRotationX: -80
+  maxClampRotationX: 65
 --- !u!1 &3759314853037806794
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,6 +339,7 @@ MonoBehaviour:
   cam: {fileID: 5283804284090617033}
   camController: {fileID: 5924383185328376581}
   gravity: {fileID: -7326193019154016585}
+  cursor: {fileID: 6339195900674787528}
   latency: {fileID: 5780932374599328331}
   moveSpeed: 4
   model: {fileID: 4304170728917831478}
@@ -489,7 +492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LayerMask:
     serializedVersion: 2
-    m_Bits: 193
+    m_Bits: 1
   Cam: {fileID: 5283804284090617033}
   Position: {x: 0, y: 0, z: 0}
 --- !u!114 &202379965925588689
