@@ -1,7 +1,5 @@
 using BoM.Network;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
 
@@ -13,7 +11,7 @@ namespace BoM.Maps {
 		private void Start() {
 			if(!NetworkManager.Singleton) {
 				Server.mapName = SceneManager.GetActiveScene().name;
-				SceneManager.LoadScene("Game");
+				SceneManager.LoadScene("Main");
 				return;
 			}
 

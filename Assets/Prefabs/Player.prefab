@@ -338,7 +338,7 @@ MonoBehaviour:
   account: {fileID: -5481189657951903409}
   controller: {fileID: 2119036363929754220}
   cam: {fileID: 4422484605796574882}
-  camController: {fileID: 5924383185328376581}
+  camCenter: {fileID: 5924383185328376581}
   gravity: {fileID: -7326193019154016585}
   cursor: {fileID: 6339195900674787528}
   latency: {fileID: 5780932374599328331}
@@ -539,7 +539,7 @@ MonoBehaviour:
   jump: {fileID: 3870380123645339473}
   skillSystem: {fileID: -8626974943594062236}
   animations: {fileID: -346168184870665623}
-  camController: {fileID: 5924383185328376581}
+  camCenter: {fileID: 5924383185328376581}
 --- !u!114 &2263400618342794246
 MonoBehaviour:
   m_ObjectHideFlags: 0

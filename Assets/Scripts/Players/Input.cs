@@ -10,7 +10,7 @@ namespace BoM.Players {
 		public Jump jump;
 		public SkillSystem skillSystem;
 		public Animations animations;
-		public Cameras.Controller camController;
+		public Cameras.Center camCenter;
 
 		public void Move(InputAction.CallbackContext context) {
 			var value = context.ReadValue<Vector2>();
@@ -21,9 +21,9 @@ namespace BoM.Players {
 			var value = context.ReadValue<Vector2>();
 
 			if(context.control.device is Mouse) {
-				camController.MouseLook(value);
+				camCenter.MouseLook(value);
 			} else {
-				camController.GamepadLook(value);
+				camCenter.GamepadLook(value);
 			}
 		}
 

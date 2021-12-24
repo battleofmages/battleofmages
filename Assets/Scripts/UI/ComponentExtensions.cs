@@ -11,7 +11,7 @@ namespace BoM.UI {
 				fader = gameObject.AddComponent<Fader>();
 			}
 			
-			fader.duration = fadeTime;
+			fader.Duration = fadeTime;
 			fader.onFade = onFade;
 			fader.onFadeEnd = onFadeEnd;
 			return fader;

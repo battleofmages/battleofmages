@@ -3,16 +3,28 @@ using UnityEngine;
 
 namespace BoM.UI {
 	public class Fader : MonoBehaviour {
+		public float Duration {
+			get {
+				return duration;
+			}
+			
+			set {
+				duration = value;
+				durationInverse = 1f / value;
+			}
+		}
+
 		public bool isReversed { get; private set; }
-		public float duration;
 		public Action<float> onFade;
 		public Action onFadeEnd;
 		private float time;
 		private float progress;
+		private float duration;
+		private float durationInverse;
 
 		private void Update() {
 			time += Time.deltaTime;
-			progress = time / duration;
+			progress = time * durationInverse;
 
 			if(progress >= 1f) {
 				if(isReversed) {

@@ -12,7 +12,7 @@ namespace BoM.Players {
 		public Account account;
 		public CharacterController controller;
 		public Camera cam;
-		public Cameras.Controller camController;
+		public Cameras.Center camCenter;
 		public Gravity gravity;
 		public Cursor cursor;
 		public Latency latency;
@@ -113,7 +113,7 @@ namespace BoM.Players {
 			model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
 
 			// Adjust camera rotation
-			camController.SetRotation(transform.rotation);
+			camCenter.SetRotation(transform.rotation);
 
 			// Trigger "player added" event
 			if(IsOwner) {
