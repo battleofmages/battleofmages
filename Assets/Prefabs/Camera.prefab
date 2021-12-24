@@ -47,6 +47,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e308f9404a9ab4a858aa89c0139960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  center: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  volumeProfile: {fileID: 11400000, guid: a6560a915ef98420e9faacc1c7438823, type: 2}
+  distanceAdjustmentSpeed: 20
 --- !u!20 &8364835258436945157
 Camera:
   m_ObjectHideFlags: 0
