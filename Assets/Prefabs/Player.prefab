@@ -359,7 +359,7 @@ MonoBehaviour:
   latency: {fileID: 5780932374599328331}
   moveSpeed: 4
   model: {fileID: 4304170728917831478}
-  modelYOffset: 0.03
+  modelYOffset: 0.07
   teamId:
     m_InternalValue: 0
 --- !u!114 &-7326193019154016585
@@ -569,6 +569,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 7127151718488009340}
   rightHand: {fileID: 2450532859686471941}
+  leftFoot: {fileID: 4276429505170751717}
+  rightFoot: {fileID: 8988218722245154380}
 --- !u!114 &5780932374599328331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1101,6 +1103,39 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4337464538371025117}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3526508542003008908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: acabfa8805b1d8b4bb702049cdf173fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 4337464538371025117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7121963784576745966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526508542003008908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e8db1ad389989d4f893d01c5fced72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeleton: {fileID: 2263400618342794246}
+  animator: {fileID: 7879980679939085644}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  useBonePosition: 1
+  raycastStartY: 0.1
+  raycastDistanceBelowFeet: 0.4
+  distanceToGround: 0.1
+--- !u!4 &4276429505170751717 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8689368932739012552, guid: acabfa8805b1d8b4bb702049cdf173fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 4337464538371025117}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4304170728917831478 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: acabfa8805b1d8b4bb702049cdf173fe,
@@ -1116,6 +1151,12 @@ Transform:
 --- !u!95 &7879980679939085644 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: acabfa8805b1d8b4bb702049cdf173fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 4337464538371025117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8988218722245154380 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4651466667711626897, guid: acabfa8805b1d8b4bb702049cdf173fe,
     type: 3}
   m_PrefabInstance: {fileID: 4337464538371025117}
   m_PrefabAsset: {fileID: 0}

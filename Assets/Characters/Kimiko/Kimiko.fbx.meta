@@ -44,6 +44,8 @@ ModelImporter:
       wrist
     - Armature/Hips/Spine/Chest/Upper Chest/Right shoulder/Right arm/Right elbow/Right
       wrist
+    - Armature/Hips/Left leg/Left knee/Left ankle
+    - Armature/Hips/Right leg/Right knee/Right ankle
     extraUserProperties: []
     clipAnimations: []
     isReadable: 0
@@ -56,8 +58,8 @@ ModelImporter:
     sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
@@ -541,6 +543,11 @@ ModelImporter:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+    - name: Body
+      parentName: Kimiko(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
     - name: Armature
       parentName: Kimiko(Clone)
       position: {x: -0, y: 0, z: 0}
@@ -852,7 +859,7 @@ ModelImporter:
     - name: Left elbow
       parentName: Left arm
       position: {x: -0.0000000038417056, y: 0.21985266, z: 0.00000012596138}
-      rotation: {x: 0.019092282, y: -0.020931758, z: 0.038428213, w: 0.99885964}
+      rotation: {x: 0.019092284, y: -0.020931758, z: 0.038428217, w: 0.99885964}
       scale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
     - name: Left wrist
       parentName: Left elbow
@@ -1070,7 +1077,7 @@ ModelImporter:
     - name: Right knee
       parentName: Right leg
       position: {x: 0.0000000026266207, y: 0.35298327, z: -9.313226e-10}
-      rotation: {x: 0.017371591, y: -0.0036649753, z: 0.00339511, w: 0.9998366}
+      rotation: {x: 0.017371593, y: -0.0036649753, z: 0.0033951101, w: 0.9998366}
       scale: {x: 1, y: 1, z: 1}
     - name: Right ankle
       parentName: Right knee
@@ -1082,11 +1089,6 @@ ModelImporter:
       position: {x: 0.0000000017462298, y: 0.12741482, z: 0.0000000041909516}
       rotation: {x: 0.00000023873872, y: -0.000004219124, z: 0.0000000088475645, w: 1}
       scale: {x: 1, y: 0.99999994, z: 1}
-    - name: Body
-      parentName: Kimiko(Clone)
-      position: {x: -0, y: 0, z: 0}
-      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -1096,7 +1098,7 @@ ModelImporter:
     feetSpacing: 0
     globalScale: 1
     rootMotionBoneName: 
-    hasTranslationDoF: 0
+    hasTranslationDoF: 1
     hasExtraRoot: 0
     skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
