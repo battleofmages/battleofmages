@@ -81,8 +81,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  offset: {x: 0, y: 1.7, z: 0}
-  follow: {fileID: 0}
+  lerpTime: 0.15
 --- !u!1 &2805906276528415616
 GameObject:
   m_ObjectHideFlags: 0

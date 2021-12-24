@@ -41,5 +41,9 @@ namespace BoM.UI {
 			isReversed = !isReversed;
 			progress = 1f - progress;
 		}
+
+		public void Restart() {
+			progress = 0f;
+		}
 	}
 }
