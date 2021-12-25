@@ -10,6 +10,15 @@ namespace BoM.Players {
 		private ulong serverId;
 		private Vector3 lastPositionSent;
 		private Vector3 lastDirectionSent;
+		private FastBufferWriter writer;
+
+		private void OnEnable() {
+			writer = new FastBufferWriter(24, Allocator.Persistent);
+		}
+
+		private void OnDisable() {
+			writer.Dispose();
+		}
 
 		public override void OnNetworkSpawn() {
 			serverId = NetworkManager.Singleton.ServerClientId;
@@ -35,7 +44,7 @@ namespace BoM.Players {
 				return;
 			}
 
-			using FastBufferWriter writer = new FastBufferWriter(24, Allocator.Temp);
+			writer.Seek(0);
 			writer.WriteValueSafe(transform.localPosition);
 			writer.WriteValueSafe(movement.direction);
 

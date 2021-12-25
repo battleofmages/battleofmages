@@ -48,18 +48,18 @@ namespace BoM.Skills.Instances {
 			}
 			
 			var projectile = projectilePool.Get();
-			projectile.transform.SetLayer(gameObject.layer);
-			projectile.transform.localPosition = spawn.position + offset;
+			var position = spawn.position + offset;
+			var rotation = spawn.localRotation;
 
 			if(randomizeEndPoint) {
 				var targetPoint = Random.insideUnitCircle * radius;
 				var targetOffset = new Vector3(targetPoint.x, 0f, targetPoint.y);
 				var target = transform.localPosition + targetOffset;
-				projectile.transform.localRotation = Quaternion.LookRotation(target - projectile.transform.position);
-			} else {
-				projectile.transform.localRotation = spawn.localRotation;
+				rotation = Quaternion.LookRotation(target - projectile.transform.position);
 			}
 
+			projectile.transform.SetLayer(gameObject.layer);
+			projectile.transform.SetPositionAndRotation(position, rotation);
 			projectile.skill = skill;
 			projectile.caster = caster;
 			projectile.pool = projectilePool;

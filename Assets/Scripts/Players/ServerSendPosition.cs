@@ -9,9 +9,15 @@ namespace BoM.Players {
 		private CustomMessagingManager messenger;
 		private Vector3 lastPositionSent;
 		private Vector3 lastDirectionSent;
+		private FastBufferWriter writer;
 
-		public void OnEnable() {
+		private void OnEnable() {
 			messenger = NetworkManager.Singleton.CustomMessagingManager;
+			writer = new FastBufferWriter(32, Allocator.Persistent);
+		}
+
+		private void OnDisable() {
+			writer.Dispose();
 		}
 
 		private void FixedUpdate() {
@@ -23,7 +29,7 @@ namespace BoM.Players {
 				return;
 			}
 
-			using FastBufferWriter writer = new FastBufferWriter(32, Allocator.Temp);
+			writer.Seek(0);
 			writer.WriteValueSafe(player.ClientId);
 			writer.WriteValueSafe(transform.localPosition);
 			writer.WriteValueSafe(movement.direction);

@@ -28,8 +28,7 @@ namespace BoM.Skills {
 		public static Instance Instantiate(Instance prefab, Vector3 position, Quaternion rotation) {
 			var pool = GetPool(prefab);
 			var instance = pool.Get();
-			instance.transform.localPosition = position;
-			instance.transform.localRotation = rotation;
+			instance.transform.SetPositionAndRotation(position, rotation);
 			instance.pool = pool;
 			return instance;
 		}
