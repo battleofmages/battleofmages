@@ -14,6 +14,7 @@ namespace BoM.Players {
 		public NetworkVariable<float> health;
 		public NetworkVariable<float> maxHealth;
 		public IPlayer player;
+		public SkillList skills;
 
 		private List<DamageEvent> damageEvents;
 
@@ -80,7 +81,7 @@ namespace BoM.Players {
 			}
 
 			var caster = PlayerManager.GetByClientId(casterClientId);
-			var skill = Manager.GetSkillById(skillId);
+			Skill skill = skills.GetSkillById(skillId);
 			var damageEvent = new DamageEvent(player, damage, skill, caster);
 			damageEvents.Add(damageEvent);
 			Damaged?.Invoke(damageEvent);

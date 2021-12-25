@@ -518,6 +518,7 @@ MonoBehaviour:
     m_InternalValue: 200
   maxHealth:
     m_InternalValue: 0
+  skills: {fileID: 11400000, guid: 560fb4128df765247a1c2d3c44f146d7, type: 2}
 --- !u!114 &4220810531747879961
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 namespace BoM {
 	public class Game : MonoBehaviour {
 		public GameObject menu;
-		public Skills.Manager skills;
+		public Skills.SkillList skills;
 		public PlayerInput inputSystem;
 		public UI.Chat chatUI;
 		public UI.Scoreboard scoreboardUI;
@@ -47,7 +47,7 @@ namespace BoM {
 			var skillSystem = player.GetComponent<Players.SkillSystem>();
 			skillSystem.elements = new System.Collections.Generic.List<Skills.Element>();
 			var testElement = new Skills.Element();
-			testElement.skills = Skills.Manager.All;
+			testElement.skills = skills.skills;
 			skillSystem.elements.Add(testElement);
 			BindHealth(player);
 		}

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8a1c8dffd7a7424ebbe927413c67309, type: 3}
+  m_Name: Skills
+  m_EditorClassIdentifier: 
+  skills:
+  - name: Ice Ball
+    prefab: {fileID: 1563332070489109484, guid: e4e283392e7e1f54dac5f75170bda24f,
+      type: 3}
+    position: 1
+    rotation: 1
+  - name: Blizzard
+    prefab: {fileID: 7816935490880047549, guid: 0835fe5703761484eaf20f39066b4db2,
+      type: 3}
+    position: 0
+    rotation: 0
+  - name: Fire Ball
+    prefab: {fileID: 5475913262226543395, guid: 8e86128edd8f1c045bcf5c10e68d7b15,
+      type: 3}
+    position: 1
+    rotation: 1

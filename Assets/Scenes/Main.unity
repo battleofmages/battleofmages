@@ -763,7 +763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 221618254}
-  skills: {fileID: 1441638003}
+  skills: {fileID: 11400000, guid: 560fb4128df765247a1c2d3c44f146d7, type: 2}
   inputSystem: {fileID: 878207911}
   chatUI: {fileID: 569661777}
   scoreboardUI: {fileID: 1331623750}
@@ -1280,7 +1280,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -55.521, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -1633,7 +1633,7 @@ RectTransform:
   - {fileID: 1669065420}
   - {fileID: 221618255}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2535,7 +2535,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &619955426
 MonoBehaviour:
@@ -3347,7 +3347,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &938160753
 PrefabInstance:
@@ -5140,7 +5140,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 363823019}
   m_Direction: 2
   m_Value: 1.0000006
-  m_Size: 0.19435537
+  m_Size: 0.1943554
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5479,66 +5479,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d5fced253f0eb045b27b862b5d0c70c, type: 3}
---- !u!1 &1441638002
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1441638004}
-  - component: {fileID: 1441638003}
-  m_Layer: 0
-  m_Name: Skills
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1441638003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1441638002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8a1c8dffd7a7424ebbe927413c67309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skills:
-  - name: Ice Ball
-    prefab: {fileID: 1563332070489109484, guid: e4e283392e7e1f54dac5f75170bda24f,
-      type: 3}
-    position: 1
-    rotation: 1
-  - name: Blizzard
-    prefab: {fileID: 7816935490880047549, guid: 0835fe5703761484eaf20f39066b4db2,
-      type: 3}
-    position: 0
-    rotation: 0
-  - name: Fire Ball
-    prefab: {fileID: 5475913262226543395, guid: 8e86128edd8f1c045bcf5c10e68d7b15,
-      type: 3}
-    position: 1
-    rotation: 1
---- !u!4 &1441638004
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1441638002}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1448691352
 GameObject:
   m_ObjectHideFlags: 0
@@ -6940,7 +6880,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1826451870
 MonoBehaviour:
