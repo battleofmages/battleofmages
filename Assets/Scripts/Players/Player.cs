@@ -98,13 +98,10 @@ namespace BoM.Players {
 		public override void OnNetworkSpawn() {
 			// Network information
 			ClientId = OwnerClientId;
-			RemotePosition = transform.position;
+			RemotePosition = transform.localPosition;
 
 			// Change team
 			teamId.OnValueChanged(-1, teamId.Value);
-
-			// Move player into the "Players" root object
-			Reparent();
 
 			// Enable client/server components depending on the network type
 			EnableNetworkComponents();
@@ -121,11 +118,6 @@ namespace BoM.Players {
 			}
 
 			Player.Added?.Invoke(this);
-		}
-
-		private void Reparent() {
-			var playerRoot = GameObject.Find("Players");
-			transform.SetParent(playerRoot.transform);
 		}
 
 		private void OnDisable() {

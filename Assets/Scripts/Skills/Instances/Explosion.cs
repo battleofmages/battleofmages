@@ -19,7 +19,7 @@ namespace BoM.Skills {
 			particles.Play();
 			var team = Teams.Manager.Teams[caster.TeamId];
 
-			ExplosionDamage(transform.position, radius, team.enemyTeamLayerMask);
+			ExplosionDamage(transform.localPosition, radius, team.enemyTeamLayerMask);
 		}
 
 		private void ExplosionDamage(Vector3 center, float radius, int layerMask) {

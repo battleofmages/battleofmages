@@ -7,11 +7,11 @@ namespace BoM.Maps.Items {
 		private Vector3 startPosition;
 
 		private void Start() {
-			startPosition = transform.position;
+			startPosition = transform.localPosition;
 		}
 
 		private void Update() {
-			transform.position = startPosition + bounceVector * Mathf.Sin(Time.time * bounceSpeed);
+			transform.localPosition = startPosition + bounceVector * Mathf.Sin(Time.time * bounceSpeed);
 		}
 	}
 }

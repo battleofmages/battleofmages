@@ -63,8 +63,7 @@ namespace BoM.Players {
 			instance.skill = skill;
 			instance.caster = player;
 			instance.transform.SetLayer(gameObject.layer);
-			instance.transform.position = skillPosition;
-			instance.transform.rotation = skillRotation;
+			instance.transform.SetPositionAndRotation(skillPosition, skillRotation);
 			instance.pool = skill.pool;
 			instance.Init();
 		}

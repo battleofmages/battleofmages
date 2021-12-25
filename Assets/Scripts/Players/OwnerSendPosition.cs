@@ -22,7 +22,7 @@ namespace BoM.Players {
 
 		private void SendPositionToServer() {
 			if(IsHost) {
-				player.RemotePosition = transform.position;
+				player.RemotePosition = transform.localPosition;
 				player.RemoteDirection = movement.direction;
 				return;
 			}
@@ -31,12 +31,12 @@ namespace BoM.Players {
 				return;
 			}
 
-			if(transform.position == lastPositionSent && movement.direction == lastDirectionSent) {
+			if(transform.localPosition == lastPositionSent && movement.direction == lastDirectionSent) {
 				return;
 			}
 
 			using FastBufferWriter writer = new FastBufferWriter(24, Allocator.Temp);
-			writer.WriteValueSafe(transform.position);
+			writer.WriteValueSafe(transform.localPosition);
 			writer.WriteValueSafe(movement.direction);
 
 			var delivery = NetworkDelivery.Unreliable;
@@ -47,7 +47,7 @@ namespace BoM.Players {
 
 			messenger.SendNamedMessage("client position", serverId, writer, delivery);
 
-			lastPositionSent = transform.position;
+			lastPositionSent = transform.localPosition;
 			lastDirectionSent = movement.direction;
 		}
 	}

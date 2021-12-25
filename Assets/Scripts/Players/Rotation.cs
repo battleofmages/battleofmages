@@ -24,8 +24,8 @@ namespace BoM.Players {
 				targetRotation = Quaternion.LookRotation(direction);
 			}
 
-			model.rotation = Quaternion.Slerp(
-				model.rotation,
+			model.localRotation = Quaternion.Slerp(
+				model.localRotation,
 				targetRotation,
 				Time.deltaTime * speed
 			);

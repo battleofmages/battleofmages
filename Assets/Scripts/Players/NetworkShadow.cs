@@ -9,13 +9,6 @@ namespace BoM.Players {
 			player.account.NickChanged += nick => {
 				gameObject.name = nick + " - Shadow";
 			};
-
-			Reparent();
-		}
-
-		private void Reparent() {
-			var playerRoot = GameObject.Find("Players");
-			transform.SetParent(playerRoot.transform);
 		}
 
 		private void Update() {
@@ -27,7 +20,7 @@ namespace BoM.Players {
 				latency = Player.main.latency.oneWay;
 			}
 
-			gameObject.transform.position = ProxyMovement.CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);
+			gameObject.transform.localPosition = ProxyMovement.CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);
 		}
 	}
 }

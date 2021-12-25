@@ -30,10 +30,10 @@ namespace BoM.Players {
 			var expectedPosition = CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);
 
 			if(StartedMoving()) {
-				player.controller.Move(expectedPosition - transform.position);
+				player.controller.Move(expectedPosition - transform.localPosition);
 			}
 
-			direction = expectedPosition - transform.position;
+			direction = expectedPosition - transform.localPosition;
 
 			if(direction.sqrMagnitude < 0.01f) {
 				direction = Vector3.zero;

@@ -9,6 +9,7 @@ namespace BoM.Teams {
 		public string name;
 		[SerializeField, Layer] public int layer;
 		[NonSerialized] public List<IPlayer> players;
+		[NonSerialized] public Transform spawn;
 
 		public int layerMask {
 			get {

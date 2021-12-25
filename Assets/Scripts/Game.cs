@@ -40,16 +40,15 @@ namespace BoM {
 			Network.PlayerManager.AddPlayer(player);
 			Cameras.Manager.AddCamera(player.cam);
 
+			if(player.IsOwner) {
+				Bind(player);
+			}
+
 			var skillSystem = player.GetComponent<Players.SkillSystem>();
 			skillSystem.elements = new System.Collections.Generic.List<Skills.Element>();
 			var testElement = new Skills.Element();
 			testElement.skills = Skills.Manager.All;
 			skillSystem.elements.Add(testElement);
-
-			if(player.IsOwner) {
-				Bind(player);
-			}
-
 			BindHealth(player);
 		}
 

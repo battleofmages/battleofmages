@@ -57,7 +57,7 @@ namespace BoM.Skills.Instances {
 
 		private void OnTriggerEnter(Collider other) {
 			if(GetCollisionPoint(out RaycastHit hit)) {
-				transform.position = hit.point - transform.forward * finalGroundDistance;
+				transform.localPosition = hit.point - transform.forward * finalGroundDistance;
 			}
 
 			// Direct hit damage
@@ -75,11 +75,11 @@ namespace BoM.Skills.Instances {
 			Vector3 backward = -forward;
 			float maxDistance = 1f;
 
-			return Physics.Raycast(transform.position + backward * maxDistance, forward, out hit, maxDistance, Physics.DefaultRaycastLayers);
+			return Physics.Raycast(transform.localPosition + backward * maxDistance, forward, out hit, maxDistance, Physics.DefaultRaycastLayers);
 		}
 
 		private void Explode() {
-			var explosion = PoolManager.Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+			var explosion = PoolManager.Instantiate(explosionPrefab, transform.localPosition, Quaternion.identity);
 			explosion.GetComponent<Explosion>().damage = splashDamage;
 			explosion.transform.SetLayer(gameObject.layer);
 			explosion.skill = skill;
