@@ -55,7 +55,7 @@ namespace BoM.Players {
 			if(!IsServer || isDead) {
 				return;
 			}
-			
+
 			var damageEvent = new DamageEvent(player, damage, skill, caster);
 			damageEvents.Add(damageEvent);
 			Damaged?.Invoke(damageEvent);

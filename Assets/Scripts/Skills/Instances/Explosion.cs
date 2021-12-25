@@ -25,7 +25,7 @@ namespace BoM.Skills {
 		private void ExplosionDamage(Vector3 center, float radius, int layerMask) {
 			int numColliders = Physics.OverlapSphereNonAlloc(center, radius, colliders, layerMask);
 
-			for (int i = 0; i < numColliders; i++) {
+			for(int i = 0; i < numColliders; i++) {
 				var health = colliders[i].GetComponent<IHealth>();
 				health.TakeDamage(damage, skill, caster);
 			}

@@ -29,11 +29,11 @@ namespace BoM.Players {
 		public override void OnNetworkSpawn() {
 			// Initiate network variables
 			OnRoundTripTimeChanged(0, roundTripTime.Value);
-			
+
 			if(IsServer) {
 				toOwner = new ClientRpcParams {
 					Send = new ClientRpcSendParams {
-						TargetClientIds = new ulong[]{ OwnerClientId }
+						TargetClientIds = new ulong[] { OwnerClientId }
 					}
 				};
 
@@ -46,7 +46,7 @@ namespace BoM.Players {
 				if(!waitingForResponse) {
 					Ping();
 				}
-				
+
 				yield return new WaitForSecondsRealtime(1f);
 			}
 		}

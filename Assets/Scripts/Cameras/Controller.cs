@@ -19,7 +19,7 @@ namespace BoM.Cameras {
 			maxDistance = -target.localPosition.z;
 			distance = maxDistance;
 			targetDistance = maxDistance;
-			
+
 			if(!volumeProfile.TryGet(out depthOfField)) {
 				throw new System.NullReferenceException(nameof(depthOfField));
 			}

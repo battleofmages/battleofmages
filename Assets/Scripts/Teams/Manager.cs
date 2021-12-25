@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 namespace BoM.Teams {
-	[CreateAssetMenu(fileName="Teams", menuName="BoM/Team Manager", order=101)]
+	[CreateAssetMenu(fileName = "Teams", menuName = "BoM/Team Manager", order = 101)]
 	public class Manager : ScriptableObject {
 		public List<Team> teams;
 

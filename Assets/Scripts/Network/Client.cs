@@ -2,7 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 
 namespace BoM.Network {
-	[CreateAssetMenu(fileName="Client", menuName="BoM/Client", order=50)]
+	[CreateAssetMenu(fileName = "Client", menuName = "BoM/Client", order = 50)]
 	public class Client : ScriptableObject {
 		public string accountId;
 

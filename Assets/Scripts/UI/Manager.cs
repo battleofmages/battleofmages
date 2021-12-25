@@ -4,12 +4,12 @@ using UnityEngine.InputSystem;
 namespace BoM.UI {
 	public class Manager : MonoBehaviour {
 		public static Manager Instance { get; private set; }
-		
+
 		public PlayerInput playerInput;
 		public Chat chat;
 
-		public static PlayerInput PlayerInput { get{ return Instance.playerInput; } }
-		public static Chat Chat { get{ return Instance.chat; } }
+		public static PlayerInput PlayerInput { get { return Instance.playerInput; } }
+		public static Chat Chat { get { return Instance.chat; } }
 
 		private void Awake() {
 			Instance = this;

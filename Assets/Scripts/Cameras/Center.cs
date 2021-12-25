@@ -6,7 +6,7 @@ namespace BoM.Cameras {
 		public float gamepadSensitivity = 150f;
 		public float minClampRotationX;
 		public float maxClampRotationX;
-		
+
 		private Vector2 angles;
 		private Vector2 mouse;
 		private Vector2 gamepad;
@@ -16,7 +16,7 @@ namespace BoM.Cameras {
 				angles.x -= mouse.y * mouseSensitivity;
 				angles.y += mouse.x * mouseSensitivity;
 			}
-			
+
 			if(gamepad != Vector2.zero) {
 				angles.x -= gamepad.y * gamepadSensitivity * Time.deltaTime;
 				angles.y += gamepad.x * gamepadSensitivity * Time.deltaTime;

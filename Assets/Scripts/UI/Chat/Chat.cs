@@ -25,7 +25,7 @@ namespace BoM.UI {
 				{"System", new Color(1f, 1f, 0.5f, 1f)},
 				{"Debug", new Color(1f, 1f, 1f, 1f)}
 			};
-			
+
 			messages = messagesContainer.GetComponentsInChildren<TextMeshProUGUI>();
 			Clear();
 			scrollBar.value = 0f;
@@ -65,11 +65,11 @@ namespace BoM.UI {
 			);
 
 			// The last index becomes the latest message
-			messages[messages.Length-1] = newMessage;
+			messages[messages.Length - 1] = newMessage;
 
 			// Update the remaining indices
-			for(int i = 0; i < messages.Length-1; i++) {
-				messages[i] = messages[i+1];
+			for(int i = 0; i < messages.Length - 1; i++) {
+				messages[i] = messages[i + 1];
 			}
 
 			// Snap scrollbar to the latest message once the layout is updated on the next frame

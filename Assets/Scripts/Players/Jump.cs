@@ -1,6 +1,3 @@
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using Unity.Netcode;
 
 namespace BoM.Players {
@@ -12,7 +9,7 @@ namespace BoM.Players {
 			if(IsOwner || IsServer) {
 				return;
 			}
-			
+
 			if(!gravity.Jump()) {
 				return;
 			}

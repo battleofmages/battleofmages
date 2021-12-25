@@ -4,7 +4,7 @@ using UnityEngine;
 namespace BoM.UI {
 	public class FPS : MonoBehaviour {
 		public TextMeshProUGUI label;
-		
+
 		private int frames;
 		private float lastUpdate;
 		private string baseText;

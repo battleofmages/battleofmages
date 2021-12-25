@@ -43,7 +43,7 @@ namespace BoM.Players {
 			} else {
 				Controller.stepOffset = 0f;
 			}
-			
+
 			Speed += Physics.gravity.y * Time.deltaTime;
 		}
 

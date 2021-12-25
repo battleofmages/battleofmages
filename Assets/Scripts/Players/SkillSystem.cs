@@ -94,7 +94,7 @@ namespace BoM.Players {
 			if(slotIndex < 0 || slotIndex >= currentElement.skills.Count) {
 				return;
 			}
-			
+
 			var skill = currentElement.skills[slotIndex];
 
 			Cast(

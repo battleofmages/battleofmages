@@ -29,7 +29,7 @@ namespace BoM.Players {
 			} else {
 				footPosition = animator.GetIKPosition(foot);
 			}
-			
+
 			if(!Physics.Raycast(footPosition + new Vector3(0f, raycastStartY, 0f), Vector3.down, out RaycastHit hit, raycastStartY + raycastDistanceBelowFeet, layerMask)) {
 				return;
 			}
@@ -44,7 +44,7 @@ namespace BoM.Players {
 
 			var ikPosition = hit.point + new Vector3(0f, distanceToGround, 0f);
 			var ikRotation = newRotation * Quaternion.AngleAxis(footRotation.eulerAngles.y, Vector3.up);
-			
+
 			animator.SetIKPosition(foot, ikPosition);
 			animator.SetIKRotation(foot, ikRotation);
 

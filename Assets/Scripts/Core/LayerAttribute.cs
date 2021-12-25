@@ -1,5 +1,5 @@
 using UnityEngine;
 
 namespace BoM.Core {
-	public class LayerAttribute : PropertyAttribute {}
+	public class LayerAttribute : PropertyAttribute { }
 }

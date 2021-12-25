@@ -30,7 +30,7 @@ namespace BoM.Cameras {
 					if(cam == null) {
 						continue;
 					}
-					
+
 					if(cam == value) {
 						cam.enabled = true;
 						cam.gameObject.SetActive(true);

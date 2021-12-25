@@ -7,7 +7,7 @@ namespace BoM.UI {
 			get {
 				return duration;
 			}
-			
+
 			set {
 				duration = value;
 				durationInverse = 1f / value;
@@ -32,7 +32,7 @@ namespace BoM.UI {
 				} else {
 					onFade(1f);
 				}
-				
+
 				onFadeEnd?.Invoke();
 				Stop();
 				return;

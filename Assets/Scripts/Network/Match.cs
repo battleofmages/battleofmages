@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace BoM.Network {
-	[CreateAssetMenu(fileName="Match", menuName="BoM/Match", order=80)]
+	[CreateAssetMenu(fileName = "Match", menuName = "BoM/Match", order = 80)]
 	public class Match : ScriptableObject {
 		public List<ListWrapper<string>> teams;
 

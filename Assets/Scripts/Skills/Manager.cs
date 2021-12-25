@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 namespace BoM.Skills {
-	[CreateAssetMenu(fileName="Skills", menuName="BoM/Skill Manager", order=100)]
+	[CreateAssetMenu(fileName = "Skills", menuName = "BoM/Skill Manager", order = 100)]
 	public class Manager : ScriptableObject {
 		public List<Skill> skills;
 

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using Unity.Netcode;
 
 namespace BoM.Players {
-	public class Input: NetworkBehaviour {
+	public class Input : NetworkBehaviour {
 		public Player player;
 		public OwnerMovement movement;
 		public Jump jump;

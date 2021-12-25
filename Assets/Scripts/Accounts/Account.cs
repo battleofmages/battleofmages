@@ -4,7 +4,7 @@ using Unity.Netcode;
 
 namespace BoM.Accounts {
 	[Serializable]
-	public class Account: IAccount, INetworkSerializable {
+	public class Account : IAccount, INetworkSerializable {
 		public string Id { get { return id; } }
 		public string Nick { get { return nick; } }
 		public string Email { get { return email; } }

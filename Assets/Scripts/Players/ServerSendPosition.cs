@@ -3,7 +3,7 @@ using Unity.Netcode;
 using Unity.Collections;
 
 namespace BoM.Players {
-	public class ServerSendPosition: NetworkBehaviour {
+	public class ServerSendPosition : NetworkBehaviour {
 		public Player player;
 		public ProxyMovement movement;
 		private CustomMessagingManager messenger;

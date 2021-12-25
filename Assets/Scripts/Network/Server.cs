@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine.SceneManagement;
 
 namespace BoM.Network {
-	[CreateAssetMenu(fileName="Server", menuName="BoM/Server", order=51)]
+	[CreateAssetMenu(fileName = "Server", menuName = "BoM/Server", order = 51)]
 	public class Server : ScriptableObject {
 		public string mapName;
 		public Match match;

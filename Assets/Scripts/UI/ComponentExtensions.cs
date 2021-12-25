@@ -10,7 +10,7 @@ namespace BoM.UI {
 			if(fader == null) {
 				fader = gameObject.AddComponent<Fader>();
 			}
-			
+
 			fader.Duration = fadeTime;
 			fader.onFade = onFade;
 			fader.onFadeEnd = onFadeEnd;
@@ -27,11 +27,11 @@ namespace BoM.UI {
 		// FadeIn will never change the progress of a "fade in" but will reverse the progress of "fade out".
 		public static Fader FadeIn(this Component component, float fadeTime, Action<float> onFade, Action onFadeEnd = null) {
 			var fader = component.BaseFade(fadeTime, onFade, onFadeEnd);
-			
+
 			if(fader.isReversed) {
 				fader.Reverse();
 			}
-			
+
 			return fader;
 		}
 
@@ -42,7 +42,7 @@ namespace BoM.UI {
 			if(!fader.isReversed) {
 				fader.Reverse();
 			}
-			
+
 			return fader;
 		}
 	}

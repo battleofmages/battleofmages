@@ -46,7 +46,7 @@ namespace BoM.Skills.Instances {
 				var random = Random.insideUnitCircle * radius;
 				offset = new Vector3(random.x, 0f, random.y);
 			}
-			
+
 			var projectile = projectilePool.Get();
 			var position = spawn.position + offset;
 			var rotation = spawn.rotation;
