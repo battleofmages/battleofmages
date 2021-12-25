@@ -12,9 +12,13 @@ namespace BoM.Teams {
 
 			foreach(var team in teams) {
 				team.Id = count;
-				team.players = new List<IPlayer>();
-				team.spawn = null;
 				count++;
+			}
+		}
+
+		public void FindSpawns() {
+			foreach(var team in teams) {
+				team.FindSpawn();
 			}
 		}
 

@@ -8,6 +8,7 @@ namespace BoM.Network {
 	public class Server : ScriptableObject {
 		public string mapName;
 		public Match match;
+		public Teams.Manager teamManager;
 
 		public event System.Action Ready;
 		public IDatabase database;
@@ -35,6 +36,7 @@ namespace BoM.Network {
 
 		public void SceneLoaded(Scene scene, LoadSceneMode mode) {
 			//SceneManager.SetActiveScene(scene);
+			teamManager.FindSpawns();
 			Ready?.Invoke();
 		}
 
@@ -56,16 +58,10 @@ namespace BoM.Network {
 			// Accept connection
 			sendResponse(false, null, true, null, null);
 
-			// Find the spawn point
-			var spawn = GameObject.Find($"Spawn {teamId + 1}").transform;
-			var spawnRadius = spawn.GetComponent<SphereCollider>().radius;
-			var offset = Random.insideUnitCircle * spawnRadius;
-			var position = new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);
-			var rotation = spawn.rotation;
-
 			// Create player object
+			var team = teamManager.teams[teamId];
 			var playerPrefab = NetworkManager.Singleton.NetworkConfig.PlayerPrefab;
-			var playerObject = GameObject.Instantiate(playerPrefab, position, rotation);
+			var playerObject = GameObject.Instantiate(playerPrefab, team.SpawnPosition, team.SpawnRotation);
 
 			// Assign team
 			var player = playerObject.GetComponent<IPlayer>();

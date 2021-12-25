@@ -9,13 +9,40 @@ namespace BoM.Teams {
 		public byte Id { get; set; }
 		public string name;
 		[SerializeField, Layer] public int layer;
-		[NonSerialized] public List<IPlayer> players;
-		[NonSerialized] public Transform spawn;
+		private List<IPlayer> players = new List<IPlayer>();
+		public Transform spawn { get; private set; }
+		public float spawnRadius { get; private set; }
 
 		public int layerMask {
 			get {
 				return 1 << layer;
 			}
+		}
+
+		public Vector3 SpawnPosition {
+			get {
+				var offset = UnityEngine.Random.insideUnitCircle * spawnRadius;
+				return new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);
+			}
+		}
+
+		public Quaternion SpawnRotation {
+			get {
+				return spawn.rotation;
+			}
+		}
+
+		public void AddPlayer(IPlayer player) {
+			players.Add(player);
+		}
+
+		public void RemovePlayer(IPlayer player) {
+			players.Remove(player);
+		}
+
+		public void FindSpawn() {
+			spawn = GameObject.Find($"Spawn {Id + 1}").transform;
+			spawnRadius = spawn.GetComponent<SphereCollider>().radius;
 		}
 	}
 }

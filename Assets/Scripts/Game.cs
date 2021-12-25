@@ -40,6 +40,7 @@ namespace BoM {
 		private void OnPlayerAdded(Players.Player player) {
 			Network.PlayerManager.AddPlayer(player);
 			Cameras.Manager.AddCamera(player.cam);
+			player.Team.AddPlayer(player);
 
 			if(player.IsOwner) {
 				Bind(player);
@@ -56,6 +57,7 @@ namespace BoM {
 		private void OnPlayerRemoved(Players.Player player) {
 			Network.PlayerManager.RemovePlayer(player);
 			Cameras.Manager.RemoveCamera(player.cam);
+			player.Team.RemovePlayer(player);
 
 			if(player.IsOwner) {
 				Unbind(player);
