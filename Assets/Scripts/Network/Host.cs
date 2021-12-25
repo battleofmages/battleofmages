@@ -1,17 +1,22 @@
 using Unity.Netcode;
+using UnityEngine;
 
 namespace BoM.Network {
-	public static class Host {
-		public static void Start(string accountId) {
-			NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.UTF8.GetBytes(accountId);
+	[CreateAssetMenu(fileName="Host", menuName="BoM/Host", order=52)]
+	public class Host : ScriptableObject {
+		public Server server;
+		public Client client;
 
-			Server.Ready += () => {
+		public void Start() {
+			NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.UTF8.GetBytes(client.accountId);
+
+			server.Ready += () => {
 				NetworkManager.Singleton.StartHost();
-				Server.Listen();
-				Client.Listen();
+				server.Listen();
+				client.Listen();
 			};
 
-			Server.Init();
+			server.Init();
 		}
 	}
 }

@@ -2,18 +2,21 @@ using UnityEngine;
 using Unity.Netcode;
 
 namespace BoM.Network {
-	public static class Client {
-		public static void Start(string accountId) {
+	[CreateAssetMenu(fileName="Client", menuName="BoM/Client", order=50)]
+	public class Client : ScriptableObject {
+		public string accountId;
+
+		public void Start() {
 			NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.UTF8.GetBytes(accountId);
 			NetworkManager.Singleton.StartClient();
 			Listen();
 		}
 
-		public static void Listen() {
+		public void Listen() {
 			NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler("server position", ServerPosition);
 		}
 
-		public static void ServerPosition(ulong senderClientId, FastBufferReader reader) {
+		public void ServerPosition(ulong senderClientId, FastBufferReader reader) {
 			reader.ReadValueSafe(out ulong clientId);
 			reader.ReadValueSafe(out Vector3 position);
 			reader.ReadValueSafe(out Vector3 direction);

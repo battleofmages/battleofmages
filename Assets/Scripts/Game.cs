@@ -4,8 +4,9 @@ using UnityEngine.InputSystem;
 namespace BoM {
 	public class Game : MonoBehaviour {
 		public GameObject menu;
-		public Skills.SkillList skills;
+		public Skills.Manager skillManager;
 		public PlayerInput inputSystem;
+		public Network.Server server;
 		public UI.Chat chatUI;
 		public UI.Scoreboard scoreboardUI;
 		public UI.Latency latencyUI;
@@ -33,7 +34,7 @@ namespace BoM {
 			database.AddAccount(new Accounts.Account("id8", "Player 8 名前", "test8@example.com"));
 			database.AddAccount(new Accounts.Account("id9", "Player 9 名前", "test9@example.com"));
 
-			Network.Server.database = database;
+			server.database = database;
 		}
 
 		private void OnPlayerAdded(Players.Player player) {
@@ -47,7 +48,7 @@ namespace BoM {
 			var skillSystem = player.GetComponent<Players.SkillSystem>();
 			skillSystem.elements = new System.Collections.Generic.List<Skills.Element>();
 			var testElement = new Skills.Element();
-			testElement.skills = skills.skills;
+			testElement.skills = skillManager.skills;
 			skillSystem.elements.Add(testElement);
 			BindHealth(player);
 		}

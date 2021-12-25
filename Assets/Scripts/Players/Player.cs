@@ -19,6 +19,7 @@ namespace BoM.Players {
 		public float moveSpeed;
 		public Transform model;
 		public float modelYOffset;
+		public Teams.Manager teamManager;
 		public NetworkVariable<int> teamId;
 
 		// IPlayer implementation
@@ -45,7 +46,7 @@ namespace BoM.Players {
 
 		public Teams.Team Team {
 			get {
-				return Teams.Manager.Teams[TeamId];
+				return teamManager.teams[TeamId];
 			}
 		}
 
@@ -88,7 +89,7 @@ namespace BoM.Players {
 				transform.SetLayer(layer);
 
 				var defaultLayer = LayerMask.NameToLayer("Default");
-				cursor.LayerMask = (1 << defaultLayer) | Team.enemyTeamLayerMask;
+				cursor.LayerMask = (1 << defaultLayer) | teamManager.GetEnemyTeamsLayerMask(Team);
 			};
 
 			var modelRenderer = model.GetComponentInChildren<SkinnedMeshRenderer>();
@@ -105,7 +106,7 @@ namespace BoM.Players {
 
 			// Enable client/server components depending on the network type
 			EnableNetworkComponents();
-			
+
 			// Adjust model position
 			model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
 

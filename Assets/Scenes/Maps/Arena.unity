@@ -1074,6 +1074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0298efe5a91cb2244a5c8311b22abca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  server: {fileID: 11400000, guid: b919b668af8e49340b37dacc1b663111, type: 2}
   deactivateOnPlay:
   - {fileID: 1371259844}
 --- !u!114 &1175379124

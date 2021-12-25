@@ -1,18 +1,18 @@
 using BoM.Core;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
 
 namespace BoM.Network {
-	public static class Server {
-		public static string mapName = "Arena";
-		public static event System.Action Ready;
-		public static IDatabase database;
-		private static Match match;
+	[CreateAssetMenu(fileName="Server", menuName="BoM/Server", order=51)]
+	public class Server : ScriptableObject {
+		public string mapName;
+		public Match match;
 
-		public static void Init() {
-			CreateMatch();
+		public event System.Action Ready;
+		public IDatabase database;
+
+		public void Init() {
 			NetworkManager.Singleton.ConnectionApprovalCallback += OnApprovalCheck;
 			NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
 			NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
@@ -20,28 +20,7 @@ namespace BoM.Network {
 			SceneManager.LoadScene(mapName, LoadSceneMode.Additive);
 		}
 
-		private static void CreateMatch() {
-			match = new Match();
-
-			var team1 = new List<string>();
-			team1.Add("id0");
-			team1.Add("id2");
-			team1.Add("id4");
-			team1.Add("id6");
-			team1.Add("id8");
-
-			var team2 = new List<string>();
-			team2.Add("id1");
-			team2.Add("id3");
-			team2.Add("id5");
-			team2.Add("id7");
-			team2.Add("id9");
-
-			match.AddTeam(team1);
-			match.AddTeam(team2);
-		}
-
-		public static void Start() {
+		public void Start() {
 			Ready += () => {
 				NetworkManager.Singleton.StartServer();
 				Listen();
@@ -50,16 +29,16 @@ namespace BoM.Network {
 			Init();
 		}
 
-		public static void Listen() {
+		public void Listen() {
 			NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler("client position", ClientPosition);
 		}
 
-		public static void SceneLoaded(Scene scene, LoadSceneMode mode) {
+		public void SceneLoaded(Scene scene, LoadSceneMode mode) {
 			//SceneManager.SetActiveScene(scene);
 			Ready?.Invoke();
 		}
 
-		public static void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate sendResponse) {
+		public void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate sendResponse) {
 			// Account
 			var accountId = System.Text.Encoding.UTF8.GetString(connectionData, 0, connectionData.Length);
 			var account = database.GetAccount(accountId);
@@ -97,17 +76,17 @@ namespace BoM.Network {
 			networkObject.SpawnAsPlayerObject(clientId);
 		}
 
-		public static void OnClientConnected(ulong clientId) {
+		public void OnClientConnected(ulong clientId) {
 			var account = Accounts.Manager.GetByClientId(clientId);
 			Debug.Log($"Account ID {account.Id} connected.");
 		}
 
-		public static void OnClientDisconnected(ulong clientId) {
+		public void OnClientDisconnected(ulong clientId) {
 			var account = Accounts.Manager.GetByClientId(clientId);
 			Debug.Log($"Account ID {account.Id} disconnected.");
 		}
 
-		public static void ClientPosition(ulong senderClientId, FastBufferReader reader) {
+		public void ClientPosition(ulong senderClientId, FastBufferReader reader) {
 			var sender = PlayerManager.GetByClientId(senderClientId);
 
 			if(sender == null) {

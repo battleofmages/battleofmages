@@ -1,19 +1,35 @@
+using BoM.Core;
 using UnityEngine;
 using System.Collections.Generic;
 
 namespace BoM.Teams {
-	public class Manager : MonoBehaviour {
-		public static Manager Instance { get; private set; }
+	[CreateAssetMenu(fileName="Teams", menuName="BoM/Team Manager", order=101)]
+	public class Manager : ScriptableObject {
 		public List<Team> teams;
-		
-		private void Awake() {
-			Instance = this;
+
+		private void OnEnable() {
+			byte count = 0;
+
+			foreach(var team in teams) {
+				team.Id = count;
+				team.players = new List<IPlayer>();
+				team.spawn = null;
+				count++;
+			}
 		}
 
-		public static List<Team> Teams {
-			get {
-				return Instance.teams;
+		public int GetEnemyTeamsLayerMask(Team allies) {
+			int layerMask = 0;
+
+			foreach(var team in teams) {
+				if(team == allies) {
+					continue;
+				}
+
+				layerMask |= 1 << team.layer;
 			}
+
+			return layerMask;
 		}
 	}
 }

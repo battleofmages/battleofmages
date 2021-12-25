@@ -1,16 +1,11 @@
 using BoM.Core;
-using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
 namespace BoM.Skills {
-	[Serializable]
-	public class Skill : ISkill {
+	[CreateAssetMenu(fileName = "Skill", menuName = "BoM/Skill", order = 1)]
+	public class Skill : ScriptableObject, ISkill {
 		public short Id { get; set; }
-
-		[SerializeField]
-		private string name;
-
 		public string Name {
 			get {
 				return name;

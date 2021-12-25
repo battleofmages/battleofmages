@@ -6,9 +6,9 @@ namespace BoM.Skills {
 		public float damage { get; set; }
 		public float radius;
 		public ParticleSystem particles;
+		public Teams.Manager teamsManager;
 		private Collider[] colliders;
 		private float time;
-		private int enemyTeamLayer;
 
 		private void Awake() {
 			colliders = new Collider[16];
@@ -17,9 +17,9 @@ namespace BoM.Skills {
 		public override void Init() {
 			time = 0f;
 			particles.Play();
-			var team = Teams.Manager.Teams[caster.TeamId];
+			var team = teamsManager.teams[caster.TeamId];
 
-			ExplosionDamage(transform.localPosition, radius, team.enemyTeamLayerMask);
+			ExplosionDamage(transform.localPosition, radius, teamsManager.GetEnemyTeamsLayerMask(team));
 		}
 
 		private void ExplosionDamage(Vector3 center, float radius, int layerMask) {

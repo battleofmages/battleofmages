@@ -5,12 +5,13 @@ using Unity.Netcode;
 
 namespace BoM.Maps {
 	public class Map : MonoBehaviour {
+		public Server server;
 		public GameObject[] deactivateOnPlay;
 		private ReflectionProbe baker;
 
 		private void Start() {
 			if(!NetworkManager.Singleton) {
-				Server.mapName = SceneManager.GetActiveScene().name;
+				server.mapName = SceneManager.GetActiveScene().name;
 				SceneManager.LoadScene("Main");
 				return;
 			}

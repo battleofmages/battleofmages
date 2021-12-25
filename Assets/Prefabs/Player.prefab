@@ -276,6 +276,7 @@ MonoBehaviour:
   moveSpeed: 4
   model: {fileID: 4304170728917831478}
   modelYOffset: 0.07
+  teamManager: {fileID: 11400000, guid: 7d866a647fcff1c43b241dbd9d54fe83, type: 2}
   teamId:
     m_InternalValue: 0
 --- !u!114 &-7326193019154016585

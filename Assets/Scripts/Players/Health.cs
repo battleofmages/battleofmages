@@ -14,7 +14,7 @@ namespace BoM.Players {
 		public NetworkVariable<float> health;
 		public NetworkVariable<float> maxHealth;
 		public IPlayer player;
-		public SkillList skills;
+		public Skills.Manager skills;
 
 		private List<DamageEvent> damageEvents;
 

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d3157a207b3a64882d1d3cb97fe835, type: 3}
+  m_Name: Match
+  m_EditorClassIdentifier: 
+  teams:
+  - list:
+    - id0
+    - id2
+    - id4
+    - id6
+    - id8
+  - list:
+    - id1
+    - id3
+    - id5
+    - id7
+    - id9

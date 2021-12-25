@@ -1,20 +1,23 @@
-using System;
 using UnityEngine;
 
 namespace BoM {
 	public class Main : MonoBehaviour {
+		public Network.Host host;
+		public Network.Server server;
+		public Network.Client client;
+
 		private void Start() {
 #if UNITY_EDITOR
 			if(ParrelSync.ClonesManager.IsClone()) {
-				var accountId = ParrelSync.ClonesManager.GetArgument();
-				Network.Client.Start(accountId);
+				client.accountId = ParrelSync.ClonesManager.GetArgument();
+				client.Start();
 			} else {
-				Network.Host.Start("id0");
+				host.Start();
 			}
 #elif UNITY_SERVER
-			Network.Server.Start();
+			server.Start();
 #else
-			Network.Client.Start("id1");
+			client.Start();
 #endif
 		}
 	}

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace BoM.Database {
 	public class Memory : IDatabase {
 		private readonly Dictionary<string, IAccount> accounts;
-		
+
 		public Memory() {
 			accounts = new Dictionary<string, IAccount>();
 		}
