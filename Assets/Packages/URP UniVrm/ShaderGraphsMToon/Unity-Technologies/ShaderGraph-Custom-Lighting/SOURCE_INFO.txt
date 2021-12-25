@@ -1,2 +1,0 @@
-Shader Graph Custom Lighting Sample Project by Unity-Technologies
-https://github.com/Unity-Technologies/ShaderGraph-Custom-Lighting
