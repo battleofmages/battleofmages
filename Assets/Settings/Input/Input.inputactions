@@ -400,7 +400,7 @@
                 {
                     "name": "",
                     "id": "641f71ce-23c3-4ee5-bd9f-f4951171a514",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -481,6 +481,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Scoreboard",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a81325d5-ac51-4a5b-9ec8-09360d1b3e6e",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Scoreboard",
                     "isComposite": false,
                     "isPartOfComposite": false
