@@ -49,13 +49,13 @@ namespace BoM.Skills.Instances {
 			
 			var projectile = projectilePool.Get();
 			var position = spawn.position + offset;
-			var rotation = spawn.localRotation;
+			var rotation = spawn.rotation;
 
 			if(randomizeEndPoint) {
 				var targetPoint = Random.insideUnitCircle * radius;
 				var targetOffset = new Vector3(targetPoint.x, 0f, targetPoint.y);
 				var target = transform.localPosition + targetOffset;
-				rotation = Quaternion.LookRotation(target - projectile.transform.position);
+				rotation = Quaternion.LookRotation(target - position);
 			}
 
 			projectile.transform.SetLayer(gameObject.layer);
