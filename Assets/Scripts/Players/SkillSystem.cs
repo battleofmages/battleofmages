@@ -81,7 +81,7 @@ namespace BoM.Players {
 			time = startTime;
 			animations.Animator.SetBool("Attack", true);
 
-			var waitTime = (int)((castTime - startTime) * 1000f);
+			var waitTime = (int) ((castTime - startTime) * 1000f);
 
 			if(waitTime > 0) {
 				await Task.Delay(waitTime);

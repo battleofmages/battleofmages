@@ -22,7 +22,7 @@ namespace BoM.Players {
 			// This is not 100% correct because send and receive latency can be different,
 			// however it provides a decent approximation.
 			oneWay = newRTT * 0.5f;
-			oneWayInMilliseconds = (int)(oneWay * 1000f);
+			oneWayInMilliseconds = (int) (oneWay * 1000f);
 			Received?.Invoke(oneWay);
 		}
 
