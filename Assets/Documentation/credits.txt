@@ -1,0 +1,3 @@
+ - Character models from VRoid Studio (vroid.com)
+ - Animations from Mixamo (mixamo.com)
+ - Icons from Freepik (freepik.com)

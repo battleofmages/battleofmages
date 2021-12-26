@@ -2,6 +2,7 @@
   "dependencies": {
     "com.community.netcode.transport.enet": "https://github.com/Unity-Technologies/multiplayer-community-contributions.git?path=/Transports/com.community.netcode.transport.enet",
     "com.nobi.roundedcorners": "https://github.com/kirevdokimov/Unity-UI-Rounded-Corners.git",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.burst": "1.6.3",
     "com.unity.ide.vscode": "1.2.4",
     "com.unity.inputsystem": "1.2.0",

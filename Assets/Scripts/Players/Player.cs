@@ -16,6 +16,7 @@ namespace BoM.Players {
 		public Gravity gravity;
 		public Cursor cursor;
 		public Latency latency;
+		public Label label;
 		public float moveSpeed;
 		public Transform model;
 		public float modelYOffset;
@@ -82,6 +83,7 @@ namespace BoM.Players {
 		private void Awake() {
 			account.NickChanged += nick => {
 				gameObject.name = nick;
+				label.SetText(nick);
 			};
 
 			teamId.OnValueChanged += (oldTeam, newTeam) => {

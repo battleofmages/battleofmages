@@ -7,10 +7,6 @@ namespace BoM.UI.Overlays {
 		public Gradient gradient;
 		public float lerpTime;
 
-		private void LateUpdate() {
-			transform.LookAt(transform.position + Cameras.Manager.ActiveCamera.transform.forward);
-		}
-
 		public void SetFillAmount(float amount) {
 			var oldAmount = fill.fillAmount;
 			var difference = amount - oldAmount;
