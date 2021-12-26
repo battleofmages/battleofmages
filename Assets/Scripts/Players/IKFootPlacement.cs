@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace BoM.Players {
-	public class IKFootPlacement : MonoBehaviour {
+	public class IKFootPlacement : IKBehaviour {
 		public Skeleton skeleton;
 		public Animator animator;
 		public LayerMask layerMask;
@@ -10,7 +10,7 @@ namespace BoM.Players {
 		[Range(0f, 1f)] public float raycastDistanceBelowFeet = 0.3f;
 		[Range(0f, 1f)] public float distanceToGround;
 
-		private void OnAnimatorIK(int layerIndex) {
+		public override void OnAnimatorIK(int layerIndex) {
 			UpdateFoot(AvatarIKGoal.LeftFoot, skeleton.leftFoot, "IKLeftFootWeight");
 			UpdateFoot(AvatarIKGoal.RightFoot, skeleton.rightFoot, "IKRightFootWeight");
 		}

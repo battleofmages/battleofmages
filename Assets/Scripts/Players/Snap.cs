@@ -4,13 +4,14 @@ using Unity.Netcode;
 namespace BoM.Players {
 	public class Snap : NetworkBehaviour {
 		public Player player;
+		public Movement movement;
 		public float minDistanceSqr;
 		public float coolDown;
 		private float maxDistanceSqr;
 		private float lastSnap;
 
 		private void Start() {
-			maxDistanceSqr = player.moveSpeed * player.moveSpeed * coolDown * coolDown;
+			maxDistanceSqr = movement.speed * movement.speed * coolDown * coolDown;
 		}
 
 		private void FixedUpdate() {

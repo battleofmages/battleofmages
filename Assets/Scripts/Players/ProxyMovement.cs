@@ -4,6 +4,7 @@ using Unity.Netcode;
 namespace BoM.Players {
 	public class ProxyMovement : NetworkBehaviour, IController {
 		public Player player;
+		public Movement movement;
 		public long maxLatency;
 		public Vector3 direction { get; set; }
 		private Vector3 lastRemoteDirection;
@@ -39,7 +40,7 @@ namespace BoM.Players {
 				direction = Vector3.zero;
 			}
 
-			player.Move(direction);
+			movement.Move(direction);
 		}
 
 		public static Vector3 CalculatePosition(Vector3 position, Vector3 direction, float latency) {

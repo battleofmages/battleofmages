@@ -1,82 +1,32 @@
 using BoM.Core;
 using System;
 using UnityEngine;
-using Unity.Netcode;
 
 namespace BoM.Players {
-	public class Player : NetworkBehaviour, IPlayer {
-		public static Player main;
+	public class Player : Entity {
 		public static event Action<Player> Added;
 		public static event Action<Player> Removed;
+		public static Player main;
 
-		public Account account;
-		public CharacterController controller;
+		public MonoBehaviour[] ownerComponents;
+		public MonoBehaviour[] proxyComponents;
+		public MonoBehaviour[] serverComponents;
+
 		public Camera cam;
 		public Cameras.Center camCenter;
-		public Gravity gravity;
-		public Cursor cursor;
-		public Latency latency;
-		public Label label;
-		public float moveSpeed;
+
+		public CharacterController controller;
 		public Transform model;
 		public float modelYOffset;
+		public Cursor cursor;
+		public Label label;
+		public Account account;
 		public Teams.Manager teamManager;
-		public NetworkVariable<int> teamId;
-
-		// IPlayer implementation
-		public ulong ClientId {
-			get;
-			set;
-		}
-
-		public string Nick {
-			get {
-				return gameObject.name;
-			}
-		}
-
-		public int TeamId {
-			get {
-				return teamId.Value;
-			}
-
-			set {
-				teamId.Value = value;
-			}
-		}
 
 		public Teams.Team Team {
 			get {
 				return teamManager.teams[TeamId];
 			}
-		}
-
-		public int Ping {
-			get {
-				return latency.oneWayInMilliseconds;
-			}
-		}
-
-		public GameObject GameObject {
-			get {
-				return gameObject;
-			}
-		}
-
-		public Transform Transform {
-			get {
-				return transform;
-			}
-		}
-
-		public Vector3 RemotePosition {
-			get;
-			set;
-		}
-
-		public Vector3 RemoteDirection {
-			get;
-			set;
 		}
 
 		// Unity events
@@ -96,68 +46,59 @@ namespace BoM.Players {
 
 			var modelRenderer = model.GetComponentInChildren<SkinnedMeshRenderer>();
 			modelRenderer.gameObject.AddComponent<Visibility>();
+			model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
+
+			// Adjust camera rotation
+			camCenter.SetRotation(transform.rotation);
 		}
 
 		public override void OnNetworkSpawn() {
 			// Network information
 			ClientId = OwnerClientId;
 			RemotePosition = transform.localPosition;
-
-			// Change team
-			teamId.OnValueChanged(-1, teamId.Value);
+			RemoteDirection = Vector3.zero;
 
 			// Enable client/server components depending on the network type
 			EnableNetworkComponents();
 
-			// Adjust model position
-			model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
-
-			// Adjust camera rotation
-			camCenter.SetRotation(transform.rotation);
+			// Trigger "value changed" event
+			teamId.OnValueChanged(-1, teamId.Value);
 
 			// Trigger "player added" event
+			Player.Added?.Invoke(this);
+
+			// Set main player
 			if(IsOwner) {
 				Player.main = this;
 			}
-
-			Player.Added?.Invoke(this);
 		}
 
 		private void OnDisable() {
+			Player.Removed?.Invoke(this);
+
 			if(IsOwner) {
 				Player.main = null;
 			}
-
-			Removed?.Invoke(this);
 		}
 
 		private void EnableNetworkComponents() {
-			if(!IsOwner) {
-				GetComponent<ProxyMovement>().enabled = true;
-				GetComponent<Snap>().enabled = true;
+			if(IsOwner) {
+				foreach(var component in ownerComponents) {
+					component.enabled = true;
+				}
 			}
 
-			if(IsOwner) {
-				GetComponent<OwnerMovement>().enabled = true;
-				GetComponent<OwnerSendPosition>().enabled = true;
-				GetComponent<Cursor>().enabled = true;
-				GetComponent<Ready>().enabled = true;
+			if(!IsOwner) {
+				foreach(var component in proxyComponents) {
+					component.enabled = true;
+				}
 			}
 
 			if(IsServer) {
-				GetComponent<Account>().enabled = true;
-				GetComponent<ServerSendPosition>().enabled = true;
+				foreach(var component in serverComponents) {
+					component.enabled = true;
+				}
 			}
-		}
-
-		public void Move(Vector3 direction) {
-			direction.y = 0f;
-			direction.Normalize();
-
-			direction *= moveSpeed;
-			direction.y = gravity.Speed;
-
-			controller.Move(direction * Time.deltaTime);
 		}
 	}
 }

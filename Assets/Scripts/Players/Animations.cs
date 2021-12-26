@@ -4,6 +4,7 @@ namespace BoM.Players {
 	public class Animations : MonoBehaviour {
 		public Animator Animator;
 		public Player Player;
+		public Gravity gravity;
 		public Health health;
 		private const float ikSpeed = 20f;
 		private float ikWeight;
@@ -14,7 +15,7 @@ namespace BoM.Players {
 			groundSpeed.y = 0f;
 
 			Animator.SetFloat("Speed", groundSpeed.sqrMagnitude);
-			Animator.SetFloat("Gravity", Player.gravity.Speed);
+			Animator.SetFloat("Gravity", gravity.Speed);
 			Animator.SetBool("Grounded", Player.controller.isGrounded);
 			Animator.SetBool("Dead", health.isDead);
 
