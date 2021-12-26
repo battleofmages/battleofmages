@@ -1,7 +1,7 @@
 using UnityEngine;
 
-namespace BoM.Players {
-	public class IKFootPlacement : IKBehaviour {
+namespace BoM.Players.IK {
+	public class FootPlacement : Behaviour {
 		public Skeleton skeleton;
 		public Animator animator;
 		public LayerMask layerMask;
@@ -47,8 +47,6 @@ namespace BoM.Players {
 
 			animator.SetIKPosition(foot, ikPosition);
 			animator.SetIKRotation(foot, ikRotation);
-
-			// Debug.DrawLine(hit.point, hit.point + hit.normal, Color.green);
 		}
 	}
 }

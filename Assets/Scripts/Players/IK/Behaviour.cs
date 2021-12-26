@@ -1,7 +1,7 @@
 using UnityEngine;
 
-namespace BoM.Players {
-	public abstract class IKBehaviour : MonoBehaviour {
+namespace BoM.Players.IK {
+	public abstract class Behaviour : MonoBehaviour {
 		public abstract void OnAnimatorIK(int layerIndex);
 	}
 }
