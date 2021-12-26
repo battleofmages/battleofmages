@@ -28,7 +28,7 @@ namespace BoM.Players {
 		}
 
 		public void Jump(InputAction.CallbackContext context) {
-			if(!player.gravity.Jump()) {
+			if(!jump.TryJump()) {
 				return;
 			}
 

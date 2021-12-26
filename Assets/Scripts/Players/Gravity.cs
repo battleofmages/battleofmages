@@ -3,14 +3,12 @@ using UnityEngine;
 namespace BoM.Players {
 	public class Gravity : MonoBehaviour {
 		public CharacterController Controller;
-		public float JumpHeight;
 		public float SpeedWhenGrounded = -2f;
 		public float AllowJumpTime = 0.1f;
 		public float AllowJumpCloseToGroundTime = 0.2f;
 		public float MaxGroundDistance = 0.3f;
-		public float Speed { get; private set; }
+		public float Speed { get; set; }
 
-		private float jumpSpeed;
 		private float notGroundedTime;
 		private float originalStepOffset;
 
@@ -29,7 +27,6 @@ namespace BoM.Players {
 		}
 
 		private void Start() {
-			jumpSpeed = Mathf.Sqrt(JumpHeight * 2 * -Physics.gravity.y);
 			originalStepOffset = Controller.stepOffset;
 		}
 
@@ -45,15 +42,6 @@ namespace BoM.Players {
 			}
 
 			Speed += Physics.gravity.y * Time.deltaTime;
-		}
-
-		public bool Jump() {
-			if(!CanJump) {
-				return false;
-			}
-
-			Speed = jumpSpeed;
-			return true;
 		}
 	}
 }

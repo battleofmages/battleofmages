@@ -9,6 +9,7 @@ namespace BoM.Players {
 	public class Health : NetworkBehaviour, IHealth {
 		public event Action<DamageEvent> Damaged;
 		public event Action<DamageEvent> Died;
+		public event Action Revived;
 		public event Action<float> Changed;
 		public event Action<float> PercentChanged;
 		public NetworkVariable<float> health;
@@ -37,6 +38,10 @@ namespace BoM.Players {
 			health.OnValueChanged += (oldHealth, newHealth) => {
 				Changed?.Invoke(newHealth);
 				PercentChanged?.Invoke(newHealth / maxHealth.Value);
+
+				if(oldHealth <= 0f && newHealth > 0f) {
+					Revived?.Invoke();
+				}
 			};
 		}
 

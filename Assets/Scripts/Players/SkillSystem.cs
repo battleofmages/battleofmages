@@ -30,7 +30,7 @@ namespace BoM.Players {
 			}
 		}
 
-		private void Awake() {
+		private void OnEnable() {
 			time = 1f;
 		}
 
@@ -91,6 +91,10 @@ namespace BoM.Players {
 		}
 
 		public void CastSkillAtIndex(byte slotIndex) {
+			if(!enabled) {
+				return;
+			}
+
 			if(slotIndex < 0 || slotIndex >= currentElement.skills.Count) {
 				return;
 			}
@@ -108,6 +112,10 @@ namespace BoM.Players {
 
 		[ServerRpc]
 		public void CastSkillServerRpc(byte index, Vector3 remoteCursorPosition) {
+			if(!enabled) {
+				return;
+			}
+
 			if(IsHost && IsOwner) {
 				CastSkillClientRpc(index, remoteCursorPosition);
 				return;
@@ -124,7 +132,7 @@ namespace BoM.Players {
 
 		[ClientRpc]
 		public void CastSkillClientRpc(byte index, Vector3 remoteCursorPosition) {
-			if(IsOwner || IsServer) {
+			if(!enabled || IsOwner || IsServer) {
 				return;
 			}
 

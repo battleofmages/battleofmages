@@ -503,6 +503,7 @@ GameObject:
   - component: {fileID: -346168184870665623}
   - component: {fileID: 8606665410350655568}
   - component: {fileID: -8626974943594062236}
+  - component: {fileID: 3870380123645339473}
   - component: {fileID: 3446361503782202970}
   - component: {fileID: 4887231240320512843}
   - component: {fileID: 2321325627102390747}
@@ -510,13 +511,13 @@ GameObject:
   - component: {fileID: -2554604237076149200}
   - component: {fileID: 6339195900674787528}
   - component: {fileID: 202379965925588689}
-  - component: {fileID: 3870380123645339473}
   - component: {fileID: -6594601594782578226}
   - component: {fileID: 2263400618342794246}
   - component: {fileID: 5780932374599328331}
   - component: {fileID: 8310504723804365141}
   - component: {fileID: 4220810531747879961}
   - component: {fileID: -5481189657951903409}
+  - component: {fileID: 1088161297577302817}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -596,13 +597,13 @@ MonoBehaviour:
   gravity: {fileID: -7326193019154016585}
   cursor: {fileID: 6339195900674787528}
   latency: {fileID: 5780932374599328331}
+  label: {fileID: 4002586773492041787}
   moveSpeed: 4
   model: {fileID: 4304170728917831478}
   modelYOffset: 0.07
   teamManager: {fileID: 11400000, guid: 7d866a647fcff1c43b241dbd9d54fe83, type: 2}
   teamId:
     m_InternalValue: 0
-  label: {fileID: 4002586773492041787}
 --- !u!114 &-7326193019154016585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,7 +617,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controller: {fileID: 2119036363929754220}
-  JumpHeight: 0.7
   SpeedWhenGrounded: -2
   AllowJumpTime: 0.1
   AllowJumpCloseToGroundTime: 0.2
@@ -635,6 +635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Animator: {fileID: 7879980679939085644}
   Player: {fileID: 5014205834473804560}
+  health: {fileID: 8310504723804365141}
 --- !u!114 &8606665410350655568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,6 +666,20 @@ MonoBehaviour:
   cursor: {fileID: 6339195900674787528}
   skeleton: {fileID: 2263400618342794246}
   animations: {fileID: -346168184870665623}
+--- !u!114 &3870380123645339473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403352713402487987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8026dc98307493c46a46d6dc7d558f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: {fileID: -7326193019154016585}
+  JumpHeight: 0.7
 --- !u!114 &3446361503782202970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -765,19 +780,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isReady:
     m_InternalValue: 0
---- !u!114 &3870380123645339473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5403352713402487987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8026dc98307493c46a46d6dc7d558f29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravity: {fileID: -7326193019154016585}
 --- !u!114 &-6594601594782578226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -938,6 +940,29 @@ MonoBehaviour:
         byte0059: 0
         byte0060: 0
         byte0061: 0
+--- !u!114 &1088161297577302817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403352713402487987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765bc8f4e864a934ebe4e8a04ca0365c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: 8606665410350655568}
+  - {fileID: -8626974943594062236}
+  - {fileID: 3870380123645339473}
+  objects:
+  - {fileID: 9056051956188373508}
+  colliders:
+  - {fileID: 2119036363929754220}
+  ownerMovement: {fileID: 3446361503782202970}
+  proxyMovement: {fileID: 4887231240320512843}
+  health: {fileID: 8310504723804365141}
 --- !u!1 &6131108351924145739
 GameObject:
   m_ObjectHideFlags: 0
