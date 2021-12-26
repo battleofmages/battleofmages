@@ -952,6 +952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 765bc8f4e864a934ebe4e8a04ca0365c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 5014205834473804560}
+  respawnTime: 5
   components:
   - {fileID: 8606665410350655568}
   - {fileID: -8626974943594062236}

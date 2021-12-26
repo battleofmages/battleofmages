@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace BoM.Players {
 	public class Death : NetworkBehaviour {
+		public Player player;
+		public float respawnTime;
 		public MonoBehaviour[] components;
 		public GameObject[] objects;
 		public Collider[] colliders;
@@ -17,10 +19,31 @@ namespace BoM.Players {
 
 		private void OnDeath(DamageEvent damageEvent) {
 			Reset(false);
+
+			if(IsServer) {
+				Invoke("Respawn", respawnTime);
+			}
 		}
 
 		private void OnRevive() {
 			Reset(true);
+		}
+
+		private void Respawn() {
+			var team = player.Team;
+			var spawnPosition = team.SpawnPosition;
+			var spawnRotation = team.SpawnRotation;
+
+			transform.SetPositionAndRotation(spawnPosition, spawnRotation);
+			RespawnClientRpc(spawnPosition, spawnRotation);
+
+			health.health.Value = health.maxHealth.Value;
+		}
+
+		[ClientRpc]
+		public void RespawnClientRpc(Vector3 position, Quaternion rotation) {
+			transform.SetPositionAndRotation(position, rotation);
+			player.camCenter.SetRotation(rotation);
 		}
 
 		private void Reset(bool state) {
