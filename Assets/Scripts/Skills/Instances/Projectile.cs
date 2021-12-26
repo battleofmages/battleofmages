@@ -1,5 +1,6 @@
 using BoM.Core;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace BoM.Skills.Instances {
 	public class Projectile : Instance {
@@ -7,7 +8,7 @@ namespace BoM.Skills.Instances {
 
 		public Rigidbody rigidBody;
 		public SphereCollider collision;
-		public ParticleSystem particles;
+		public VisualEffect particles;
 		public Light lighting;
 		public Explosion explosionPrefab;
 		public float directHitDamage;
@@ -99,7 +100,7 @@ namespace BoM.Skills.Instances {
 			isAlive = false;
 			collision.enabled = false;
 			rigidBody.Sleep();
-			particles.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+			particles.Stop();
 		}
 	}
 }
