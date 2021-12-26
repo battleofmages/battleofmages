@@ -589,7 +589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5014205834473804560}
-  movement: {fileID: 0}
+  movement: {fileID: 7787505666309892482}
   minDistanceSqr: 1
   coolDown: 1
 --- !u!114 &6339195900674787528
