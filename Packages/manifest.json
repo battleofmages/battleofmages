@@ -12,6 +12,7 @@
     "com.unity.test-framework": "1.1.30",
     "com.unity.textmeshpro": "4.0.0-pre.1",
     "com.unity.timeline": "1.7.0-pre.1",
+    "com.unity.toolchain.linux-x86_64": "0.1.19-preview",
     "com.unity.toolchain.win-x86_64-linux-x86_64": "0.1.21-preview",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualeffectgraph": "13.1.3",
