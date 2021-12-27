@@ -4,6 +4,7 @@ using UnityEngine;
 namespace BoM.Players {
 	public class NetworkShadow : MonoBehaviour {
 		public Player player;
+		public ProxyMovement proxyMovement;
 
 		private void Awake() {
 			player.account.NickChanged += nick => {
@@ -20,7 +21,7 @@ namespace BoM.Players {
 				latency = Player.main.latency.oneWay;
 			}
 
-			gameObject.transform.localPosition = ProxyMovement.CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);
+			gameObject.transform.position = proxyMovement.CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);
 		}
 	}
 }

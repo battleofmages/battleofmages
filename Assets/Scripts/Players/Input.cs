@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
@@ -8,6 +7,7 @@ namespace BoM.Players {
 		public Player player;
 		public OwnerMovement movement;
 		public Jump jump;
+		public Flight flight;
 		public SkillSystem skillSystem;
 		public Animations animations;
 		public Cameras.Center camCenter;
@@ -41,6 +41,14 @@ namespace BoM.Players {
 
 		public void StopBlock(InputAction.CallbackContext context) {
 			animations.Animator.SetBool("Block", false);
+		}
+
+		public void StartFlight(InputAction.CallbackContext context) {
+			flight.Activate();
+		}
+
+		public void StopFlight(InputAction.CallbackContext context) {
+			flight.Deactivate();
 		}
 
 		public void Skill1(InputAction.CallbackContext context) {

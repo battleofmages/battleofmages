@@ -5,6 +5,7 @@ namespace BoM.Players {
 		public LayerMask LayerMask;
 		public Camera Cam;
 		public Vector3 Position { get; private set; }
+		public Ray Ray;
 		private RaycastHit hit;
 		private Transform crossHair;
 
@@ -13,9 +14,9 @@ namespace BoM.Players {
 		}
 
 		private void Update() {
-			var ray = Cam.ScreenPointToRay(crossHair.position);
+			Ray = Cam.ScreenPointToRay(crossHair.position);
 
-			if(Physics.Raycast(ray, out hit, LayerMask)) {
+			if(Physics.Raycast(Ray, out hit, LayerMask)) {
 				Position = hit.point;
 			} else {
 				Position = Cam.transform.position + Cam.transform.forward * 100f;

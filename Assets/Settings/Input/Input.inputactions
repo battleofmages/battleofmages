@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Fly",
+                    "type": "Button",
+                    "id": "be0bbd54-4764-4831-81ad-f9774c019001",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Element 1",
                     "type": "Button",
                     "id": "b1d4f9d1-6deb-4863-ad99-4ccbf68b8673",
@@ -537,6 +546,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Element 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5ae4cc42-8134-4738-b2df-6382065e620a",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Fly",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -46,7 +46,7 @@ namespace BoM.Players {
 
 			var modelRenderer = model.GetComponentInChildren<SkinnedMeshRenderer>();
 			modelRenderer.gameObject.AddComponent<Visibility>();
-			model.localPosition = new Vector3(0f, -controller.skinWidth + modelYOffset, 0f);
+			model.localPosition = new Vector3(0f, model.localPosition.y - controller.skinWidth + modelYOffset, 0f);
 
 			// Adjust camera rotation
 			camCenter.SetRotation(transform.rotation);

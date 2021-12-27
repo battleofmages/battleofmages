@@ -32,11 +32,11 @@ namespace BoM.Players {
 			writer.Seek(0);
 			writer.WriteValueSafe(player.ClientId);
 			writer.WriteValueSafe(transform.localPosition);
-			writer.WriteValueSafe(movement.direction);
+			writer.WriteValueSafe(player.RemoteDirection);
 
 			var delivery = NetworkDelivery.Unreliable;
 
-			if(movement.direction == Vector3.zero) {
+			if(player.RemoteDirection == Vector3.zero) {
 				delivery = NetworkDelivery.Reliable;
 			}
 

@@ -3,29 +3,41 @@ using Unity.Netcode;
 
 namespace BoM.Players {
 	public class Rotation : NetworkBehaviour {
-		public Transform model;
+		public Player player;
+		public Transform rotationCenter;
 		public float speed;
+		public Flight flight;
+		private Vector3 direction;
 		private Quaternion targetRotation;
 		private IController movement { get; set; }
 
 		public override void OnNetworkSpawn() {
 			if(IsOwner) {
 				movement = GetComponent<OwnerMovement>();
-			} else {
-				movement = GetComponent<ProxyMovement>();
 			}
 		}
 
 		private void Update() {
-			var direction = movement.direction;
-			direction.y = 0f;
+			if(IsOwner) {
+				direction = movement.direction;
+			} else {
+				direction = player.RemoteDirection;
+			}
 
 			if(direction != Vector3.zero) {
 				targetRotation = Quaternion.LookRotation(direction);
 			}
 
-			model.rotation = Quaternion.Slerp(
-				model.rotation,
+			if(!flight.enabled) {
+				var eulerAngles = targetRotation.eulerAngles;
+
+				if(eulerAngles.x != 0f || eulerAngles.z != 0f) {
+					targetRotation.eulerAngles = new Vector3(0f, eulerAngles.y, 0f);
+				}
+			}
+
+			rotationCenter.rotation = Quaternion.Slerp(
+				rotationCenter.rotation,
 				targetRotation,
 				Time.deltaTime * speed
 			);

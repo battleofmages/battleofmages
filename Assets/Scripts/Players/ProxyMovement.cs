@@ -10,6 +10,36 @@ namespace BoM.Players {
 		private Vector3 lastRemoteDirection;
 
 		private void FixedUpdate() {
+			var latency = GetLatency();
+			UpdatePosition(latency);
+		}
+
+		public void UpdatePosition(float latency) {
+			var expectedPosition = CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);
+			direction = expectedPosition - transform.localPosition;
+
+			if(StartedMoving()) {
+				player.controller.Move(direction);
+			}
+
+			if(direction.sqrMagnitude < 0.01f) {
+				direction = Vector3.zero;
+			}
+
+			movement.Move(direction);
+		}
+
+		public Vector3 CalculatePosition(Vector3 position, Vector3 direction, float latency) {
+			return position + direction * movement.speed * latency;
+		}
+
+		private bool StartedMoving() {
+			bool startedMoving = (lastRemoteDirection == Vector3.zero && player.RemoteDirection != Vector3.zero);
+			lastRemoteDirection = player.RemoteDirection;
+			return startedMoving;
+		}
+
+		private float GetLatency() {
 			float latency = 0f;
 
 			if(IsServer) {
@@ -21,36 +51,10 @@ namespace BoM.Players {
 			}
 
 			if(latency > maxLatency) {
-				latency = maxLatency;
+				return maxLatency;
 			}
 
-			UpdatePosition(latency);
-		}
-
-		public void UpdatePosition(float latency) {
-			var expectedPosition = CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);
-
-			if(StartedMoving()) {
-				player.controller.Move(expectedPosition - transform.localPosition);
-			}
-
-			direction = expectedPosition - transform.localPosition;
-
-			if(direction.sqrMagnitude < 0.01f) {
-				direction = Vector3.zero;
-			}
-
-			movement.Move(direction);
-		}
-
-		public static Vector3 CalculatePosition(Vector3 position, Vector3 direction, float latency) {
-			return position + direction * latency;
-		}
-
-		private bool StartedMoving() {
-			bool startedMoving = (lastRemoteDirection == Vector3.zero && player.RemoteDirection != Vector3.zero);
-			lastRemoteDirection = player.RemoteDirection;
-			return startedMoving;
+			return latency;
 		}
 	}
 }

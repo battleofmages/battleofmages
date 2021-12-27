@@ -10,6 +10,7 @@ namespace BoM.Players {
 		public Collider[] colliders;
 		public OwnerMovement ownerMovement;
 		public ProxyMovement proxyMovement;
+		public Flight flight;
 		public Health health;
 
 		private void Awake() {
@@ -19,6 +20,12 @@ namespace BoM.Players {
 
 		private void OnDeath(DamageEvent damageEvent) {
 			Reset(false);
+
+			if(IsServer) {
+				flight.isActive.Value = false;
+			} else {
+				flight.enabled = false;
+			}
 
 			if(IsServer) {
 				Invoke("Respawn", respawnTime);

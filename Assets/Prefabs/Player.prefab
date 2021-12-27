@@ -314,6 +314,38 @@ MonoBehaviour:
   gamepadSensitivity: 150
   minClampRotationX: -65
   maxClampRotationX: 80
+--- !u!1 &3578078609465416211
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1789517573824710972}
+  m_Layer: 0
+  m_Name: Rotation Center
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1789517573824710972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3578078609465416211}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.85, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4304170728917831478}
+  m_Father: {fileID: 304868268151963349}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5403352713402487987
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +363,7 @@ GameObject:
   - component: {fileID: 8606665410350655568}
   - component: {fileID: -8626974943594062236}
   - component: {fileID: 3870380123645339473}
+  - component: {fileID: 6868382068925250288}
   - component: {fileID: 3446361503782202970}
   - component: {fileID: 4887231240320512843}
   - component: {fileID: 2321325627102390747}
@@ -366,7 +399,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4304170728917831478}
+  - {fileID: 1789517573824710972}
   - {fileID: 7568380271144639292}
   - {fileID: 7718807940988020752}
   - {fileID: 8947741123481906615}
@@ -487,8 +520,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23aece205c8b17e4c8cee92369aacf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 4304170728917831478}
+  player: {fileID: 5014205834473804560}
+  rotationCenter: {fileID: 1789517573824710972}
   speed: 10
+  flight: {fileID: 6868382068925250288}
 --- !u!114 &-8626974943594062236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,6 +554,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: {fileID: -7326193019154016585}
   JumpHeight: 0.7
+--- !u!114 &6868382068925250288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403352713402487987}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6fe93c68210f552e87df1737796ae4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 7787505666309892482}
+  gravity: {fileID: -7326193019154016585}
+  animations: {fileID: -346168184870665623}
+  health: {fileID: 8310504723804365141}
+  speed: 6
 --- !u!114 &3446361503782202970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,6 +585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 5014205834473804560}
   movement: {fileID: 7787505666309892482}
+  flight: {fileID: 6868382068925250288}
 --- !u!114 &4887231240320512843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,7 +689,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2119036363929754220}
   gravity: {fileID: -7326193019154016585}
-  speed: 4
+  flight: {fileID: 6868382068925250288}
+  baseSpeed: 4
 --- !u!114 &-6594601594782578226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,6 +706,7 @@ MonoBehaviour:
   player: {fileID: 5014205834473804560}
   movement: {fileID: 3446361503782202970}
   jump: {fileID: 3870380123645339473}
+  flight: {fileID: 6868382068925250288}
   skillSystem: {fileID: -8626974943594062236}
   animations: {fileID: -346168184870665623}
   camCenter: {fileID: 5924383185328376581}
@@ -696,6 +751,7 @@ MonoBehaviour:
   - {fileID: 2119036363929754220}
   ownerMovement: {fileID: 3446361503782202970}
   proxyMovement: {fileID: 4887231240320512843}
+  flight: {fileID: 6868382068925250288}
   health: {fileID: 8310504723804365141}
 --- !u!114 &4220810531747879961
 MonoBehaviour:
@@ -969,12 +1025,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8499634735427984156}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1477a2702db303f4f93e46c71a941ca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5014205834473804560}
+  proxyMovement: {fileID: 4887231240320512843}
 --- !u!1 &9056051956188373508
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,12 +1282,12 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 2
-    m_TransformParent: {fileID: 304868268151963349}
+    m_TransformParent: {fileID: 1789517573824710972}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: acabfa8805b1d8b4bb702049cdf173fe,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: acabfa8805b1d8b4bb702049cdf173fe,
         type: 3}
@@ -1240,7 +1297,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: acabfa8805b1d8b4bb702049cdf173fe,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.85
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: acabfa8805b1d8b4bb702049cdf173fe,
         type: 3}
@@ -1255,17 +1312,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: acabfa8805b1d8b4bb702049cdf173fe,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: acabfa8805b1d8b4bb702049cdf173fe,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: acabfa8805b1d8b4bb702049cdf173fe,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: acabfa8805b1d8b4bb702049cdf173fe,
         type: 3}

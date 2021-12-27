@@ -104,6 +104,8 @@ namespace BoM {
 			actions["Skill 5"].performed += input.Skill5;
 			actions["Block"].performed += input.StartBlock;
 			actions["Block"].canceled += input.StopBlock;
+			actions["Fly"].performed += input.StartFlight;
+			actions["Fly"].canceled += input.StopFlight;
 			actions["Jump"].performed += input.Jump;
 			actions["Scoreboard"].performed += scoreboardUI.Show;
 			actions["Scoreboard"].canceled += scoreboardUI.Hide;
@@ -142,6 +144,8 @@ namespace BoM {
 			actions["Skill 5"].performed -= input.Skill5;
 			actions["Block"].performed -= input.StartBlock;
 			actions["Block"].canceled -= input.StopBlock;
+			actions["Fly"].performed -= input.StartFlight;
+			actions["Fly"].canceled -= input.StopFlight;
 			actions["Jump"].performed -= input.Jump;
 			actions["Scoreboard"].performed -= scoreboardUI.Show;
 			actions["Scoreboard"].canceled -= scoreboardUI.Hide;
