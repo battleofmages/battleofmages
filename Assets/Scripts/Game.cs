@@ -46,12 +46,13 @@ namespace BoM {
 				Bind(player);
 			}
 
+			BindHealth(player);
+
 			var skillSystem = player.GetComponent<Players.SkillSystem>();
 			skillSystem.elements = new System.Collections.Generic.List<Skills.Element>();
 			var testElement = new Skills.Element();
 			testElement.skills = skillManager.skills;
 			skillSystem.elements.Add(testElement);
-			BindHealth(player);
 		}
 
 		private void OnPlayerRemoved(Players.Player player) {
@@ -157,17 +158,18 @@ namespace BoM {
 			health.Damaged += OnPlayerDamage;
 			health.Died += OnPlayerDeath;
 
-			var healthBar = player.GetComponentInChildren<UI.Overlays.Bar>();
+			var canvas = player.GetComponentInChildren<Canvas>();
 			var visibility = player.GetComponentInChildren<Players.Visibility>();
 
 			visibility.BecameVisible += () => {
-				healthBar.gameObject.SetActive(true);
+				canvas.gameObject.SetActive(true);
 			};
 
 			visibility.BecameInvisible += () => {
-				healthBar.gameObject.SetActive(false);
+				canvas.gameObject.SetActive(false);
 			};
 
+			var healthBar = canvas.GetComponentInChildren<UI.Overlays.Bar>();
 			health.PercentChanged += healthBar.SetFillAmount;
 		}
 	}

@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 1563332070489109484, guid: e4e283392e7e1f54dac5f75170bda24f, type: 3}
   position: 1
   rotation: 1
+  coolDown: 1

@@ -15,6 +15,7 @@ namespace BoM.Skills {
 		public Instance prefab;
 		public PositionType position;
 		public RotationType rotation;
+		public float coolDown;
 		public ObjectPool<Instance> pool;
 	}
 }
