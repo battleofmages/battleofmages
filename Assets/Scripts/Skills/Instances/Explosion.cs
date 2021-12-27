@@ -1,11 +1,12 @@
 using BoM.Core;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace BoM.Skills {
 	public class Explosion : Instance {
 		public float damage { get; set; }
 		public float radius;
-		public ParticleSystem particles;
+		public VisualEffect particles;
 		public Teams.Manager teamsManager;
 		private Collider[] colliders;
 		private float time;

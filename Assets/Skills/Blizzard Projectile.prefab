@@ -12,7 +12,7 @@ PrefabInstance:
         type: 3}
       propertyPath: explosionPrefab
       value: 
-      objectReference: {fileID: 562786875547924109, guid: 569c596bba6b47e4bafc2d0b042517c3,
+      objectReference: {fileID: 4401817961737716960, guid: 6a7e135c81daa904493a5ba6983aea5a,
         type: 3}
     - target: {fileID: 1563332070489109486, guid: e4e283392e7e1f54dac5f75170bda24f,
         type: 3}

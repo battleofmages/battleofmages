@@ -49,7 +49,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7265321972920956765, guid: 47a7ca190436be54f93cbe4a7f987ace,
     type: 3}
   spawn: {fileID: 8153228561003284733}
-  radius: 4
+  radius: 3
   interval: 0.1
   duration: 2
   randomizeStartPoint: 1
@@ -106,12 +106,12 @@ PrefabInstance:
     - target: {fileID: 1564816152966002893, guid: 0c6c679d429ffbc4282e66e057add71c,
         type: 3}
       propertyPath: m_Size.x
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1564816152966002893, guid: 0c6c679d429ffbc4282e66e057add71c,
         type: 3}
       propertyPath: m_Size.y
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1564816152966002894, guid: 0c6c679d429ffbc4282e66e057add71c,
         type: 3}

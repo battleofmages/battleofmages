@@ -53,11 +53,13 @@ MonoBehaviour:
   collision: {fileID: -6710880726570859313}
   particles: {fileID: 2645023377478726457}
   lighting: {fileID: 2170822309187934714}
-  explosionPrefab: {fileID: -3792816742812588411, guid: c7a90301533c2db409475a1a381ae283,
+  explosionPrefab: {fileID: 4401817961737716960, guid: 6a7e135c81daa904493a5ba6983aea5a,
     type: 3}
   directHitDamage: 10
   splashDamage: 20
   speed: 30
+  maxLifeTime: 3
+  fadeOutTime: 0.75
 --- !u!54 &1563332070489109485
 Rigidbody:
   m_ObjectHideFlags: 0

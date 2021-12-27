@@ -14,14 +14,18 @@ namespace BoM.Skills.Instances {
 		public float directHitDamage;
 		public float splashDamage;
 		public float speed;
+		public float maxLifeTime;
+		public float fadeOutTime;
 
 		private bool isAlive;
 		private float aliveTime;
 		private float deadTime;
 		private float lightIntensity;
+		private float fadeOutSpeed;
 
 		private void Awake() {
 			lightIntensity = lighting.intensity;
+			fadeOutSpeed = 1f / fadeOutTime;
 		}
 
 		public override void Init() {
@@ -42,16 +46,16 @@ namespace BoM.Skills.Instances {
 		private void AliveTimer() {
 			aliveTime += Time.deltaTime;
 
-			if(aliveTime > 3f) {
+			if(aliveTime > maxLifeTime) {
 				Die();
 			}
 		}
 
 		private void DeadTimer() {
 			deadTime += Time.deltaTime;
-			lighting.intensity = Mathf.Lerp(lightIntensity, 0f, deadTime);
+			lighting.intensity = Mathf.Lerp(lightIntensity, 0f, deadTime * fadeOutSpeed);
 
-			if(deadTime > 1f) {
+			if(deadTime > fadeOutTime) {
 				Release();
 			}
 		}
