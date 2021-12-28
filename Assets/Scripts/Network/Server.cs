@@ -6,19 +6,19 @@ using UnityEngine.SceneManagement;
 namespace BoM.Network {
 	[CreateAssetMenu(fileName = "Server", menuName = "BoM/Server", order = 51)]
 	public class Server : ScriptableObject {
-		public string mapName;
-		public Match match;
-		public Teams.Manager teamManager;
-
 		public event System.Action Ready;
-		public IDatabase database;
+		public IDatabase Database;
+		public string MapName;
+
+		[SerializeField] private Match match;
+		[SerializeField] private Teams.Manager teamManager;
 
 		public void Init() {
 			NetworkManager.Singleton.ConnectionApprovalCallback += OnApprovalCheck;
 			NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
 			NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
 			SceneManager.sceneLoaded += SceneLoaded;
-			SceneManager.LoadScene(mapName, LoadSceneMode.Additive);
+			SceneManager.LoadScene(MapName, LoadSceneMode.Additive);
 		}
 
 		public void Start() {
@@ -43,7 +43,7 @@ namespace BoM.Network {
 		public void OnApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate sendResponse) {
 			// Account
 			var accountId = System.Text.Encoding.UTF8.GetString(connectionData, 0, connectionData.Length);
-			var account = database.GetAccount(accountId);
+			var account = Database.GetAccount(accountId);
 			Accounts.Manager.AddClient(clientId, account);
 
 			// Team
@@ -60,8 +60,10 @@ namespace BoM.Network {
 
 			// Create player object
 			var team = teamManager.teams[teamId];
+			var spawnPosition = team.RandomSpawnPosition;
+			var spawnRotation = team.SpawnRotation;
 			var playerPrefab = NetworkManager.Singleton.NetworkConfig.PlayerPrefab;
-			var playerObject = GameObject.Instantiate(playerPrefab, team.SpawnPosition, team.SpawnRotation);
+			var playerObject = GameObject.Instantiate(playerPrefab, spawnPosition, Const.NoRotation);
 
 			// Assign team
 			var player = playerObject.GetComponent<IPlayer>();
@@ -70,16 +72,16 @@ namespace BoM.Network {
 			// Spawn player on every client
 			var networkObject = playerObject.GetComponent<NetworkObject>();
 			networkObject.SpawnAsPlayerObject(clientId);
+
+			player.Respawn(spawnPosition, spawnRotation);
 		}
 
 		public void OnClientConnected(ulong clientId) {
 			var account = Accounts.Manager.GetByClientId(clientId);
-			Debug.Log($"Account ID {account.Id} connected.");
 		}
 
 		public void OnClientDisconnected(ulong clientId) {
 			var account = Accounts.Manager.GetByClientId(clientId);
-			Debug.Log($"Account ID {account.Id} disconnected.");
 		}
 
 		public void ClientPosition(ulong senderClientId, FastBufferReader reader) {

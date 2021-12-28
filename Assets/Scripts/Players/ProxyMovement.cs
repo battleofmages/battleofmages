@@ -8,19 +8,21 @@ namespace BoM.Players {
 		public Movement movement;
 		public long maxLatency;
 		public Vector3 direction { get; set; }
+		public Health health;
 		private Vector3 lastRemoteDirection;
-		private new Transform transform;
-
-		private void Awake() {
-			transform = base.transform;
-		}
 
 		private void FixedUpdate() {
 			var latency = GetLatency();
-			UpdatePosition(latency);
+			UpdateDirection(latency);
+			movement.Move(direction);
 		}
 
-		public void UpdatePosition(float latency) {
+		private void UpdateDirection(float latency) {
+			if(health.isDead) {
+				direction = Const.ZeroVector;
+				return;
+			}
+
 			var expectedPosition = CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);
 			direction = expectedPosition - transform.localPosition;
 
@@ -31,8 +33,6 @@ namespace BoM.Players {
 			if(direction.sqrMagnitude < 0.01f) {
 				direction = Const.ZeroVector;
 			}
-
-			movement.Move(direction);
 		}
 
 		public Vector3 CalculatePosition(Vector3 position, Vector3 direction, float latency) {
@@ -49,11 +49,11 @@ namespace BoM.Players {
 			float latency = 0f;
 
 			if(IsServer) {
-				latency = player.latency.oneWay;
+				latency = player.Latency.oneWay;
 			}
 
 			if(IsClient && Player.main != null) {
-				latency = Player.main.latency.oneWay;
+				latency = Player.main.Latency.oneWay;
 			}
 
 			if(latency > maxLatency) {

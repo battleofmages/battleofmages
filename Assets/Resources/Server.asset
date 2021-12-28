@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e51b7714f15ad94abdd890975753c2c, type: 3}
   m_Name: Server
   m_EditorClassIdentifier: 
-  mapName: Arena
+  MapName: Arena
   match: {fileID: 11400000, guid: a45a052b118fa3a49825803228003e28, type: 2}
   teamManager: {fileID: 11400000, guid: 7d866a647fcff1c43b241dbd9d54fe83, type: 2}

@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83c6fea89a7b85b4c927ef827a10d0d6, type: 3}
-  m_Name: UI
+  m_Name: UI Settings
   m_EditorClassIdentifier: 
   fadeDuration: 0.15

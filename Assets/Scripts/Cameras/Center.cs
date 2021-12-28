@@ -2,32 +2,27 @@ using UnityEngine;
 
 namespace BoM.Cameras {
 	public class Center : MonoBehaviour {
-		public float mouseSensitivity = 0.05f;
-		public float gamepadSensitivity = 150f;
-		public float minClampRotationX;
-		public float maxClampRotationX;
+		[SerializeField] private float MouseSensitivity = 0.05f;
+		[SerializeField] private float GamepadSensitivity = 150f;
+		[SerializeField] private float MinClampRotationX;
+		[SerializeField] private float MaxClampRotationX;
 
 		private Vector2 angles;
 		private Vector2 mouse;
 		private Vector2 gamepad;
-		private new Transform transform;
 
-		private void Awake() {
-			transform = base.transform;
-		}
-
-		void Update() {
+		private void Update() {
 			if(mouse != Vector2.zero) {
-				angles.x -= mouse.y * mouseSensitivity;
-				angles.y += mouse.x * mouseSensitivity;
+				angles.x -= mouse.y * MouseSensitivity;
+				angles.y += mouse.x * MouseSensitivity;
 			}
 
 			if(gamepad != Vector2.zero) {
-				angles.x -= gamepad.y * gamepadSensitivity * Time.deltaTime;
-				angles.y += gamepad.x * gamepadSensitivity * Time.deltaTime;
+				angles.x -= gamepad.y * GamepadSensitivity * Time.deltaTime;
+				angles.y += gamepad.x * GamepadSensitivity * Time.deltaTime;
 			}
 
-			angles.x = Mathf.Clamp(angles.x, minClampRotationX, maxClampRotationX);
+			angles.x = Mathf.Clamp(angles.x, MinClampRotationX, MaxClampRotationX);
 			transform.eulerAngles = angles;
 		}
 

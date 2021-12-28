@@ -5,7 +5,7 @@ using UnityEngine;
 namespace BoM.Network {
 	[CreateAssetMenu(fileName = "Match", menuName = "BoM/Match", order = 80)]
 	public class Match : ScriptableObject {
-		public List<ListWrapper<string>> teams;
+		[SerializeField] private List<ListWrapper<string>> teams;
 
 		public int GetTeamIdByAccountId(string id) {
 			for(int teamId = 0; teamId < teams.Count; teamId++) {

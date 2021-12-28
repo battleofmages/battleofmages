@@ -4,19 +4,19 @@ using UnityEngine;
 namespace BoM.Network {
 	[CreateAssetMenu(fileName = "Host", menuName = "BoM/Host", order = 52)]
 	public class Host : ScriptableObject {
-		public Server server;
-		public Client client;
+		[SerializeField] private Server Server;
+		[SerializeField] private Client Client;
 
 		public void Start() {
-			NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.UTF8.GetBytes(client.accountId);
+			NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.UTF8.GetBytes(Client.AccountId);
 
-			server.Ready += () => {
+			Server.Ready += () => {
 				NetworkManager.Singleton.StartHost();
-				server.Listen();
-				client.Listen();
+				Server.Listen();
+				Client.Listen();
 			};
 
-			server.Init();
+			Server.Init();
 		}
 	}
 }

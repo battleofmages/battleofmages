@@ -9,7 +9,7 @@ namespace BoM {
 		private void Start() {
 #if UNITY_EDITOR
 			if(ParrelSync.ClonesManager.IsClone()) {
-				client.accountId = ParrelSync.ClonesManager.GetArgument();
+				client.AccountId = ParrelSync.ClonesManager.GetArgument();
 				client.Start();
 			} else {
 				host.Start();

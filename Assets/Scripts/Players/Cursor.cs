@@ -2,10 +2,12 @@ using UnityEngine;
 
 namespace BoM.Players {
 	public class Cursor : MonoBehaviour {
-		public LayerMask LayerMask;
-		public Camera Cam;
 		public Vector3 Position { get; private set; }
-		public Ray Ray;
+		public LayerMask LayerMask { get; set; }
+
+		[SerializeField] private Camera Cam;
+		[SerializeField] private Ray Ray;
+
 		private RaycastHit hit;
 		private Transform crossHair;
 

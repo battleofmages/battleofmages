@@ -13,11 +13,11 @@ namespace BoM.Core {
 				var assets = Resources.LoadAll<T>("");
 
 				if(assets.Length == 0) {
-					throw new System.Exception($"Could not find any singleton type {nameof(T)} in the resources.");
+					throw new System.Exception($"Could not find any singleton of type {typeof(T).FullName} in the resources.");
 				}
 
 				if(assets.Length > 1) {
-					throw new System.Exception($"Multiple instances of singleton type {nameof(T)} have been loaded.");
+					throw new System.Exception($"Multiple instances of singleton of type {typeof(T).FullName} have been loaded.");
 				}
 
 				instance = assets[0];

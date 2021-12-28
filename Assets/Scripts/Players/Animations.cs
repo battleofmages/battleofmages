@@ -3,9 +3,11 @@ using UnityEngine;
 namespace BoM.Players {
 	public class Animations : MonoBehaviour {
 		public Animator Animator;
-		public Player Player;
-		public Gravity gravity;
-		public Health health;
+
+		[SerializeField] private Player player;
+		[SerializeField] private Gravity gravity;
+		[SerializeField] private Health health;
+
 		private const float ikSpeed = 20f;
 		private float ikWeight;
 		private float ikWeightTarget;
@@ -14,12 +16,12 @@ namespace BoM.Players {
 		private readonly int land = UnityEngine.Animator.StringToHash("Movement.Land");
 
 		private void Update() {
-			var groundSpeed = Player.controller.velocity;
+			var groundSpeed = player.controller.velocity;
 			groundSpeed.y = 0f;
 
 			Animator.SetFloat("Speed", groundSpeed.sqrMagnitude);
 			Animator.SetFloat("Gravity", gravity.Speed);
-			Animator.SetBool("Grounded", Player.controller.isGrounded);
+			Animator.SetBool("Grounded", player.controller.isGrounded);
 			Animator.SetBool("Dead", health.isDead);
 
 			UpdateIK();

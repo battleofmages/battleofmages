@@ -7,10 +7,8 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fe19162ce872ee4085ccbc25592e542, type: 3}
-  m_Name: Host
+  m_Script: {fileID: 11500000, guid: 7bc72dde3b735884ea1b5fc58dc2eab8, type: 3}
+  m_Name: Cameras
   m_EditorClassIdentifier: 
-  Server: {fileID: 11400000, guid: b919b668af8e49340b37dacc1b663111, type: 2}
-  Client: {fileID: 11400000, guid: c71c2fc5cd2e36c4081b5eb1d95e259d, type: 2}

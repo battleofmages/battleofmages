@@ -2,7 +2,7 @@ using Unity.Netcode;
 
 namespace BoM.Players {
 	public class Flight : NetworkBehaviour {
-		public NetworkVariable<bool> isActive;
+		private NetworkVariable<bool> isActive;
 		public Movement movement;
 		public Gravity gravity;
 		public Animations animations;
@@ -17,6 +17,7 @@ namespace BoM.Players {
 		}
 
 		private void Awake() {
+			isActive = new NetworkVariable<bool>();
 			isActive.OnValueChanged += OnFlightStateChanged;
 		}
 
@@ -35,13 +36,29 @@ namespace BoM.Players {
 				return;
 			}
 
+			if(IsServer) {
+				isActive.Value = true;
+				return;
+			}
+
+			if(IsOwner) {
+				StartServerRpc();
+			}
+
 			enabled = true;
-			StartServerRpc();
 		}
 
 		public void Deactivate() {
+			if(IsServer) {
+				isActive.Value = false;
+				return;
+			}
+
+			if(IsOwner) {
+				StopServerRpc();
+			}
+
 			enabled = false;
-			StopServerRpc();
 		}
 
 		private void OnEnable() {

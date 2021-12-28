@@ -12,11 +12,9 @@ namespace BoM.Players {
 		private Vector3 lastPositionSent;
 		private Vector3 lastDirectionSent;
 		private FastBufferWriter writer;
-		private new Transform transform;
 
 		private void OnEnable() {
 			writer = new FastBufferWriter(24, Allocator.Persistent);
-			transform = base.transform;
 		}
 
 		private void OnDisable() {
@@ -29,10 +27,6 @@ namespace BoM.Players {
 		}
 
 		private void FixedUpdate() {
-			SendPositionToServer();
-		}
-
-		private void SendPositionToServer() {
 			if(IsHost) {
 				player.RemotePosition = transform.localPosition;
 				player.RemoteDirection = movement.direction;
@@ -47,6 +41,13 @@ namespace BoM.Players {
 				return;
 			}
 
+			SendPosition(serverId);
+
+			lastPositionSent = transform.localPosition;
+			lastDirectionSent = movement.direction;
+		}
+
+		private void SendPosition(ulong receiver) {
 			writer.Seek(0);
 			writer.WriteValueSafe(transform.localPosition);
 			writer.WriteValueSafe(movement.direction);
@@ -57,10 +58,7 @@ namespace BoM.Players {
 				delivery = NetworkDelivery.Reliable;
 			}
 
-			messenger.SendNamedMessage("client position", serverId, writer, delivery);
-
-			lastPositionSent = transform.localPosition;
-			lastDirectionSent = movement.direction;
+			messenger.SendNamedMessage("client position", receiver, writer, delivery);
 		}
 	}
 }

@@ -1,15 +1,16 @@
+using BoM.Core;
 using UnityEngine;
 using System.Collections.Generic;
 
 namespace BoM.Cameras {
-	public class Manager : MonoBehaviour {
-		public List<Camera> cameras;
-		public static Manager Instance { get; private set; }
+	[CreateAssetMenu(fileName = "Camera Manager", menuName = "BoM/Camera Manager", order = 100)]
+	public class Manager : Singleton<Manager> {
+		public static List<Camera> Cameras { get { return Instance.cameras; } }
 		private static Camera activeCamera;
+		private List<Camera> cameras;
 
-		private void Awake() {
-			Instance = this;
-			activeCamera = Instance.cameras[0];
+		private void OnEnable() {
+			cameras = new List<Camera>();
 		}
 
 		public static void AddCamera(Camera cam) {

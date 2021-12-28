@@ -22,17 +22,20 @@ namespace BoM.Players {
 		}
 
 		private void FixedUpdate() {
-			BroadcastPosition();
-		}
-
-		public void BroadcastPosition() {
-			if(transform.localPosition == lastPositionSent && movement.direction == lastDirectionSent) {
+			if(transform.position == lastPositionSent && player.RemoteDirection == lastDirectionSent) {
 				return;
 			}
 
+			BroadcastPosition();
+
+			lastPositionSent = transform.position;
+			lastDirectionSent = player.RemoteDirection;
+		}
+
+		private void BroadcastPosition() {
 			writer.Seek(0);
 			writer.WriteValueSafe(player.ClientId);
-			writer.WriteValueSafe(transform.localPosition);
+			writer.WriteValueSafe(transform.position);
 			writer.WriteValueSafe(player.RemoteDirection);
 
 			var delivery = NetworkDelivery.Unreliable;
@@ -42,9 +45,21 @@ namespace BoM.Players {
 			}
 
 			messenger.SendNamedMessageToAll("server position", writer, delivery);
+		}
 
-			lastPositionSent = transform.localPosition;
-			lastDirectionSent = movement.direction;
+		private void SendPosition(ulong receiver) {
+			writer.Seek(0);
+			writer.WriteValueSafe(player.ClientId);
+			writer.WriteValueSafe(transform.position);
+			writer.WriteValueSafe(player.RemoteDirection);
+
+			var delivery = NetworkDelivery.Unreliable;
+
+			if(player.RemoteDirection == Const.ZeroVector) {
+				delivery = NetworkDelivery.Reliable;
+			}
+
+			messenger.SendNamedMessage("server position", receiver, writer, delivery);
 		}
 	}
 }

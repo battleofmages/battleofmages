@@ -1,17 +1,19 @@
+using BoM.Core;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace BoM.Players {
 	public class Death : NetworkBehaviour {
-		public Player player;
-		public float respawnTime;
-		public MonoBehaviour[] components;
-		public GameObject[] objects;
-		public Collider[] colliders;
-		public OwnerMovement ownerMovement;
-		public ProxyMovement proxyMovement;
-		public Flight flight;
-		public Health health;
+		[SerializeField] private Player player;
+		[SerializeField] private Rotation rotation;
+		[SerializeField] private float respawnTime;
+		[SerializeField] private MonoBehaviour[] components;
+		[SerializeField] private GameObject[] objects;
+		[SerializeField] private Collider[] colliders;
+		[SerializeField] private Flight flight;
+		[SerializeField] private Health health;
+		[SerializeField] private OwnerMovement ownerMovement;
+		[SerializeField] private ProxyMovement proxyMovement;
 
 		private void Awake() {
 			health.Died += OnDeath;
@@ -20,37 +22,22 @@ namespace BoM.Players {
 
 		private void OnDeath(DamageEvent damageEvent) {
 			Reset(false);
+			transform.SetLayer(Const.SpectatorLayer);
+			flight.Deactivate();
+			rotation.center.eulerAngles = new Vector3(0f, rotation.center.eulerAngles.y, 0f);
 
 			if(IsServer) {
-				flight.isActive.Value = false;
-			} else {
-				flight.enabled = false;
+				Invoke(nameof(Respawn), respawnTime);
 			}
+		}
 
-			if(IsServer) {
-				Invoke("Respawn", respawnTime);
-			}
+		private void Respawn() {
+			player.Respawn(player.Team.RandomSpawnPosition, player.Team.SpawnRotation);
 		}
 
 		private void OnRevive() {
 			Reset(true);
-		}
-
-		private void Respawn() {
-			var team = player.Team;
-			var spawnPosition = team.SpawnPosition;
-			var spawnRotation = team.SpawnRotation;
-
-			transform.SetPositionAndRotation(spawnPosition, spawnRotation);
-			RespawnClientRpc(spawnPosition, spawnRotation);
-
-			health.health.Value = health.maxHealth.Value;
-		}
-
-		[ClientRpc]
-		public void RespawnClientRpc(Vector3 position, Quaternion rotation) {
-			transform.SetPositionAndRotation(position, rotation);
-			player.camCenter.SetRotation(rotation);
+			transform.SetLayer(player.Team.layer);
 		}
 
 		private void Reset(bool state) {
@@ -65,12 +52,8 @@ namespace BoM.Players {
 			foreach(var gameObject in objects) {
 				gameObject.SetActive(state);
 			}
-
-			if(IsOwner) {
-				ownerMovement.enabled = state;
-			} else {
-				proxyMovement.enabled = state;
-			}
 		}
+
+
 	}
 }

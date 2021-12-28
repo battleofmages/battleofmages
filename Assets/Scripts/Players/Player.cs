@@ -1,5 +1,6 @@
 using BoM.Core;
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace BoM.Players {
@@ -13,8 +14,6 @@ namespace BoM.Players {
 		public MonoBehaviour[] serverComponents;
 
 		public Camera cam;
-		public Cameras.Center camCenter;
-
 		public CharacterController controller;
 		public Transform model;
 		public float modelYOffset;
@@ -47,22 +46,18 @@ namespace BoM.Players {
 			var modelRenderer = model.GetComponentInChildren<SkinnedMeshRenderer>();
 			modelRenderer.gameObject.AddComponent<Visibility>();
 			model.localPosition = new Vector3(0f, model.localPosition.y - controller.skinWidth + modelYOffset, 0f);
-
-			// Adjust camera rotation
-			camCenter.SetRotation(transform.rotation);
 		}
 
 		public override void OnNetworkSpawn() {
 			// Network information
 			ClientId = OwnerClientId;
-			RemotePosition = transform.localPosition;
-			RemoteDirection = Const.ZeroVector;
-
-			// Enable client/server components depending on the network type
-			EnableNetworkComponents();
+			RemotePosition = transform.position;
 
 			// Trigger "value changed" event
 			teamId.OnValueChanged(-1, teamId.Value);
+
+			// Enable client/server components depending on the network type
+			EnableNetworkComponents();
 
 			// Trigger "player added" event
 			Player.Added?.Invoke(this);

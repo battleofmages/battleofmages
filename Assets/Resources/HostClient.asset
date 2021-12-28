@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091f79de6c24f8a4dbf9137e51514a69, type: 3}
   m_Name: HostClient
   m_EditorClassIdentifier: 
-  accountId: id0
+  AccountId: id0
+  teamManager: {fileID: 11400000, guid: 7d866a647fcff1c43b241dbd9d54fe83, type: 2}

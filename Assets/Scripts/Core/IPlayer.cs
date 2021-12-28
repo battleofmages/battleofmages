@@ -10,5 +10,7 @@ namespace BoM.Core {
 		Transform Transform { get; }
 		Vector3 RemotePosition { get; set; }
 		Vector3 RemoteDirection { get; set; }
+
+		void Respawn(Vector3 position, Quaternion rotation);
 	}
 }

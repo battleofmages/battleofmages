@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BoM.Players {
 	public class ElementSlot {
-		public Element element;
-		public List<SkillSlot> skillSlots;
+		public Element Element;
+		public List<SkillSlot> SkillSlots;
 	}
 }

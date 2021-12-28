@@ -5,7 +5,7 @@ using Unity.Netcode;
 namespace BoM.Players {
 	public class Rotation : NetworkBehaviour {
 		public Player player;
-		public Transform rotationCenter;
+		public Transform center;
 		public float speed;
 		public Flight flight;
 		private Vector3 direction;
@@ -16,6 +16,11 @@ namespace BoM.Players {
 			if(IsOwner) {
 				movement = GetComponent<OwnerMovement>();
 			}
+		}
+
+		public void SetRotation(Quaternion newRotation) {
+			center.rotation = newRotation;
+			targetRotation = newRotation;
 		}
 
 		private void Update() {
@@ -37,8 +42,8 @@ namespace BoM.Players {
 				}
 			}
 
-			rotationCenter.rotation = Quaternion.Slerp(
-				rotationCenter.rotation,
+			center.rotation = Quaternion.Slerp(
+				center.rotation,
 				targetRotation,
 				Time.deltaTime * speed
 			);

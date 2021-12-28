@@ -6,10 +6,11 @@ using Unity.Netcode;
 namespace BoM.Players {
 	public class Account : NetworkBehaviour {
 		public event Action<string> NickChanged;
-		public NetworkVariable<FixedString64Bytes> nick;
+		private NetworkVariable<FixedString64Bytes> nick;
 		private IAccount account;
 
 		private void Awake() {
+			nick = new NetworkVariable<FixedString64Bytes>();
 			nick.OnValueChanged += OnNickChanged;
 		}
 

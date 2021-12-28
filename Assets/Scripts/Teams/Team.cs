@@ -19,7 +19,7 @@ namespace BoM.Teams {
 			}
 		}
 
-		public Vector3 SpawnPosition {
+		public Vector3 RandomSpawnPosition {
 			get {
 				var offset = UnityEngine.Random.insideUnitCircle * spawnRadius;
 				return new Vector3(spawn.position.x + offset.x, spawn.position.y, spawn.position.z + offset.y);

@@ -34,7 +34,7 @@ namespace BoM {
 			database.AddAccount(new Accounts.Account("id8", "Player 8 名前", "test8@example.com"));
 			database.AddAccount(new Accounts.Account("id9", "Player 9 名前", "test9@example.com"));
 
-			server.database = database;
+			server.Database = database;
 		}
 
 		private void OnPlayerAdded(Players.Player player) {
@@ -129,7 +129,7 @@ namespace BoM {
 			UI.Manager.Activate();
 
 			// Swap camera to default camera
-			Cameras.Manager.ActiveCamera = Cameras.Manager.Instance.cameras[0];
+			Cameras.Manager.ActiveCamera = null;
 
 			// Unbind gameplay events
 			var actions = inputSystem.actions;

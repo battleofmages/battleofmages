@@ -310,10 +310,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b20bd7c75cd39a469404cc052a0ea0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 0.05
-  gamepadSensitivity: 150
-  minClampRotationX: -65
-  maxClampRotationX: 80
+  MouseSensitivity: 0.05
+  GamepadSensitivity: 150
+  MinClampRotationX: -65
+  MaxClampRotationX: 80
 --- !u!1 &3578078609465416211
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,9 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b64254aa171af445b6a9ea73a049d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamId:
-    m_InternalValue: 0
-  latency: {fileID: 5780932374599328331}
+  Latency: {fileID: 5780932374599328331}
   ownerComponents:
   - {fileID: 3446361503782202970}
   - {fileID: 2321325627102390747}
@@ -469,6 +467,8 @@ MonoBehaviour:
   cam: {fileID: 4422484605796574882}
   camCenter: {fileID: 5924383185328376581}
   controller: {fileID: 2119036363929754220}
+  health: {fileID: 8310504723804365141}
+  rotation: {fileID: 8606665410350655568}
   model: {fileID: 4304170728917831478}
   modelYOffset: 0.07
   cursor: {fileID: 6339195900674787528}
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 7879980679939085644}
-  Player: {fileID: 5014205834473804560}
+  player: {fileID: 5014205834473804560}
   gravity: {fileID: -7326193019154016585}
   health: {fileID: 8310504723804365141}
 --- !u!114 &8606665410350655568
@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5014205834473804560}
-  rotationCenter: {fileID: 1789517573824710972}
+  center: {fileID: 1789517573824710972}
   speed: 10
   flight: {fileID: 6868382068925250288}
 --- !u!114 &-8626974943594062236
@@ -586,6 +586,7 @@ MonoBehaviour:
   player: {fileID: 5014205834473804560}
   movement: {fileID: 7787505666309892482}
   flight: {fileID: 6868382068925250288}
+  health: {fileID: 8310504723804365141}
 --- !u!114 &4887231240320512843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,6 +602,7 @@ MonoBehaviour:
   player: {fileID: 5014205834473804560}
   movement: {fileID: 7787505666309892482}
   maxLatency: 500
+  health: {fileID: 8310504723804365141}
 --- !u!114 &2321325627102390747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,9 +659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9afe6791e6c3e4ab38c978f490a558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 1
   Cam: {fileID: 4422484605796574882}
 --- !u!114 &202379965925588689
 MonoBehaviour:
@@ -740,6 +739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5014205834473804560}
+  rotation: {fileID: 8606665410350655568}
   respawnTime: 5
   components:
   - {fileID: 8606665410350655568}
@@ -747,12 +747,11 @@ MonoBehaviour:
   - {fileID: 3870380123645339473}
   objects:
   - {fileID: 9056051956188373508}
-  colliders:
-  - {fileID: 2119036363929754220}
-  ownerMovement: {fileID: 3446361503782202970}
-  proxyMovement: {fileID: 4887231240320512843}
+  colliders: []
   flight: {fileID: 6868382068925250288}
   health: {fileID: 8310504723804365141}
+  ownerMovement: {fileID: 3446361503782202970}
+  proxyMovement: {fileID: 4887231240320512843}
 --- !u!114 &4220810531747879961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,75 +808,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae350cd30f2dea449022e2711e412cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nick:
-    m_InternalValue:
-      utf8LengthInBytes: 0
-      bytes:
-        offset0000:
-          byte0000: 0
-          byte0001: 0
-          byte0002: 0
-          byte0003: 0
-          byte0004: 0
-          byte0005: 0
-          byte0006: 0
-          byte0007: 0
-          byte0008: 0
-          byte0009: 0
-          byte0010: 0
-          byte0011: 0
-          byte0012: 0
-          byte0013: 0
-          byte0014: 0
-          byte0015: 0
-        offset0016:
-          byte0000: 0
-          byte0001: 0
-          byte0002: 0
-          byte0003: 0
-          byte0004: 0
-          byte0005: 0
-          byte0006: 0
-          byte0007: 0
-          byte0008: 0
-          byte0009: 0
-          byte0010: 0
-          byte0011: 0
-          byte0012: 0
-          byte0013: 0
-          byte0014: 0
-          byte0015: 0
-        offset0032:
-          byte0000: 0
-          byte0001: 0
-          byte0002: 0
-          byte0003: 0
-          byte0004: 0
-          byte0005: 0
-          byte0006: 0
-          byte0007: 0
-          byte0008: 0
-          byte0009: 0
-          byte0010: 0
-          byte0011: 0
-          byte0012: 0
-          byte0013: 0
-          byte0014: 0
-          byte0015: 0
-        byte0048: 0
-        byte0049: 0
-        byte0050: 0
-        byte0051: 0
-        byte0052: 0
-        byte0053: 0
-        byte0054: 0
-        byte0055: 0
-        byte0056: 0
-        byte0057: 0
-        byte0058: 0
-        byte0059: 0
-        byte0060: 0
-        byte0061: 0
 --- !u!114 &6709580380699327755
 MonoBehaviour:
   m_ObjectHideFlags: 0

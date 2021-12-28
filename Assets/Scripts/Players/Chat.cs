@@ -5,7 +5,7 @@ using Unity.Netcode;
 namespace BoM.Players {
 	public class Chat : NetworkBehaviour {
 		public static event Action<Player, string> MessageReceived;
-		public Player player;
+		[SerializeField] private Player player;
 
 		public void SubmitMessage(string message) {
 			if(message == "/dc") {
