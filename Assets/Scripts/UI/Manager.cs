@@ -22,7 +22,7 @@ namespace BoM.UI {
 			var inputFieldCanvas = Chat.inputField.GetComponent<CanvasGroup>();
 
 			inputFieldCanvas.FadeIn(
-				0.15f,
+				UI.Settings.FadeDuration,
 				value => inputFieldCanvas.alpha = value
 			);
 		}
@@ -35,7 +35,7 @@ namespace BoM.UI {
 			var inputFieldCanvas = Chat.inputField.GetComponent<CanvasGroup>();
 
 			inputFieldCanvas.FadeOut(
-				0.15f,
+				UI.Settings.FadeDuration,
 				value => inputFieldCanvas.alpha = value
 			);
 		}

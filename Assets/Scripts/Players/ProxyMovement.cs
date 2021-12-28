@@ -1,3 +1,4 @@
+using BoM.Core;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -8,6 +9,11 @@ namespace BoM.Players {
 		public long maxLatency;
 		public Vector3 direction { get; set; }
 		private Vector3 lastRemoteDirection;
+		private new Transform transform;
+
+		private void Awake() {
+			transform = base.transform;
+		}
 
 		private void FixedUpdate() {
 			var latency = GetLatency();
@@ -23,7 +29,7 @@ namespace BoM.Players {
 			}
 
 			if(direction.sqrMagnitude < 0.01f) {
-				direction = Vector3.zero;
+				direction = Const.ZeroVector;
 			}
 
 			movement.Move(direction);
@@ -34,7 +40,7 @@ namespace BoM.Players {
 		}
 
 		private bool StartedMoving() {
-			bool startedMoving = (lastRemoteDirection == Vector3.zero && player.RemoteDirection != Vector3.zero);
+			bool startedMoving = (lastRemoteDirection == Const.ZeroVector && player.RemoteDirection != Const.ZeroVector);
 			lastRemoteDirection = player.RemoteDirection;
 			return startedMoving;
 		}

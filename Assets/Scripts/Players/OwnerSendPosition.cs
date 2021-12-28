@@ -1,3 +1,4 @@
+using BoM.Core;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
@@ -11,9 +12,11 @@ namespace BoM.Players {
 		private Vector3 lastPositionSent;
 		private Vector3 lastDirectionSent;
 		private FastBufferWriter writer;
+		private new Transform transform;
 
 		private void OnEnable() {
 			writer = new FastBufferWriter(24, Allocator.Persistent);
+			transform = base.transform;
 		}
 
 		private void OnDisable() {
@@ -50,7 +53,7 @@ namespace BoM.Players {
 
 			var delivery = NetworkDelivery.Unreliable;
 
-			if(movement.direction == Vector3.zero) {
+			if(movement.direction == Const.ZeroVector) {
 				delivery = NetworkDelivery.Reliable;
 			}
 

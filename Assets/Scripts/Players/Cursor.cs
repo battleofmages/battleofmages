@@ -9,7 +9,7 @@ namespace BoM.Players {
 		private RaycastHit hit;
 		private Transform crossHair;
 
-		private void Awake() {
+		private void OnEnable() {
 			crossHair = GameObject.FindGameObjectWithTag("Crosshair").transform;
 		}
 

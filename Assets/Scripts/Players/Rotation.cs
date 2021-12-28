@@ -1,3 +1,4 @@
+using BoM.Core;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -24,7 +25,7 @@ namespace BoM.Players {
 				direction = player.RemoteDirection;
 			}
 
-			if(direction != Vector3.zero) {
+			if(direction != Const.ZeroVector) {
 				targetRotation = Quaternion.LookRotation(direction);
 			}
 

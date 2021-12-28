@@ -10,6 +10,11 @@ namespace BoM.Cameras {
 		private Vector2 angles;
 		private Vector2 mouse;
 		private Vector2 gamepad;
+		private new Transform transform;
+
+		private void Awake() {
+			transform = base.transform;
+		}
 
 		void Update() {
 			if(mouse != Vector2.zero) {

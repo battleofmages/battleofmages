@@ -56,7 +56,7 @@ namespace BoM.Players {
 			// Network information
 			ClientId = OwnerClientId;
 			RemotePosition = transform.localPosition;
-			RemoteDirection = Vector3.zero;
+			RemoteDirection = Const.ZeroVector;
 
 			// Enable client/server components depending on the network type
 			EnableNetworkComponents();

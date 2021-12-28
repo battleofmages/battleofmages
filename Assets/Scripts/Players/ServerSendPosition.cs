@@ -1,3 +1,4 @@
+using BoM.Core;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
@@ -36,7 +37,7 @@ namespace BoM.Players {
 
 			var delivery = NetworkDelivery.Unreliable;
 
-			if(player.RemoteDirection == Vector3.zero) {
+			if(player.RemoteDirection == Const.ZeroVector) {
 				delivery = NetworkDelivery.Reliable;
 			}
 

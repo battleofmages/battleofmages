@@ -60,7 +60,7 @@ namespace BoM.UI {
 			newMessage.transform.SetAsLastSibling();
 
 			newMessage.FadeIn(
-				0.15f,
+				UI.Settings.FadeDuration,
 				value => newMessage.alpha = value
 			);
 

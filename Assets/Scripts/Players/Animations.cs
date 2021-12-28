@@ -10,6 +10,9 @@ namespace BoM.Players {
 		private float ikWeight;
 		private float ikWeightTarget;
 
+		private readonly int idle = UnityEngine.Animator.StringToHash("Movement.Idle");
+		private readonly int land = UnityEngine.Animator.StringToHash("Movement.Land");
+
 		private void Update() {
 			var groundSpeed = Player.controller.velocity;
 			groundSpeed.y = 0f;
@@ -26,9 +29,9 @@ namespace BoM.Players {
 			var current = Animator.GetCurrentAnimatorStateInfo(0);
 			var next = Animator.GetNextAnimatorStateInfo(0);
 
-			if((current.IsName("Idle") || current.IsName("Land")) && !Animator.IsInTransition(0)) {
+			if((current.fullPathHash == idle || current.fullPathHash == land) && !Animator.IsInTransition(0)) {
 				ikWeightTarget = 1f;
-			} else if(next.IsName("Idle") || next.IsName("Land")) {
+			} else if(next.fullPathHash == idle || next.fullPathHash == land) {
 				ikWeightTarget = 1f;
 			} else {
 				ikWeightTarget = 0f;

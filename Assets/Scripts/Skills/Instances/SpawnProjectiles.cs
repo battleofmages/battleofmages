@@ -40,7 +40,7 @@ namespace BoM.Skills.Instances {
 		}
 
 		void SpawnProjectile() {
-			var offset = Vector3.zero;
+			var offset = Const.ZeroVector;
 
 			if(randomizeStartPoint) {
 				var random = Random.insideUnitCircle * radius;

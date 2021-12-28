@@ -1,3 +1,4 @@
+using BoM.Core;
 using UnityEngine;
 
 namespace BoM.Players {
@@ -18,7 +19,7 @@ namespace BoM.Players {
 					return true;
 				}
 
-				if(notGroundedTime < AllowJumpCloseToGroundTime && Physics.Raycast(transform.localPosition, Vector3.down, MaxGroundDistance)) {
+				if(notGroundedTime < AllowJumpCloseToGroundTime && Physics.Raycast(transform.localPosition, Const.DownVector, MaxGroundDistance)) {
 					return true;
 				}
 

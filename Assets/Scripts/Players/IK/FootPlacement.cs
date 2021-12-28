@@ -1,3 +1,4 @@
+using BoM.Core;
 using UnityEngine;
 
 namespace BoM.Players.IK {
@@ -30,20 +31,20 @@ namespace BoM.Players.IK {
 				footPosition = animator.GetIKPosition(foot);
 			}
 
-			if(!Physics.Raycast(footPosition + new Vector3(0f, raycastStartY, 0f), Vector3.down, out RaycastHit hit, raycastStartY + raycastDistanceBelowFeet, layerMask)) {
+			if(!Physics.Raycast(footPosition + new Vector3(0f, raycastStartY, 0f), Const.DownVector, out RaycastHit hit, raycastStartY + raycastDistanceBelowFeet, layerMask)) {
 				return;
 			}
 
 			animator.SetIKPositionWeight(foot, weight);
 			animator.SetIKRotationWeight(foot, weight);
 
-			Vector3 axis = Vector3.Cross(Vector3.up, hit.normal);
-			float angle = Vector3.Angle(Vector3.up, hit.normal);
+			Vector3 axis = Vector3.Cross(Const.UpVector, hit.normal);
+			float angle = Vector3.Angle(Const.UpVector, hit.normal);
 			Quaternion newRotation = Quaternion.AngleAxis(angle, axis);
 			Quaternion footRotation = animator.GetIKRotation(foot);
 
 			var ikPosition = hit.point + new Vector3(0f, distanceToGround, 0f);
-			var ikRotation = newRotation * Quaternion.AngleAxis(footRotation.eulerAngles.y, Vector3.up);
+			var ikRotation = newRotation * Quaternion.AngleAxis(footRotation.eulerAngles.y, Const.UpVector);
 
 			animator.SetIKPosition(foot, ikPosition);
 			animator.SetIKRotation(foot, ikRotation);

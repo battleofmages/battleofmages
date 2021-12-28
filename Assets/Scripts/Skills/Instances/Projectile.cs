@@ -84,7 +84,7 @@ namespace BoM.Skills.Instances {
 		}
 
 		private void Explode() {
-			var explosion = PoolManager.Instantiate(explosionPrefab, transform.localPosition, Quaternion.identity);
+			var explosion = PoolManager.Instantiate(explosionPrefab, transform.localPosition, Const.NoRotation);
 			explosion.GetComponent<Explosion>().damage = splashDamage;
 			explosion.transform.SetLayer(gameObject.layer);
 			explosion.skill = skill;

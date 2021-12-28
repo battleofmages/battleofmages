@@ -35,8 +35,8 @@ namespace BoM.Players {
 		}
 
 		public void UseSkill(Skill skill, Vector3 cursor) {
-			Vector3 skillPosition = Vector3.zero;
-			Quaternion skillRotation = Quaternion.identity;
+			Vector3 skillPosition = Const.ZeroVector;
+			Quaternion skillRotation = Const.NoRotation;
 
 			switch(skill.position) {
 				case PositionType.Cursor:
@@ -52,7 +52,7 @@ namespace BoM.Players {
 				case RotationType.ToCursor:
 					var towardsCursor = cursor - skillPosition;
 
-					if(towardsCursor != Vector3.zero) {
+					if(towardsCursor != Const.ZeroVector) {
 						skillRotation = Quaternion.LookRotation(towardsCursor);
 					}
 
