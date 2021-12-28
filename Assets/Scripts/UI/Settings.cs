@@ -7,6 +7,6 @@ namespace BoM.UI {
 		[SerializeField]
 		private float fadeDuration;
 
-		public static float FadeDuration { get { return instance.fadeDuration; } }
+		public static float FadeDuration { get { return Instance.fadeDuration; } }
 	}
 }
