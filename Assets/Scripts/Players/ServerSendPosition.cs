@@ -46,20 +46,5 @@ namespace BoM.Players {
 
 			messenger.SendNamedMessageToAll("server position", writer, delivery);
 		}
-
-		private void SendPosition(ulong receiver) {
-			writer.Seek(0);
-			writer.WriteValueSafe(player.ClientId);
-			writer.WriteValueSafe(transform.position);
-			writer.WriteValueSafe(player.RemoteDirection);
-
-			var delivery = NetworkDelivery.Unreliable;
-
-			if(player.RemoteDirection == Const.ZeroVector) {
-				delivery = NetworkDelivery.Reliable;
-			}
-
-			messenger.SendNamedMessage("server position", receiver, writer, delivery);
-		}
 	}
 }
