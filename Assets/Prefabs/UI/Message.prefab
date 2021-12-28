@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: chat message
+  m_text: The quick brown fox jumps over the lazy dog.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4547409ff67475b44861d6547de373d2, type: 2}
   m_sharedMaterial: {fileID: 5663014849617883542, guid: 4547409ff67475b44861d6547de373d2,

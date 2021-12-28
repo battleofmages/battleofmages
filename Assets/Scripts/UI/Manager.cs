@@ -25,6 +25,8 @@ namespace BoM.UI {
 				UI.Settings.FadeDuration,
 				value => inputFieldCanvas.alpha = value
 			);
+
+			Chat.inputField.onEndEdit.AddListener(OnEndEdit);
 		}
 
 		public static void Deactivate() {
@@ -38,6 +40,8 @@ namespace BoM.UI {
 				UI.Settings.FadeDuration,
 				value => inputFieldCanvas.alpha = value
 			);
+
+			Chat.inputField.onEndEdit.RemoveListener(OnEndEdit);
 		}
 
 		// Overloads to use it in input actions
@@ -53,6 +57,10 @@ namespace BoM.UI {
 			Activate();
 			Chat.inputField.Select();
 			Chat.inputField.ActivateInputField();
+		}
+
+		public static void OnEndEdit(string text) {
+			Deactivate();
 		}
 	}
 }

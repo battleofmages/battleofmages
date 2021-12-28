@@ -244,12 +244,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 4547409ff67475b44861d6547de373d2,
@@ -386,12 +380,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Message (20)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
@@ -535,7 +523,7 @@ PrefabInstance:
     - target: {fileID: 4924036819551471665, guid: 50ead1b4978c31644be0428329f60236,
         type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4924036819551471665, guid: 50ead1b4978c31644be0428329f60236,
         type: 3}
@@ -697,12 +685,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Message (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
@@ -947,12 +929,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 4547409ff67475b44861d6547de373d2,
@@ -1089,12 +1065,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Message (14)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
@@ -1389,12 +1359,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Message (10)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
@@ -1953,12 +1917,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 4547409ff67475b44861d6547de373d2,
@@ -2278,12 +2236,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Message (13)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
@@ -2748,12 +2700,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 4547409ff67475b44861d6547de373d2,
@@ -2890,12 +2836,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Message (15)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
@@ -3265,12 +3205,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 4547409ff67475b44861d6547de373d2,
@@ -3407,12 +3341,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Message (8)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
@@ -3783,12 +3711,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 4547409ff67475b44861d6547de373d2,
@@ -4100,12 +4022,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Message (17)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
@@ -4622,12 +4538,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 4547409ff67475b44861d6547de373d2,
@@ -4730,8 +4640,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 363823020}
   m_HandleRect: {fileID: 363823019}
   m_Direction: 2
-  m_Value: 1.0000006
-  m_Size: 0.19435537
+  m_Value: 1.0000012
+  m_Size: 0.33072588
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5051,12 +4961,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 4547409ff67475b44861d6547de373d2,
@@ -5288,12 +5192,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 4547409ff67475b44861d6547de373d2,
@@ -5430,12 +5328,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Message (12)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
@@ -5924,12 +5816,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Message (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
@@ -7185,12 +7071,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Message (9)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
-        type: 3}
-      propertyPath: m_text
-      value: This is a very long chat message. This is a very long chat message.
-        This is a very long chat message.
       objectReference: {fileID: 0}
     - target: {fileID: 6135063106690009317, guid: 5d5fced253f0eb045b27b862b5d0c70c,
         type: 3}
