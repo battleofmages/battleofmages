@@ -5,6 +5,7 @@ namespace BoM.Core {
 		public static readonly Vector3 ZeroVector = new Vector3(0f, 0f, 0f);
 		public static readonly Vector3 UpVector = new Vector3(0f, 1f, 0f);
 		public static readonly Vector3 DownVector = new Vector3(0f, -1f, 0f);
+		public static readonly Vector3 OneVector = new Vector3(1f, 1f, 1f);
 		public static readonly Quaternion NoRotation = new Quaternion(0f, 0f, 0f, 1f);
 		public const int SpectatorLayer = 9;
 	}
