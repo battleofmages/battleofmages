@@ -748,7 +748,7 @@ MonoBehaviour:
     m_InternalValue: 0
   maxEnergy:
     m_InternalValue: 0
-  regenerationSpeed: 10
+  regenerationSpeed: 20
 --- !u!114 &1088161297577302817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1776,12 +1776,12 @@ PrefabInstance:
     - target: {fileID: 5131927382015268114, guid: 050ec13c37db39244bd22cea0874d153,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5131927382015268115, guid: 050ec13c37db39244bd22cea0874d153,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5131927382015268125, guid: 050ec13c37db39244bd22cea0874d153,
         type: 3}
