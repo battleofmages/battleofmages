@@ -21,7 +21,7 @@ namespace BoM.Players {
 			if(Physics.Raycast(Ray, out hit, LayerMask)) {
 				Position = hit.point;
 			} else {
-				Position = Cam.transform.position + Cam.transform.forward * 100f;
+				Position = Ray.origin + Ray.direction * 100f;
 			}
 		}
 	}
