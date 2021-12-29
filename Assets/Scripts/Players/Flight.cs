@@ -1,7 +1,9 @@
+using System;
 using Unity.Netcode;
 
 namespace BoM.Players {
 	public class Flight : NetworkBehaviour {
+		public event Action<bool> StateChanged;
 		private NetworkVariable<bool> isActive;
 		public Movement movement;
 		public Gravity gravity;
@@ -66,12 +68,14 @@ namespace BoM.Players {
 			movement.speed = speed;
 			controllerHeight = movement.controller.height;
 			movement.controller.height = 1f;
+			StateChanged?.Invoke(true);
 		}
 
 		private void OnDisable() {
 			animations.Animator.SetBool("Flying", false);
 			movement.speed = movement.baseSpeed;
 			movement.controller.height = controllerHeight;
+			StateChanged?.Invoke(false);
 		}
 
 		private void Update() {

@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace BoM {
 	public class Game : MonoBehaviour {
@@ -10,6 +12,8 @@ namespace BoM {
 		public UI.Chat chatUI;
 		public UI.Scoreboard scoreboardUI;
 		public UI.Latency latencyUI;
+		public VolumeProfile volumeProfile;
+		private MotionBlur motionBlur;
 
 		private void Awake() {
 			ConnectToDatabase();
@@ -18,6 +22,10 @@ namespace BoM {
 			Players.Player.Removed += OnPlayerRemoved;
 			Players.Player.Removed += scoreboardUI.OnPlayerRemoved;
 			Players.Chat.MessageReceived += OnMessageReceived;
+
+			if(!volumeProfile.TryGet(out motionBlur)) {
+				throw new System.NullReferenceException(nameof(motionBlur));
+			}
 		}
 
 		private void ConnectToDatabase() {
@@ -81,6 +89,7 @@ namespace BoM {
 			var latency = player.GetComponent<Players.Latency>();
 			var input = player.GetComponent<Players.Input>();
 			var chat = player.GetComponent<Players.Chat>();
+			var flight = player.GetComponent<Players.Flight>();
 
 			// Disable main menu
 			menu.SetActive(false);
@@ -112,6 +121,9 @@ namespace BoM {
 			actions["Chat"].performed += UI.Manager.ActivateAndSelectChat;
 			actions["Show cursor"].performed += UI.Manager.Activate;
 
+			// Effects
+			flight.StateChanged += SetMotionBlur;
+
 			// Bind UI events
 			UI.Chat.MessageSubmitted += chat.SubmitMessage;
 			latency.Received += latencyUI.OnLatencyReceived;
@@ -121,6 +133,7 @@ namespace BoM {
 			var latency = player.GetComponent<Players.Latency>();
 			var input = player.GetComponent<Players.Input>();
 			var chat = player.GetComponent<Players.Chat>();
+			var flight = player.GetComponent<Players.Flight>();
 
 			// Enable main menu
 			menu.SetActive(true);
@@ -152,12 +165,19 @@ namespace BoM {
 			actions["Chat"].performed -= UI.Manager.ActivateAndSelectChat;
 			actions["Show cursor"].performed -= UI.Manager.Activate;
 
+			// Effects
+			flight.StateChanged -= SetMotionBlur;
+
 			// Unbind chat events
 			UI.Chat.MessageSubmitted -= chat.SubmitMessage;
 			latency.Received -= latencyUI.OnLatencyReceived;
 		}
 
-		void BindHealth(Players.Player player) {
+		private void SetMotionBlur(bool active) {
+			motionBlur.active = active;
+		}
+
+		private void BindHealth(Players.Player player) {
 			var health = player.GetComponent<Players.Health>();
 			health.Damaged += OnPlayerDamage;
 			health.Died += OnPlayerDeath;

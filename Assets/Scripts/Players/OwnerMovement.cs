@@ -22,9 +22,10 @@ namespace BoM.Players {
 				return;
 			}
 
-			direction = player.cam.transform.TransformDirection(inputDirection);
-
-			if(!flight.enabled) {
+			if(flight.enabled) {
+				direction = (player.cursor.FarPoint - transform.position).normalized + player.cam.transform.TransformDirection(inputDirection) * 0.5f;
+			} else {
+				direction = player.cam.transform.TransformDirection(inputDirection);
 				direction.Set(direction.x, 0f, direction.z);
 			}
 		}
