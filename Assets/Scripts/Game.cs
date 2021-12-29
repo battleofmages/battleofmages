@@ -86,10 +86,8 @@ namespace BoM {
 		}
 
 		public void Bind(Players.Player player) {
-			var latency = player.GetComponent<Players.Latency>();
-			var input = player.GetComponent<Players.Input>();
-			var chat = player.GetComponent<Players.Chat>();
-			var flight = player.GetComponent<Players.Flight>();
+			// Get player components
+			var (chat, flight, input, latency) = GetPlayerComponents(player);
 
 			// Disable main menu
 			menu.SetActive(false);
@@ -130,10 +128,8 @@ namespace BoM {
 		}
 
 		public void Unbind(Players.Player player) {
-			var latency = player.GetComponent<Players.Latency>();
-			var input = player.GetComponent<Players.Input>();
-			var chat = player.GetComponent<Players.Chat>();
-			var flight = player.GetComponent<Players.Flight>();
+			// Get player components
+			var (chat, flight, input, latency) = GetPlayerComponents(player);
 
 			// Enable main menu
 			menu.SetActive(true);
@@ -173,10 +169,6 @@ namespace BoM {
 			latency.Received -= latencyUI.OnLatencyReceived;
 		}
 
-		private void SetMotionBlur(bool active) {
-			motionBlur.active = active;
-		}
-
 		private void BindHealth(Players.Player player) {
 			var health = player.GetComponent<Players.Health>();
 			health.Damaged += OnPlayerDamage;
@@ -195,6 +187,18 @@ namespace BoM {
 
 			var healthBar = canvas.GetComponentInChildren<UI.Overlays.Bar>();
 			health.PercentChanged += healthBar.SetFillAmount;
+		}
+
+		private void SetMotionBlur(bool active) {
+			motionBlur.active = active;
+		}
+
+		private (Players.Chat, Players.Flight, Players.Input, Players.Latency) GetPlayerComponents(Players.Player player) {
+			var chat = player.GetComponent<Players.Chat>();
+			var flight = player.GetComponent<Players.Flight>();
+			var input = player.GetComponent<Players.Input>();
+			var latency = player.GetComponent<Players.Latency>();
+			return (chat, flight, input, latency);
 		}
 	}
 }
