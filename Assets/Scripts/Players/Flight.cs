@@ -1,5 +1,6 @@
 using System;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace BoM.Players {
 	public class Flight : NetworkBehaviour {
@@ -9,12 +10,14 @@ namespace BoM.Players {
 		public Gravity gravity;
 		public Animations animations;
 		public Health health;
+		public Energy energy;
 		public float speed;
+		public float energyConsumption;
 		private float controllerHeight;
 
 		public bool canFly {
 			get {
-				return health.isAlive;
+				return health.isAlive && energy.hasEnergy;
 			}
 		}
 
@@ -80,6 +83,14 @@ namespace BoM.Players {
 
 		private void Update() {
 			gravity.Speed = 0f;
+
+			if(IsServer) {
+				energy.ConsumeOverTime(energyConsumption);
+			}
+
+			if(!canFly) {
+				Deactivate();
+			}
 		}
 
 		[ServerRpc]

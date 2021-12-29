@@ -10,7 +10,6 @@ namespace BoM.Players {
 		[SerializeField] private MonoBehaviour[] components;
 		[SerializeField] private GameObject[] objects;
 		[SerializeField] private Collider[] colliders;
-		[SerializeField] private Flight flight;
 		[SerializeField] private Health health;
 		[SerializeField] private OwnerMovement ownerMovement;
 		[SerializeField] private ProxyMovement proxyMovement;
@@ -23,7 +22,6 @@ namespace BoM.Players {
 		private void OnDeath(DamageEvent damageEvent) {
 			Reset(false);
 			transform.SetLayer(Const.SpectatorLayer);
-			flight.Deactivate();
 			rotation.center.eulerAngles = new Vector3(0f, rotation.center.eulerAngles.y, 0f);
 
 			if(IsServer) {

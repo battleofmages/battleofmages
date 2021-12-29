@@ -12,6 +12,7 @@ namespace BoM.Players {
 		public Skeleton skeleton;
 		public Animations animations;
 		public List<Element> elements { get; set; }
+		public Energy energy;
 		private int currentElementIndex;
 		private float time;
 
@@ -66,6 +67,10 @@ namespace BoM.Players {
 			instance.transform.SetPositionAndRotation(skillPosition, skillRotation);
 			instance.pool = skill.pool;
 			instance.Init();
+
+			if(IsServer) {
+				energy.Consume(5f);
+			}
 		}
 
 		private void Update() {

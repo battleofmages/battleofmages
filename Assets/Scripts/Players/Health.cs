@@ -79,10 +79,6 @@ namespace BoM.Players {
 			TakeDamageClientRpc(damage, skill.Id, caster.ClientId, isKillingBlow);
 		}
 
-		public void Revive() {
-			health.Value = maxHealth.Value;
-		}
-
 		[ClientRpc]
 		public void TakeDamageClientRpc(float damage, short skillId, ulong casterClientId, bool isKillingBlow) {
 			if(IsHost) {

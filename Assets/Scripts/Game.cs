@@ -170,10 +170,6 @@ namespace BoM {
 		}
 
 		private void BindHealth(Players.Player player) {
-			var health = player.GetComponent<Players.Health>();
-			health.Damaged += OnPlayerDamage;
-			health.Died += OnPlayerDeath;
-
 			var canvas = player.GetComponentInChildren<Canvas>();
 			var visibility = player.GetComponentInChildren<Players.Visibility>();
 
@@ -185,8 +181,18 @@ namespace BoM {
 				canvas.gameObject.SetActive(false);
 			};
 
-			var healthBar = canvas.GetComponentInChildren<UI.Overlays.Bar>();
+			var bars = canvas.GetComponentsInChildren<UI.Overlays.Bar>();
+			var health = player.GetComponent<Players.Health>();
+			var healthBar = bars[0];
+
+			health.Damaged += OnPlayerDamage;
+			health.Died += OnPlayerDeath;
 			health.PercentChanged += healthBar.SetFillAmount;
+
+			var energy = player.GetComponent<Players.Energy>();
+			var energyBar = bars[1];
+
+			energy.PercentChanged += energyBar.SetFillAmount;
 		}
 
 		private void SetMotionBlur(bool active) {

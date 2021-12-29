@@ -14,6 +14,7 @@ namespace BoM.Players {
 		public Vector3 RemoteDirection { get; set; }
 		public Cameras.Center camCenter;
 		public Health health;
+		public Energy energy;
 		public Rotation rotation;
 
 		protected NetworkVariable<int> teamId = new NetworkVariable<int>();
@@ -38,7 +39,8 @@ namespace BoM.Players {
 
 			if(IsServer) {
 				RespawnClientRpc(newPosition, newRotation);
-				health.Revive();
+				health.health.Value = health.maxHealth.Value;
+				energy.energy.Value = energy.maxEnergy.Value;
 			}
 		}
 
