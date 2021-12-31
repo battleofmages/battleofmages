@@ -5,7 +5,7 @@ namespace BoM.Players {
 	// Data
 	public class NetworkShadowData : MonoBehaviour {
 		[SerializeField] protected Player player;
-		[SerializeField] protected ProxyMovement proxyMovement;
+		[SerializeField] protected Movement movement;
 	}
 
 	// Logic
@@ -25,7 +25,7 @@ namespace BoM.Players {
 				latency = Player.Main.Latency.OneWay;
 			}
 
-			gameObject.transform.position = proxyMovement.CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);
+			gameObject.transform.position = ProxyMovement.CalculatePosition(player.RemotePosition, player.RemoteDirection, movement.Speed, latency);
 		}
 	}
 }

@@ -29,7 +29,7 @@ namespace BoM.Players {
 				return;
 			}
 
-			var expectedPosition = CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);
+			var expectedPosition = CalculatePosition(player.RemotePosition, player.RemoteDirection, movement.Speed, latency);
 			Direction = expectedPosition - transform.localPosition;
 
 			if(StartedMoving()) {
@@ -41,8 +41,8 @@ namespace BoM.Players {
 			}
 		}
 
-		public Vector3 CalculatePosition(Vector3 position, Vector3 direction, float latency) {
-			return position + direction * movement.Speed * latency;
+		public static Vector3 CalculatePosition(Vector3 position, Vector3 direction, float speed, float latency) {
+			return position + direction * speed * latency;
 		}
 
 		private bool StartedMoving() {

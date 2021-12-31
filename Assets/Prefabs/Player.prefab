@@ -1029,7 +1029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5014205834473804560}
-  proxyMovement: {fileID: 4887231240320512843}
+  movement: {fileID: 7787505666309892482}
 --- !u!1 &9056051956188373508
 GameObject:
   m_ObjectHideFlags: 0
