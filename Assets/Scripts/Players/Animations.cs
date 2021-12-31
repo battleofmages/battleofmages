@@ -16,12 +16,12 @@ namespace BoM.Players {
 		private readonly int land = UnityEngine.Animator.StringToHash("Movement.Land");
 
 		private void Update() {
-			var groundSpeed = player.controller.velocity;
+			var groundSpeed = player.Controller.velocity;
 			groundSpeed.y = 0f;
 
 			Animator.SetFloat("Speed", groundSpeed.sqrMagnitude);
 			Animator.SetFloat("Gravity", gravity.Speed);
-			Animator.SetBool("Grounded", player.controller.isGrounded);
+			Animator.SetBool("Grounded", player.Controller.isGrounded);
 			Animator.SetBool("Dead", health.isDead);
 
 			UpdateIK();

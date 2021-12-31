@@ -1,29 +1,49 @@
 using BoM.Core;
 using System;
 using UnityEngine;
+using Unity.Netcode;
 
 namespace BoM.Players {
-	public class Player : Entity {
+	// Data
+	public class PlayerData : NetworkBehaviour {
+		public Account Account;
+		public Latency Latency;
+		public CharacterController Controller;
+		public Camera Cam;
+		public ulong ClientId { get; set; }
+		public Vector3 RemotePosition { get; set; }
+		public Vector3 RemoteDirection { get; set; }
+
+		[SerializeField] protected Health health;
+		[SerializeField] protected Energy energy;
+		[SerializeField] protected Cursor cursor;
+		[SerializeField] protected Rotation rotation;
+		[SerializeField] protected Label label;
+		[SerializeField] protected Cameras.Center camCenter;
+		[SerializeField] protected Teams.Manager teamManager;
+		[SerializeField] protected NetworkVariable<int> teamId;
+	}
+
+	// Logic
+	public class Player : PlayerData, IPlayer {
 		public static event Action<Player> Added;
 		public static event Action<Player> Removed;
 		public static Player Main;
 
-		public Camera cam;
-		public CharacterController controller;
-		public Cursor cursor;
-		public Account account;
+		public int Ping { get { return Latency.oneWayInMilliseconds; } }
+		public string Nick { get { return gameObject.name; } }
+		public GameObject GameObject { get { return gameObject; } }
+		public Transform Transform { get { return transform; } }
 
-		[SerializeField] private Label label;
-		[SerializeField] private Teams.Manager teamManager;
-
-		public Teams.Team Team {
-			get {
-				return teamManager.teams[TeamId];
-			}
+		public int TeamId {
+			get { return teamId.Value; }
+			set { teamId.Value = value; }
 		}
 
+		public Teams.Team Team { get => teamManager.teams[TeamId]; }
+
 		private void Awake() {
-			account.NickChanged += nick => {
+			Account.NickChanged += nick => {
 				gameObject.name = nick;
 				label.SetText(nick);
 			};
@@ -82,6 +102,35 @@ namespace BoM.Players {
 				GetComponent<ServerSendPosition>().enabled = true;
 				GetComponent<Account>().enabled = true;
 			}
+		}
+
+		public void Respawn(Vector3 newPosition, Quaternion newRotation) {
+			// Position
+			transform.position = newPosition;
+			RemotePosition = newPosition;
+			RemoteDirection = Const.ZeroVector;
+			Physics.SyncTransforms();
+
+			// Character rotation
+			rotation.SetRotation(newRotation);
+
+			// Camera rotation
+			camCenter.SetRotation(newRotation);
+
+			if(IsServer) {
+				RespawnClientRpc(newPosition, newRotation);
+				health.Reset();
+				energy.Reset();
+			}
+		}
+
+		[ClientRpc]
+		public void RespawnClientRpc(Vector3 newPosition, Quaternion newRotation) {
+			if(IsHost) {
+				return;
+			}
+
+			Respawn(newPosition, newRotation);
 		}
 	}
 }

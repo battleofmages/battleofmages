@@ -27,7 +27,7 @@ namespace BoM.Players {
 			direction = expectedPosition - transform.localPosition;
 
 			if(StartedMoving()) {
-				player.controller.Move(direction);
+				player.Controller.Move(direction);
 			}
 
 			if(direction.sqrMagnitude < 0.01f) {

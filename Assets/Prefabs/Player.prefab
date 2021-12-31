@@ -454,17 +454,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b64254aa171af445b6a9ea73a049d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Account: {fileID: -5481189657951903409}
   Latency: {fileID: 5780932374599328331}
+  Controller: {fileID: 2119036363929754220}
+  Cam: {fileID: 4422484605796574882}
   health: {fileID: 8310504723804365141}
   energy: {fileID: 7902730509701073694}
-  rotation: {fileID: 8606665410350655568}
-  camCenter: {fileID: 5924383185328376581}
-  cam: {fileID: 4422484605796574882}
-  controller: {fileID: 2119036363929754220}
   cursor: {fileID: 6339195900674787528}
-  account: {fileID: -5481189657951903409}
+  rotation: {fileID: 8606665410350655568}
   label: {fileID: 4002586773492041787}
+  camCenter: {fileID: 5924383185328376581}
   teamManager: {fileID: 11400000, guid: 7d866a647fcff1c43b241dbd9d54fe83, type: 2}
+  teamId:
+    m_InternalValue: -1
 --- !u!114 &-7326193019154016585
 MonoBehaviour:
   m_ObjectHideFlags: 0

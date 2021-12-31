@@ -7,7 +7,7 @@ namespace BoM.Players {
 		public ProxyMovement proxyMovement;
 
 		private void Awake() {
-			player.account.NickChanged += nick => {
+			player.Account.NickChanged += nick => {
 				gameObject.name = nick + " - Shadow";
 			};
 		}
