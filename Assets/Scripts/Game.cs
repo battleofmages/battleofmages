@@ -4,17 +4,21 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 namespace BoM {
-	public class Game : MonoBehaviour {
-		public GameObject menu;
-		public Skills.Manager skillManager;
-		public PlayerInput inputSystem;
-		public Network.Server server;
-		public UI.Chat chatUI;
-		public UI.Scoreboard scoreboardUI;
-		public UI.Latency latencyUI;
-		public VolumeProfile volumeProfile;
-		private MotionBlur motionBlur;
+	// Data
+	public class GameData : MonoBehaviour {
+		[SerializeField] protected GameObject menu;
+		[SerializeField] protected Skills.Manager skillManager;
+		[SerializeField] protected PlayerInput inputSystem;
+		[SerializeField] protected Network.Server server;
+		[SerializeField] protected UI.Chat chatUI;
+		[SerializeField] protected UI.Scoreboard scoreboardUI;
+		[SerializeField] protected UI.Latency latencyUI;
+		[SerializeField] protected VolumeProfile volumeProfile;
+		protected MotionBlur motionBlur;
+	}
 
+	// Logic
+	public class Game : GameData {
 		private void Awake() {
 			ConnectToDatabase();
 			Players.Player.Added += OnPlayerAdded;
