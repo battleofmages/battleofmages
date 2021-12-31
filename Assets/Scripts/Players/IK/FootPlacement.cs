@@ -3,17 +3,18 @@ using UnityEngine;
 
 namespace BoM.Players.IK {
 	public class FootPlacement : Behaviour {
-		public Skeleton skeleton;
-		public Animator animator;
-		public LayerMask layerMask;
-		public bool useBonePosition = true;
-		[Range(0f, 1f)] public float raycastStartY = 0.1f;
-		[Range(0f, 1f)] public float raycastDistanceBelowFeet = 0.3f;
-		[Range(0f, 1f)] public float distanceToGround;
+		[SerializeField] protected Skeleton skeleton;
+		[SerializeField] protected Animator animator;
+		[SerializeField] protected LayerMask layerMask;
+		[SerializeField] protected bool useBonePosition = true;
+
+		[SerializeField, Range(0f, 1f)] protected float raycastStartY = 0.1f;
+		[SerializeField, Range(0f, 1f)] protected float raycastDistanceBelowFeet = 0.4f;
+		[SerializeField, Range(0f, 1f)] protected float distanceToGround = 0.1f;
 
 		public override void OnAnimatorIK(int layerIndex) {
-			UpdateFoot(AvatarIKGoal.LeftFoot, skeleton.leftFoot, "IKLeftFootWeight");
-			UpdateFoot(AvatarIKGoal.RightFoot, skeleton.rightFoot, "IKRightFootWeight");
+			UpdateFoot(AvatarIKGoal.LeftFoot, skeleton.LeftFoot, "IKLeftFootWeight");
+			UpdateFoot(AvatarIKGoal.RightFoot, skeleton.RightFoot, "IKRightFootWeight");
 		}
 
 		private void UpdateFoot(AvatarIKGoal foot, Transform bone, string weightParameter) {

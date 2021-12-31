@@ -1,16 +1,18 @@
 using System;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace BoM.Players {
 	// Data
 	public class FlightData : NetworkBehaviour {
-		public Movement movement;
-		public Gravity gravity;
-		public Animations animations;
-		public Health health;
-		public Energy energy;
-		public float speed;
-		public float energyConsumption;
+		[SerializeField] protected Movement movement;
+		[SerializeField] protected Gravity gravity;
+		[SerializeField] protected Animations animations;
+		[SerializeField] protected Health health;
+		[SerializeField] protected Energy energy;
+		[SerializeField] protected float speed;
+		[SerializeField] protected float energyConsumption;
+
 		protected NetworkVariable<bool> isActive;
 		protected float controllerHeight;
 	}
@@ -67,16 +69,16 @@ namespace BoM.Players {
 
 		private void OnEnable() {
 			animations.Animator.SetBool("Flying", true);
-			movement.speed = speed;
-			controllerHeight = movement.controller.height;
-			movement.controller.height = 1f;
+			movement.Speed = speed;
+			controllerHeight = movement.Controller.height;
+			movement.Controller.height = 1f;
 			StateChanged?.Invoke(true);
 		}
 
 		private void OnDisable() {
 			animations.Animator.SetBool("Flying", false);
-			movement.speed = movement.baseSpeed;
-			movement.controller.height = controllerHeight;
+			movement.Speed = movement.BaseSpeed;
+			movement.Controller.height = controllerHeight;
 			StateChanged?.Invoke(false);
 		}
 

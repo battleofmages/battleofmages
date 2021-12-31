@@ -6,8 +6,9 @@ using Unity.Collections;
 namespace BoM.Players {
 	// Data
 	public class OwnerSendPositionData : NetworkBehaviour {
-		public Player player;
-		public OwnerMovement movement;
+		[SerializeField] protected Player player;
+		[SerializeField] protected OwnerMovement movement;
+
 		protected CustomMessagingManager messenger;
 		protected ulong serverId;
 		protected Vector3 lastPositionSent;
@@ -33,7 +34,7 @@ namespace BoM.Players {
 		private void FixedUpdate() {
 			if(IsHost) {
 				player.RemotePosition = transform.localPosition;
-				player.RemoteDirection = movement.direction;
+				player.RemoteDirection = movement.Direction;
 				return;
 			}
 
@@ -41,24 +42,24 @@ namespace BoM.Players {
 				return;
 			}
 
-			if(transform.localPosition == lastPositionSent && movement.direction == lastDirectionSent) {
+			if(transform.localPosition == lastPositionSent && movement.Direction == lastDirectionSent) {
 				return;
 			}
 
 			SendPosition(serverId);
 
 			lastPositionSent = transform.localPosition;
-			lastDirectionSent = movement.direction;
+			lastDirectionSent = movement.Direction;
 		}
 
 		private void SendPosition(ulong receiver) {
 			writer.Seek(0);
 			writer.WriteValueSafe(transform.localPosition);
-			writer.WriteValueSafe(movement.direction);
+			writer.WriteValueSafe(movement.Direction);
 
 			var delivery = NetworkDelivery.Unreliable;
 
-			if(movement.direction == Const.ZeroVector) {
+			if(movement.Direction == Const.ZeroVector) {
 				delivery = NetworkDelivery.Reliable;
 			}
 

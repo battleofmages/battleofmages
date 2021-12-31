@@ -6,8 +6,9 @@ using Unity.Collections;
 namespace BoM.Players {
 	// Data
 	public class ServerSendPositionData : NetworkBehaviour {
-		public Player player;
-		public ProxyMovement movement;
+		[SerializeField] protected Player player;
+		[SerializeField] protected ProxyMovement movement;
+
 		protected CustomMessagingManager messenger;
 		protected Vector3 lastPositionSent;
 		protected Vector3 lastDirectionSent;

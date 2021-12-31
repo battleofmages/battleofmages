@@ -3,14 +3,14 @@ using UnityEngine;
 namespace BoM.Players {
 	// Data
 	public class SkeletonData : MonoBehaviour {
-		public Transform leftHand;
-		public Transform rightHand;
-		public Transform leftFoot;
-		public Transform rightFoot;
+		public Transform LeftHand;
+		public Transform RightHand;
+		public Transform LeftFoot;
+		public Transform RightFoot;
 	}
 
 	// Logic
 	public class Skeleton : SkeletonData {
-		public Vector3 handsCenter { get => (leftHand.position + rightHand.position) * 0.5f; }
+		public Vector3 HandsCenter { get => (LeftHand.position + RightHand.position) * 0.5f; }
 	}
 }

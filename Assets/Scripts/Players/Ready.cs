@@ -5,7 +5,7 @@ using UnityEngine;
 namespace BoM.Players {
 	// Data
 	public class ReadyData : NetworkBehaviour {
-		public NetworkVariable<bool> isReady;
+		[SerializeField] protected NetworkVariable<bool> isReady;
 	}
 
 	// Logic

@@ -1,10 +1,10 @@
 namespace BoM.Players {
 	public class Traits {
-		public int attack;
-		public int defense;
-		public int attackSpeed;
-		public int moveSpeed;
-		public int energy;
-		public int cooldownReduction;
+		public int Attack;
+		public int Defense;
+		public int AttackSpeed;
+		public int MoveSpeed;
+		public int Energy;
+		public int CooldownReduction;
 	}
 }

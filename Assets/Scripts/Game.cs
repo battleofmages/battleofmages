@@ -57,10 +57,10 @@ namespace BoM {
 			BindHealth(player);
 
 			var skillSystem = player.GetComponent<Players.SkillSystem>();
-			skillSystem.elements = new System.Collections.Generic.List<Skills.Element>();
+			skillSystem.Elements = new System.Collections.Generic.List<Skills.Element>();
 			var testElement = new Skills.Element();
 			testElement.skills = skillManager.skills;
-			skillSystem.elements.Add(testElement);
+			skillSystem.Elements.Add(testElement);
 		}
 
 		private void OnPlayerRemoved(Players.Player player) {

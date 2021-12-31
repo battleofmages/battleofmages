@@ -4,8 +4,8 @@ using UnityEngine;
 namespace BoM.Players {
 	// Data
 	public class NetworkShadowData : MonoBehaviour {
-		public Player player;
-		public ProxyMovement proxyMovement;
+		[SerializeField] protected Player player;
+		[SerializeField] protected ProxyMovement proxyMovement;
 	}
 
 	// Logic
@@ -20,9 +20,9 @@ namespace BoM.Players {
 			float latency;
 
 			if(NetworkManager.Singleton.IsServer) {
-				latency = player.Latency.oneWay;
+				latency = player.Latency.OneWay;
 			} else {
-				latency = Player.Main.Latency.oneWay;
+				latency = Player.Main.Latency.OneWay;
 			}
 
 			gameObject.transform.position = proxyMovement.CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);

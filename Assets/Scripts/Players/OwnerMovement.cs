@@ -11,7 +11,7 @@ namespace BoM.Players {
 		[SerializeField] protected Flight flight;
 		[SerializeField] protected Health health;
 
-		public Vector3 direction { get; protected set; }
+		public Vector3 Direction { get; protected set; }
 		public Vector3 inputDirection { get; set; }
 	}
 
@@ -19,20 +19,20 @@ namespace BoM.Players {
 	public class OwnerMovement : OwnerMovementData, IController {
 		private void FixedUpdate() {
 			UpdateDirection();
-			movement.Move(direction);
+			movement.Move(Direction);
 		}
 
 		private void UpdateDirection() {
 			if(health.isDead) {
-				direction = Const.ZeroVector;
+				Direction = Const.ZeroVector;
 				return;
 			}
 
 			if(flight.enabled) {
-				direction = (cursor.FarPoint - transform.position).normalized + cam.transform.TransformDirection(inputDirection) * 0.5f;
+				Direction = (cursor.FarPoint - transform.position).normalized + cam.transform.TransformDirection(inputDirection) * 0.5f;
 			} else {
-				direction = cam.transform.TransformDirection(inputDirection);
-				direction.Set(direction.x, 0f, direction.z);
+				Direction = cam.transform.TransformDirection(inputDirection);
+				Direction.Set(Direction.x, 0f, Direction.z);
 			}
 		}
 	}

@@ -512,9 +512,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23aece205c8b17e4c8cee92369aacf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 5014205834473804560}
-  center: {fileID: 1789517573824710972}
+  Center: {fileID: 1789517573824710972}
   speed: 10
+  player: {fileID: 5014205834473804560}
   flight: {fileID: 6868382068925250288}
 --- !u!114 &-8626974943594062236
 MonoBehaviour:
@@ -582,7 +582,7 @@ MonoBehaviour:
   health: {fileID: 8310504723804365141}
   energy: {fileID: 7902730509701073694}
   speed: 6
-  energyConsumption: 50
+  energyConsumption: 40
 --- !u!114 &3446361503782202970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9afe6791e6c3e4ab38c978f490a558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cam: {fileID: 4422484605796574882}
+  cam: {fileID: 4422484605796574882}
 --- !u!114 &202379965925588689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,10 +699,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b414e3abc43e0744a8ab79986de8cfb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 2119036363929754220}
+  Controller: {fileID: 2119036363929754220}
+  BaseSpeed: 4
   gravity: {fileID: -7326193019154016585}
   flight: {fileID: 6868382068925250288}
-  baseSpeed: 4
 --- !u!114 &-6594601594782578226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -820,10 +820,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac62161f51a5654d9f2248a05762328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftHand: {fileID: 7127151718488009340}
-  rightHand: {fileID: 2450532859686471941}
-  leftFoot: {fileID: 4276429505170751717}
-  rightFoot: {fileID: 8988218722245154380}
+  LeftHand: {fileID: 7127151718488009340}
+  RightHand: {fileID: 2450532859686471941}
+  LeftFoot: {fileID: 4276429505170751717}
+  RightFoot: {fileID: 8988218722245154380}
 --- !u!114 &-5481189657951903409
 MonoBehaviour:
   m_ObjectHideFlags: 0

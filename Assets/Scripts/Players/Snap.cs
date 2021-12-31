@@ -4,10 +4,11 @@ using Unity.Netcode;
 namespace BoM.Players {
 	// Data
 	public class SnapData : NetworkBehaviour {
-		public Player player;
-		public Movement movement;
-		public float minDistanceSqr;
-		public float coolDown;
+		[SerializeField] protected Player player;
+		[SerializeField] protected Movement movement;
+		[SerializeField] protected float minDistanceSqr;
+		[SerializeField] protected float coolDown;
+
 		protected float maxDistanceSqr;
 		protected float lastSnap;
 	}
@@ -15,7 +16,8 @@ namespace BoM.Players {
 	// Logic
 	public class Snap : SnapData {
 		private void Start() {
-			maxDistanceSqr = movement.speed * movement.speed * coolDown * coolDown;
+			var maxDistance = movement.Speed * coolDown;
+			maxDistanceSqr = maxDistance * maxDistance;
 		}
 
 		private void FixedUpdate() {

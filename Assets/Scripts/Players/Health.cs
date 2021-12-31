@@ -13,6 +13,7 @@ namespace BoM.Players {
 		[SerializeField] protected NetworkVariable<float> maxHealth;
 		[SerializeField] protected Skills.Manager skills;
 		[SerializeField] protected Player player;
+
 		protected List<DamageEvent> damageEvents;
 	}
 

@@ -6,10 +6,12 @@ using System.Collections;
 namespace BoM.Players {
 	// Data
 	public class LatencyData : NetworkBehaviour {
-		public float maxRoundTripTime;
-		public float oneWay { get; protected set; }
-		public int oneWayInMilliseconds { get; protected set; }
-		public NetworkVariable<float> roundTripTime;
+		public float OneWay { get; protected set; }
+		public int OneWayInMilliseconds { get; protected set; }
+
+		[SerializeField] protected float maxRoundTripTime;
+		[SerializeField] protected NetworkVariable<float> roundTripTime;
+
 		protected long startTime;
 		protected ClientRpcParams toOwner;
 		protected bool waitingForResponse;
@@ -26,9 +28,9 @@ namespace BoM.Players {
 		private void OnRoundTripTimeChanged(float oldRTT, float newRTT) {
 			// This is not 100% correct because send and receive latency can be different,
 			// however it provides a decent approximation.
-			oneWay = newRTT * 0.5f;
-			oneWayInMilliseconds = (int) (oneWay * 1000f);
-			Received?.Invoke(oneWay);
+			OneWay = newRTT * 0.5f;
+			OneWayInMilliseconds = (int) (OneWay * 1000f);
+			Received?.Invoke(OneWay);
 		}
 
 		public override void OnNetworkSpawn() {

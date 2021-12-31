@@ -8,12 +8,13 @@ using UnityEngine;
 namespace BoM.Players {
 	// Data
 	public class SkillSystemData : NetworkBehaviour {
-		public Player player;
-		public Cursor cursor;
-		public Skeleton skeleton;
-		public Animations animations;
-		public List<Element> elements { get; set; }
-		public Energy energy;
+		public List<Element> Elements { get; set; }
+
+		[SerializeField] protected Player player;
+		[SerializeField] protected Cursor cursor;
+		[SerializeField] protected Skeleton skeleton;
+		[SerializeField] protected Animations animations;
+		[SerializeField] protected Energy energy;
 
 		protected int currentElementIndex;
 		protected float time;
@@ -25,7 +26,7 @@ namespace BoM.Players {
 		private const float animationTime = 0.6f;
 
 		public bool isCasting { get => time < 1f; }
-		public Element currentElement { get => elements[currentElementIndex]; }
+		public Element currentElement { get => Elements[currentElementIndex]; }
 
 		private void OnEnable() {
 			time = 1f;
@@ -41,7 +42,7 @@ namespace BoM.Players {
 					break;
 
 				case PositionType.Hands:
-					skillPosition = skeleton.handsCenter;
+					skillPosition = skeleton.HandsCenter;
 					break;
 			}
 
@@ -138,7 +139,7 @@ namespace BoM.Players {
 			}
 
 			Cast(
-				Player.Main.Latency.oneWay,
+				Player.Main.Latency.OneWay,
 				baseCastTime,
 				() => UseSkill(currentElement.skills[index], remoteCursorPosition)
 			);

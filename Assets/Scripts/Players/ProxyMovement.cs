@@ -5,11 +5,13 @@ using Unity.Netcode;
 namespace BoM.Players {
 	// Data
 	public class ProxyMovementData : NetworkBehaviour {
-		public Player player;
-		public Movement movement;
-		public long maxLatency;
-		public Vector3 direction { get; set; }
-		public Health health;
+		public Vector3 Direction { get; set; }
+
+		[SerializeField] protected Player player;
+		[SerializeField] protected Movement movement;
+		[SerializeField] protected long maxLatency;
+		[SerializeField] protected Health health;
+
 		protected Vector3 lastRemoteDirection;
 	}
 
@@ -18,29 +20,29 @@ namespace BoM.Players {
 		private void FixedUpdate() {
 			var latency = GetLatency();
 			UpdateDirection(latency);
-			movement.Move(direction);
+			movement.Move(Direction);
 		}
 
 		private void UpdateDirection(float latency) {
 			if(health.isDead) {
-				direction = Const.ZeroVector;
+				Direction = Const.ZeroVector;
 				return;
 			}
 
 			var expectedPosition = CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);
-			direction = expectedPosition - transform.localPosition;
+			Direction = expectedPosition - transform.localPosition;
 
 			if(StartedMoving()) {
-				player.Controller.Move(direction);
+				player.Controller.Move(Direction);
 			}
 
-			if(direction.sqrMagnitude < 0.01f) {
-				direction = Const.ZeroVector;
+			if(Direction.sqrMagnitude < 0.01f) {
+				Direction = Const.ZeroVector;
 			}
 		}
 
 		public Vector3 CalculatePosition(Vector3 position, Vector3 direction, float latency) {
-			return position + direction * movement.speed * latency;
+			return position + direction * movement.Speed * latency;
 		}
 
 		private bool StartedMoving() {
@@ -53,11 +55,11 @@ namespace BoM.Players {
 			float latency = 0f;
 
 			if(IsServer) {
-				latency = player.Latency.oneWay;
+				latency = player.Latency.OneWay;
 			}
 
 			if(IsClient && Player.Main != null) {
-				latency = Player.Main.Latency.oneWay;
+				latency = Player.Main.Latency.OneWay;
 			}
 
 			if(latency > maxLatency) {

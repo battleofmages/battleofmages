@@ -30,7 +30,7 @@ namespace BoM.Players {
 		public static event Action<Player> Removed;
 		public static Player Main;
 
-		public int Ping { get { return Latency.oneWayInMilliseconds; } }
+		public int Ping { get { return Latency.OneWayInMilliseconds; } }
 		public string Nick { get { return gameObject.name; } }
 		public GameObject GameObject { get { return gameObject; } }
 		public Transform Transform { get { return transform; } }

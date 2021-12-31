@@ -5,10 +5,12 @@ using Unity.Netcode;
 namespace BoM.Players {
 	// Data
 	public class RotationData : NetworkBehaviour {
-		public Player player;
-		public Transform center;
-		public float speed;
-		public Flight flight;
+		public Transform Center;
+
+		[SerializeField] protected float speed;
+		[SerializeField] protected Player player;
+		[SerializeField] protected Flight flight;
+
 		protected Vector3 direction;
 		protected Quaternion targetRotation;
 		protected IController movement { get; set; }
@@ -23,13 +25,13 @@ namespace BoM.Players {
 		}
 
 		public void SetRotation(Quaternion newRotation) {
-			center.rotation = newRotation;
+			Center.rotation = newRotation;
 			targetRotation = newRotation;
 		}
 
 		private void Update() {
 			if(IsOwner) {
-				direction = movement.direction;
+				direction = movement.Direction;
 			} else {
 				direction = player.RemoteDirection;
 			}
@@ -46,8 +48,8 @@ namespace BoM.Players {
 				}
 			}
 
-			center.rotation = Quaternion.Slerp(
-				center.rotation,
+			Center.rotation = Quaternion.Slerp(
+				Center.rotation,
 				targetRotation,
 				Time.deltaTime * speed
 			);

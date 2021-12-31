@@ -26,7 +26,7 @@ namespace BoM.Players {
 		private void OnDeath(DamageEvent damageEvent) {
 			Reset(false);
 			transform.SetLayer(Const.SpectatorLayer);
-			rotation.center.eulerAngles = new Vector3(0f, rotation.center.eulerAngles.y, 0f);
+			rotation.Center.eulerAngles = new Vector3(0f, rotation.Center.eulerAngles.y, 0f);
 
 			if(IsServer) {
 				Invoke(nameof(Respawn), respawnTime);

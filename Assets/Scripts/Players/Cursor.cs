@@ -7,7 +7,8 @@ namespace BoM.Players {
 		public Ray Ray { get; protected set; }
 		public LayerMask LayerMask { get; set; }
 
-		[SerializeField] protected Camera Cam;
+		[SerializeField] protected Camera cam;
+
 		protected RaycastHit hit;
 		protected Transform crossHair;
 	}
@@ -21,7 +22,7 @@ namespace BoM.Players {
 		}
 
 		private void Update() {
-			Ray = Cam.ScreenPointToRay(crossHair.position);
+			Ray = cam.ScreenPointToRay(crossHair.position);
 
 			if(Physics.Raycast(Ray, out hit, LayerMask)) {
 				Position = hit.point;
