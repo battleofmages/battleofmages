@@ -142,7 +142,7 @@ namespace BoM.Players {
 			}
 
 			Cast(
-				Player.main.Latency.oneWay,
+				Player.Main.Latency.oneWay,
 				baseCastTime,
 				() => UseSkill(currentElement.skills[index], remoteCursorPosition)
 			);

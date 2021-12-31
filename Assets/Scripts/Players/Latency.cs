@@ -4,15 +4,20 @@ using UnityEngine;
 using System.Collections;
 
 namespace BoM.Players {
-	public class Latency : NetworkBehaviour {
-		public event Action<float> Received;
+	// Data
+	public class LatencyData : NetworkBehaviour {
 		public float maxRoundTripTime;
-		public float oneWay { get; private set; }
-		public int oneWayInMilliseconds { get; private set; }
+		public float oneWay { get; protected set; }
+		public int oneWayInMilliseconds { get; protected set; }
 		public NetworkVariable<float> roundTripTime;
-		private long startTime;
-		private ClientRpcParams toOwner;
-		private bool waitingForResponse;
+		protected long startTime;
+		protected ClientRpcParams toOwner;
+		protected bool waitingForResponse;
+	}
+
+	// Logic
+	public class Latency : LatencyData {
+		public event Action<float> Received;
 
 		private void Awake() {
 			roundTripTime.OnValueChanged += OnRoundTripTimeChanged;

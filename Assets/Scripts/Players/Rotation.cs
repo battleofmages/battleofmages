@@ -3,15 +3,19 @@ using UnityEngine;
 using Unity.Netcode;
 
 namespace BoM.Players {
-	public class Rotation : NetworkBehaviour {
+	// Data
+	public class RotationData : NetworkBehaviour {
 		public Player player;
 		public Transform center;
 		public float speed;
 		public Flight flight;
-		private Vector3 direction;
-		private Quaternion targetRotation;
-		private IController movement { get; set; }
+		protected Vector3 direction;
+		protected Quaternion targetRotation;
+		protected IController movement { get; set; }
+	}
 
+	// Logic
+	public class Rotation : RotationData {
 		public override void OnNetworkSpawn() {
 			if(IsOwner) {
 				movement = GetComponent<OwnerMovement>();

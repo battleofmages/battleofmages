@@ -3,18 +3,19 @@ using Unity.Netcode;
 using UnityEngine;
 
 namespace BoM.Players {
-	public class Energy : NetworkBehaviour {
+	// Data
+	public class EnergyData : NetworkBehaviour {
+		[SerializeField] protected NetworkVariable<float> energy;
+		[SerializeField] protected NetworkVariable<float> maxEnergy;
+		[SerializeField] protected float regenerationSpeed;
+	}
+
+	// Logic
+	public partial class Energy : EnergyData {
 		public event Action<float> Changed;
 		public event Action<float> PercentChanged;
-		public NetworkVariable<float> energy;
-		public NetworkVariable<float> maxEnergy;
-		public float regenerationSpeed;
 
-		public bool hasEnergy {
-			get {
-				return energy.Value > 0f;
-			}
-		}
+		public bool hasEnergy { get => energy.Value > 0f; }
 
 		private void Awake() {
 			energy.OnValueChanged += (oldEnergy, newEnergy) => {
@@ -24,9 +25,9 @@ namespace BoM.Players {
 		}
 
 		public override void OnNetworkSpawn() {
-			if(IsServer) {
-				maxEnergy.Value = 200f;
-			}
+			// if(IsServer) {
+			// 	maxEnergy.Value = 200f;
+			// }
 
 			if(IsClient) {
 				Changed?.Invoke(energy.Value);
@@ -52,6 +53,10 @@ namespace BoM.Players {
 
 		public void ConsumeOverTime(float value) {
 			energy.Value -= (regenerationSpeed + value) * Time.deltaTime;
+		}
+
+		public void Reset() {
+			energy.Value = maxEnergy.Value;
 		}
 	}
 }

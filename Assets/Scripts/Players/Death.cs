@@ -3,17 +3,21 @@ using Unity.Netcode;
 using UnityEngine;
 
 namespace BoM.Players {
-	public class Death : NetworkBehaviour {
-		[SerializeField] private Player player;
-		[SerializeField] private Rotation rotation;
-		[SerializeField] private float respawnTime;
-		[SerializeField] private MonoBehaviour[] components;
-		[SerializeField] private GameObject[] objects;
-		[SerializeField] private Collider[] colliders;
-		[SerializeField] private Health health;
-		[SerializeField] private OwnerMovement ownerMovement;
-		[SerializeField] private ProxyMovement proxyMovement;
+	// Data
+	public class DeathData : NetworkBehaviour {
+		[SerializeField] protected Player player;
+		[SerializeField] protected Rotation rotation;
+		[SerializeField] protected float respawnTime;
+		[SerializeField] protected MonoBehaviour[] components;
+		[SerializeField] protected GameObject[] objects;
+		[SerializeField] protected Collider[] colliders;
+		[SerializeField] protected Health health;
+		[SerializeField] protected OwnerMovement ownerMovement;
+		[SerializeField] protected ProxyMovement proxyMovement;
+	}
 
+	// Logic
+	public class Death : DeathData {
 		private void Awake() {
 			health.Died += OnDeath;
 			health.Revived += OnRevive;
@@ -51,7 +55,5 @@ namespace BoM.Players {
 				gameObject.SetActive(state);
 			}
 		}
-
-
 	}
 }

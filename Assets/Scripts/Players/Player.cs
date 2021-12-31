@@ -1,26 +1,20 @@
 using BoM.Core;
 using System;
-using Unity.Netcode;
 using UnityEngine;
 
 namespace BoM.Players {
 	public class Player : Entity {
 		public static event Action<Player> Added;
 		public static event Action<Player> Removed;
-		public static Player main;
-
-		public MonoBehaviour[] ownerComponents;
-		public MonoBehaviour[] proxyComponents;
-		public MonoBehaviour[] serverComponents;
+		public static Player Main;
 
 		public Camera cam;
 		public CharacterController controller;
-		public Transform model;
-		public float modelYOffset;
 		public Cursor cursor;
-		public Label label;
 		public Account account;
-		public Teams.Manager teamManager;
+
+		[SerializeField] private Label label;
+		[SerializeField] private Teams.Manager teamManager;
 
 		public Teams.Team Team {
 			get {
@@ -28,7 +22,6 @@ namespace BoM.Players {
 			}
 		}
 
-		// Unity events
 		private void Awake() {
 			account.NickChanged += nick => {
 				gameObject.name = nick;
@@ -42,10 +35,6 @@ namespace BoM.Players {
 				var defaultLayer = LayerMask.NameToLayer("Default");
 				cursor.LayerMask = (1 << defaultLayer) | teamManager.GetEnemyTeamsLayerMask(Team);
 			};
-
-			var modelRenderer = model.GetComponentInChildren<SkinnedMeshRenderer>();
-			modelRenderer.gameObject.AddComponent<Visibility>();
-			model.localPosition = new Vector3(0f, model.localPosition.y - controller.skinWidth + modelYOffset, 0f);
 		}
 
 		public override void OnNetworkSpawn() {
@@ -64,7 +53,7 @@ namespace BoM.Players {
 
 			// Set main player
 			if(IsOwner) {
-				Player.main = this;
+				Player.Main = this;
 			}
 		}
 
@@ -72,27 +61,26 @@ namespace BoM.Players {
 			Player.Removed?.Invoke(this);
 
 			if(IsOwner) {
-				Player.main = null;
+				Player.Main = null;
 			}
 		}
 
 		private void EnableNetworkComponents() {
 			if(IsOwner) {
-				foreach(var component in ownerComponents) {
-					component.enabled = true;
-				}
+				GetComponent<OwnerMovement>().enabled = true;
+				GetComponent<OwnerSendPosition>().enabled = true;
+				GetComponent<Cursor>().enabled = true;
+				GetComponent<Ready>().enabled = true;
 			}
 
 			if(!IsOwner) {
-				foreach(var component in proxyComponents) {
-					component.enabled = true;
-				}
+				GetComponent<ProxyMovement>().enabled = true;
+				GetComponent<Snap>().enabled = true;
 			}
 
 			if(IsServer) {
-				foreach(var component in serverComponents) {
-					component.enabled = true;
-				}
+				GetComponent<ServerSendPosition>().enabled = true;
+				GetComponent<Account>().enabled = true;
 			}
 		}
 	}

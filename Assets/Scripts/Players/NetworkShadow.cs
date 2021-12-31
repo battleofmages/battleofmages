@@ -18,7 +18,7 @@ namespace BoM.Players {
 			if(NetworkManager.Singleton.IsServer) {
 				latency = player.Latency.oneWay;
 			} else {
-				latency = Player.main.Latency.oneWay;
+				latency = Player.Main.Latency.oneWay;
 			}
 
 			gameObject.transform.position = proxyMovement.CalculatePosition(player.RemotePosition, player.RemoteDirection, latency);

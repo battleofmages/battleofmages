@@ -3,15 +3,19 @@ using UnityEngine.InputSystem;
 using Unity.Netcode;
 
 namespace BoM.Players {
-	public class Input : NetworkBehaviour {
-		public Player player;
-		public OwnerMovement movement;
-		public Jump jump;
-		public Flight flight;
-		public SkillSystem skillSystem;
-		public Animations animations;
-		public Cameras.Center camCenter;
+	// Data
+	public class InputData : NetworkBehaviour {
+		[SerializeField] protected Player player;
+		[SerializeField] protected OwnerMovement movement;
+		[SerializeField] protected Jump jump;
+		[SerializeField] protected Flight flight;
+		[SerializeField] protected SkillSystem skillSystem;
+		[SerializeField] protected Animations animations;
+		[SerializeField] protected Cameras.Center camCenter;
+	}
 
+	// Logic
+	public class Input : InputData {
 		public void Move(InputAction.CallbackContext context) {
 			var value = context.ReadValue<Vector2>();
 			movement.inputDirection = new Vector3(value.x, 0, value.y);

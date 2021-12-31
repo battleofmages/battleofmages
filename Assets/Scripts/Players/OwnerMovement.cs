@@ -3,14 +3,20 @@ using UnityEngine;
 using Unity.Netcode;
 
 namespace BoM.Players {
-	public class OwnerMovement : NetworkBehaviour, IController {
-		public Player player;
-		public Movement movement;
-		public Flight flight;
-		public Vector3 direction { get; private set; }
-		public Vector3 inputDirection { get; set; }
-		public Health health;
+	// Data
+	public class OwnerMovementData : NetworkBehaviour {
+		[SerializeField] protected Camera cam;
+		[SerializeField] protected Cursor cursor;
+		[SerializeField] protected Movement movement;
+		[SerializeField] protected Flight flight;
+		[SerializeField] protected Health health;
 
+		public Vector3 direction { get; protected set; }
+		public Vector3 inputDirection { get; set; }
+	}
+
+	// Logic
+	public class OwnerMovement : OwnerMovementData, IController {
 		private void FixedUpdate() {
 			UpdateDirection();
 			movement.Move(direction);
@@ -23,9 +29,9 @@ namespace BoM.Players {
 			}
 
 			if(flight.enabled) {
-				direction = (player.cursor.FarPoint - transform.position).normalized + player.cam.transform.TransformDirection(inputDirection) * 0.5f;
+				direction = (cursor.FarPoint - transform.position).normalized + cam.transform.TransformDirection(inputDirection) * 0.5f;
 			} else {
-				direction = player.cam.transform.TransformDirection(inputDirection);
+				direction = cam.transform.TransformDirection(inputDirection);
 				direction.Set(direction.x, 0f, direction.z);
 			}
 		}

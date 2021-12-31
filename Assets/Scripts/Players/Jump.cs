@@ -2,13 +2,17 @@ using Unity.Netcode;
 using UnityEngine;
 
 namespace BoM.Players {
-	public class Jump : NetworkBehaviour {
-		public Gravity gravity;
-		public float JumpHeight;
-		private float jumpSpeed;
+	// Data
+	public class JumpData : NetworkBehaviour {
+		[SerializeField] protected Gravity gravity;
+		[SerializeField] protected float jumpHeight;
+		protected float jumpSpeed;
+	}
 
+	// Logic
+	public class Jump : JumpData {
 		private void Start() {
-			jumpSpeed = Mathf.Sqrt(JumpHeight * 2 * -Physics.gravity.y);
+			jumpSpeed = Mathf.Sqrt(jumpHeight * 2 * -Physics.gravity.y);
 		}
 
 		public bool TryJump() {

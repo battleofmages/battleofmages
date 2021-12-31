@@ -2,47 +2,52 @@ using BoM.Core;
 using UnityEngine;
 
 namespace BoM.Players {
-	public class Gravity : MonoBehaviour {
-		public CharacterController Controller;
-		public float SpeedWhenGrounded = -2f;
-		public float AllowJumpTime = 0.1f;
-		public float AllowJumpCloseToGroundTime = 0.2f;
-		public float MaxGroundDistance = 0.3f;
+	// Data
+	public class GravityData : MonoBehaviour {
 		public float Speed { get; set; }
 
-		private float notGroundedTime;
-		private float originalStepOffset;
+		[SerializeField] protected CharacterController controller;
+		[SerializeField] protected float speedWhenGrounded = -2f;
+		[SerializeField] protected float allowJumpTime = 0.1f;
+		[SerializeField] protected float allowJumpCloseToGroundTime = 0.2f;
+		[SerializeField] protected float maxGroundDistance = 0.3f;
 
-		public bool CanJump {
-			get {
-				if(notGroundedTime < AllowJumpTime) {
-					return true;
-				}
+		protected float notGroundedTime;
+		protected float originalStepOffset;
+	}
 
-				if(notGroundedTime < AllowJumpCloseToGroundTime && Physics.Raycast(transform.localPosition, Const.DownVector, MaxGroundDistance)) {
-					return true;
-				}
-
-				return false;
-			}
-		}
-
+	// Logic
+	public class Gravity : GravityData {
 		private void Start() {
-			originalStepOffset = Controller.stepOffset;
+			originalStepOffset = controller.stepOffset;
 		}
 
 		private void Update() {
 			notGroundedTime += Time.deltaTime;
 
-			if(Controller.isGrounded && Speed < 0f) {
+			if(controller.isGrounded && Speed < 0f) {
 				notGroundedTime = 0f;
-				Speed = SpeedWhenGrounded;
-				Controller.stepOffset = originalStepOffset;
+				Speed = speedWhenGrounded;
+				controller.stepOffset = originalStepOffset;
 			} else {
-				Controller.stepOffset = 0f;
+				controller.stepOffset = 0f;
 			}
 
 			Speed += Physics.gravity.y * Time.deltaTime;
+		}
+
+		public bool CanJump {
+			get {
+				if(notGroundedTime < allowJumpTime) {
+					return true;
+				}
+
+				if(notGroundedTime < allowJumpCloseToGroundTime && Physics.Raycast(transform.localPosition, Const.DownVector, maxGroundDistance)) {
+					return true;
+				}
+
+				return false;
+			}
 		}
 	}
 }

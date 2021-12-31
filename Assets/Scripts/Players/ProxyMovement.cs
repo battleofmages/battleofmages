@@ -52,8 +52,8 @@ namespace BoM.Players {
 				latency = player.Latency.oneWay;
 			}
 
-			if(IsClient && Player.main != null) {
-				latency = Player.main.Latency.oneWay;
+			if(IsClient && Player.Main != null) {
+				latency = Player.Main.Latency.oneWay;
 			}
 
 			if(latency > maxLatency) {
