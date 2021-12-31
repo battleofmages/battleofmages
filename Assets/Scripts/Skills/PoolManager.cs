@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BoM.Skills {
 	public static class PoolManager {
-		public static Dictionary<Instance, ObjectPool<Instance>> pools = new Dictionary<Instance, ObjectPool<Instance>>();
+		private static Dictionary<Instance, ObjectPool<Instance>> pools = new Dictionary<Instance, ObjectPool<Instance>>();
 
 		public static ObjectPool<Instance> GetPool(Instance prefab) {
 			if(pools.TryGetValue(prefab, out ObjectPool<Instance> pool)) {

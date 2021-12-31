@@ -2,7 +2,20 @@ using System;
 using UnityEngine;
 
 namespace BoM.UI {
-	public class Fader : MonoBehaviour {
+	// Data
+	public class FaderData : MonoBehaviour {
+		public bool IsReversed { get; protected set; }
+		protected float time;
+		protected float progress;
+		protected float duration;
+		protected float durationInverse;
+	}
+
+	// Logic
+	public class Fader : FaderData {
+		public Action<float> onFade;
+		public Action onFadeEnd;
+
 		public float Duration {
 			get {
 				return duration;
@@ -14,20 +27,12 @@ namespace BoM.UI {
 			}
 		}
 
-		public bool isReversed { get; private set; }
-		public Action<float> onFade;
-		public Action onFadeEnd;
-		private float time;
-		private float progress;
-		private float duration;
-		private float durationInverse;
-
 		private void Update() {
 			time += Time.deltaTime;
 			progress = time * durationInverse;
 
 			if(progress >= 1f) {
-				if(isReversed) {
+				if(IsReversed) {
 					onFade(0f);
 				} else {
 					onFade(1f);
@@ -38,7 +43,7 @@ namespace BoM.UI {
 				return;
 			}
 
-			if(isReversed) {
+			if(IsReversed) {
 				onFade(1f - progress);
 			} else {
 				onFade(progress);
@@ -50,7 +55,7 @@ namespace BoM.UI {
 		}
 
 		public void Reverse() {
-			isReversed = !isReversed;
+			IsReversed = !IsReversed;
 			progress = 1f - progress;
 		}
 

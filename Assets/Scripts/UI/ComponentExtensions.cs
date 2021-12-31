@@ -28,7 +28,7 @@ namespace BoM.UI {
 		public static Fader FadeIn(this Component component, float fadeTime, Action<float> onFade, Action onFadeEnd = null) {
 			var fader = component.BaseFade(fadeTime, onFade, onFadeEnd);
 
-			if(fader.isReversed) {
+			if(fader.IsReversed) {
 				fader.Reverse();
 			}
 
@@ -39,7 +39,7 @@ namespace BoM.UI {
 		public static Fader FadeOut(this Component component, float fadeTime, Action<float> onFade, Action onFadeEnd = null) {
 			var fader = component.BaseFade(fadeTime, onFade, onFadeEnd);
 
-			if(!fader.isReversed) {
+			if(!fader.IsReversed) {
 				fader.Reverse();
 			}
 

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace BoM.Skills {
 	[CreateAssetMenu(fileName = "Skills", menuName = "BoM/Skill Manager", order = 100)]
 	public class Manager : ScriptableObject {
-		public List<Skill> skills;
+		public List<Skill> Skills;
 
 		private void OnEnable() {
 			short count = 0;
 
-			foreach(var skill in skills) {
+			foreach(var skill in Skills) {
 				skill.Id = count;
 				skill.pool = PoolManager.GetPool(skill.prefab);
 				count++;
@@ -17,7 +17,7 @@ namespace BoM.Skills {
 		}
 
 		public Skill GetSkillById(short id) {
-			return skills[id];
+			return Skills[id];
 		}
 	}
 }

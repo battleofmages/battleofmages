@@ -59,7 +59,7 @@ namespace BoM {
 			var skillSystem = player.GetComponent<Players.SkillSystem>();
 			skillSystem.Elements = new System.Collections.Generic.List<Skills.Element>();
 			var testElement = new Skills.Element();
-			testElement.skills = skillManager.skills;
+			testElement.skills = skillManager.Skills;
 			skillSystem.Elements.Add(testElement);
 		}
 
