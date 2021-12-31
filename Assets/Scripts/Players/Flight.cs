@@ -1,11 +1,9 @@
 using System;
 using Unity.Netcode;
-using UnityEngine;
 
 namespace BoM.Players {
-	public class Flight : NetworkBehaviour {
-		public event Action<bool> StateChanged;
-		private NetworkVariable<bool> isActive;
+	// Data
+	public class FlightData : NetworkBehaviour {
 		public Movement movement;
 		public Gravity gravity;
 		public Animations animations;
@@ -13,13 +11,14 @@ namespace BoM.Players {
 		public Energy energy;
 		public float speed;
 		public float energyConsumption;
-		private float controllerHeight;
+		protected NetworkVariable<bool> isActive;
+		protected float controllerHeight;
+	}
 
-		public bool canFly {
-			get {
-				return health.isAlive && energy.hasEnergy;
-			}
-		}
+	// Logic
+	public class Flight : FlightData {
+		public event Action<bool> StateChanged;
+		public bool canFly { get => health.isAlive && energy.hasEnergy; }
 
 		private void Awake() {
 			isActive = new NetworkVariable<bool>();

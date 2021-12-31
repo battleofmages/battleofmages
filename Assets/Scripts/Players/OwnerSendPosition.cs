@@ -4,15 +4,19 @@ using Unity.Netcode;
 using Unity.Collections;
 
 namespace BoM.Players {
-	public class OwnerSendPosition : NetworkBehaviour {
+	// Data
+	public class OwnerSendPositionData : NetworkBehaviour {
 		public Player player;
 		public OwnerMovement movement;
-		private CustomMessagingManager messenger;
-		private ulong serverId;
-		private Vector3 lastPositionSent;
-		private Vector3 lastDirectionSent;
-		private FastBufferWriter writer;
+		protected CustomMessagingManager messenger;
+		protected ulong serverId;
+		protected Vector3 lastPositionSent;
+		protected Vector3 lastDirectionSent;
+		protected FastBufferWriter writer;
+	}
 
+	// Logic
+	public class OwnerSendPosition : OwnerSendPositionData {
 		private void OnEnable() {
 			writer = new FastBufferWriter(24, Allocator.Persistent);
 		}

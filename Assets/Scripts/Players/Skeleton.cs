@@ -1,16 +1,16 @@
 using UnityEngine;
 
 namespace BoM.Players {
-	public class Skeleton : MonoBehaviour {
+	// Data
+	public class SkeletonData : MonoBehaviour {
 		public Transform leftHand;
 		public Transform rightHand;
 		public Transform leftFoot;
 		public Transform rightFoot;
+	}
 
-		public Vector3 handsCenter {
-			get {
-				return (leftHand.position + rightHand.position) / 2f;
-			}
-		}
+	// Logic
+	public class Skeleton : SkeletonData {
+		public Vector3 handsCenter { get => (leftHand.position + rightHand.position) * 0.5f; }
 	}
 }

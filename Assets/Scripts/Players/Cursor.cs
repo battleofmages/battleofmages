@@ -1,16 +1,20 @@
 using UnityEngine;
 
 namespace BoM.Players {
-	public class Cursor : MonoBehaviour {
-		public Vector3 Position { get; private set; }
-		public Ray Ray { get; private set; }
-		public Vector3 FarPoint { get { return Ray.origin + Ray.direction * 100f; } }
+	// Data
+	public class CursorData : MonoBehaviour {
+		public Vector3 Position { get; protected set; }
+		public Ray Ray { get; protected set; }
 		public LayerMask LayerMask { get; set; }
 
-		[SerializeField] private Camera Cam;
+		[SerializeField] protected Camera Cam;
+		protected RaycastHit hit;
+		protected Transform crossHair;
+	}
 
-		private RaycastHit hit;
-		private Transform crossHair;
+	// Logic
+	public class Cursor : CursorData {
+		public Vector3 FarPoint { get => Ray.origin + Ray.direction * 100f; }
 
 		private void OnEnable() {
 			crossHair = GameObject.FindGameObjectWithTag("Crosshair").transform;

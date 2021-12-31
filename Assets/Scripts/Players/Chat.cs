@@ -3,9 +3,14 @@ using UnityEngine;
 using Unity.Netcode;
 
 namespace BoM.Players {
-	public class Chat : NetworkBehaviour {
+	// Data
+	public class ChatData : NetworkBehaviour {
+		[SerializeField] protected Player player;
+	}
+
+	// Logic
+	public class Chat : ChatData {
 		public static event Action<Player, string> MessageReceived;
-		[SerializeField] private Player player;
 
 		public void SubmitMessage(string message) {
 			if(message == "/dc") {

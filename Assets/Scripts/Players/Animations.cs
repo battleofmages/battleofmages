@@ -1,20 +1,24 @@
 using UnityEngine;
 
 namespace BoM.Players {
-	public class Animations : MonoBehaviour {
+	// Data
+	public class AnimationsData : MonoBehaviour {
 		public Animator Animator;
 
-		[SerializeField] private Player player;
-		[SerializeField] private Gravity gravity;
-		[SerializeField] private Health health;
+		[SerializeField] protected Player player;
+		[SerializeField] protected Gravity gravity;
+		[SerializeField] protected Health health;
 
-		private const float ikSpeed = 20f;
-		private float ikWeight;
-		private float ikWeightTarget;
+		protected const float ikSpeed = 20f;
+		protected float ikWeight;
+		protected float ikWeightTarget;
 
-		private readonly int idle = UnityEngine.Animator.StringToHash("Movement.Idle");
-		private readonly int land = UnityEngine.Animator.StringToHash("Movement.Land");
+		protected readonly int idle = UnityEngine.Animator.StringToHash("Movement.Idle");
+		protected readonly int land = UnityEngine.Animator.StringToHash("Movement.Land");
+	}
 
+	// Logic
+	public class Animations : AnimationsData {
 		private void Update() {
 			var groundSpeed = player.Controller.velocity;
 			groundSpeed.y = 0f;

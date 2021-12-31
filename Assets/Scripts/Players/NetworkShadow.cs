@@ -2,10 +2,14 @@ using Unity.Netcode;
 using UnityEngine;
 
 namespace BoM.Players {
-	public class NetworkShadow : MonoBehaviour {
+	// Data
+	public class NetworkShadowData : MonoBehaviour {
 		public Player player;
 		public ProxyMovement proxyMovement;
+	}
 
+	// Logic
+	public class NetworkShadow : NetworkShadowData {
 		private void Awake() {
 			player.Account.NickChanged += nick => {
 				gameObject.name = nick + " - Shadow";

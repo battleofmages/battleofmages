@@ -2,14 +2,18 @@ using UnityEngine;
 using Unity.Netcode;
 
 namespace BoM.Players {
-	public class Snap : NetworkBehaviour {
+	// Data
+	public class SnapData : NetworkBehaviour {
 		public Player player;
 		public Movement movement;
 		public float minDistanceSqr;
 		public float coolDown;
-		private float maxDistanceSqr;
-		private float lastSnap;
+		protected float maxDistanceSqr;
+		protected float lastSnap;
+	}
 
+	// Logic
+	public class Snap : SnapData {
 		private void Start() {
 			maxDistanceSqr = movement.speed * movement.speed * coolDown * coolDown;
 		}

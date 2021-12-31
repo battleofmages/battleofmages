@@ -6,30 +6,26 @@ using Unity.Netcode;
 using UnityEngine;
 
 namespace BoM.Players {
-	public class SkillSystem : NetworkBehaviour {
+	// Data
+	public class SkillSystemData : NetworkBehaviour {
 		public Player player;
 		public Cursor cursor;
 		public Skeleton skeleton;
 		public Animations animations;
 		public List<Element> elements { get; set; }
 		public Energy energy;
-		private int currentElementIndex;
-		private float time;
 
-		const float baseCastTime = 0.4f;
-		const float animationTime = 0.6f;
+		protected int currentElementIndex;
+		protected float time;
+	}
 
-		public Element currentElement {
-			get {
-				return elements[currentElementIndex];
-			}
-		}
+	// Logic
+	public class SkillSystem : SkillSystemData {
+		private const float baseCastTime = 0.4f;
+		private const float animationTime = 0.6f;
 
-		public bool isCasting {
-			get {
-				return time < 1f;
-			}
-		}
+		public bool isCasting { get => time < 1f; }
+		public Element currentElement { get => elements[currentElementIndex]; }
 
 		private void OnEnable() {
 			time = 1f;

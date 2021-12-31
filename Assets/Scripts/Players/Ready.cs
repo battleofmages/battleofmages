@@ -3,9 +3,13 @@ using Unity.Netcode;
 using UnityEngine;
 
 namespace BoM.Players {
-	public class Ready : NetworkBehaviour {
+	// Data
+	public class ReadyData : NetworkBehaviour {
 		public NetworkVariable<bool> isReady;
+	}
 
+	// Logic
+	public class Ready : ReadyData {
 		private IEnumerator Start() {
 			yield return new WaitForEndOfFrame();
 			ReadyServerRpc();

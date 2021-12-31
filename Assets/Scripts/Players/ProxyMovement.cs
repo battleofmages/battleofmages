@@ -3,14 +3,18 @@ using UnityEngine;
 using Unity.Netcode;
 
 namespace BoM.Players {
-	public class ProxyMovement : NetworkBehaviour, IController {
+	// Data
+	public class ProxyMovementData : NetworkBehaviour {
 		public Player player;
 		public Movement movement;
 		public long maxLatency;
 		public Vector3 direction { get; set; }
 		public Health health;
-		private Vector3 lastRemoteDirection;
+		protected Vector3 lastRemoteDirection;
+	}
 
+	// Logic
+	public class ProxyMovement : ProxyMovementData, IController {
 		private void FixedUpdate() {
 			var latency = GetLatency();
 			UpdateDirection(latency);

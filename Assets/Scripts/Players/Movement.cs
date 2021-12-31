@@ -1,13 +1,17 @@
 using UnityEngine;
 
 namespace BoM.Players {
-	public class Movement : MonoBehaviour {
+	// Data
+	public class MovementData : MonoBehaviour {
 		public CharacterController controller;
 		public Gravity gravity;
 		public Flight flight;
 		public float baseSpeed;
 		public float speed { get; set; }
+	}
 
+	// Logic
+	public class Movement : MovementData {
 		private void Awake() {
 			speed = baseSpeed;
 		}

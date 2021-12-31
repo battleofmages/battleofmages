@@ -4,10 +4,15 @@ using Unity.Collections;
 using Unity.Netcode;
 
 namespace BoM.Players {
-	public class Account : NetworkBehaviour {
+	// Data
+	public class AccountData : NetworkBehaviour {
+		protected NetworkVariable<FixedString64Bytes> nick;
+		protected IAccount account;
+	}
+
+	// Logic
+	public class Account : AccountData {
 		public event Action<string> NickChanged;
-		private NetworkVariable<FixedString64Bytes> nick;
-		private IAccount account;
 
 		private void Awake() {
 			nick = new NetworkVariable<FixedString64Bytes>();
