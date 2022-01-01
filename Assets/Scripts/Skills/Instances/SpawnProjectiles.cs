@@ -5,13 +5,13 @@ using UnityEngine.Pool;
 namespace BoM.Skills.Instances {
 	// Data
 	public abstract class SpawnProjectilesData : Instance {
-		public Projectile projectilePrefab;
-		public Transform spawn;
-		public float radius;
-		public float interval;
-		public float duration;
-		public bool randomizeStartPoint;
-		public bool randomizeEndPoint;
+		[SerializeField] protected Projectile projectilePrefab;
+		[SerializeField] protected Transform spawn;
+		[SerializeField] protected float radius;
+		[SerializeField] protected float interval;
+		[SerializeField] protected float duration;
+		[SerializeField] protected bool randomizeStartPoint;
+		[SerializeField] protected bool randomizeEndPoint;
 
 		protected float totalTime;
 		protected float intervalTime;

@@ -5,10 +5,11 @@ using UnityEngine.VFX;
 namespace BoM.Skills {
 	// Data
 	public abstract class ExplosionData : Instance {
-		public float damage { get; set; }
-		public float radius;
-		public VisualEffect particles;
-		public Teams.Manager teamsManager;
+		public float Damage { get; set; }
+
+		[SerializeField] protected float radius;
+		[SerializeField] protected VisualEffect particles;
+		[SerializeField] protected Teams.Manager teamsManager;
 
 		protected Collider[] colliders;
 		protected float time;
@@ -33,7 +34,7 @@ namespace BoM.Skills {
 
 			for(int i = 0; i < numColliders; i++) {
 				var health = colliders[i].GetComponent<IHealth>();
-				health.TakeDamage(damage, skill, caster);
+				health.TakeDamage(Damage, skill, caster);
 			}
 		}
 

@@ -5,16 +5,16 @@ using UnityEngine.VFX;
 namespace BoM.Skills.Instances {
 	// Data
 	public abstract class ProjectileData : Instance {
-		public Rigidbody rigidBody;
-		public SphereCollider collision;
-		public VisualEffect particles;
-		public Light lighting;
-		public Explosion explosionPrefab;
-		public float directHitDamage;
-		public float splashDamage;
-		public float speed;
-		public float maxLifeTime;
-		public float fadeOutTime;
+		[SerializeField] protected Rigidbody rigidBody;
+		[SerializeField] protected SphereCollider collision;
+		[SerializeField] protected VisualEffect particles;
+		[SerializeField] protected Light lighting;
+		[SerializeField] protected Explosion explosionPrefab;
+		[SerializeField] protected float directHitDamage;
+		[SerializeField] protected float splashDamage;
+		[SerializeField] protected float speed;
+		[SerializeField] protected float maxLifeTime;
+		[SerializeField] protected float fadeOutTime;
 
 		protected bool isAlive;
 		protected float aliveTime;
@@ -89,7 +89,7 @@ namespace BoM.Skills.Instances {
 
 		private void Explode() {
 			var explosion = PoolManager.Instantiate(explosionPrefab, transform.localPosition, Const.NoRotation);
-			explosion.GetComponent<Explosion>().damage = splashDamage;
+			explosion.GetComponent<Explosion>().Damage = splashDamage;
 			explosion.transform.SetLayer(gameObject.layer);
 			explosion.skill = skill;
 			explosion.caster = caster;
