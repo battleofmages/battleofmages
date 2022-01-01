@@ -13,12 +13,12 @@ public class TestInput {
 	private InputTestFixture input = new InputTestFixture();
 
 	[OneTimeSetUp]
-	public void Setup() {
-		SceneManager.LoadScene("Main");
+	public void OneTimeSetUp() {
+		SceneManager.LoadScene("Test");
 	}
 
 	[TearDown]
-	public void TearDown() {
+	public void ResetAfterEachTest() {
 		var player = Player.Main;
 		player.Respawn(player.Team.RandomSpawnPosition, player.Team.SpawnRotation);
 	}

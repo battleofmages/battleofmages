@@ -19,6 +19,7 @@ namespace BoM.UI {
 
 	// Logic
 	public class Chat : ChatData {
+		public static event Action<string> MessageReceived;
 		public static event Action<string> MessageSubmitted;
 		private static Dictionary<string, Color> channels;
 
@@ -55,13 +56,13 @@ namespace BoM.UI {
 			}
 		}
 
-		public void Write(string channel, string message) {
+		public void Write(string channel, string contents) {
 			if(messages == null || messages.Length == 0 || messages[0] == null) {
 				return;
 			}
 
 			var newMessage = messages[0];
-			newMessage.text = $"<alpha=#66>[{channel}] <alpha=#FF>{message}";
+			newMessage.text = $"<alpha=#66>[{channel}] <alpha=#FF>{contents}";
 			newMessage.color = GetChannelColor(channel);
 			newMessage.transform.SetAsLastSibling();
 
@@ -82,6 +83,8 @@ namespace BoM.UI {
 			if(scrollBar.value < 0.01f) {
 				StartCoroutine(ResetScrollBar());
 			}
+
+			MessageReceived?.Invoke(contents);
 		}
 
 		System.Collections.IEnumerator ResetScrollBar() {

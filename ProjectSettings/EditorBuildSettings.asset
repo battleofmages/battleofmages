@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Maps/Arena.unity
     guid: f2c0f31ac9e165d4dacc74b644661970
   - enabled: 1
-    path: Assets/Scenes/Maps/Practice.unity
+    path: Assets/Scenes/Maps/Test.unity
     guid: b846257c9beb3ad47a5098a272617719
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 643ff4a49499d364ba701381a03ce82a,

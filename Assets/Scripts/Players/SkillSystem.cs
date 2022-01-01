@@ -25,7 +25,7 @@ namespace BoM.Players {
 		private const float baseCastTime = 0.4f;
 		private const float animationTime = 0.6f;
 
-		public bool isCasting { get => time < 1f; }
+		public bool isCasting { get => time < animationTime; }
 		public Element currentElement { get => Elements[currentElementIndex]; }
 
 		private void OnEnable() {
@@ -71,7 +71,7 @@ namespace BoM.Players {
 		}
 
 		private void Update() {
-			if(time > 1f) {
+			if(time > animationTime) {
 				return;
 			}
 
@@ -93,7 +93,7 @@ namespace BoM.Players {
 		}
 
 		public void CastSkillAtIndex(byte slotIndex) {
-			if(!enabled) {
+			if(!enabled || isCasting) {
 				return;
 			}
 
@@ -114,7 +114,7 @@ namespace BoM.Players {
 
 		[ServerRpc]
 		public void CastSkillServerRpc(byte index, Vector3 remoteCursorPosition) {
-			if(!enabled) {
+			if(!enabled || isCasting) {
 				return;
 			}
 
