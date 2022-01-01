@@ -6,13 +6,14 @@ using Unity.Netcode;
 namespace BoM.Players {
 	// Data
 	public class PlayerData : NetworkBehaviour {
+		public ulong ClientId { get; set; }
+		public Vector3 RemotePosition { get; set; }
+		public Vector3 RemoteDirection { get; set; }
+
 		public Account Account;
 		public Latency Latency;
 		public CharacterController Controller;
 		public Camera Cam;
-		public ulong ClientId { get; set; }
-		public Vector3 RemotePosition { get; set; }
-		public Vector3 RemoteDirection { get; set; }
 
 		[SerializeField] protected Health health;
 		[SerializeField] protected Energy energy;
