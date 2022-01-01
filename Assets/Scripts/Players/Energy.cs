@@ -49,10 +49,18 @@ namespace BoM.Players {
 
 		public void Consume(float value) {
 			energy.Value -= value;
+
+			if(energy.Value < 0f) {
+				energy.Value = 0f;
+			}
 		}
 
 		public void ConsumeOverTime(float value) {
 			energy.Value -= (regenerationSpeed + value) * Time.deltaTime;
+
+			if(energy.Value < 0f) {
+				energy.Value = 0f;
+			}
 		}
 
 		public void Reset() {
