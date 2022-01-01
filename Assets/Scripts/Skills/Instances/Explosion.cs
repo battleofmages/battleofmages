@@ -3,14 +3,19 @@ using UnityEngine;
 using UnityEngine.VFX;
 
 namespace BoM.Skills {
-	public class Explosion : Instance {
+	// Data
+	public abstract class ExplosionData : Instance {
 		public float damage { get; set; }
 		public float radius;
 		public VisualEffect particles;
 		public Teams.Manager teamsManager;
-		private Collider[] colliders;
-		private float time;
 
+		protected Collider[] colliders;
+		protected float time;
+	}
+
+	// Logic
+	public class Explosion : ExplosionData {
 		private void Awake() {
 			colliders = new Collider[16];
 		}

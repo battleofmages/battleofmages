@@ -3,9 +3,8 @@ using UnityEngine;
 using UnityEngine.VFX;
 
 namespace BoM.Skills.Instances {
-	public class Projectile : Instance {
-		const float finalGroundDistance = 0.15f;
-
+	// Data
+	public abstract class ProjectileData : Instance {
 		public Rigidbody rigidBody;
 		public SphereCollider collision;
 		public VisualEffect particles;
@@ -17,11 +16,16 @@ namespace BoM.Skills.Instances {
 		public float maxLifeTime;
 		public float fadeOutTime;
 
-		private bool isAlive;
-		private float aliveTime;
-		private float deadTime;
-		private float lightIntensity;
-		private float fadeOutSpeed;
+		protected bool isAlive;
+		protected float aliveTime;
+		protected float deadTime;
+		protected float lightIntensity;
+		protected float fadeOutSpeed;
+	}
+
+	// Logic
+	public class Projectile : ProjectileData {
+		private const float finalGroundDistance = 0.15f;
 
 		private void Awake() {
 			lightIntensity = lighting.intensity;

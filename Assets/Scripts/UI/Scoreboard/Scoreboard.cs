@@ -1,17 +1,26 @@
+using BoM.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
 namespace BoM.UI {
-	public class Scoreboard : MonoBehaviour {
-		public CanvasGroup canvasGroup;
-		public RectTransform playersContainer;
-		public ScoreboardRow rowPrefab;
-		public Dictionary<Core.IPlayer, ScoreboardRow> rows = new Dictionary<Core.IPlayer, ScoreboardRow>();
+	// Data
+	public class ScoreboardData : MonoBehaviour {
+		[SerializeField] protected CanvasGroup canvasGroup;
+		[SerializeField] protected RectTransform playersContainer;
+		[SerializeField] protected ScoreboardRow rowPrefab;
+		[SerializeField] protected Dictionary<IPlayer, ScoreboardRow> rows;
+	}
 
-		public void OnPlayerAdded(Core.IPlayer player) {
+	// Logic
+	public class Scoreboard : ScoreboardData {
+		private void Awake() {
+			rows = new Dictionary<IPlayer, ScoreboardRow>();
+		}
+
+		public void OnPlayerAdded(IPlayer player) {
 			var row = GameObject.Instantiate(rowPrefab);
-			row.player = player;
+			row.Player = player;
 			row.transform.SetParent(playersContainer, false);
 
 			if(canvasGroup.alpha == 0f) {
@@ -21,7 +30,7 @@ namespace BoM.UI {
 			rows.Add(player, row);
 		}
 
-		public void OnPlayerRemoved(Core.IPlayer player) {
+		public void OnPlayerRemoved(IPlayer player) {
 			GameObject.Destroy(rows[player]);
 			rows.Remove(player);
 		}

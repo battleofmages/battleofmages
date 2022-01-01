@@ -2,46 +2,49 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace BoM.UI {
-	public class Manager : MonoBehaviour {
-		public static Manager Instance { get; private set; }
+	// Data
+	public class ManagerData : MonoBehaviour {
+		[SerializeField] protected PlayerInput playerInput;
+		[SerializeField] protected Chat chat;
+	}
 
-		public PlayerInput playerInput;
-		public Chat chat;
-
-		public static PlayerInput PlayerInput { get { return Instance.playerInput; } }
-		public static Chat Chat { get { return Instance.chat; } }
+	// Logic
+	public class Manager : ManagerData {
+		public static PlayerInput PlayerInput { get => instance.playerInput; }
+		public static Chat Chat { get => instance.chat; }
+		private static Manager instance;
 
 		private void Awake() {
-			Instance = this;
+			instance = this;
 		}
 
 		public static void Activate() {
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
 			PlayerInput.SwitchCurrentActionMap("UI");
-			var inputFieldCanvas = Chat.inputField.GetComponent<CanvasGroup>();
+			var inputFieldCanvas = Chat.InputField.GetComponent<CanvasGroup>();
 
 			inputFieldCanvas.FadeIn(
 				UI.Settings.FadeDuration,
 				value => inputFieldCanvas.alpha = value
 			);
 
-			Chat.inputField.onEndEdit.AddListener(OnEndEdit);
+			Chat.InputField.onEndEdit.AddListener(OnEndEdit);
 		}
 
 		public static void Deactivate() {
 			Cursor.visible = false;
 			Cursor.lockState = CursorLockMode.Locked;
 			PlayerInput.SwitchCurrentActionMap("Player");
-			Chat.inputField.DeactivateInputField();
-			var inputFieldCanvas = Chat.inputField.GetComponent<CanvasGroup>();
+			Chat.InputField.DeactivateInputField();
+			var inputFieldCanvas = Chat.InputField.GetComponent<CanvasGroup>();
 
 			inputFieldCanvas.FadeOut(
 				UI.Settings.FadeDuration,
 				value => inputFieldCanvas.alpha = value
 			);
 
-			Chat.inputField.onEndEdit.RemoveListener(OnEndEdit);
+			Chat.InputField.onEndEdit.RemoveListener(OnEndEdit);
 		}
 
 		// Overloads to use it in input actions
@@ -55,8 +58,8 @@ namespace BoM.UI {
 
 		public static void ActivateAndSelectChat(InputAction.CallbackContext context) {
 			Activate();
-			Chat.inputField.Select();
-			Chat.inputField.ActivateInputField();
+			Chat.InputField.Select();
+			Chat.InputField.ActivateInputField();
 		}
 
 		public static void OnEndEdit(string text) {

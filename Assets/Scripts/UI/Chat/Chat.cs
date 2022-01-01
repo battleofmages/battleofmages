@@ -6,14 +6,20 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 namespace BoM.UI {
-	public class Chat : MonoBehaviour {
+	// Data
+	public class ChatData : MonoBehaviour {
+		public TMP_InputField InputField;
+
+		[SerializeField] protected GameObject messagesContainer;
+		[SerializeField] protected Scrollbar scrollBar;
+		[SerializeField] protected InputActionAsset inputActions;
+		[SerializeField] protected ChatHistory history;
+		protected TextMeshProUGUI[] messages;
+	}
+
+	// Logic
+	public class Chat : ChatData {
 		public static event Action<string> MessageSubmitted;
-		public GameObject messagesContainer;
-		public Scrollbar scrollBar;
-		public TMP_InputField inputField;
-		public InputActionAsset inputActions;
-		public ChatHistory history;
-		private TextMeshProUGUI[] messages;
 		private static Dictionary<string, Color> channels;
 
 		private void Start() {
@@ -85,14 +91,14 @@ namespace BoM.UI {
 		}
 
 		public void OnSubmit(InputAction.CallbackContext value) {
-			if(!inputField.isFocused || inputField.text == "") {
+			if(!InputField.isFocused || InputField.text == "") {
 				return;
 			}
 
-			MessageSubmitted?.Invoke(inputField.text);
-			history.Add(inputField.text);
+			MessageSubmitted?.Invoke(InputField.text);
+			history.Add(InputField.text);
 			history.ScrollToStart();
-			inputField.text = "";
+			InputField.text = "";
 		}
 
 		private void OnDebugLog(string message, string stack, LogType type) {

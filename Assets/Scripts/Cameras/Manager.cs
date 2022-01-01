@@ -22,9 +22,7 @@ namespace BoM.Cameras {
 		}
 
 		public static Camera ActiveCamera {
-			get {
-				return activeCamera;
-			}
+			get => activeCamera;
 
 			set {
 				foreach(var cam in Instance.cameras) {

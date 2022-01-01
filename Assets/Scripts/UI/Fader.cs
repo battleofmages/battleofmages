@@ -17,9 +17,7 @@ namespace BoM.UI {
 		public Action onFadeEnd;
 
 		public float Duration {
-			get {
-				return duration;
-			}
+			get => duration;
 
 			set {
 				duration = value;

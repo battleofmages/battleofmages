@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using TMPro;
 
 namespace BoM.UI {
-	public class ChatHistory : MonoBehaviour {
-		public TMP_InputField inputField;
-		private List<string> messages = new List<string>();
-		private int index;
-		private string currentMessage;
+	// Data
+	public class ChatHistoryData : MonoBehaviour {
+		[SerializeField] protected TMP_InputField inputField;
+		protected List<string> messages = new List<string>();
+		protected int index;
+		protected string currentMessage;
+	}
 
+	// Logic
+	public class ChatHistory : ChatHistoryData {
 		public void Add(string message) {
 			messages.Add(message);
 		}

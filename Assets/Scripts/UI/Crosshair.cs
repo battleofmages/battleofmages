@@ -2,11 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace BoM.UI {
-	public class Crosshair : MonoBehaviour {
-		public CanvasScaler canvasScaler;
-		private RectTransform rectTransform;
-		private float localY;
+	// Data
+	public class CrosshairData : MonoBehaviour {
+		[SerializeField] protected CanvasScaler canvasScaler;
+		protected RectTransform rectTransform;
+		protected float localY;
+	}
 
+	// Logic
+	public class Crosshair : CrosshairData {
 		private void Awake() {
 			rectTransform = GetComponent<RectTransform>();
 			localY = rectTransform.localPosition.y;

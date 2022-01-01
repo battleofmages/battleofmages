@@ -10,9 +10,6 @@ namespace BoM.Skills {
 		public ObjectPool<Instance> pool;
 
 		public abstract void Init();
-
-		public void Release() {
-			pool.Release(this);
-		}
+		public void Release() { pool.Release(this); }
 	}
 }

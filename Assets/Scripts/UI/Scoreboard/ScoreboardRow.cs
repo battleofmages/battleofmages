@@ -3,14 +3,19 @@ using TMPro;
 using UnityEngine;
 
 namespace BoM.UI {
-	public class ScoreboardRow : MonoBehaviour {
-		public IPlayer player;
-		public TextMeshProUGUI playerName;
-		public TextMeshProUGUI score;
-		public TextMeshProUGUI damage;
-		public TextMeshProUGUI kills;
-		public TextMeshProUGUI ping;
+	// Data
+	public class ScoreboardRowData : MonoBehaviour {
+		public IPlayer Player { get; set; }
 
+		[SerializeField] protected TextMeshProUGUI playerName;
+		[SerializeField] protected TextMeshProUGUI score;
+		[SerializeField] protected TextMeshProUGUI damage;
+		[SerializeField] protected TextMeshProUGUI kills;
+		[SerializeField] protected TextMeshProUGUI ping;
+	}
+
+	// Logic
+	public class ScoreboardRow : ScoreboardRowData {
 		private void Start() {
 			playerName.text = "-";
 			score.text = "-";
@@ -20,15 +25,15 @@ namespace BoM.UI {
 		}
 
 		private void Update() {
-			if(player == null) {
+			if(Player == null) {
 				return;
 			}
 
-			playerName.text = player.Nick;
+			playerName.text = Player.Nick;
 			score.text = "-";
 			damage.text = "-";
 			kills.text = "-";
-			ping.text = $"{player.Ping}";
+			ping.text = $"{Player.Ping}";
 		}
 	}
 }

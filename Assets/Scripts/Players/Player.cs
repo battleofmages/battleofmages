@@ -30,14 +30,14 @@ namespace BoM.Players {
 		public static event Action<Player> Removed;
 		public static Player Main;
 
-		public int Ping { get { return Latency.OneWayInMilliseconds; } }
-		public string Nick { get { return gameObject.name; } }
-		public GameObject GameObject { get { return gameObject; } }
-		public Transform Transform { get { return transform; } }
+		public int Ping { get => Latency.OneWayInMilliseconds; }
+		public string Nick { get => gameObject.name; }
+		public GameObject GameObject { get => gameObject; }
+		public Transform Transform { get => transform; }
 
 		public int TeamId {
-			get { return teamId.Value; }
-			set { teamId.Value = value; }
+			get => teamId.Value;
+			set => teamId.Value = value;
 		}
 
 		public Teams.Team Team { get => teamManager.teams[TeamId]; }

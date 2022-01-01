@@ -2,10 +2,14 @@ using TMPro;
 using UnityEngine;
 
 namespace BoM.UI {
-	public class Latency : MonoBehaviour {
-		public TextMeshProUGUI label;
-		private string baseText;
+	// Data
+	public class LatencyData : MonoBehaviour {
+		[SerializeField] protected TextMeshProUGUI label;
+		protected string baseText;
+	}
 
+	// Logic
+	public class Latency : LatencyData {
 		private void Start() {
 			baseText = label.text;
 		}

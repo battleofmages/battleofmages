@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.Pool;
 
 namespace BoM.Skills.Instances {
-	public class SpawnProjectiles : Instance {
+	// Data
+	public abstract class SpawnProjectilesData : Instance {
 		public Projectile projectilePrefab;
 		public Transform spawn;
 		public float radius;
@@ -12,10 +13,13 @@ namespace BoM.Skills.Instances {
 		public bool randomizeStartPoint;
 		public bool randomizeEndPoint;
 
-		private float totalTime;
-		private float intervalTime;
-		private ObjectPool<Instance> projectilePool;
+		protected float totalTime;
+		protected float intervalTime;
+		protected ObjectPool<Instance> projectilePool;
+	}
 
+	// Logic
+	public class SpawnProjectiles : SpawnProjectilesData {
 		private void Awake() {
 			projectilePool = PoolManager.GetPool(projectilePrefab);
 		}

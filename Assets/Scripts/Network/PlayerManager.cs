@@ -3,14 +3,10 @@ using System.Collections.Generic;
 
 namespace BoM.Network {
 	public static class PlayerManager {
+		public static List<IPlayer> All { get => players; }
+
 		private static readonly List<IPlayer> players = new List<IPlayer>();
 		private static readonly Dictionary<ulong, IPlayer> clientIdToPlayer = new Dictionary<ulong, IPlayer>();
-
-		public static List<IPlayer> All {
-			get {
-				return players;
-			}
-		}
 
 		public static void AddPlayer(IPlayer player) {
 			players.Add(player);
