@@ -3,9 +3,9 @@ using UnityEngine;
 namespace BoM {
 	// Data
 	public class MainData : MonoBehaviour {
-		public Network.Host host;
-		public Network.Server server;
-		public Network.Client client;
+		public Network.Host Host;
+		public Network.Server Server;
+		public Network.Client Client;
 	}
 
 	// Logic
@@ -13,15 +13,15 @@ namespace BoM {
 		private void Start() {
 #if UNITY_EDITOR
 			if(ParrelSync.ClonesManager.IsClone()) {
-				client.AccountId = ParrelSync.ClonesManager.GetArgument();
-				client.Start();
+				Client.AccountId = ParrelSync.ClonesManager.GetArgument();
+				Client.Start();
 			} else {
-				host.Start();
+				Host.Start();
 			}
 #elif UNITY_SERVER
-			server.Start();
+			Server.Start();
 #else
-			client.Start();
+			Client.Start();
 #endif
 		}
 	}

@@ -893,9 +893,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b56ae7335fee647a1e72e28cef4686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  host: {fileID: 11400000, guid: 6e9ee2c6ecad98144b9dabb04cee7a9b, type: 2}
-  server: {fileID: 11400000, guid: b919b668af8e49340b37dacc1b663111, type: 2}
-  client: {fileID: 11400000, guid: c44457c2f50c77940ae9f31ad313346d, type: 2}
+  Host: {fileID: 11400000, guid: 6e9ee2c6ecad98144b9dabb04cee7a9b, type: 2}
+  Server: {fileID: 11400000, guid: b919b668af8e49340b37dacc1b663111, type: 2}
+  Client: {fileID: 11400000, guid: c44457c2f50c77940ae9f31ad313346d, type: 2}
 --- !u!114 &198852184
 MonoBehaviour:
   m_ObjectHideFlags: 0
