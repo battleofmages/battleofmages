@@ -7,9 +7,13 @@ using UnityEngine.Rendering;
 using Unity.Netcode;
 
 namespace BoM.Maps {
-	public class Bake : MonoBehaviour {
-		private ReflectionProbe baker;
+	// Data
+	public class BakeData : MonoBehaviour {
+		protected ReflectionProbe baker;
+	}
 
+	// Logic
+	public class Bake : BakeData {
 		private void Start() {
 			if(!NetworkManager.Singleton) {
 				return;

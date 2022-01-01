@@ -3,11 +3,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace BoM.Network {
-	[CreateAssetMenu(fileName = "Client", menuName = "BoM/Client", order = 50)]
-	public class Client : ScriptableObject {
+	// Data
+	public class ClientData : ScriptableObject {
 		public string AccountId;
-		[SerializeField] private Teams.Manager teamManager;
+		[SerializeField] protected Teams.Manager teamManager;
+	}
 
+	// Logic
+	[CreateAssetMenu(fileName = "Client", menuName = "BoM/Client", order = 50)]
+	public class Client : ClientData {
 		public void Start() {
 			SceneManager.sceneLoaded += SceneLoaded;
 			NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.UTF8.GetBytes(AccountId);

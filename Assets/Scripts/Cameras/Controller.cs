@@ -3,23 +3,27 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 namespace BoM.Cameras {
-	public class Controller : MonoBehaviour {
-		[SerializeField] private Camera cam;
-		[SerializeField] private Transform target;
-		[SerializeField] private Transform center;
-		[SerializeField] private LayerMask layerMask;
-		[SerializeField] private VolumeProfile volumeProfile;
-		[SerializeField] private float distanceAdjustmentSpeed;
-		[SerializeField] private float distanceToObstacle;
+	// Data
+	public class ControllerData : MonoBehaviour {
+		[SerializeField] protected Camera cam;
+		[SerializeField] protected Transform target;
+		[SerializeField] protected Transform center;
+		[SerializeField] protected LayerMask layerMask;
+		[SerializeField] protected VolumeProfile volumeProfile;
+		[SerializeField] protected float distanceAdjustmentSpeed;
+		[SerializeField] protected float distanceToObstacle;
 
-		private float maxDistance;
-		private float targetDistance;
-		private float distance;
-		private RaycastHit hit;
-		private DepthOfField depthOfField;
-		private Vector3[] frustumCorners;
-		private Rect viewport;
+		protected float maxDistance;
+		protected float targetDistance;
+		protected float distance;
+		protected RaycastHit hit;
+		protected DepthOfField depthOfField;
+		protected Vector3[] frustumCorners;
+		protected Rect viewport;
+	}
 
+	// Logic
+	public class Controller : ControllerData {
 		private void Awake() {
 			maxDistance = -target.localPosition.z;
 			distance = maxDistance;

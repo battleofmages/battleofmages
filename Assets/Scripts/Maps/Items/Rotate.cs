@@ -1,12 +1,16 @@
 using UnityEngine;
 
 namespace BoM.Maps.Items {
-	public class Rotate : MonoBehaviour {
-		public Vector3 axis;
-		public float speed;
+	// Data
+	public class RotateData : MonoBehaviour {
+		public Vector3 Axis;
+		public float Speed;
+	}
 
+	// Logic
+	public class Rotate : RotateData {
 		private void Update() {
-			transform.Rotate(axis, speed * Time.deltaTime);
+			transform.Rotate(Axis, Speed * Time.deltaTime);
 		}
 	}
 }

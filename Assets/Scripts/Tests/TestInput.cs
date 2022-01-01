@@ -12,19 +12,13 @@ using UnityEngine.SceneManagement;
 public class TestInput {
 	private InputTestFixture input = new InputTestFixture();
 
-	[SetUp]
+	[OneTimeSetUp]
 	public void Setup() {
-		//input.Setup();
-
-		if(SceneManager.GetActiveScene().name != "Main") {
-			SceneManager.LoadScene("Main");
-		}
+		SceneManager.LoadScene("Main");
 	}
 
 	[TearDown]
 	public void TearDown() {
-		//input.TearDown();
-
 		var player = Player.Main;
 		player.Respawn(player.Team.RandomSpawnPosition, player.Team.SpawnRotation);
 	}

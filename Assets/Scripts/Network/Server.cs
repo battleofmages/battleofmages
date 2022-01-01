@@ -4,14 +4,19 @@ using Unity.Netcode;
 using UnityEngine.SceneManagement;
 
 namespace BoM.Network {
-	[CreateAssetMenu(fileName = "Server", menuName = "BoM/Server", order = 51)]
-	public class Server : ScriptableObject {
-		public event System.Action Ready;
+	// Data
+	public class ServerData : ScriptableObject {
 		public IDatabase Database;
 		public string MapName;
 
-		[SerializeField] private Match match;
-		[SerializeField] private Teams.Manager teamManager;
+		[SerializeField] protected Match match;
+		[SerializeField] protected Teams.Manager teamManager;
+	}
+
+	// Logic
+	[CreateAssetMenu(fileName = "Server", menuName = "BoM/Server", order = 51)]
+	public class Server : ServerData {
+		public event System.Action Ready;
 
 		public void Init() {
 			NetworkManager.Singleton.ConnectionApprovalCallback += OnApprovalCheck;

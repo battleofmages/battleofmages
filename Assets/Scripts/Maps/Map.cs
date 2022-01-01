@@ -4,12 +4,15 @@ using UnityEngine.SceneManagement;
 using Unity.Netcode;
 
 namespace BoM.Maps {
-	public class Map : MonoBehaviour {
-		[SerializeField] private Server server;
-		[SerializeField] private GameObject[] deactivateOnPlay;
+	// Data
+	public class MapData : MonoBehaviour {
+		[SerializeField] protected Server server;
+		[SerializeField] protected GameObject[] deactivateOnPlay;
+		protected ReflectionProbe baker;
+	}
 
-		private ReflectionProbe baker;
-
+	// Logic
+	public class Map : MapData {
 		private void Start() {
 			if(!NetworkManager.Singleton) {
 				server.MapName = SceneManager.GetActiveScene().name;

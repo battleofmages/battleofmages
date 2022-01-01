@@ -156,8 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6e1ec6a1fa7a94ebf2d95dc06086e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axis: {x: 0, y: 1, z: 0}
-  speed: 270
+  Axis: {x: 0, y: 1, z: 0}
+  Speed: 270
 --- !u!114 &466023084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,5 +170,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 187aeb4198593e9418575790bc96de23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceVector: {x: 0, y: 0.2, z: 0}
-  bounceSpeed: 2
+  Vector: {x: 0, y: 0.2, z: 0}
+  Speed: 2

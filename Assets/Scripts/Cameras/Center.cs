@@ -1,16 +1,20 @@
 using UnityEngine;
 
 namespace BoM.Cameras {
-	public class Center : MonoBehaviour {
-		[SerializeField] private float MouseSensitivity = 0.05f;
-		[SerializeField] private float GamepadSensitivity = 150f;
-		[SerializeField] private float MinClampRotationX;
-		[SerializeField] private float MaxClampRotationX;
+	// Data
+	public class CenterData : MonoBehaviour {
+		[SerializeField] protected float MouseSensitivity = 0.05f;
+		[SerializeField] protected float GamepadSensitivity = 150f;
+		[SerializeField] protected float MinClampRotationX;
+		[SerializeField] protected float MaxClampRotationX;
 
-		private Vector2 angles;
-		private Vector2 mouse;
-		private Vector2 gamepad;
+		protected Vector2 angles;
+		protected Vector2 mouse;
+		protected Vector2 gamepad;
+	}
 
+	// Logic
+	public class Center : CenterData {
 		private void Update() {
 			if(mouse != Vector2.zero) {
 				angles.x -= mouse.y * MouseSensitivity;

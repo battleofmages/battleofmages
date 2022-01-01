@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fe19162ce872ee4085ccbc25592e542, type: 3}
   m_Name: Host
   m_EditorClassIdentifier: 
-  Server: {fileID: 11400000, guid: b919b668af8e49340b37dacc1b663111, type: 2}
-  Client: {fileID: 11400000, guid: c71c2fc5cd2e36c4081b5eb1d95e259d, type: 2}
+  server: {fileID: 11400000, guid: b919b668af8e49340b37dacc1b663111, type: 2}
+  client: {fileID: 11400000, guid: c71c2fc5cd2e36c4081b5eb1d95e259d, type: 2}
