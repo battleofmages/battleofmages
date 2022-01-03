@@ -60,15 +60,6 @@ namespace BoM {
 			}
 
 			BindHealth(player);
-
-			var skillSystem = player.GetComponent<Players.SkillSystem>();
-			var skillSlots = skillSystem.Build.Elements[0].SkillSlots;
-
-			for(int i = 0; i < skillSlots.Length; i++) {
-				skillBar.Slots[i].Slot = skillSlots[i];
-			}
-
-			// skillSystem.Build = ScriptableObject.CreateInstance<Players.Build>();
 		}
 
 		private void OnPlayerRemoved(Players.Player player) {
@@ -133,6 +124,7 @@ namespace BoM {
 			// Bind UI events
 			UI.Chat.MessageSubmitted += chat.SubmitMessage;
 			latency.Received += latencyUI.OnLatencyReceived;
+			BindSkillBar(player);
 		}
 
 		public void Unbind(Players.Player player) {
@@ -175,6 +167,7 @@ namespace BoM {
 			// Unbind chat events
 			UI.Chat.MessageSubmitted -= chat.SubmitMessage;
 			latency.Received -= latencyUI.OnLatencyReceived;
+			UnbindSkillBar(player);
 		}
 
 		private void BindHealth(Players.Player player) {
@@ -201,6 +194,28 @@ namespace BoM {
 			var energyBar = bars[1];
 
 			energy.PercentChanged += energyBar.SetFillAmount;
+		}
+
+		private void BindSkillBar(Players.Player player) {
+			var skillSystem = player.GetComponent<Players.SkillSystem>();
+			var skillSlots = skillSystem.Build.Elements[0].SkillSlots;
+
+			for(byte i = 0; i < skillSlots.Length; i++) {
+				skillBar.Slots[i].Slot = skillSlots[i];
+
+				byte index = i;
+				skillBar.Slots[i].Button.onClick.AddListener(() => skillSystem.CastSkillAtIndex(index));
+			}
+		}
+
+		private void UnbindSkillBar(Players.Player player) {
+			var skillSystem = player.GetComponent<Players.SkillSystem>();
+			var skillSlots = skillSystem.Build.Elements[0].SkillSlots;
+
+			for(byte i = 0; i < skillSlots.Length; i++) {
+				skillBar.Slots[i].Slot = null;
+				skillBar.Slots[i].Button.onClick.RemoveAllListeners();
+			}
 		}
 
 		private void SetMotionBlur(bool active) {

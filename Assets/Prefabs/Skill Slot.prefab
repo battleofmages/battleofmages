@@ -191,8 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad60155e9f4d714ba7b57962258536e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Button: {fileID: 4685706929584398095}
   image: {fileID: 4685706929584398094}
-  button: {fileID: 4685706929584398095}
   coolDownLabel: {fileID: 4685706928699961756}
 --- !u!222 &4685706929584398081
 CanvasRenderer:
@@ -257,7 +257,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.3764706}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.3137255}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

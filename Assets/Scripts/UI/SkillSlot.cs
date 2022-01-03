@@ -6,8 +6,9 @@ using UnityEngine.UI;
 namespace BoM.UI {
 	// Data
 	public class SkillSlotData : MonoBehaviour {
+		public Button Button;
+
 		[SerializeField] protected Image image;
-		[SerializeField] protected Button button;
 		[SerializeField] protected TextMeshProUGUI coolDownLabel;
 		protected ISkillSlot slot;
 	}
@@ -20,16 +21,16 @@ namespace BoM.UI {
 				slot = value;
 
 				if(slot == null || slot.Skill == null) {
-					button.interactable = false;
+					Button.interactable = false;
 				} else {
 					image.sprite = slot.Skill.Icon;
-					button.interactable = true;
+					Button.interactable = true;
 				}
 			}
 		}
 
 		private void Awake() {
-			button.interactable = false;
+			Button.interactable = false;
 			coolDownLabel.enabled = false;
 		}
 
@@ -42,8 +43,8 @@ namespace BoM.UI {
 			var progress = Mathf.Clamp((Time.time - slot.LastUsed) / slot.Skill.CoolDown, 0f, 1f);
 
 			if(isReady) {
-				if(button.interactable == false) {
-					button.interactable = true;
+				if(Button.interactable == false) {
+					Button.interactable = true;
 					image.fillAmount = 1f;
 					image.color = Color.white;
 					coolDownLabel.enabled = false;
@@ -51,8 +52,8 @@ namespace BoM.UI {
 
 				return;
 			} else {
-				if(button.interactable == true) {
-					button.interactable = false;
+				if(Button.interactable == true) {
+					Button.interactable = false;
 
 					if(slot.Skill.CoolDown >= 1f) {
 						coolDownLabel.enabled = true;
@@ -64,7 +65,7 @@ namespace BoM.UI {
 
 				if(slot.Skill.CoolDown >= 1f) {
 					coolDownLabel.text = Mathf.CeilToInt(slot.Skill.CoolDown * (1f - progress)).ToString();
-					coolDownLabel.alpha = 0.1f + progress * 0.4f;
+					coolDownLabel.alpha = 0.1f + progress * 0.3f;
 				}
 			}
 		}
