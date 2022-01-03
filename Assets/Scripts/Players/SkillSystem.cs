@@ -27,6 +27,10 @@ namespace BoM.Players {
 		public bool isCasting { get => time < animationTime; }
 		public Skills.Bar currentElement { get => Build.Elements[currentElementIndex]; }
 
+		private void Awake() {
+			Build = Object.Instantiate(Build);
+		}
+
 		private void OnEnable() {
 			time = 1f;
 		}
@@ -122,12 +126,16 @@ namespace BoM.Players {
 
 		[ServerRpc]
 		public void CastSkillServerRpc(byte index, Vector3 remoteCursorPosition) {
-			if(!enabled || isCasting) {
+			if(!enabled) {
 				return;
 			}
 
 			if(IsHost && IsOwner) {
 				CastSkillClientRpc(index, remoteCursorPosition);
+				return;
+			}
+
+			if(isCasting) {
 				return;
 			}
 

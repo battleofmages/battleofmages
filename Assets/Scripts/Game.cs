@@ -200,8 +200,6 @@ namespace BoM {
 
 		private void BindSkillBar(Players.Player player) {
 			var skillSystem = player.GetComponent<Players.SkillSystem>();
-			skillSystem.Build = Object.Instantiate(skillSystem.Build);
-
 			var skillSlots = skillSystem.Build.Elements[0].SkillSlots;
 
 			for(byte i = 0; i < skillSlots.Length; i++) {
