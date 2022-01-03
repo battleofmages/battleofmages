@@ -11,9 +11,10 @@ namespace BoM {
 		[SerializeField] protected PlayerInput inputSystem;
 		[SerializeField] protected Network.Server server;
 		[SerializeField] protected UI.Chat chatUI;
+		[SerializeField] protected UI.KillFeed killFeedUI;
 		[SerializeField] protected UI.Scoreboard scoreboardUI;
 		[SerializeField] protected UI.Latency latencyUI;
-		[SerializeField] protected UI.SkillBar skillBar;
+		[SerializeField] protected UI.SkillBar skillBarUI;
 		[SerializeField] protected VolumeProfile volumeProfile;
 		protected MotionBlur motionBlur;
 	}
@@ -77,6 +78,7 @@ namespace BoM {
 		}
 
 		private void OnPlayerDeath(Players.DamageEvent damageEvent) {
+			killFeedUI.Add(damageEvent.Caster.Nick, damageEvent.Skill.Icon, damageEvent.Receiver.Nick);
 			chatUI.Write("Combat", $"{damageEvent.Receiver.Nick} died.");
 		}
 
@@ -203,10 +205,10 @@ namespace BoM {
 			var skillSlots = skillSystem.Build.Elements[0].SkillSlots;
 
 			for(byte i = 0; i < skillSlots.Length; i++) {
-				skillBar.Slots[i].Slot = skillSlots[i];
+				skillBarUI.Slots[i].Slot = skillSlots[i];
 
 				byte index = i;
-				skillBar.Slots[i].Button.onClick.AddListener(() => skillSystem.CastSkillAtIndex(index));
+				skillBarUI.Slots[i].Button.onClick.AddListener(() => skillSystem.CastSkillAtIndex(index));
 			}
 		}
 
@@ -215,8 +217,8 @@ namespace BoM {
 			var skillSlots = skillSystem.Build.Elements[0].SkillSlots;
 
 			for(byte i = 0; i < skillSlots.Length; i++) {
-				skillBar.Slots[i].Slot = null;
-				skillBar.Slots[i].Button.onClick.RemoveAllListeners();
+				skillBarUI.Slots[i].Slot = null;
+				skillBarUI.Slots[i].Button.onClick.RemoveAllListeners();
 			}
 		}
 
