@@ -76,7 +76,7 @@ namespace BoM.Players {
 			instance.Init();
 
 			if(IsServer) {
-				energy.Consume(10f);
+				energy.Consume(skill.EnergyCost);
 			}
 		}
 

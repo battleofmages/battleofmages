@@ -17,3 +17,4 @@ MonoBehaviour:
   position: 0
   rotation: 0
   coolDown: 3
+  energyCost: 20

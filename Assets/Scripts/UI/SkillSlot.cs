@@ -6,6 +6,7 @@ namespace BoM.UI {
 	// Data
 	public class SkillSlotData : MonoBehaviour {
 		[SerializeField] protected Image image;
+		[SerializeField] protected Button button;
 		protected ISkillSlot slot;
 	}
 
@@ -17,10 +18,11 @@ namespace BoM.UI {
 				slot = value;
 
 				if(slot == null || slot.Skill == null) {
-					image.color = new Color(1f, 1f, 1f, 0.06f);
+					button.interactable = false;
 				} else {
 					image.color = Color.white;
 					image.sprite = slot.Skill.Icon;
+					button.interactable = true;
 				}
 			}
 		}
@@ -30,12 +32,7 @@ namespace BoM.UI {
 				return;
 			}
 
-			if(!slot.IsReady) {
-				//var progress = (Time.time - slot.LastUsed) / slot.Skill.CoolDown;
-				image.color = new Color(1f, 1f, 1f, 0.5f);
-			} else {
-				image.color = Color.white;
-			}
+			button.interactable = slot.IsReady;
 		}
 	}
 }

@@ -9,12 +9,14 @@ namespace BoM.Skills {
 		public string Name { get => name; }
 		public Sprite Icon { get => icon; }
 		public float CoolDown { get => coolDown; }
+		public float EnergyCost { get => energyCost; }
 
 		[SerializeField] protected Sprite icon;
 		public Instance prefab;
 		public PositionType position;
 		public RotationType rotation;
 		[SerializeField] protected float coolDown;
+		[SerializeField] protected float energyCost;
 		public ObjectPool<Instance> pool;
 	}
 }
