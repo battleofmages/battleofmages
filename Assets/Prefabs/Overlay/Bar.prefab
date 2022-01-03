@@ -81,7 +81,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  lerpTime: 0.25
+  lerpTime: 0.15
 --- !u!1 &2805906276528415616
 GameObject:
   m_ObjectHideFlags: 0
