@@ -1,6 +1,5 @@
 using BoM.Core;
 using BoM.Skills;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
@@ -8,7 +7,7 @@ using UnityEngine;
 namespace BoM.Players {
 	// Data
 	public class SkillSystemData : NetworkBehaviour {
-		public List<Element> Elements { get; set; }
+		public Build Build;
 
 		[SerializeField] protected Player player;
 		[SerializeField] protected Cursor cursor;
@@ -26,10 +25,21 @@ namespace BoM.Players {
 		private const float animationTime = 0.6f;
 
 		public bool isCasting { get => time < animationTime; }
-		public Element currentElement { get => Elements[currentElementIndex]; }
+		public Skills.Bar currentElement { get => Build.Elements[currentElementIndex]; }
 
 		private void OnEnable() {
 			time = 1f;
+
+			foreach(var element in Build.Elements) {
+				foreach(var slot in element.SkillSlots) {
+					if(slot.Skill == null) {
+						slot.LastUsed = 0f;
+						continue;
+					}
+
+					slot.LastUsed = -slot.Skill.CoolDown;
+				}
+			}
 		}
 
 		public void UseSkill(Skill skill, Vector3 cursor) {
@@ -97,16 +107,25 @@ namespace BoM.Players {
 				return;
 			}
 
-			if(slotIndex < 0 || slotIndex >= currentElement.skills.Count) {
+			if(slotIndex < 0 || slotIndex >= currentElement.SkillSlots.Length) {
 				return;
 			}
 
-			var skill = currentElement.skills[slotIndex];
+			var slot = currentElement.SkillSlots[slotIndex];
+
+			if(!slot.IsReady) {
+				return;
+			}
+
+			var skill = slot.Skill as Skill;
 
 			Cast(
 				0f,
 				baseCastTime,
-				() => UseSkill(skill, cursor.Position)
+				() => {
+					UseSkill(skill, cursor.Position);
+					slot.LastUsed = Time.time;
+				}
 			);
 
 			CastSkillServerRpc(slotIndex, cursor.Position);
@@ -123,10 +142,21 @@ namespace BoM.Players {
 				return;
 			}
 
+			var slot = currentElement.SkillSlots[index];
+
+			if(!slot.IsReady) {
+				return;
+			}
+
+			var skill = slot.Skill as Skill;
+
 			Cast(
 				0f,
 				baseCastTime,
-				() => UseSkill(currentElement.skills[index], remoteCursorPosition)
+				() => {
+					UseSkill(skill, remoteCursorPosition);
+					slot.LastUsed = Time.time;
+				}
 			);
 
 			CastSkillClientRpc(index, remoteCursorPosition);
@@ -138,10 +168,16 @@ namespace BoM.Players {
 				return;
 			}
 
+			var slot = currentElement.SkillSlots[index];
+			var skill = slot.Skill as Skill;
+
 			Cast(
 				Player.Main.Latency.OneWay,
 				baseCastTime,
-				() => UseSkill(currentElement.skills[index], remoteCursorPosition)
+				() => {
+					UseSkill(skill, remoteCursorPosition);
+					slot.LastUsed = Time.time;
+				}
 			);
 		}
 	}

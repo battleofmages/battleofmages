@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a506d8186a3d8e40b0565b8560205e3, type: 3}
   m_Name: Fire Ball
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: b11627d96fc3bed4996f7daa00a52507, type: 3}
   prefab: {fileID: 5475913262226543395, guid: 8e86128edd8f1c045bcf5c10e68d7b15, type: 3}
   position: 1
   rotation: 1
-  coolDown: 1
+  coolDown: 0.5

@@ -1,8 +1,9 @@
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace BoM.Players {
-	public class Build {
-		public List<ElementSlot> Elements;
+	[CreateAssetMenu(fileName = "Build", menuName = "BoM/Build", order = 30)]
+	public class Build : ScriptableObject {
+		public Skills.Bar[] Elements;
 		public Traits Traits;
 	}
 }

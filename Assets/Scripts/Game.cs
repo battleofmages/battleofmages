@@ -13,6 +13,7 @@ namespace BoM {
 		[SerializeField] protected UI.Chat chatUI;
 		[SerializeField] protected UI.Scoreboard scoreboardUI;
 		[SerializeField] protected UI.Latency latencyUI;
+		[SerializeField] protected UI.SkillBar skillBar;
 		[SerializeField] protected VolumeProfile volumeProfile;
 		protected MotionBlur motionBlur;
 	}
@@ -61,10 +62,13 @@ namespace BoM {
 			BindHealth(player);
 
 			var skillSystem = player.GetComponent<Players.SkillSystem>();
-			skillSystem.Elements = new System.Collections.Generic.List<Skills.Element>();
-			var testElement = new Skills.Element();
-			testElement.skills = skillManager.Skills;
-			skillSystem.Elements.Add(testElement);
+			var skillSlots = skillSystem.Build.Elements[0].SkillSlots;
+
+			for(int i = 0; i < skillSlots.Length; i++) {
+				skillBar.Slots[i].Slot = skillSlots[i];
+			}
+
+			// skillSystem.Build = ScriptableObject.CreateInstance<Players.Build>();
 		}
 
 		private void OnPlayerRemoved(Players.Player player) {

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a506d8186a3d8e40b0565b8560205e3, type: 3}
   m_Name: Blizzard
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: b315e70556acc084aa6035b404b8cef6, type: 3}
   prefab: {fileID: 7816935490880047549, guid: 0835fe5703761484eaf20f39066b4db2, type: 3}
   position: 0
   rotation: 0
-  coolDown: 5
+  coolDown: 3

@@ -7,11 +7,14 @@ namespace BoM.Skills {
 	public class Skill : ScriptableObject, ISkill {
 		public short Id { get; set; }
 		public string Name { get => name; }
+		public Sprite Icon { get => icon; }
+		public float CoolDown { get => coolDown; }
 
+		[SerializeField] protected Sprite icon;
 		public Instance prefab;
 		public PositionType position;
 		public RotationType rotation;
-		public float coolDown;
+		[SerializeField] protected float coolDown;
 		public ObjectPool<Instance> pool;
 	}
 }

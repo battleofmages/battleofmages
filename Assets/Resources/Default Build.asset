@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e641769d60b52704b9c2ea4c193ce4a4, type: 3}
+  m_Name: Default Build
+  m_EditorClassIdentifier: 
+  Elements:
+  - SkillSlots:
+    - skill: {fileID: 11400000, guid: 93c13418de219844d9757e698c386cb7, type: 2}
+    - skill: {fileID: 11400000, guid: b1611241a0855be4b8f8773fe663f045, type: 2}
+    - skill: {fileID: 11400000, guid: 40510950f07a15240ab1008590375070, type: 2}
+    - skill: {fileID: 11400000, guid: 623464eb674fc1e4397714cbf4669955, type: 2}
+  Traits:
+    Attack: 0
+    Defense: 0
+    AttackSpeed: 0
+    MoveSpeed: 0
+    Energy: 0
+    CooldownReduction: 0

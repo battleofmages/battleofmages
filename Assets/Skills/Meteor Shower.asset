@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a506d8186a3d8e40b0565b8560205e3, type: 3}
   m_Name: Meteor Shower
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 4d85b8010aba43c4ba1746cb9bcf02ab, type: 3}
   prefab: {fileID: 8153228560818963309, guid: 6a7188b97b666254faf615c4e9bb87e4, type: 3}
   position: 0
   rotation: 0
-  coolDown: 5
+  coolDown: 3

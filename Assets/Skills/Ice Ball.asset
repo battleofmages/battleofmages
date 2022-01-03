@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a506d8186a3d8e40b0565b8560205e3, type: 3}
   m_Name: Ice Ball
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 49e53ffc498162047861fc850f2c41a7, type: 3}
   prefab: {fileID: 1563332070489109484, guid: e4e283392e7e1f54dac5f75170bda24f, type: 3}
   position: 1
   rotation: 1
-  coolDown: 1
+  coolDown: 0.5

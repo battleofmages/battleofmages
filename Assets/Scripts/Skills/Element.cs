@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 
 namespace BoM.Skills {
-	[System.Serializable]
+	[Serializable]
 	public class Element {
 		public string name;
 		public List<Skill> skills;

@@ -35,6 +35,7 @@ namespace BoM.Players {
 				PercentChanged?.Invoke(newHealth / maxHealth.Value);
 
 				if(oldHealth <= 0f && newHealth > 0f) {
+					damageEvents.Clear();
 					Revived?.Invoke();
 				}
 			};

@@ -528,6 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 357d2558e2df7f748a659f4e34e34aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Build: {fileID: 11400000, guid: e9962c6ead1035849aac778a83af6c4d, type: 2}
   player: {fileID: 5014205834473804560}
   cursor: {fileID: 6339195900674787528}
   skeleton: {fileID: 2263400618342794246}
