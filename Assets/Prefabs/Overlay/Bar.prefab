@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2805906275393494615}
   - component: {fileID: 5765017206438677092}
   m_Layer: 5
-  m_Name: Health Bar
+  m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  lerpTime: 0.15
+  lerpTime: 0.25
 --- !u!1 &2805906276528415616
 GameObject:
   m_ObjectHideFlags: 0

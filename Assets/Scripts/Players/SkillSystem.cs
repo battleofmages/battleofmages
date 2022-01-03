@@ -29,17 +29,6 @@ namespace BoM.Players {
 
 		private void OnEnable() {
 			time = 1f;
-
-			foreach(var element in Build.Elements) {
-				foreach(var slot in element.SkillSlots) {
-					if(slot.Skill == null) {
-						slot.LastUsed = 0f;
-						continue;
-					}
-
-					slot.LastUsed = -slot.Skill.CoolDown;
-				}
-			}
 		}
 
 		public void UseSkill(Skill skill, Vector3 cursor) {

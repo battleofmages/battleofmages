@@ -55,8 +55,8 @@ MonoBehaviour:
   lighting: {fileID: 2170822309187934714}
   explosionPrefab: {fileID: 4401817961737716960, guid: 6a7e135c81daa904493a5ba6983aea5a,
     type: 3}
-  directHitDamage: 10
-  splashDamage: 20
+  directHitDamage: 20
+  splashDamage: 10
   speed: 30
   maxLifeTime: 3
   fadeOutTime: 0.75
