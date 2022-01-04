@@ -15,7 +15,7 @@ namespace BoM.Players {
 		public event Action<float> Changed;
 		public event Action<float> PercentChanged;
 
-		public bool hasEnergy { get => energy.Value > 0f; }
+		public bool hasEnergy { get => energy.Value > 0.5f; }
 
 		private void Awake() {
 			energy.OnValueChanged += (oldEnergy, newEnergy) => {

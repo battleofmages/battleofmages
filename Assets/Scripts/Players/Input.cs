@@ -10,7 +10,7 @@ namespace BoM.Players {
 		[SerializeField] protected Jump jump;
 		[SerializeField] protected Flight flight;
 		[SerializeField] protected SkillSystem skillSystem;
-		[SerializeField] protected Animations animations;
+		[SerializeField] protected Block block;
 		[SerializeField] protected Cameras.Center camCenter;
 	}
 
@@ -40,11 +40,11 @@ namespace BoM.Players {
 		}
 
 		public void StartBlock(InputAction.CallbackContext context) {
-			animations.Animator.SetBool("Block", true);
+			block.enabled = true;
 		}
 
 		public void StopBlock(InputAction.CallbackContext context) {
-			animations.Animator.SetBool("Block", false);
+			block.enabled = false;
 		}
 
 		public void StartFlight(InputAction.CallbackContext context) {

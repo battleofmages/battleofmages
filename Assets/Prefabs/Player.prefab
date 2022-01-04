@@ -364,6 +364,7 @@ GameObject:
   - component: {fileID: -8626974943594062236}
   - component: {fileID: 3870380123645339473}
   - component: {fileID: 7902730509701073694}
+  - component: {fileID: 8821594298422098549}
   - component: {fileID: 6868382068925250288}
   - component: {fileID: 3446361503782202970}
   - component: {fileID: 4887231240320512843}
@@ -565,6 +566,21 @@ MonoBehaviour:
   maxEnergy:
     m_InternalValue: 100
   regenerationSpeed: 20
+--- !u!114 &8821594298422098549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403352713402487987}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c247709d6ed727468b6287b7571ed56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animations: {fileID: -346168184870665623}
+  energy: {fileID: 7902730509701073694}
+  energyConsumption: 50
 --- !u!114 &6868382068925250288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,7 +737,7 @@ MonoBehaviour:
   jump: {fileID: 3870380123645339473}
   flight: {fileID: 6868382068925250288}
   skillSystem: {fileID: -8626974943594062236}
-  animations: {fileID: -346168184870665623}
+  block: {fileID: 8821594298422098549}
   camCenter: {fileID: 5924383185328376581}
 --- !u!114 &8310504723804365141
 MonoBehaviour:
