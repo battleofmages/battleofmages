@@ -200,23 +200,27 @@ namespace BoM {
 
 		private void BindSkillBar(Players.Player player) {
 			var skillSystem = player.GetComponent<Players.SkillSystem>();
-			var skillSlots = skillSystem.Build.Elements[0].SkillSlots;
 
-			for(byte i = 0; i < skillSlots.Length; i++) {
-				skillBarUI.Slots[i].Slot = skillSlots[i];
-
-				byte index = i;
-				skillBarUI.Slots[i].Button.onClick.AddListener(() => skillSystem.CastSkillAtIndex(index));
-			}
+			ForEachSkillSlot(skillSystem, (index, ui, slot) => {
+				ui.Slot = slot;
+				ui.Button.onClick.AddListener(() => skillSystem.CastSkillAtIndex(index));
+			});
 		}
 
 		private void UnbindSkillBar(Players.Player player) {
 			var skillSystem = player.GetComponent<Players.SkillSystem>();
+
+			ForEachSkillSlot(skillSystem, (index, ui, slot) => {
+				ui.Slot = null;
+				ui.Button.onClick.RemoveAllListeners();
+			});
+		}
+
+		private void ForEachSkillSlot(Players.SkillSystem skillSystem, System.Action<byte, UI.SkillSlot, Skills.Slot> action) {
 			var skillSlots = skillSystem.Build.Elements[0].SkillSlots;
 
 			for(byte i = 0; i < skillSlots.Length; i++) {
-				skillBarUI.Slots[i].Slot = null;
-				skillBarUI.Slots[i].Button.onClick.RemoveAllListeners();
+				action.Invoke(i, skillBarUI.Slots[i], skillSlots[i]);
 			}
 		}
 
