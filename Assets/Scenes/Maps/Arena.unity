@@ -218,11 +218,11 @@ GameObject:
   - component: {fileID: 221834961}
   - component: {fileID: 221834960}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &221834960
 MeshCollider:
@@ -258,7 +258,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6898a8f49c5177040a19d9652b0290d1, type: 2}
+  - {fileID: 2100000, guid: 88d3f4671d389ac4b9976cbd7ad0c863, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -370,6 +370,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: arena-modular
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1495b2c7f4bd72544a76cf0dbd6d8094,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -670,6 +675,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: arena-modular (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1495b2c7f4bd72544a76cf0dbd6d8094,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 1495b2c7f4bd72544a76cf0dbd6d8094, type: 3}
@@ -732,7 +742,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &954199592
 Transform:
@@ -769,7 +779,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1175379122
 Transform:
@@ -1003,7 +1013,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &1371259845
 MonoBehaviour:
@@ -1171,6 +1181,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: arena-modular (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1495b2c7f4bd72544a76cf0dbd6d8094,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -1459,6 +1474,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: arena-modular (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1495b2c7f4bd72544a76cf0dbd6d8094,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
