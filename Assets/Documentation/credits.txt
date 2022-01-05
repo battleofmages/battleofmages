@@ -1,3 +1,4 @@
  - Character models from VRoid Studio (vroid.com)
  - Animations from Mixamo (mixamo.com)
  - Icons from Freepik (freepik.com)
+ - Arena from dkernjak (sketchfab.com/3d-models/838ca5cee2f9498eac6c1d683f9782df)
