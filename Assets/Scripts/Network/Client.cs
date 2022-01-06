@@ -14,6 +14,7 @@ namespace BoM.Network {
 	public class Client : ClientData {
 		public void Start() {
 			SceneManager.sceneLoaded += SceneLoaded;
+			SceneManager.LoadScene("Arena", LoadSceneMode.Additive);
 			NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.UTF8.GetBytes(AccountId);
 			NetworkManager.Singleton.StartClient();
 			Listen();
@@ -24,7 +25,7 @@ namespace BoM.Network {
 		}
 
 		public void SceneLoaded(Scene scene, LoadSceneMode mode) {
-			//SceneManager.SetActiveScene(scene);
+			SceneManager.SetActiveScene(scene);
 			//teamManager.FindSpawns();
 		}
 

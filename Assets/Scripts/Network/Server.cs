@@ -40,7 +40,7 @@ namespace BoM.Network {
 		}
 
 		public void SceneLoaded(Scene scene, LoadSceneMode mode) {
-			//SceneManager.SetActiveScene(scene);
+			SceneManager.SetActiveScene(scene);
 			teamManager.FindSpawns();
 			Ready?.Invoke();
 		}

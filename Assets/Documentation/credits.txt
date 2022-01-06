@@ -1,4 +1,6 @@
  - Character models from VRoid Studio (vroid.com)
  - Animations from Mixamo (mixamo.com)
- - Icons from Freepik (freepik.com)
  - Arena from dkernjak (sketchfab.com/3d-models/838ca5cee2f9498eac6c1d683f9782df)
+ - Sand texture from Joao Paulo (3dtextures.me/category/sand/)
+ - Skybox from Skybox Series Free (assetstore.unity.com/packages/2d/textures-materials/sky/103633)
+ - Icons from Freepik (freepik.com)
