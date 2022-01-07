@@ -36,7 +36,7 @@ namespace BoM.Network {
 		}
 
 		public void Listen() {
-			NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler("client position", ClientPosition);
+			NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler(CustomMessage.ClientPosition, ClientPosition);
 		}
 
 		public void SceneLoaded(Scene scene, LoadSceneMode mode) {

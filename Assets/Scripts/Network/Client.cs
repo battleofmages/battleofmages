@@ -1,3 +1,4 @@
+using BoM.Core;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,7 +22,7 @@ namespace BoM.Network {
 		}
 
 		public void Listen() {
-			NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler("server position", ServerPosition);
+			NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler(CustomMessage.ServerPosition, ServerPosition);
 		}
 
 		public void SceneLoaded(Scene scene, LoadSceneMode mode) {

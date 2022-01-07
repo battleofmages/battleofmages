@@ -43,13 +43,13 @@ namespace BoM.Players {
 			writer.WriteValueSafe(transform.position);
 			writer.WriteValueSafe(player.RemoteDirection);
 
-			var delivery = NetworkDelivery.Unreliable;
+			var delivery = NetworkDelivery.UnreliableSequenced;
 
 			if(player.RemoteDirection == Const.ZeroVector) {
-				delivery = NetworkDelivery.Reliable;
+				delivery = NetworkDelivery.ReliableSequenced;
 			}
 
-			messenger.SendNamedMessageToAll("server position", writer, delivery);
+			messenger.SendNamedMessageToAll(CustomMessage.ServerPosition, writer, delivery);
 		}
 	}
 }

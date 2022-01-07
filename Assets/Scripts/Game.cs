@@ -1,3 +1,4 @@
+using BoM.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -52,7 +53,7 @@ namespace BoM {
 		}
 
 		private void OnPlayerAdded(Players.Player player) {
-			Network.PlayerManager.AddPlayer(player);
+			PlayerManager.AddPlayer(player);
 			Cameras.Manager.AddCamera(player.Cam);
 			player.Team.AddPlayer(player);
 
@@ -64,7 +65,7 @@ namespace BoM {
 		}
 
 		private void OnPlayerRemoved(Players.Player player) {
-			Network.PlayerManager.RemovePlayer(player);
+			PlayerManager.RemovePlayer(player);
 			Cameras.Manager.RemoveCamera(player.Cam);
 			player.Team.RemovePlayer(player);
 

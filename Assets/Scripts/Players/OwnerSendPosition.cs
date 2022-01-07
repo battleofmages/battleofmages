@@ -57,13 +57,13 @@ namespace BoM.Players {
 			writer.WriteValueSafe(transform.localPosition);
 			writer.WriteValueSafe(movement.Direction);
 
-			var delivery = NetworkDelivery.Unreliable;
+			var delivery = NetworkDelivery.UnreliableSequenced;
 
 			if(movement.Direction == Const.ZeroVector) {
-				delivery = NetworkDelivery.Reliable;
+				delivery = NetworkDelivery.ReliableSequenced;
 			}
 
-			messenger.SendNamedMessage("client position", receiver, writer, delivery);
+			messenger.SendNamedMessage(CustomMessage.ClientPosition, receiver, writer, delivery);
 		}
 	}
 }

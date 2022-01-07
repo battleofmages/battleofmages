@@ -1,7 +1,6 @@
-using BoM.Core;
 using System.Collections.Generic;
 
-namespace BoM.Network {
+namespace BoM.Core {
 	public static class PlayerManager {
 		public static List<IPlayer> All { get => players; }
 
